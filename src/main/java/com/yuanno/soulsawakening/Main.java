@@ -1,12 +1,11 @@
 package com.yuanno.soulsawakening;
 
-import com.yuanno.soulsawakening.init.ModCapabilities;
-import com.yuanno.soulsawakening.init.ModKeyBinds;
-import com.yuanno.soulsawakening.init.ModNetwork;
+import com.yuanno.soulsawakening.init.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -29,13 +28,17 @@ public class Main
     private static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "soulsawakening";
     public Main() {
-        // Register the setup method for modloading
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+
+
+        ModItems.ITEMS.register(modEventBus);
+        ModBlocks.BLOCKS.register(modEventBus);
+
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the enqueueIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-        // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
         // Register ourselves for server and other game events we are interested in

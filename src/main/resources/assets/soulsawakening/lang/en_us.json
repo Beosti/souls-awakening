@@ -1,4 +1,10 @@
 {
   "keys.souls.awakening": "Souls Awakening gui",
-  "keys.soulsawakening.info_card": "Info card"
+  "keys.soulsawakening.info_card": "Info card",
+
+  "itemGroup.soulsawakeningModTabBlocks": "Souls awakening blocks",
+  "itemGroup.soulsawakeningModTabMisc": "Souls awakening misc",
+
+  "block.soulsawakening.reishi_ore": "Reishi ore",
+  "item.soulsawakening.reishi_essence": "Reishi essence"
 }
