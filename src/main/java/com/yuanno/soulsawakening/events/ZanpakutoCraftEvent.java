@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
-public class ZanpakutoEvent {
+public class ZanpakutoCraftEvent {
 
     @SubscribeEvent
     public static void onZanpakutoCraftin(PlayerEvent.ItemCraftedEvent event)

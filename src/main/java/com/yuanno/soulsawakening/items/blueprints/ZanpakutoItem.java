@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.UUID;
 
 public class ZanpakutoItem extends SwordItem {
 
@@ -31,7 +30,7 @@ public class ZanpakutoItem extends SwordItem {
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
         if (currentOwner.isEmpty())
-            itemStack.getTag().putString("owner", player.getName().getString());
+            itemStack.getTag().putString("owner", player.getDisplayName().getString());
         else
             return ActionResult.success(itemStack);
 
@@ -45,7 +44,7 @@ public class ZanpakutoItem extends SwordItem {
             itemStack.setTag(new CompoundNBT());
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
         if (currentOwner.isEmpty())
-            itemStack.getTag().putString("owner", player.getName().getString());
+            itemStack.getTag().putString("owner", player.getDisplayName().getString());
         else
             return;
     }
