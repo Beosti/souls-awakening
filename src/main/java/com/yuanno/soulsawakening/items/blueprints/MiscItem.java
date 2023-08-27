@@ -41,7 +41,7 @@ public abstract class MiscItem extends Item {
         if (Screen.hasShiftDown()) {
             tooltip.add(new TranslationTextComponent(colorCode + this.miscItemInformation));
         } else {
-            tooltip.add(new TranslationTextComponent(colorCode + "Hold " + "§eSHIFT" + colorCode + "for more Information!"));
+            tooltip.add(new TranslationTextComponent(colorCode + "Hold " + "§eSHIFT " + colorCode + "for more Information!"));
         }
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
