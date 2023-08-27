@@ -15,6 +15,7 @@ import java.util.List;
 
 public abstract class MiscItem extends Item {
     public String miscItemInformation;
+    private String colorCode;
     public MiscItem(Rarity rarity)
     {
         super(new Properties().rarity(rarity).tab(ModItemGroup.SOULS_AWAKENINGS_MISC));
@@ -22,10 +23,25 @@ public abstract class MiscItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        switch (this.getRarity(stack))
+        {
+            case COMMON:
+                colorCode = "§7";
+                break;
+            case UNCOMMON:
+                colorCode = "§2";
+                break;
+            case RARE:
+                colorCode = "§4";
+                break;
+            case EPIC:
+                colorCode = "§5";
+                break;
+        }
         if (Screen.hasShiftDown()) {
-            tooltip.add(new TranslationTextComponent("§7" + this.miscItemInformation));
+            tooltip.add(new TranslationTextComponent(colorCode + this.miscItemInformation));
         } else {
-            tooltip.add(new TranslationTextComponent("§7Hold " + "§eSHIFT" + " §7for more Information!"));
+            tooltip.add(new TranslationTextComponent(colorCode + "Hold " + "§eSHIFT" + colorCode + "for more Information!"));
         }
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
