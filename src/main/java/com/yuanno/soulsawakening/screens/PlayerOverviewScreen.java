@@ -8,8 +8,11 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.awt.*;
 
 
 @OnlyIn(Dist.CLIENT)
@@ -26,6 +29,15 @@ public class PlayerOverviewScreen extends Screen {
     {
         Minecraft mc = Minecraft.getInstance();
         PlayerEntity playerEntity = mc.player;
+        int posX = ((this.width - 256) / 2);
+        int posY = (this.height - 256) / 2;
+
+        int leftShift = posX + 0;
+        NoTextureButton button = new NoTextureButton(leftShift, posY + 200, 70, 20, new TranslationTextComponent("gui.soulsawakening.tree"), b ->
+        {
+           Minecraft.getInstance().setScreen(new SkillTreeScreen());
+        });
+        this.addButton(button);
     }
 
     @Override
@@ -37,7 +49,6 @@ public class PlayerOverviewScreen extends Screen {
 
         this.renderBackground(matrixStack);
         statsRendering(matrixStack);
-
 
         super.render(matrixStack, x, y, f);
     }
