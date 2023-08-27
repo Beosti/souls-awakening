@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.yuanno.soulsawakening.Main;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraftforge.fml.RegistryObject;
 
 import java.awt.*;
@@ -18,6 +19,19 @@ public class Beapi {
     public static HashMap<String, String> getLangMap()
     {
         return langMap;
+    }
+    public static void drawStringWithBorder(FontRenderer font, MatrixStack matrixStack, IReorderingProcessor text, int posX, int posY, int color)
+    {
+        matrixStack.pushPose();
+        font.drawShadow(matrixStack, text, posX, posY - 0.7f, 0);
+        font.drawShadow(matrixStack, text, posX, posY + 0.7f, 0);
+        font.drawShadow(matrixStack, text, posX + 0.7f, posY, 0);
+        font.drawShadow(matrixStack, text, posX - 0.7f, posY, 0);
+        matrixStack.translate(0, 0, 1);
+        font.draw(matrixStack, text, posX, posY, color);
+        matrixStack.popPose();
+        RenderSystem.enableAlphaTest();
+        RenderSystem.enableBlend();
     }
     public static void drawStringWithBorder(FontRenderer font, MatrixStack matrixStack, String text, int posX, int posY, int color)
     {

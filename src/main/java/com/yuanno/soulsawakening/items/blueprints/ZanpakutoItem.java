@@ -1,7 +1,10 @@
 package com.yuanno.soulsawakening.items.blueprints;
 
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItemGroup;
 import com.yuanno.soulsawakening.init.ModTiers;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -25,12 +28,16 @@ public class ZanpakutoItem extends SwordItem {
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
     {
         ItemStack itemStack = player.getItemInHand(hand);
+        IEntityStats entityStats = EntityStatsCapability.get(player);
         if (!itemStack.hasTag())
             itemStack.setTag(new CompoundNBT());
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
-        if (currentOwner.isEmpty())
+        if (currentOwner.isEmpty()) {
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
+            if (entityStats.getRace().equals(ModValues.SPIRIT))
+                entityStats.setRace(ModValues.SHINIGAMI);
+        }
         else
             return ActionResult.success(itemStack);
 

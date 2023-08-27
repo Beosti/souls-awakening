@@ -13,5 +13,9 @@
 
   "item.soulsawakening.zanpakuto": "Zanpakuto",
 
-  "gui.soulsawakening.tree": "Skill tree"
+  "gui.soulsawakening.tree": "Skill tree",
+  "gui.soulsawakening.hollow_tree": "Hollow",
+  "gui.soulsawakening.shinigami_tree": "Shinigami",
+  "gui.soulsawakening.quincy_tree": "Quincy"
+
 }
