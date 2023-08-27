@@ -34,10 +34,10 @@ public class StatsEvent {
             return;
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (entityStats.getRace().equals(ModValues.HUMAN));
-        {
+        if (entityStats.getRace().equals(ModValues.HUMAN))
             entityStats.setRace(ModValues.SPIRIT);
-        }
+        if (entityStats.getRace().equals(ModValues.SPIRIT))
+            entityStats.setRace(ModValues.HOLLOW);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
     }
     public static void statsHandling(PlayerEntity player)
