@@ -4,11 +4,12 @@
 
   "itemGroup.soulsawakeningModTabBlocks": "Souls awakening blocks",
   "itemGroup.soulsawakeningModTabMisc": "Souls awakening misc",
+  "itemGroup.soulsawakeningModTabWeapons": "Souls awakening weapons",
 
   "block.soulsawakening.reishi_ore": "Reishi ore",
 
-
-
   "item.soulsawakening.reishi_essence": "Reishi essence",
-  "item.soulsawakening.reishi_ingot": "Reishi ingot"
+  "item.soulsawakening.reishi_ingot": "Reishi ingot",
+
+  "item.soulsawakening.zanpakuto": "Zanpakuto"
 }
