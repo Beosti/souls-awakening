@@ -132,10 +132,7 @@ public class SkillTreeScreen extends Screen {
 
     public void renderTooltip()
     {
-        for (NoTextureButton noTextureButton : hollowButtons)
-        {
-            if (noTextureButton.isHovered());
-        }
+        // add a render for the tooltip here
     }
 
     public void statsRendering(MatrixStack matrixStack)
