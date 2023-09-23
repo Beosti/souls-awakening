@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening;
 
 import com.yuanno.soulsawakening.init.*;
+import com.yuanno.soulsawakening.util.ItemProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -58,6 +59,7 @@ public class Main
         // do something that can only be done on the client
         LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
         ModKeyBinds.init();
+        ItemProperties.register();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

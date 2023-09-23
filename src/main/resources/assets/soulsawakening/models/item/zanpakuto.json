@@ -1,0 +1,29 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "soulsawakening:items/zanpakuto"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "stage": 1.0,
+        "element": 0.0
+      },
+      "model": "soulsawakening:item/zanpakuto"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto_shikai_fire"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto_shikai_poison"
+    }
+  ]
+}

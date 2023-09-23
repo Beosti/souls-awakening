@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.client.CChangeZanpakutoStatePacket;
 import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncentityStatsPacket;
 import com.yuanno.soulsawakening.networking.server.SOpenPlayerScreenPacket;
@@ -12,7 +13,7 @@ public class ModNetwork {
     {
         PacketHandler.registerPacket(CSyncentityStatsPacket.class, CSyncentityStatsPacket::encode, CSyncentityStatsPacket::decode, CSyncentityStatsPacket::handle);
         PacketHandler.registerPacket(COpenPlayerScreenPacket.class, COpenPlayerScreenPacket::encode, COpenPlayerScreenPacket::decode, COpenPlayerScreenPacket::handle);
-
+        PacketHandler.registerPacket(CChangeZanpakutoStatePacket.class, CChangeZanpakutoStatePacket::encode, CChangeZanpakutoStatePacket::decode, CChangeZanpakutoStatePacket::handle);
 
 
 
