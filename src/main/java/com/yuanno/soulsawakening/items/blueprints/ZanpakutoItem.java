@@ -89,7 +89,6 @@ public class ZanpakutoItem extends SwordItem {
             {
                 case FIRE:
 
-
                     break;
                 case POISON:
                     break;
