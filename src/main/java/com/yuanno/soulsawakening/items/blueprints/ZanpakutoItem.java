@@ -8,9 +8,12 @@ import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
@@ -34,12 +37,26 @@ public class ZanpakutoItem extends SwordItem {
             p_220045_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
         });
 
-        if (zanpakutoElement.equals(ELEMENT.FIRE) && zanpakutoState.equals(STATE.SHIKAI))
-        {
-            target.setSecondsOnFire(3);
-        }
+        effectOnEnemy(target);
         return true;
     }
+
+    void effectOnEnemy(LivingEntity livingEntity)
+    {
+        if (zanpakutoState.equals(STATE.SHIKAI)) // effect on the enemy when in shikai
+        {
+            switch (zanpakutoElement)
+            {
+                case FIRE:
+                    livingEntity.setSecondsOnFire(3);
+                    break;
+                case POISON:
+                    livingEntity.addEffect(new EffectInstance(Effects.POISON, 60, 0));
+                    break;
+            }
+        }
+    }
+
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
     {
@@ -51,14 +68,33 @@ public class ZanpakutoItem extends SwordItem {
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
         if (currentOwner.isEmpty()) {
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
-            if (entityStats.getRace().equals(ModValues.SPIRIT))
+            if (entityStats.getRace().equals(ModValues.SPIRIT)) {
                 entityStats.setRace(ModValues.SHINIGAMI);
+                return ActionResult.success(itemStack);
+            }
         }
+        else if (!currentOwner.equals(player.getDisplayName().getString()) || !entityStats.getRace().equals(ModValues.SHINIGAMI))
+            return ActionResult.fail(itemStack);
         else
-            return ActionResult.success(itemStack);
-
+            rightClickZanpakuto(world, player);
 
         return ActionResult.success(itemStack);
+    }
+
+    void rightClickZanpakuto(World world, PlayerEntity player)
+    {
+        if (zanpakutoState.equals(STATE.SHIKAI))
+        {
+            switch (zanpakutoElement)
+            {
+                case FIRE:
+
+
+                    break;
+                case POISON:
+                    break;
+            }
+        }
     }
 
     public void setOwner(PlayerEntity player, ItemStack itemStack)
