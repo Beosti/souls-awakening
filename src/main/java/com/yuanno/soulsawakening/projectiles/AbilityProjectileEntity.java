@@ -4,9 +4,12 @@ import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.network.IPacket;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -14,7 +17,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import net.minecraftforge.fml.network.FMLNetworkConstants;
+import net.minecraftforge.fml.network.FMLPlayMessages;
+import net.minecraftforge.fml.network.NetworkDirection;
 
+import javax.annotation.Nullable;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +29,6 @@ import java.util.List;
 public class AbilityProjectileEntity extends ThrowableEntity implements IEntityAdditionalSpawnData {
 
     private int maxLife = 64;
-    private int knockbackStrength = 0;
     private double collisionSizeX = 0;
     private double collisionSizeY = 0;
     private double collisionSizeZ = 0;
@@ -30,54 +36,31 @@ public class AbilityProjectileEntity extends ThrowableEntity implements IEntityA
     private float gravity = 0.0001F;
     private boolean canPassThroughBlocks = false;
     private boolean canPassThroughEntities = false;
-    private boolean canGetStuckInGround = false;
-    protected boolean stuckInGround = false;
     private boolean changeHurtTime = false;
-    private float armorPiercing = 0.0f;
-    private boolean canHurtThrower = false;
-    private boolean isFake = false;
-    // For reference default hurt time is 20
     private int hurtTime = 10;
     boolean entityDamaged = false;
-    boolean applyOnlyOnce = true;
     private List<Integer> targets = new ArrayList<>();
     private int targetResetTime = 20;
-
-    private SourceType[] sourceTypes = new SourceType[] {};
     private SourceElement sourceElement = SourceElement.NONE;
 
     private static final DataParameter<Integer> OWNER = EntityDataManager.defineId(AbilityProjectileEntity.class, DataSerializers.INT);
     private static final DataParameter<Integer> LIFE = EntityDataManager.defineId(AbilityProjectileEntity.class, DataSerializers.INT);
     private static final DataParameter<Boolean> IS_GLOWING = EntityDataManager.defineId(AbilityProjectileEntity.class, DataSerializers.BOOLEAN);
 
-    // Setting the defaults so that no crash occurs and so they will be null safe.
-    public IOnEntityImpact onEntityImpactEvent = (hitEntity) ->
+
+    public AbilityProjectileEntity(EntityType type, World world)
     {
-        if(!this.targets.contains(hitEntity.getId()))
-            this.onBlockImpactEvent.onImpact(hitEntity.blockPosition());
-    };
-
-    private DamageSource source;
-    private static final Block[] NON_SOLID_BLOCKS = new Block[] { Blocks.SUNFLOWER, Blocks.GRASS, Blocks.TALL_GRASS, Blocks.SEAGRASS, Blocks.TALL_SEAGRASS, Blocks.VINE, Blocks.REDSTONE_WIRE, Blocks.DEAD_BUSH, Blocks.ROSE_BUSH, ModBlocks.OPE.get() };
-
-    public IOnBlockImpact onBlockImpactEvent = (hit) -> {};
-    public IOnTick onTickEvent = () -> {};
-
-    public AbilityProjectileEntity(EntityType entityType, World world)
-    {
-        super(entityType, world);
+        super(type, world);
     }
+
     public AbilityProjectileEntity(EntityType type, World world, double x, double y, double z)
     {
         super(type, x, y, z, world);
     }
 
-    public AbilityProjectileEntity(EntityType entityType, World world, LivingEntity thrower)
+    public AbilityProjectileEntity(EntityType type, World world, LivingEntity thrower)
     {
-        super(entityType, thrower, world);
-        this.maxLife = this.getLife();
-        this.damage = 0.1f;
-        this.setThrower(thrower);
+        super(type, thrower, world);
     }
 
     public void setThrower(LivingEntity entity)
@@ -86,23 +69,75 @@ public class AbilityProjectileEntity extends ThrowableEntity implements IEntityA
         this.setOwner(entity);
     }
 
-    public int getLife()
+    @Nullable
+    public LivingEntity getThrower()
     {
-        return this.entityData.get(LIFE);
+        if(this.getOwner() instanceof LivingEntity)
+            return (LivingEntity) this.getOwner();
+        else
+            return null;
     }
 
-    public interface IOnTick extends Serializable
+    @Nullable
+    @Override
+    public Entity getOwner()
     {
-        void onTick();
+        return this.getEntityData().get(OWNER) != null && this.level.getEntity(this.getEntityData().get(OWNER)) instanceof LivingEntity ? (LivingEntity) this.level.getEntity(this.getEntityData().get(OWNER)) : super.getOwner();
     }
 
-    public interface IOnEntityImpact extends Serializable
+    @Override
+    public void defineSynchedData()
     {
-        void onImpact(LivingEntity hitEntity);
+        this.entityData.define(LIFE, 64);
+        this.entityData.define(OWNER, -1);
+        this.entityData.define(IS_GLOWING, false);
     }
 
-    public interface IOnBlockImpact extends Serializable
+    @Override
+    public void writeSpawnData(PacketBuffer buffer)
     {
-        void onImpact(BlockPos hitPos);
+        buffer.writeDouble(this.collisionSizeX);
+        buffer.writeDouble(this.collisionSizeY);
+        buffer.writeDouble(this.collisionSizeZ);
+        buffer.writeInt(this.sourceElement.ordinal());
+    }
+
+    @Override
+    public void readSpawnData(PacketBuffer buffer)
+    {
+        this.collisionSizeX = buffer.readDouble();
+        this.collisionSizeY = buffer.readDouble();
+        this.collisionSizeZ = buffer.readDouble();
+        this.sourceElement = SourceElement.values()[buffer.readInt()];
+    }
+
+
+    public double getCollisionSizeX()
+    {
+        return this.collisionSizeX;
+    }
+
+    public double getCollisionSizeY()
+    {
+        return this.collisionSizeY;
+    }
+
+    public double getCollisionSizeZ()
+    {
+        return this.collisionSizeZ;
+    }
+
+    public void setCollisionSize(double val)
+    {
+        this.collisionSizeX = val;
+        this.collisionSizeY = val;
+        this.collisionSizeZ = val;
+    }
+
+    public void setCollisionSize(double x, double y, double z)
+    {
+        this.collisionSizeX = x;
+        this.collisionSizeY = y;
+        this.collisionSizeZ = z;
     }
 }
