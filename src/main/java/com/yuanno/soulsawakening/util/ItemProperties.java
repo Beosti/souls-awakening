@@ -30,10 +30,24 @@ public class ItemProperties {
             return 0;
         switch (zanpakutoItem.getZanpakutoElement())
         {
-            case FIRE:
+            case DARK:
                 return 1;
-            case POISON:
+            case FIRE:
                 return 2;
+            case HEAL:
+                return 3;
+            case LIGHTNING:
+                return 4;
+            case LUNAR:
+                return 5;
+            case NORMAL:
+                return 6;
+            case POISON:
+                return 7;
+            case WATER:
+                return 8;
+            case WIND:
+                return 9;
             default:
                 return 0;
         }
@@ -41,18 +55,14 @@ public class ItemProperties {
     private static final IItemPropertyGetter ZANPAKUTO_TYPE = (itemStack, world, livingEntity) ->
     {
         ZanpakutoItem zanpakutoItem = (ZanpakutoItem) itemStack.getItem();
-        if (zanpakutoItem.getZanpakutoType().equals(ZanpakutoItem.TYPE.TYPE_1))
-            return 0;
         switch (zanpakutoItem.getZanpakutoType())
         {
             case TYPE_1:
                 return 1;
             case TYPE_2:
                 return 2;
-            case TYPE_3:
-                return 3;
             default:
-                return 0;
+                return 1;
         }
     };
     public static void register()

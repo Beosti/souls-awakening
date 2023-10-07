@@ -6,12 +6,147 @@
   "overrides": [
     {
       "predicate": {
-        "stage": 1.0
+        "stage": 1.0,
+        "element": 1.0,
+        "type": 1.0
       },
-      "model": "soulsawakening:item/zanpakuto"
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_dark_1"
     },
     {
-      "predicate"
+      "predicate": {
+        "stage": 2.0,
+        "element": 1.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_dark_2"
+    },
+    {
+      "predicate": {
+        "stage": 1.0,
+        "element": 2.0,
+        "type": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_fire_1"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 2.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_fire_2"
+    },
+    {
+      "predicate": {
+        "stage": 1.0,
+        "element": 3.0,
+        "type": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_heal_1"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 3.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_heal_2"
+    },
+    {
+      "predicate": {
+        "stage": 1.0,
+        "element": 4.0,
+        "type": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_lightning_1"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 4.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_lightning_2"
+    },
+    {
+      "predicate": {
+        "stage": 1.0,
+        "element": 5.0,
+        "type": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_lunar_1"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 5.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_lunar_2"
+    },
+    {
+      "predicate": {
+        "stage": 1.0,
+        "element": 6.0,
+        "type": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_normal_1"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 6.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_normal_2"
+    },
+    {
+      "predicate": {
+        "stage": 1.0,
+        "element": 7.0,
+        "type": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_poison_1"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 7.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_poison_2"
+    },
+    {
+      "predicate": {
+        "stage": 1.0,
+        "element": 8.0,
+        "type": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_water_1"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 8.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_water_2"
+    },
+    {
+      "predicate": {
+        "stage": 1.0,
+        "element": 9.0,
+        "type": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_wind_1"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 9.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_wind_2"
     }
   ]
 }

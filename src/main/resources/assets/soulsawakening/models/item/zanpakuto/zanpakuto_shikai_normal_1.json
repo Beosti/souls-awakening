@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "soulsawakening:items/zanpakuto_shikai_normal_1"
+  }
+}

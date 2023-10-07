@@ -1,5 +1,7 @@
 package com.yuanno.soulsawakening.items.blueprints;
 
+import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItemGroup;
@@ -8,12 +10,8 @@ import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.FireballEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
@@ -21,41 +19,34 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ZanpakutoItem extends SwordItem {
-    private ELEMENT zanpakutoElement = ELEMENT.FIRE;
+    private ELEMENT zanpakutoElement = ELEMENT.NONE;
     private STATE zanpakutoState = STATE.SEALED;
-    private TYPE zanpakutoType = TYPE.TYPE_1;
+    private TYPE zanpakutoType;
+    List<Ability> abilities = new ArrayList<Ability>();
     public ZanpakutoItem() {
         super(ModTiers.WEAPON, 7, 1f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
+        FireAttackAbility fireAttackAbility = new FireAttackAbility();
+        abilities.add(fireAttackAbility);
+        this.zanpakutoElement = ELEMENT.getRandomElement();
+        this.zanpakutoType = TYPE.getRandomType();
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack p_77644_1_, LivingEntity target, LivingEntity p_77644_3_) {
-        p_77644_1_.hurtAndBreak(1, p_77644_3_, (p_220045_0_) -> {
-            p_220045_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
-        });
+    public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity owner) {
+        String currentOwner = itemStack.getOrCreateTag().getString("owner");
 
-        effectOnEnemy(target);
-        return true;
-    }
-
-    void effectOnEnemy(LivingEntity livingEntity)
-    {
-        if (zanpakutoState.equals(STATE.SHIKAI)) // effect on the enemy when in shikai
-        {
-            switch (zanpakutoElement)
-            {
-                case FIRE:
-                    livingEntity.setSecondsOnFire(3);
-                    break;
-                case POISON:
-                    livingEntity.addEffect(new EffectInstance(Effects.POISON, 60, 0));
-                    break;
-            }
+        if (!currentOwner.isEmpty()) {
+            //effectOnEnemy(target);
+            super.hurtEnemy(itemStack, target, owner);
+            return true;
         }
+        else
+            return false;
     }
 
     @Override
@@ -71,33 +62,16 @@ public class ZanpakutoItem extends SwordItem {
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             if (entityStats.getRace().equals(ModValues.SPIRIT)) {
                 entityStats.setRace(ModValues.SHINIGAMI);
-                this.zanpakutoElement = ELEMENT.getRandomElement();
-                this.zanpakutoType = TYPE.getRandomType();
                 return ActionResult.success(itemStack);
             }
         }
         else if (!currentOwner.equals(player.getDisplayName().getString()) || !entityStats.getRace().equals(ModValues.SHINIGAMI))
             return ActionResult.fail(itemStack);
-        else
-            rightClickZanpakuto(world, player);
 
         return ActionResult.success(itemStack);
     }
 
-    void rightClickZanpakuto(World world, PlayerEntity player)
-    {
-        if (zanpakutoState.equals(STATE.SHIKAI))
-        {
-            switch (zanpakutoElement)
-            {
-                case FIRE:
 
-                    break;
-                case POISON:
-                    break;
-            }
-        }
-    }
 
     public void setOwner(PlayerEntity player, ItemStack itemStack)
     {
@@ -123,7 +97,7 @@ public class ZanpakutoItem extends SwordItem {
     }
 
     public enum TYPE {
-        TYPE_1, TYPE_2, TYPE_3;
+        TYPE_1, TYPE_2;
 
         public static TYPE getRandomType()
         {
@@ -133,7 +107,7 @@ public class ZanpakutoItem extends SwordItem {
     }
 
     public enum ELEMENT {
-        POISON, FIRE;
+        NONE, DARK, FIRE, HEAL, LIGHTNING, LUNAR, NORMAL, POISON, WATER, WIND;
 
         public static ELEMENT getRandomElement()
         {
@@ -178,5 +152,10 @@ public class ZanpakutoItem extends SwordItem {
     public void setZanpakutoType(TYPE type)
     {
         this.zanpakutoType = type;
+    }
+
+    public List<Ability> getAbilities()
+    {
+        return this.abilities;
     }
 }
