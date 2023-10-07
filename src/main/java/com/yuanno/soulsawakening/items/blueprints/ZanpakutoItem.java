@@ -27,6 +27,7 @@ import java.util.Random;
 public class ZanpakutoItem extends SwordItem {
     private ELEMENT zanpakutoElement = ELEMENT.FIRE;
     private STATE zanpakutoState = STATE.SEALED;
+    private TYPE zanpakutoType = TYPE.TYPE_1;
     public ZanpakutoItem() {
         super(ModTiers.WEAPON, 7, 1f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
     }
@@ -70,6 +71,8 @@ public class ZanpakutoItem extends SwordItem {
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             if (entityStats.getRace().equals(ModValues.SPIRIT)) {
                 entityStats.setRace(ModValues.SHINIGAMI);
+                this.zanpakutoElement = ELEMENT.getRandomElement();
+                this.zanpakutoType = TYPE.getRandomType();
                 return ActionResult.success(itemStack);
             }
         }
@@ -119,8 +122,24 @@ public class ZanpakutoItem extends SwordItem {
         }
     }
 
+    public enum TYPE {
+        TYPE_1, TYPE_2, TYPE_3;
+
+        public static TYPE getRandomType()
+        {
+            Random random = new Random();
+            return values()[random.nextInt(values().length)];
+        }
+    }
+
     public enum ELEMENT {
-        POISON, FIRE
+        POISON, FIRE;
+
+        public static ELEMENT getRandomElement()
+        {
+            Random random = new Random();
+            return values()[random.nextInt(values().length)];
+        }
     }
 
     public ZanpakutoItem.ELEMENT getZanpakutoElement()
@@ -149,5 +168,15 @@ public class ZanpakutoItem extends SwordItem {
     public void setZanpakutoState(STATE state)
     {
         this.zanpakutoState = state;
+    }
+
+    public ZanpakutoItem.TYPE getZanpakutoType()
+    {
+        return zanpakutoType;
+    }
+
+    public void setZanpakutoType(TYPE type)
+    {
+        this.zanpakutoType = type;
     }
 }

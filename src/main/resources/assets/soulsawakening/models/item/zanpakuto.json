@@ -6,24 +6,12 @@
   "overrides": [
     {
       "predicate": {
-        "stage": 1.0,
-        "element": 0.0
+        "stage": 1.0
       },
       "model": "soulsawakening:item/zanpakuto"
     },
     {
-      "predicate": {
-        "stage": 2.0,
-        "element": 1.0
-      },
-      "model": "soulsawakening:item/zanpakuto_shikai_fire"
-    },
-    {
-      "predicate": {
-        "stage": 2.0,
-        "element": 2.0
-      },
-      "model": "soulsawakening:item/zanpakuto_shikai_poison"
+      "predicate"
     }
   ]
 }

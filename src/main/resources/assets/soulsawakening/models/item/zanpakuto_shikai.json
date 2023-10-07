@@ -1,0 +1,13 @@
+{
+  "parent": "item/generated",
+  "textures": {
+
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "s"
+      }
+    }
+  ]
+}
