@@ -53,7 +53,8 @@ public abstract class Ability {
     public enum ActivationType {
         RIGHT_CLICK,
         ATTACK,
-        RIGHT_CLICK_BLOCK;  // Add more activation types as needed
+        RIGHT_CLICK_BLOCK,
+        SHIFT_RIGHT_CLICK;  // Add more activation types as needed
 
         // You can add more information or methods to the enum values if needed
     }

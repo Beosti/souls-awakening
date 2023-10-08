@@ -30,8 +30,8 @@ public class ZanpakutoItem extends SwordItem {
     List<Ability> abilities = new ArrayList<Ability>();
     public ZanpakutoItem() {
         super(ModTiers.WEAPON, 7, 1f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
-        FireAttackAbility fireAttackAbility = new FireAttackAbility();
-        abilities.add(fireAttackAbility);
+        //FireAttackAbility fireAttackAbility = new FireAttackAbility();
+        //abilities.add(fireAttackAbility);
         this.zanpakutoElement = ELEMENT.getRandomElement();
         this.zanpakutoType = TYPE.getRandomType();
     }
@@ -39,9 +39,7 @@ public class ZanpakutoItem extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity owner) {
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
-
         if (!currentOwner.isEmpty()) {
-            //effectOnEnemy(target);
             super.hurtEnemy(itemStack, target, owner);
             return true;
         }
