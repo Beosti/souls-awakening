@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.data.ability;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -76,5 +77,10 @@ public class AbilityDataCapability {
 
             }
         }, AbilityDataBase::new);
+    }
+
+    public static IAbilityData get(final LivingEntity entity)
+    {
+        return entity.getCapability(INSTANCE, null).orElse(new AbilityDataBase());
     }
 }

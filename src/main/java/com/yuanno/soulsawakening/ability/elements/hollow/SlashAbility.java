@@ -1,14 +1,16 @@
-package com.yuanno.soulsawakening.ability.elements.fire;
+package com.yuanno.soulsawakening.ability.elements.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.DamageSource;
 
-public class FireAttackAbility extends Ability {
-    public static final FireAttackAbility INSTANCE = new FireAttackAbility();
+public class SlashAbility extends Ability {
+    public static final SlashAbility INSTANCE = new SlashAbility();
 
-    public FireAttackAbility() {
-        this.setName("Fire Attack");
+    public SlashAbility()
+    {
+        this.setName("Slash");
         this.setPassive(true);
         this.setActivationType(ActivationType.ATTACK);
     }
@@ -16,6 +18,6 @@ public class FireAttackAbility extends Ability {
     @Override
     public void activate(LivingEntity livingEntityTarget, PlayerEntity player)
     {
-        livingEntityTarget.setSecondsOnFire(5);
+        livingEntityTarget.hurt(DamageSource.CACTUS, 2);
     }
 }

@@ -4,6 +4,9 @@ import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.elements.fire.FireAttackAbility;
+import com.yuanno.soulsawakening.ability.elements.hollow.BiteAbility;
+import com.yuanno.soulsawakening.ability.elements.hollow.SlashAbility;
+import com.yuanno.soulsawakening.ability.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,11 +21,15 @@ public class ModAbilities {
 
     public static final DeferredRegister<Ability<?>> ABILITIES= DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
 
+    public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE};
     public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE};
+    public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE};
 
     public static void register(IEventBus eventBus)
     {
         registerAbilities(FIRE_ZANPAKUTO);
+        registerAbilities(POISON_ZANPAKUTO);
+        registerAbilities(HOLLOW);
     }
 
     private static void registerAbilities(Ability[] abilities)

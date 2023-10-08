@@ -1,11 +1,16 @@
 package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.ability.elements.hollow.BiteAbility;
+import com.yuanno.soulsawakening.ability.elements.hollow.SlashAbility;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsBase;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -34,11 +39,16 @@ public class StatsEvent {
             return;
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
         IEntityStats entityStats = EntityStatsCapability.get(player);
+        IAbilityData abilityData = AbilityDataCapability.get(player);
         if (entityStats.getRace().equals(ModValues.HUMAN))
             entityStats.setRace(ModValues.SPIRIT);
-        if (entityStats.getRace().equals(ModValues.SPIRIT))
+        if (entityStats.getRace().equals(ModValues.SPIRIT)) {
             entityStats.setRace(ModValues.HOLLOW);
+            abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
+            abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
+        }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
     }
     public static void statsHandling(PlayerEntity player)
     {
