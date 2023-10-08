@@ -1,8 +1,12 @@
 package com.yuanno.soulsawakening.ability.api;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public abstract class Ability {
+import java.util.Locale;
+
+public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private String name;
     private int cooldown;
     private ActivationType activationType;
@@ -48,6 +52,23 @@ public abstract class Ability {
     public void setActivationType(ActivationType activationType)
     {
         this.activationType = activationType;
+    }
+
+    public CompoundNBT save() {
+        CompoundNBT compoundNBT = new CompoundNBT();
+        compoundNBT.putString("id", this.getName().toLowerCase(Locale.ROOT).replaceAll(" ", "_"));
+        compoundNBT.putString("displayname", this.getName());
+        compoundNBT.putInt("cooldown", this.getCooldown());
+        compoundNBT.putString("type", this.getActivationType().toString().toLowerCase(Locale.ROOT).replaceAll(" ", "_"));
+
+        return compoundNBT;
+    }
+
+    public void load(CompoundNBT compoundNBT)
+    {
+        this.setName(compoundNBT.getString("displayname"));
+        this.setCooldown(compoundNBT.getInt("cooldown"));
+        this.setActivationType(Ability.ActivationType.valueOf(compoundNBT.getString("type")));
     }
 
     public enum ActivationType {

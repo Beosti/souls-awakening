@@ -1,7 +1,6 @@
 package com.yuanno.soulsawakening.items.blueprints;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItemGroup;

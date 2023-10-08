@@ -31,8 +31,8 @@ public class Main
     public Main() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-
-
+        ModAbilities.ABILITIES.register(modEventBus);
+        ModAbilities.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
 
