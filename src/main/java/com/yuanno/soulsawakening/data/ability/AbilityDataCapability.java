@@ -62,7 +62,7 @@ public class AbilityDataCapability {
                             if (ability == null)
                                 continue;
                             ability.load(nbtAbility);
-                            instance.addUnlockedAbility(ability);
+                            instance.loadUnlockedAbility(ability);
                         }
                         catch (Exception e)
                         {

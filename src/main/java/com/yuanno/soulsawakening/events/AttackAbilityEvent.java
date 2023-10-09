@@ -24,11 +24,18 @@ public class AttackAbilityEvent {
         PlayerEntity player = event.getPlayer();
         Entity target = event.getTarget();
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        System.out.println(entityStats.getRace());
+        if (event.getPlayer().level.isClientSide)
+            return;
         if (target instanceof LivingEntity)
         {
             LivingEntity livingEntityTarget = (LivingEntity) target;
-
+            IAbilityData abilityData = AbilityDataCapability.get(player);
+            System.out.println(abilityData.getUnlockedAbilities());
+            for (Ability ability : abilityData.getUnlockedAbilities())
+            {
+                if (ability.getActivationType().equals(Ability.ActivationType.ATTACK))
+                    ability.activate(livingEntityTarget, player);
+            }
             // when a player is a shinigami check the zanpakuto
             if (entityStats.getRace().equals(ModValues.SHINIGAMI))
             {
@@ -51,7 +58,8 @@ public class AttackAbilityEvent {
             // when a player is a hollow
             else if (entityStats.getRace().equals(ModValues.HOLLOW))
             {
-                IAbilityData abilityData = AbilityDataCapability.get(player);
+                //IAbilityData abilityData = AbilityDataCapability.get(player);
+                System.out.println(abilityData.getUnlockedAbilities());
                 for (Ability ability : abilityData.getUnlockedAbilities())
                 {
                     if (ability.getActivationType().equals(Ability.ActivationType.ATTACK))

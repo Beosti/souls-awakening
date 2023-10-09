@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.events;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.elements.hollow.BiteAbility;
 import com.yuanno.soulsawakening.ability.elements.hollow.SlashAbility;
+import com.yuanno.soulsawakening.data.ability.AbilityDataBase;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsBase;
@@ -29,9 +30,12 @@ public class StatsEvent {
     {
         PlayerEntity player = event.getPlayer();
         IEntityStats entityStats = EntityStatsCapability.get(player);
+        IAbilityData abilityData = AbilityDataCapability.get(player);
         if (!entityStats.hasRace())
             statsHandling(player);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+
     }
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event)
@@ -43,7 +47,7 @@ public class StatsEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (entityStats.getRace().equals(ModValues.HUMAN))
             entityStats.setRace(ModValues.SPIRIT);
-        if (entityStats.getRace().equals(ModValues.SPIRIT)) {
+        else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
             entityStats.setRace(ModValues.HOLLOW);
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
@@ -55,21 +59,28 @@ public class StatsEvent {
     public static void statsHandling(PlayerEntity player)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
+        IAbilityData abilityData = AbilityDataCapability.get(player);
         if (entityStats.hasRace())
             return;
         entityStats.setRace(ModValues.HUMAN);
+        abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
+        abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
+
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+
     }
 
     @SubscribeEvent
     public static void onRelogging(PlayerEvent.PlayerRespawnEvent event) {
         PlayerEntity player = event.getPlayer();
         IEntityStats statsProps = EntityStatsCapability.get(player);
-
+        IAbilityData abilityData = AbilityDataCapability.get(player);
         if (!statsProps.hasRace())
             statsHandling(player);
 
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), statsProps), player);
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
 
     }
 
@@ -78,8 +89,11 @@ public class StatsEvent {
         if (event.isWasDeath()) {
             StatsEvent.restoreFullData(event.getOriginal(), event.getPlayer());
             IAbilityData newAbilityData = AbilityDataCapability.get(event.getPlayer());
-            IEntityStats newEntityStats = EntityStatsCapability.get(event.getPlayer());
             PacketHandler.sendTo(new SSyncAbilityDataPacket(event.getPlayer().getId(), newAbilityData), event.getPlayer());
+            IEntityStats newEntityStats = EntityStatsCapability.get(event.getPlayer());
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getPlayer().getId(), newEntityStats), event.getPlayer());
+
+
         } else
             StatsEvent.restoreFullData(event.getOriginal(), event.getPlayer());
     }
@@ -95,7 +109,6 @@ public class StatsEvent {
 
         // Keep the ability stats
         IAbilityData oldAbilityData = AbilityDataCapability.get(original);
-
         nbt = AbilityDataCapability.INSTANCE.writeNBT(oldAbilityData, null);
         IAbilityData newAbilityData = AbilityDataCapability.get(player);
         AbilityDataCapability.INSTANCE.readNBT(newAbilityData, null, nbt);
@@ -115,8 +128,9 @@ public class StatsEvent {
     {
         PlayerEntity player = event.getPlayer();
         IEntityStats stats = EntityStatsCapability.get(player);
-
+        IAbilityData abilityData = AbilityDataCapability.get(player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncEntityStatsPacket(player.getId(), stats), player);
+        PacketHandler.sendToAllTrackingAndSelf(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         //MinecraftForge.EVENT_BUS.post(new EntityEvent.Size(player, player.getPose(), player.getDimensions(player.getPose()), player.getBbHeight()));
     }
 
@@ -127,8 +141,9 @@ public class StatsEvent {
         {
             PlayerEntity player = (PlayerEntity) event.getTarget();
             IEntityStats stats = EntityStatsCapability.get(player);
-
+            IAbilityData abilityData = AbilityDataCapability.get(player);
             PacketHandler.sendToAllTrackingAndSelf(new SSyncEntityStatsPacket(player.getId(), stats), player);
+            PacketHandler.sendToAllTrackingAndSelf(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
 
         }
     }
