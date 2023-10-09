@@ -15,6 +15,7 @@ import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -50,6 +51,7 @@ public class StatsEvent {
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
     }
+
     public static void statsHandling(PlayerEntity player)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
@@ -74,7 +76,10 @@ public class StatsEvent {
     @SubscribeEvent
     public static void onClonePlayer(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
+            StatsEvent.restoreFullData(event.getOriginal(), event.getPlayer());
+            IAbilityData newAbilityData = AbilityDataCapability.get(event.getPlayer());
             IEntityStats newEntityStats = EntityStatsCapability.get(event.getPlayer());
+            PacketHandler.sendTo(new SSyncAbilityDataPacket(event.getPlayer().getId(), newAbilityData), event.getPlayer());
         } else
             StatsEvent.restoreFullData(event.getOriginal(), event.getPlayer());
     }
@@ -86,6 +91,21 @@ public class StatsEvent {
         nbt = EntityStatsCapability.INSTANCE.writeNBT(oldEntityStats, null);
         IEntityStats newEntityStats = EntityStatsCapability.get(player);
         EntityStatsCapability.INSTANCE.readNBT(newEntityStats, null, nbt);
+
+
+        // Keep the ability stats
+        IAbilityData oldAbilityData = AbilityDataCapability.get(original);
+
+        nbt = AbilityDataCapability.INSTANCE.writeNBT(oldAbilityData, null);
+        IAbilityData newAbilityData = AbilityDataCapability.get(player);
+        AbilityDataCapability.INSTANCE.readNBT(newAbilityData, null, nbt);
+
+
+        /*
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), newAbilityData), player);
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), newEntityStats), player);
+
+         */
 
 
     }
