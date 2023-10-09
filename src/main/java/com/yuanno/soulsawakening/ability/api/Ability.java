@@ -92,10 +92,10 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
 
     public CompoundNBT save() {
         CompoundNBT compoundNBT = new CompoundNBT();
-        compoundNBT.putString("id", this.getName().toLowerCase(Locale.ROOT).replaceAll(" ", "_"));
+        compoundNBT.putString("id", this.getRegistryName().toString());
         compoundNBT.putString("displayname", this.getName());
         compoundNBT.putInt("cooldown", this.getCooldown());
-        compoundNBT.putString("type", this.getActivationType().toString().toLowerCase(Locale.ROOT).replaceAll(" ", "_"));
+        compoundNBT.putString("type", this.getActivationType().toString());
 
         return compoundNBT;
     }

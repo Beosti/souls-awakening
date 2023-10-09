@@ -38,7 +38,7 @@ public class ModAbilities {
 
     }
 
-    public static <T extends Ability<T>> Ability<T> registerAbility(Ability<T> ability)
+    public static <T extends Ability> Ability<T> registerAbility(Ability<T> ability)
     {
         String resourceName = Beapi.getResourceName(ability.getName());
         BeRegistry.getLangMap().put("ability." + Main.MODID + "." + resourceName, ability.getName());

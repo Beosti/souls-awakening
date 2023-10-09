@@ -30,12 +30,6 @@ public class AttackAbilityEvent {
         {
             LivingEntity livingEntityTarget = (LivingEntity) target;
             IAbilityData abilityData = AbilityDataCapability.get(player);
-            System.out.println(abilityData.getUnlockedAbilities());
-            for (Ability ability : abilityData.getUnlockedAbilities())
-            {
-                if (ability.getActivationType().equals(Ability.ActivationType.ATTACK))
-                    ability.activate(livingEntityTarget, player);
-            }
             // when a player is a shinigami check the zanpakuto
             if (entityStats.getRace().equals(ModValues.SHINIGAMI))
             {

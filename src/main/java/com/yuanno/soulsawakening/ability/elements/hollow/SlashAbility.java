@@ -18,6 +18,6 @@ public class SlashAbility extends Ability {
     @Override
     public void activate(LivingEntity livingEntityTarget, PlayerEntity player)
     {
-        livingEntityTarget.hurt(DamageSource.CACTUS, 2);
+        livingEntityTarget.hurt(DamageSource.CACTUS, 20);
     }
 }

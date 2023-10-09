@@ -63,8 +63,6 @@ public class StatsEvent {
         if (entityStats.hasRace())
             return;
         entityStats.setRace(ModValues.HUMAN);
-        abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
-        abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
 
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
