@@ -18,6 +18,6 @@ public class BiteAbility extends Ability {
     @Override
     public void onRightClickEntity(LivingEntity target, PlayerEntity player)
     {
-        target.hurt(DamageSource.CACTUS, 5);
+        target.hurt(DamageSource.CACTUS, 20);
     }
 }

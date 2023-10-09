@@ -37,8 +37,7 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     }
 
     // do something when left click
-    public void activate(LivingEntity targetEntity, PlayerEntity user)
-    {
+    public void activate(LivingEntity targetEntity, PlayerEntity user) {
 
     }
 
