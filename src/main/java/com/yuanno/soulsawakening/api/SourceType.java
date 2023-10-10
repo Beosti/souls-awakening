@@ -8,9 +8,8 @@ public enum SourceType
 {
 	SLASH,
 	BLUNT,
-	/** Used for punches, kicks, bites and other appendage-related hits */
-	FIST(),
-	/** All fists are physical, but sometimes there's abilities that shoot physical projectiles that are not fists/legs, this is for those cases */
+	FIST,
+	SPIKE, // used for bites type attack
 	PHYSICAL,
 	INTERNAL,
 	PROJECTILE,

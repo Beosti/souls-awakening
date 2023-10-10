@@ -11,6 +11,7 @@ import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -52,12 +53,13 @@ public class AttackAbilityEvent {
             // when a player is a hollow
             else if (entityStats.getRace().equals(ModValues.HOLLOW))
             {
-                //IAbilityData abilityData = AbilityDataCapability.get(player);
-                System.out.println(abilityData.getUnlockedAbilities());
                 for (Ability ability : abilityData.getUnlockedAbilities())
                 {
-                    if (ability.getActivationType().equals(Ability.ActivationType.ATTACK))
+                    if (ability.getActivationType().equals(Ability.ActivationType.ATTACK)) {
                         ability.activate(livingEntityTarget, player);
+                        double knockback = 1.5;
+                        ((LivingEntity)livingEntityTarget).knockback((float)knockback * 0.5F, (double) MathHelper.sin(player.yRot * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(player.yRot * ((float)Math.PI / 180F))));
+                    }
                 }
             }
         }
