@@ -6,11 +6,6 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.init.ModItems;
-import com.yuanno.soulsawakening.init.ModValues;
-import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
-import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,27 +22,21 @@ public class TickAbilityEvent {
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
         if (player.level.isClientSide)
             return;
+
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IEntityStats entityStats = EntityStatsCapability.get(player);
 
-        if (player.tickCount % 20 == 0)
+        for (Ability ability : abilityData.getUnlockedAbilities())
         {
-            if (entityStats.getRace().equals(ModValues.SHINIGAMI) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
-            {
-                ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
-                for (Ability ability : zanpakutoItem.getAbilities())
-                {
-                    if (!ability.getPassive() && !ability.isReady() && ability.getCooldown() == 0)
-                    {
-                        ability.isReadySet(true);
-                    }
-                    else if (!ability.getPassive() && !ability.isReady() && ability.getCooldown() != 0)
-                    {
-                        ability.setCooldown(ability.getCooldown() - 1);
-                    }
-                }
-            }
-            PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+            if (ability.getPassive() || ability.getState().equals(Ability.STATE.READY))
+                return;
+            System.out.println(ability.getState());
+            if (ability.getCooldown() <= 0)
+                ability.setState(Ability.STATE.READY);
+            if (ability.getState().equals(Ability.STATE.COOLDOWN))
+                ability.setCooldown(ability.getCooldown() - 1);
+
+
         }
     }
 }

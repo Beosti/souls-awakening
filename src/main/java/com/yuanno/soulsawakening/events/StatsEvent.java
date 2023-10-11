@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.elements.hollow.BiteAbility;
 import com.yuanno.soulsawakening.ability.elements.hollow.SlashAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataBase;
@@ -51,6 +52,12 @@ public class StatsEvent {
             entityStats.setRace(ModValues.HOLLOW);
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
+            for (Ability ability : abilityData.getUnlockedAbilities())
+            {
+                ability.setState(Ability.STATE.READY);
+                if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY))
+                    System.out.println(ability.getMaxCooldown());
+            }
         }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
@@ -76,7 +83,10 @@ public class StatsEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (!statsProps.hasRace())
             statsHandling(player);
-
+        for (Ability ability : abilityData.getUnlockedAbilities())
+        {
+            ability.setState(Ability.STATE.READY);
+        }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), statsProps), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
 

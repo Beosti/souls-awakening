@@ -9,6 +9,8 @@ import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
+import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -46,8 +48,14 @@ public class RightClickEntityAbilityEvent {
         {
             for (Ability ability : abilityData.getUnlockedAbilities())
             {
-                if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY))
-                    ability.onRightClickEntity(target, player);
+                if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY)) {
+                    System.out.println(ability.getState());
+                    if (ability.getState().equals(Ability.STATE.READY)) {
+                        ability.onRightClickEntity(target, player);
+                        ability.setState(Ability.STATE.COOLDOWN);
+                        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+                    }
+                }
             }
         }
 

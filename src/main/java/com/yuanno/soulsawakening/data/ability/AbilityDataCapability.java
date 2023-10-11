@@ -33,6 +33,8 @@ public class AbilityDataCapability {
                     {
                         Ability ability = instance.getUnlockedAbilities().get(i);
                         CompoundNBT nbtAbility = ability.save();
+                        nbtAbility.putDouble("cooldown", ability.getCooldown());
+                        nbtAbility.putDouble("maxcooldown", ability.getMaxCooldown());
                         unlockedAbilities.add(nbtAbility);
                     }
                     props.put("unlocked_abilities", unlockedAbilities);
@@ -62,6 +64,10 @@ public class AbilityDataCapability {
                             if (ability == null)
                                 continue;
                             ability.load(nbtAbility);
+                            double cooldown = (nbtAbility.getDouble("cooldown"));
+                            double maxCooldown = (nbtAbility.getDouble("maxcooldown"));
+                            ability.setCooldown(cooldown);
+                            ability.setMaxCooldown(maxCooldown);
                             instance.loadUnlockedAbility(ability);
                         }
                         catch (Exception e)
