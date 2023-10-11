@@ -9,6 +9,7 @@ public interface IAbilityData {
     void addUnlockedAbility(Ability ability);
     void removeUnlockedAbility(Ability ability);
     List<Ability> getUnlockedAbilities();
+    List<Ability> getActiveAbilities();
     <T extends Ability<T>> List<T> clearUnlockedAbilities();
     boolean loadUnlockedAbility(Ability abl);
     <T extends Ability> T getUnlockedAbility(T abl);

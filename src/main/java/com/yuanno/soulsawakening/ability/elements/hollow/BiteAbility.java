@@ -18,6 +18,7 @@ public class BiteAbility extends Ability {
         this.setMaxCooldown(5);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
         this.setState(STATE.READY);
+        this.setPassive(false);
     }
 
     @Override

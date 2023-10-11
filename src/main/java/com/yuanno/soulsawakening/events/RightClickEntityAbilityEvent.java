@@ -26,6 +26,8 @@ public class RightClickEntityAbilityEvent {
         PlayerEntity player = event.getPlayer();
         if (!(event.getTarget() instanceof  LivingEntity))
             return;
+        if (player.level.isClientSide)
+            return;
         LivingEntity target = (LivingEntity) event.getTarget();
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
@@ -46,16 +48,16 @@ public class RightClickEntityAbilityEvent {
         // do something when the player is a hollow
         else if (entityStats.getRace().equals(ModValues.HOLLOW))
         {
-            for (Ability ability : abilityData.getUnlockedAbilities())
+            for (Ability ability : abilityData.getActiveAbilities())
             {
-                if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY)) {
-                    System.out.println(ability.getState());
-                    if (ability.getState().equals(Ability.STATE.READY)) {
-                        ability.onRightClickEntity(target, player);
-                        ability.setState(Ability.STATE.COOLDOWN);
-                        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-                    }
-                }
+                System.out.println(ability);
+                if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY) || !ability.getState().equals(Ability.STATE.READY))
+                    return;
+                System.out.println(ability.getState());
+                ability.onRightClickEntity(target, player);
+                ability.setState(Ability.STATE.COOLDOWN);
+                ability.setCooldown(ability.getMaxCooldown() / 20);
+
             }
         }
 

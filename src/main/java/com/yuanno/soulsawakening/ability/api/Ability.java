@@ -38,7 +38,19 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     {}
     // do something when right click entity
     public void onRightClickEntity(LivingEntity targetEntity, PlayerEntity user)
-    {}
+    {
+    }
+
+    public void duringCooldown()
+    {
+        System.out.println("TEST");
+        if (this.isPassive || this.state.equals(STATE.READY))
+            return;
+        if (this.getCooldown() <= 0)
+            this.setState(STATE.READY);
+        else if (this.state.equals(STATE.COOLDOWN))
+            this.alterCooldown(- 1);
+    }
 
     public boolean isReady()
     {
@@ -74,6 +86,10 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     public double getCooldown() {
         return cooldown;
     }
+    public void alterCooldown(double cooldown)
+    {
+        this.cooldown += cooldown;
+    }
     public void setCooldown(double cooldown)
     {
         this.cooldown = cooldown * 20;
@@ -104,7 +120,8 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         CompoundNBT compoundNBT = new CompoundNBT();
         compoundNBT.putString("id", this.getRegistryName().toString());
         compoundNBT.putString("displayname", this.getName());
-
+        compoundNBT.putDouble("cooldown", this.getCooldown());
+        compoundNBT.putDouble("maxcooldown", this.getMaxCooldown());
         compoundNBT.putString("type", this.getActivationType().toString());
         compoundNBT.putString("state", this.getState().toString());
 
@@ -114,7 +131,10 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     public void load(CompoundNBT compoundNBT)
     {
         this.setName(compoundNBT.getString("displayname"));
-
+        int cooldown = (int) (compoundNBT.getDouble("cooldown") / 20);
+        this.setCooldown(cooldown);
+        int maxCooldown = (int) (compoundNBT.getDouble("maxcooldown") / 20);
+        this.setMaxCooldown(maxCooldown);
         this.setActivationType(Ability.ActivationType.valueOf(compoundNBT.getString("type")));
         this.setState(Ability.STATE.valueOf(compoundNBT.getString("state")));
     }

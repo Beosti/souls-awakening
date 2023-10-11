@@ -20,23 +20,18 @@ public class TickAbilityEvent {
         if (!(event.getEntityLiving() instanceof PlayerEntity))
             return;
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-        if (player.level.isClientSide)
-            return;
+
 
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IEntityStats entityStats = EntityStatsCapability.get(player);
-
-        for (Ability ability : abilityData.getUnlockedAbilities())
+        for (Ability ability : abilityData.getActiveAbilities())
         {
-            if (ability.getPassive() || ability.getState().equals(Ability.STATE.READY))
+
+            if (ability.getState().equals(Ability.STATE.READY))
                 return;
-            System.out.println(ability.getState());
-            if (ability.getCooldown() <= 0)
-                ability.setState(Ability.STATE.READY);
-            if (ability.getState().equals(Ability.STATE.COOLDOWN))
-                ability.setCooldown(ability.getCooldown() - 1);
 
-
+            ability.duringCooldown();
+            System.out.println(ability.getCooldown());
         }
     }
 }

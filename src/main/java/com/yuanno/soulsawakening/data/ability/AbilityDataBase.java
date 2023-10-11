@@ -5,6 +5,7 @@ import net.minecraft.entity.LivingEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AbilityDataBase implements IAbilityData {
 
@@ -44,6 +45,13 @@ public class AbilityDataBase implements IAbilityData {
     @Override
     public List<Ability> getUnlockedAbilities() {
         return this.unlockedAbilities;
+    }
+
+    @Override
+    public List<Ability> getActiveAbilities() {
+        return this.unlockedAbilities.stream()
+                .filter(ability -> !ability.getPassive())
+                .collect(Collectors.toList());
     }
 
     @Override

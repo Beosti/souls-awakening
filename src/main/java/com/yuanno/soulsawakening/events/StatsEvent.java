@@ -54,9 +54,10 @@ public class StatsEvent {
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
             for (Ability ability : abilityData.getUnlockedAbilities())
             {
-                ability.setState(Ability.STATE.READY);
-                if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY))
+                if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY)) {
                     System.out.println(ability.getMaxCooldown());
+                    System.out.println(ability.getCooldown());
+                }
             }
         }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
@@ -85,7 +86,10 @@ public class StatsEvent {
             statsHandling(player);
         for (Ability ability : abilityData.getUnlockedAbilities())
         {
-            ability.setState(Ability.STATE.READY);
+            if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY)) {
+                System.out.println(ability.getMaxCooldown());
+                System.out.println(ability.getCooldown());
+            }
         }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), statsProps), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
