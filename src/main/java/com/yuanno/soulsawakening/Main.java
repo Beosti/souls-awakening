@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening;
 
+import com.yuanno.soulsawakening.client.overlay.StatsOverlay;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.util.ItemProperties;
 import net.minecraft.block.Block;
@@ -57,9 +58,10 @@ public class Main
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
+
         ModKeyBinds.init();
         ItemProperties.register();
+        MinecraftForge.EVENT_BUS.register(new StatsOverlay());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

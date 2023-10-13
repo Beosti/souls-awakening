@@ -11,6 +11,7 @@ public class ItemProperties {
     private static final IItemPropertyGetter ZANPAKUTO_STAGE = (itemStack, world, livingEntity) ->
     {
         ZanpakutoItem zanpakutoItem = (ZanpakutoItem) itemStack.getItem();
+
         switch (zanpakutoItem.getZanpakutoState())
         {
             case SEALED:
