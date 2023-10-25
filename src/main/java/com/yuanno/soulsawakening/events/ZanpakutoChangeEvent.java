@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.events;
 
+import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.Event;
@@ -24,7 +25,7 @@ public class ZanpakutoChangeEvent extends Event {
         return this.player;
     }
 
-    public ZanpakutoItem.STATE getZanpakutoState()
+    public ModResources.STATE getZanpakutoState()
     {
         return zanpakutoItem.getZanpakutoState();
     }

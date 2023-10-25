@@ -1,20 +1,52 @@
 package com.yuanno.soulsawakening.api;
 
+import com.google.common.base.Predicates;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.yuanno.soulsawakening.Main;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
+import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.IReorderingProcessor;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
 import net.minecraftforge.fml.RegistryObject;
 
+import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class Beapi {
 
     private static HashMap<String, String> langMap = new HashMap<String, String>();
+
+    public static <T extends Entity> java.util.List<T> getNearbyEntities(BlockPos pos, IWorld world, double radius, @Nullable Predicate<Entity> predicate, Class<? extends T>... clazzez) {
+        return getNearbyEntities(pos, world, radius, radius, radius, predicate, clazzez);
+    }
+    public static final Predicate<Entity> IS_ALIVE_AND_SURVIVAL = EntityPredicates.NO_CREATIVE_OR_SPECTATOR.and(EntityPredicates.ENTITY_STILL_ALIVE);
+
+    public static <T extends Entity> java.util.List<T> getNearbyEntities(BlockPos pos, IWorld world, double sizeX, double sizeY, double sizeZ, @Nullable Predicate<Entity> predicate, Class<? extends T>... clazzez) {
+        if(clazzez.length <= 0) {
+            clazzez = new Class[]{ Entity.class };
+        }
+        if(predicate == null) {
+            predicate = Predicates.alwaysTrue();
+        }
+        predicate = IS_ALIVE_AND_SURVIVAL.and(predicate);
+        AxisAlignedBB aabb = new AxisAlignedBB(pos).inflate(sizeX, sizeY, sizeZ);
+        List<T> list = new ArrayList<T>();
+        for (Class<? extends T> clz : clazzez) {
+            list.addAll(world.getEntitiesOfClass(clz, aabb, predicate));
+        }
+//		list.removeIf(target -> target == entity);
+        return list;
+    }
 
     public static HashMap<String, String> getLangMap()
     {

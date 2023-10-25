@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.util;
 
 import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemModelsProperties;
@@ -27,7 +28,7 @@ public class ItemProperties {
     private static final IItemPropertyGetter ZANPAKUTO_ELEMENT = (itemStack, world, livingEntity) ->
     {
         ZanpakutoItem zanpakutoItem = (ZanpakutoItem) itemStack.getItem();
-        if (zanpakutoItem.getZanpakutoState().equals(ZanpakutoItem.STATE.SEALED))
+        if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SEALED))
             return 0;
         switch (zanpakutoItem.getZanpakutoElement())
         {

@@ -7,6 +7,7 @@ import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -35,32 +36,59 @@ public class RightClickEntityAbilityEvent {
         // do something when the player is a shinigami and has shikai in hand
         if (entityStats.getRace().equals(ModValues.SHINIGAMI) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
         {
-            ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
-            if (zanpakutoItem.getZanpakutoState().equals(ZanpakutoItem.STATE.SHIKAI))
-            {
-                for (Ability ability : zanpakutoItem.getAbilities())
-                {
-                    if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY))
-                        ability.onRightClickEntity(target, player);
-                }
-            }
+
         }
         // do something when the player is a hollow
         else if (entityStats.getRace().equals(ModValues.HOLLOW))
         {
             for (Ability ability : abilityData.getActiveAbilities())
             {
-                System.out.println(ability);
                 if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY) || !ability.getState().equals(Ability.STATE.READY))
                     return;
-                System.out.println(ability.getState());
                 ability.onRightClickEntity(target, player);
                 ability.setState(Ability.STATE.COOLDOWN);
                 ability.setCooldown(ability.getMaxCooldown() / 20);
 
             }
         }
+    }
 
+    @SubscribeEvent
+    public static void onRightClick(PlayerInteractEvent.RightClickItem event)
+    {
+        PlayerEntity player = event.getPlayer();
 
+        if (player.level.isClientSide)
+            return;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+
+        // do something when the player is a shinigami and has shikai in hand
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
+        {
+            ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
+            if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SHIKAI)) // do stuff while in shikai state and right click
+            {
+                for (Ability ability : abilityData.getActiveAbilities())
+                {
+                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) || !ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI) || !ability.getState().equals(Ability.STATE.READY))
+                        return;
+                    ability.onRightClick(player);
+                    ability.setState(Ability.STATE.COOLDOWN);
+                    ability.setCooldown(ability.getMaxCooldown() / 20);
+                }
+            }
+            else if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.BANKAI)) // do stuff while in bankai state and right click
+            {
+                for (Ability ability : abilityData.getActiveAbilities())
+                {
+                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) || !ability.getZanpakutoState().equals(ModResources.STATE.BANKAI) || !ability.getState().equals(Ability.STATE.READY))
+                        return;
+                    ability.onRightClick(player);
+                    ability.setState(Ability.STATE.COOLDOWN);
+                    ability.setCooldown(ability.getMaxCooldown() / 20);
+                }
+            }
+        }
     }
 }

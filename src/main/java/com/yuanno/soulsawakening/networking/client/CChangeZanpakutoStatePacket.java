@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.networking.client;
 
 import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -18,7 +19,7 @@ public class CChangeZanpakutoStatePacket {
 
     }
 
-    public CChangeZanpakutoStatePacket(ZanpakutoItem.STATE state)
+    public CChangeZanpakutoStatePacket(ModResources.STATE state)
     {
         switch (state)
         {
@@ -59,13 +60,13 @@ public class CChangeZanpakutoStatePacket {
                     switch (message.stateNumber)
                     {
                         case 0:
-                            zanpakutoItem.setZanpakutoState(ZanpakutoItem.STATE.SEALED);
+                            zanpakutoItem.setZanpakutoState(ModResources.STATE.SEALED);
                             break;
                         case 1:
-                            zanpakutoItem.setZanpakutoState(ZanpakutoItem.STATE.SHIKAI);
+                            zanpakutoItem.setZanpakutoState(ModResources.STATE.SHIKAI);
                             break;
                         case 2:
-                            zanpakutoItem.setZanpakutoState(ZanpakutoItem.STATE.BANKAI);
+                            zanpakutoItem.setZanpakutoState(ModResources.STATE.BANKAI);
                             break;
                     }
                 }

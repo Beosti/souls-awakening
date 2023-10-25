@@ -13,6 +13,7 @@ public enum SourceType
 	PHYSICAL,
 	INTERNAL,
 	PROJECTILE,
+	SHOCKWAVE
 	;
 
 

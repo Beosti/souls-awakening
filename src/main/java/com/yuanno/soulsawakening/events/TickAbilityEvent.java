@@ -31,7 +31,6 @@ public class TickAbilityEvent {
                 return;
 
             ability.duringCooldown();
-            System.out.println(ability.getCooldown());
         }
     }
 }

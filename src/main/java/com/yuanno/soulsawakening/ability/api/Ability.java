@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.ability.api;
 
+import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -15,6 +16,7 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private boolean isReady = true;
     private double maxCooldown;
     private STATE state;
+    private ModResources.STATE zanpakutoState;
     public Ability(String name, int cooldown, int maxCooldown, ActivationType activationType) {
         this.name = name;
         this.cooldown = cooldown;
@@ -40,10 +42,23 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     public void onRightClickEntity(LivingEntity targetEntity, PlayerEntity user)
     {
     }
+    public void onRightClick(PlayerEntity user)
+    {
+
+    }
+
+    public void setZanpakutoState(ModResources.STATE state)
+    {
+        this.zanpakutoState = state;
+    }
+
+    public ModResources.STATE getZanpakutoState()
+    {
+        return this.zanpakutoState;
+    }
 
     public void duringCooldown()
     {
-        System.out.println("TEST");
         if (this.isPassive || this.state.equals(STATE.READY))
             return;
         if (this.getCooldown() <= 0)

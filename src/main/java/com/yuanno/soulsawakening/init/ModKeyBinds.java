@@ -73,16 +73,16 @@ public class ModKeyBinds {
                 switch (zanpakuto.getZanpakutoState())
                 {
                     case SEALED:
-                        zanpakuto.setZanpakutoState(ZanpakutoItem.STATE.SHIKAI);
-                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ZanpakutoItem.STATE.SHIKAI));
+                        zanpakuto.setZanpakutoState(ModResources.STATE.SHIKAI);
+                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.SHIKAI));
                         break;
                     case SHIKAI:
-                        zanpakuto.setZanpakutoState(ZanpakutoItem.STATE.BANKAI);
-                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ZanpakutoItem.STATE.BANKAI));
+                        zanpakuto.setZanpakutoState(ModResources.STATE.BANKAI);
+                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.BANKAI));
                         break;
                     case BANKAI:
-                        zanpakuto.setZanpakutoState(ZanpakutoItem.STATE.SEALED);
-                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ZanpakutoItem.STATE.SEALED));
+                        zanpakuto.setZanpakutoState(ModResources.STATE.SEALED);
+                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.SEALED));
                         break;
                 }
                 ZanpakutoItem zanpakutoChange = (ZanpakutoItem) player.getMainHandItem().getItem();

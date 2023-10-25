@@ -1,12 +1,19 @@
 package com.yuanno.soulsawakening.items.blueprints;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.elements.fire.FireAttackAbility;
+import com.yuanno.soulsawakening.ability.elements.fire.FireWaveAbility;
+import com.yuanno.soulsawakening.ability.elements.poison.PoisonAttackAbility;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItemGroup;
+import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.init.ModTiers;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -27,18 +34,13 @@ import java.util.Random;
 
 public class ZanpakutoItem extends SwordItem {
     private ELEMENT zanpakutoElement = ELEMENT.NONE;
-    private STATE zanpakutoState = STATE.SEALED;
+    private ModResources.STATE zanpakutoState = ModResources.STATE.SEALED;
     private TYPE zanpakutoType;
     private ItemStack stack;
 
-    List<Ability> abilities = new ArrayList<Ability>();
     public ZanpakutoItem() {
         super(ModTiers.WEAPON, 7, 1f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
-        this.zanpakutoState = STATE.SEALED;
-        //this.zanpakutoElement = ELEMENT.getRandomElement();
-        //this.zanpakutoType = TYPE.getRandomType();
-        //FireAttackAbility fireAttackAbility = new FireAttackAbility();
-        //abilities.add(fireAttackAbility);
+        this.zanpakutoState = ModResources.STATE.SEALED;
     }
 
     @Override
@@ -71,15 +73,33 @@ public class ZanpakutoItem extends SwordItem {
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
         if (currentOwner.isEmpty()) {
+            ELEMENT element = ELEMENT.FIRE;
+            IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
-            itemStack.getTag().putString("zanpakutoElement", ELEMENT.getRandomElement().name());
+            itemStack.getTag().putString("zanpakutoElement", element.name());
             itemStack.getTag().putString("zanpakutoType", TYPE.getRandomType().name());
-            itemStack.getTag().putString("zanpakutoState", STATE.SEALED.name());
+            itemStack.getTag().putString("zanpakutoState", ModResources.STATE.SEALED.name());
             if (entityStats.getRace().equals(ModValues.SPIRIT)) {
                 entityStats.setRace(ModValues.SHINIGAMI);
-                PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-                return ActionResult.success(itemStack);
             }
+            else if (entityStats.getRace().equals(ModValues.HUMAN))
+            {
+                entityStats.setRace(ModValues.FULLBRINGER);
+            }
+                switch (element)
+                {
+                    case FIRE:
+                        abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
+                        abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
+                        break;
+                    case POISON:
+                        abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
+                        break;
+                }
+                PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+                return ActionResult.success(itemStack);
+
         }
         else if (!currentOwner.equals(player.getDisplayName().getString()) || !entityStats.getRace().equals(ModValues.SHINIGAMI))
             return ActionResult.fail(itemStack);
@@ -134,17 +154,9 @@ public class ZanpakutoItem extends SwordItem {
 
 
 
-    public enum STATE {
-        SEALED, SHIKAI, BANKAI;
-        public static STATE getRandomState()
-        {
-            Random random = new Random();
-            return values()[random.nextInt(values().length)];
-        }
-    }
 
-    public ZanpakutoItem.STATE getNextZanpakutoState(ZanpakutoItem.STATE currentState) {
-        ZanpakutoItem.STATE[] states = ZanpakutoItem.STATE.values();
+    public ModResources.STATE getNextZanpakutoState(ModResources.STATE currentState) {
+        ModResources.STATE[] states = ModResources.STATE.values();
         int currentIndex = currentState.ordinal();
         int nextIndex = (currentIndex + 1) % states.length;  // Calculate the next index in a circular manner
         return states[nextIndex];
@@ -159,20 +171,20 @@ public class ZanpakutoItem extends SwordItem {
         return TYPE.valueOf(typeName);
     }
 
-    public STATE getZanpakutoState() {
+    public ModResources.STATE getZanpakutoState() {
         if (stack != null) {
             String stateName = stack.getTag().getString("zanpakutoState");
 
             // Handle cases where the state name is invalid or not present
             try {
-                return STATE.valueOf(stateName);
+                return ModResources.STATE.valueOf(stateName);
             } catch (IllegalArgumentException e) {
                 // Log the error or handle it accordingly
                 // For now, we'll return SEALED in case of an invalid state
-                return STATE.SEALED;
+                return ModResources.STATE.SEALED;
             }
         } else {
-            return STATE.SEALED;
+            return ModResources.STATE.SEALED;
         }
     }
 
@@ -184,11 +196,8 @@ public class ZanpakutoItem extends SwordItem {
         stack.getTag().putString("zanpakutoType", type.name());
     }
 
-    public void setZanpakutoState(STATE state) {
+    public void setZanpakutoState(ModResources.STATE state) {
         stack.getTag().putString("zanpakutoState", state.name());
     }
 
-    public List<Ability> getAbilities() {
-        return this.abilities;
-    }
 }

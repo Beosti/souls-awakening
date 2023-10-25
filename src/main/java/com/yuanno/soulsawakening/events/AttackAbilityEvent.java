@@ -6,6 +6,7 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.entity.Entity;
@@ -37,14 +38,13 @@ public class AttackAbilityEvent {
                 if (player.getMainHandItem().getItem() instanceof ZanpakutoItem)
                 {
                     ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
-                    if (zanpakutoItem.getZanpakutoState().equals(ZanpakutoItem.STATE.SHIKAI)) // if the zanpakuto is in shikai state
+                    if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SHIKAI)) // if the zanpakuto is in shikai state
                     {
-                        for (Ability ability : zanpakutoItem.getAbilities())
+                        for (Ability ability : abilityData.getUnlockedAbilities())
                         {
-                            if (ability.getActivationType().equals(Ability.ActivationType.ATTACK))
-                            {
-                                ability.activate(livingEntityTarget, player);
-                            }
+                            if (!ability.getActivationType().equals(Ability.ActivationType.ATTACK) || !ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
+                                return;
+                            ability.activate(livingEntityTarget, player);
                         }
                     }
                 }

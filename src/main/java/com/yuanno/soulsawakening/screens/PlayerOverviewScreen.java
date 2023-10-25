@@ -32,12 +32,7 @@ public class PlayerOverviewScreen extends Screen {
         int posX = ((this.width - 256) / 2);
         int posY = (this.height - 256) / 2;
 
-        int leftShift = posX + 0;
-        NoTextureButton button = new NoTextureButton(leftShift, posY + 200, 70, 20, new TranslationTextComponent("gui.soulsawakening.tree"), b ->
-        {
-           Minecraft.getInstance().setScreen(new SkillTreeScreen());
-        });
-        this.addButton(button);
+
     }
 
     @Override
