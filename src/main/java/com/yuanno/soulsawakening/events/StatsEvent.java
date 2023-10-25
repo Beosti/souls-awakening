@@ -2,12 +2,10 @@ package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.elements.hollow.BiteAbility;
-import com.yuanno.soulsawakening.ability.elements.hollow.SlashAbility;
-import com.yuanno.soulsawakening.data.ability.AbilityDataBase;
+import com.yuanno.soulsawakening.ability.hollow.BiteAbility;
+import com.yuanno.soulsawakening.ability.hollow.SlashAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
-import com.yuanno.soulsawakening.data.entity.EntityStatsBase;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -17,7 +15,6 @@ import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -52,13 +49,7 @@ public class StatsEvent {
             entityStats.setRace(ModValues.HOLLOW);
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
-            for (Ability ability : abilityData.getUnlockedAbilities())
-            {
-                if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY)) {
-                    System.out.println(ability.getMaxCooldown());
-                    System.out.println(ability.getCooldown());
-                }
-            }
+            entityStats.setHollowPoints(0);
         }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);

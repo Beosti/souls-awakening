@@ -52,6 +52,13 @@ public class ZanpakutoItem extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity owner) {
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
+        if (owner instanceof PlayerEntity)
+        {
+            PlayerEntity player = (PlayerEntity) owner;
+            IEntityStats entityStats = EntityStatsCapability.get(player);
+            int zanpakutoDamage = 7 + entityStats.getZanjutsuPoints()/10;
+            this.setDamage(itemStack, Math.round(zanpakutoDamage));
+        }
         if (!currentOwner.isEmpty()) {
             super.hurtEnemy(itemStack, target, owner);
             return true;
@@ -86,20 +93,22 @@ public class ZanpakutoItem extends SwordItem {
             {
                 entityStats.setRace(ModValues.FULLBRINGER);
             }
-                switch (element)
-                {
-                    case FIRE:
-                        abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
-                        abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
-                        break;
+            entityStats.setHohoPoints(0);
+            entityStats.setHakudaPoints(0);
+            entityStats.setZanjutsuPoints(0);
+            switch (element)
+            {
+                case FIRE:
+                    abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
+                    break;
                     case POISON:
                         abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
                         break;
-                }
-                PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-                PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-                return ActionResult.success(itemStack);
-
+            }
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+            PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+            return ActionResult.success(itemStack);
         }
         else if (!currentOwner.equals(player.getDisplayName().getString()) || !entityStats.getRace().equals(ModValues.SHINIGAMI))
             return ActionResult.fail(itemStack);

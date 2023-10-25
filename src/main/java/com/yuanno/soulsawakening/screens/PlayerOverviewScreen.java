@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.screens;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -60,7 +61,11 @@ public class PlayerOverviewScreen extends Screen {
         int leftShift = posX - 75;
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Name: " + TextFormatting.RESET + name, leftShift, posY + 20, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + race, leftShift, posY + 40, -1);
+        if (entityStats.getRace().equals(ModValues.HOLLOW))
+        {
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Hollow points: " + TextFormatting.RESET + entityStats.getHollowPoints(), leftShift, posY + 60, -1);
 
+        }
     }
     @Override
     public boolean isPauseScreen()

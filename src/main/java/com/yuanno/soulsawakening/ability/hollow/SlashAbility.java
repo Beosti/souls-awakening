@@ -1,8 +1,10 @@
-package com.yuanno.soulsawakening.ability.elements.hollow;
+package com.yuanno.soulsawakening.ability.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,7 +27,9 @@ public class SlashAbility extends Ability {
     @Override
     public void activate(LivingEntity livingEntityTarget, PlayerEntity player)
     {
-        livingEntityTarget.hurt(SLASH_DAMAGE, 2);
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        int slashDamage = 2 + entityStats.getHollowPoints()/10;
+        livingEntityTarget.hurt(SLASH_DAMAGE, Math.round(slashDamage));
         double d0 = (double)(-MathHelper.sin(livingEntityTarget.yRot * ((float)Math.PI / 180F)));
         double d1 = (double)MathHelper.cos(livingEntityTarget.yRot * ((float)Math.PI / 180F));
         if (livingEntityTarget.level instanceof ServerWorld) {
