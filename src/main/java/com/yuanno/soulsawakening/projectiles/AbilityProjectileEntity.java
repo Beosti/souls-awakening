@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.projectiles;
 
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
+import com.yuanno.soulsawakening.events.projectiles.ProjectileShootEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
 import net.minecraftforge.fml.network.FMLPlayMessages;
@@ -28,6 +30,7 @@ import java.util.List;
 
 public class AbilityProjectileEntity extends ThrowableEntity implements IEntityAdditionalSpawnData {
 
+    private int life = 64;
     private int maxLife = 64;
     private double collisionSizeX = 0;
     private double collisionSizeY = 0;
@@ -69,6 +72,10 @@ public class AbilityProjectileEntity extends ThrowableEntity implements IEntityA
         this.setOwner(entity);
     }
 
+    public void clearTargets()
+    {
+        this.targets.clear();
+    }
     @Nullable
     public LivingEntity getThrower()
     {
@@ -77,7 +84,15 @@ public class AbilityProjectileEntity extends ThrowableEntity implements IEntityA
         else
             return null;
     }
-
+    @Override
+    public void shootFromRotation(Entity thrower, float yRotIn, float xRotIn, float pitchOffset, float velocity, float inaccuracy)
+    {
+        ProjectileShootEvent event = new ProjectileShootEvent(this, velocity, inaccuracy);
+        if (MinecraftForge.EVENT_BUS.post(event))
+            return;
+        this.clearTargets();
+        super.shootFromRotation(thrower, yRotIn, xRotIn, pitchOffset, velocity, inaccuracy);
+    }
     @Nullable
     @Override
     public Entity getOwner()
@@ -111,6 +126,26 @@ public class AbilityProjectileEntity extends ThrowableEntity implements IEntityA
         this.sourceElement = SourceElement.values()[buffer.readInt()];
     }
 
+    public int getLife()
+    {
+        return this.life;
+    }
+
+    public int getMaxLife()
+    {
+        return this.maxLife;
+    }
+
+    public void setMaxLife(int life)
+    {
+        this.maxLife = life;
+        this.life = this.maxLife;
+    }
+
+    public void setLife(int life)
+    {
+        this.life = life;
+    }
 
     public double getCollisionSizeX()
     {
