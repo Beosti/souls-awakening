@@ -1,9 +1,12 @@
 package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.api.SourceElement;
+import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsBase;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -24,6 +27,9 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class StatPointsEvent {
 
+    private final static DamageSource HAKUDA_DAMAGE = new ModDamageSource("hakuda").setSourceTypes(SourceType.FIST).setSourceElement(SourceElement.NONE);
+    private final static DamageSource ZANJUTSU_DAMAGE = new ModDamageSource("zanjutsu").setSourceTypes(SourceType.SLASH).setSourceElement(SourceElement.NONE);
+
     /**
      * if fullbringer/shinigami something happens
      * if hitting fist you get hakuda
@@ -40,17 +46,20 @@ public class StatPointsEvent {
             return;
         if (!(target instanceof LivingEntity))
             return;
-        if (!entityStats.getRace().equals(ModValues.SHINIGAMI) || !entityStats.getRace().equals(ModValues.FULLBRINGER))
+        if (!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
             return;
         LivingEntity livingEntityTarget = (LivingEntity) target;
-
+        int hakudaPoints = (int) entityStats.getHakudaPoints();
+        int zanjutsuPoints = (int) entityStats.getZanjutsuPoints()/20;
         if (player.getMainHandItem().isEmpty())
         {
-            entityStats.alterHakudaPoints(1);
+            target.hurt(HAKUDA_DAMAGE, hakudaPoints);
+            entityStats.alterHakudaPoints(0.05);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         }
-        else if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()) && livingEntityTarget.isDeadOrDying())
+        else if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem()) && livingEntityTarget.getHealth() < 7 + zanjutsuPoints)
         {
+            target.hurt(ZANJUTSU_DAMAGE, zanjutsuPoints);
             entityStats.alterZanjutsuPoints(1);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         }
@@ -66,21 +75,24 @@ public class StatPointsEvent {
         {
             PlayerEntity playerHurtEntity = (PlayerEntity) hurtEntity;
             IEntityStats entityStats = EntityStatsCapability.get(playerHurtEntity);
-            if (!entityStats.getRace().equals(ModValues.SHINIGAMI) || !entityStats.getRace().equals(ModValues.FULLBRINGER))
-                return;
-            if (!event.getSource().equals(DamageSource.CACTUS))
-            {
-                entityStats.alterHakudaPoints(0.05);
-                if (entityStats.getHakudaPoints() >= 1)
-                {
-                    double newMaxHealth = Math.round(entityStats.getHakudaPoints());
-                    AttributeModifier maxHealthModifier = new AttributeModifier("HealthBoost", newMaxHealth, AttributeModifier.Operation.ADDITION);
+            if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER)) {
+                if (!event.getSource().equals(DamageSource.CACTUS)) {
+                    entityStats.alterHakudaPoints(0.05);
+                    if (entityStats.getHakudaPoints() >= 1) {
+                        double newMaxHealth = Math.round(entityStats.getHakudaPoints());
+                        AttributeModifier maxHealthModifier = new AttributeModifier("HealthBoost", newMaxHealth, AttributeModifier.Operation.ADDITION);
 
-                    // Apply the new maximum health value to the player
-                    playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).removeModifier(maxHealthModifier);
-                    playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(maxHealthModifier);
+                        // Apply the new maximum health value to the player
+                        //playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).removeModifier(maxHealthModifier);
+                        playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20 + newMaxHealth);
+                    }
+                    PacketHandler.sendTo(new SSyncEntityStatsPacket(playerHurtEntity.getId(), entityStats), playerHurtEntity);
                 }
-                PacketHandler.sendTo(new SSyncEntityStatsPacket(playerHurtEntity.getId(), entityStats), playerHurtEntity);
+            }
+            else if (entityStats.getRace().equals(ModValues.HOLLOW))
+            {
+                double newMaxHealth = Math.round(entityStats.getHollowPoints()/20);
+                playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20 + newMaxHealth);
             }
         }
     }

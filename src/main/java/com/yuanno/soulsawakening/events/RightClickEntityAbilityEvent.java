@@ -34,7 +34,7 @@ public class RightClickEntityAbilityEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
 
         // do something when the player is a shinigami and has shikai in hand
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
         {
 
         }
@@ -64,7 +64,7 @@ public class RightClickEntityAbilityEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
 
         // do something when the player is a shinigami and has shikai in hand
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
         {
             ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
             if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SHIKAI)) // do stuff while in shikai state and right click
