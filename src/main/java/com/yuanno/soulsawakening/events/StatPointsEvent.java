@@ -22,7 +22,6 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class StatPointsEvent {

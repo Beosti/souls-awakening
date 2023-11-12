@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 public class FireAttackAbility extends Ability {
     public static final FireAttackAbility INSTANCE = new FireAttackAbility();
 
+
     public FireAttackAbility() {
         this.setName("Fire Attack");
         this.setPassive(true);
