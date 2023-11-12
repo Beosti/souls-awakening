@@ -2,8 +2,8 @@ package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.hollow.BiteAbility;
-import com.yuanno.soulsawakening.ability.hollow.SlashAbility;
+import com.yuanno.soulsawakening.abilities.hollow.BiteAbility;
+import com.yuanno.soulsawakening.abilities.hollow.SlashAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;

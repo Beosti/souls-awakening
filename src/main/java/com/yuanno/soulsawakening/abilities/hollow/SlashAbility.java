@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.hollow;
+package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.SourceElement;

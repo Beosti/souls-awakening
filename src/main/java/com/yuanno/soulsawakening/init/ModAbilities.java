@@ -2,12 +2,14 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.elements.poison.AntidoteAuraAbility;
+import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
-import com.yuanno.soulsawakening.ability.hollow.BiteAbility;
-import com.yuanno.soulsawakening.ability.hollow.SlashAbility;
+import com.yuanno.soulsawakening.abilities.hollow.BiteAbility;
+import com.yuanno.soulsawakening.abilities.hollow.SlashAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import net.minecraft.util.ResourceLocation;
@@ -23,7 +25,7 @@ public class ModAbilities {
 
     public static final DeferredRegister<Ability<?>> ABILITIES= DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
 
-    public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE};
+    public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE, VenomousCloudAbility.INSTANCE, AntidoteAuraAbility.INSTANCE};
     public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
     public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE};
 
