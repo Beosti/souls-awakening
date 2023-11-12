@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.items.blueprints;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.elements.fire.FireAttackAbility;
+import com.yuanno.soulsawakening.ability.elements.fire.FireBallAbility;
 import com.yuanno.soulsawakening.ability.elements.fire.FireWaveAbility;
 import com.yuanno.soulsawakening.ability.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
@@ -101,6 +102,7 @@ public class ZanpakutoItem extends SwordItem {
                 case FIRE:
                     abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
                     abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(FireBallAbility.INSTANCE);
                     break;
                     case POISON:
                         abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);

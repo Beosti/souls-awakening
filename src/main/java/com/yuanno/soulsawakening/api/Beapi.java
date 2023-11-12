@@ -4,8 +4,11 @@ import com.google.common.base.Predicates;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.init.ModRegistry;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.IReorderingProcessor;
@@ -110,5 +113,28 @@ public class Beapi {
     public static String escapeTextFormattingChars(String text)
     {
         return text.replaceAll("§[0-9a-f]", "");
+    }
+
+    public static <T extends Entity> RegistryObject<EntityType<T>> registerEntityType(String localizedName, Supplier<EntityType<T>> supp)
+    {
+        String resourceName = Beapi.getResourceName(localizedName);
+        Beapi.getLangMap().put("entity." + Main.MODID + "." + resourceName, localizedName);
+
+        RegistryObject<EntityType<T>> reg = ModRegistry.ENTITY_TYPES.register(resourceName, supp);
+
+        return reg;
+    }
+
+    public static <T extends Entity> EntityType.Builder createEntityType(EntityType.IFactory<T> factory)
+    {
+        return createEntityType(factory, EntityClassification.MISC);
+    }
+    public static <T extends Entity> EntityType.Builder createEntityType(EntityType.IFactory<T> factory, EntityClassification classification)
+    {
+        EntityType.Builder<T> builder = EntityType.Builder.<T>of(factory, classification);
+
+        builder.setTrackingRange(128).setShouldReceiveVelocityUpdates(true).setUpdateInterval(1).sized(0.6F, 1.8F);
+
+        return builder;
     }
 }

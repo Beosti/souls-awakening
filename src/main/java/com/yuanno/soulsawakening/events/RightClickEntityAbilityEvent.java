@@ -60,6 +60,7 @@ public class RightClickEntityAbilityEvent {
 
         if (player.level.isClientSide)
             return;
+
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
 

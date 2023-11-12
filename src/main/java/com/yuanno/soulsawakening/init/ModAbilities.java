@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.elements.fire.FireAttackAbility;
+import com.yuanno.soulsawakening.ability.elements.fire.FireBallAbility;
 import com.yuanno.soulsawakening.ability.elements.fire.FireWaveAbility;
 import com.yuanno.soulsawakening.ability.hollow.BiteAbility;
 import com.yuanno.soulsawakening.ability.hollow.SlashAbility;
@@ -23,7 +24,7 @@ public class ModAbilities {
     public static final DeferredRegister<Ability<?>> ABILITIES= DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
 
     public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE};
-    public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE};
+    public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
     public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE};
 
     public static void register(IEventBus eventBus)
