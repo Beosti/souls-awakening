@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.elements.poison;
+package com.yuanno.soulsawakening.abilities.elements.poison;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import net.minecraft.entity.LivingEntity;

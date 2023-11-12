@@ -69,10 +69,16 @@ public class RightClickEntityAbilityEvent {
             ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
             if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SHIKAI)) // do stuff while in shikai state and right click
             {
-                for (Ability ability : abilityData.getActiveAbilities())
+                for (int i = 0; i < abilityData.getActiveAbilities().size(); i++)
                 {
-                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) || !ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI) || !ability.getState().equals(Ability.STATE.READY))
-                        return;
+                    Ability ability = abilityData.getActiveAbilities().get(i);
+                    System.out.println(ability);
+                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY))
+                        continue;
+                    if (!ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
+                        continue;
+                    if (!ability.getState().equals(Ability.STATE.READY))
+                        continue;
                     ability.onRightClick(player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);

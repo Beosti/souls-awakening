@@ -28,7 +28,7 @@ public class TickAbilityEvent {
         {
 
             if (ability.getState().equals(Ability.STATE.READY))
-                return;
+                continue;
 
             ability.duringCooldown();
         }

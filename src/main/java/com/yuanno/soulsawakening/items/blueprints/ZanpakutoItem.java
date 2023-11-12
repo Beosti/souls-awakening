@@ -1,10 +1,9 @@
 package com.yuanno.soulsawakening.items.blueprints;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.elements.fire.FireAttackAbility;
-import com.yuanno.soulsawakening.ability.elements.fire.FireBallAbility;
-import com.yuanno.soulsawakening.ability.elements.fire.FireWaveAbility;
-import com.yuanno.soulsawakening.ability.elements.poison.PoisonAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
+import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -29,7 +28,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 

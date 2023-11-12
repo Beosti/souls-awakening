@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.elements.fire;
+package com.yuanno.soulsawakening.abilities.elements.fire;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
@@ -18,8 +18,8 @@ public class FireWaveAbility extends Ability {
     public FireWaveAbility()
     {
         this.setName("Fire Wave");
-        this.setCooldown(10);
-        this.setMaxCooldown(10);
+        this.setCooldown(15);
+        this.setMaxCooldown(15);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setState(STATE.READY);
         this.setPassive(false);

@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.elements.fire;
+package com.yuanno.soulsawakening.abilities.elements.fire;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
@@ -11,6 +11,8 @@ public class FireBallAbility extends Ability {
     public FireBallAbility()
     {
         this.setName("Fireball");
+        this.setCooldown(10);
+        this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);

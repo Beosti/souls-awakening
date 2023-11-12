@@ -19,7 +19,12 @@ public class FireBallProjectile extends AbilityProjectileEntity {
         this.setDamage(7);
         this.setMaxLife(64);
         this.setPhysical(false);
+        this.onEntityImpactEvent = this::onEntityImpactEvent;
+
     }
 
-
+    private void onEntityImpactEvent(LivingEntity entity)
+    {
+        entity.setSecondsOnFire(5);
+    }
 }
