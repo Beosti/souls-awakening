@@ -6,6 +6,12 @@
   "overrides": [
     {
       "predicate": {
+        "stage": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto"
+    },
+    {
+      "predicate": {
         "stage": 2.0,
         "element": 1.0,
         "type": 1.0

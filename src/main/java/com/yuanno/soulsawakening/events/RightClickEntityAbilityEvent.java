@@ -63,7 +63,6 @@ public class RightClickEntityAbilityEvent {
 
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
-
         // do something when the player is a shinigami and has shikai in hand
         if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
         {
