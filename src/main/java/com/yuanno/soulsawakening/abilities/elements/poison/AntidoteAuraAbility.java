@@ -22,7 +22,7 @@ public class AntidoteAuraAbility extends Ability {
         this.setName("Antidote Cloud");
         this.setCooldown(17);
         this.setMaxCooldown(17);
-        this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
+        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setState(STATE.READY);
         this.setPassive(false);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);

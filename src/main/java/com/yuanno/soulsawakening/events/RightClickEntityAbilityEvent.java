@@ -73,11 +73,13 @@ public class RightClickEntityAbilityEvent {
                 {
                     Ability ability = abilityData.getActiveAbilities().get(i);
                     System.out.println(ability);
-                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY))
+                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && !ability.getActivationType().equals(Ability.ActivationType.SHIFT_RIGHT_CLICK))
                         continue;
                     if (!ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
                         continue;
                     if (!ability.getState().equals(Ability.STATE.READY))
+                        continue;
+                    if (ability.getActivationType().equals(Ability.ActivationType.SHIFT_RIGHT_CLICK) && !player.isCrouching())
                         continue;
                     ability.onRightClick(player);
                     ability.setState(Ability.STATE.COOLDOWN);

@@ -20,7 +20,7 @@ public class FireWaveAbility extends Ability {
         this.setName("Fire Wave");
         this.setCooldown(15);
         this.setMaxCooldown(15);
-        this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
+        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setState(STATE.READY);
         this.setPassive(false);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);
