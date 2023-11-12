@@ -36,7 +36,35 @@ public class RightClickEntityAbilityEvent {
         // do something when the player is a shinigami and has shikai in hand
         if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
         {
-
+            ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
+            if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SHIKAI)) // do stuff while in shikai state and right click
+            {
+                for (int i = 0; i < abilityData.getActiveAbilities().size(); i++)
+                {
+                    Ability ability = abilityData.getActiveAbilities().get(i);
+                    System.out.println(ability);
+                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY) && !ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY))
+                        continue;
+                    if (!ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
+                        continue;
+                    if (!ability.getState().equals(Ability.STATE.READY))
+                        continue;
+                    ability.onRightClickEntity(target, player);
+                    ability.setState(Ability.STATE.COOLDOWN);
+                    ability.setCooldown(ability.getMaxCooldown() / 20);
+                }
+            }
+            else if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.BANKAI)) // do stuff while in bankai state and right click
+            {
+                for (Ability ability : abilityData.getActiveAbilities())
+                {
+                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY) || !ability.getZanpakutoState().equals(ModResources.STATE.BANKAI) || !ability.getState().equals(Ability.STATE.READY))
+                        return;
+                    ability.onRightClickEntity(target, player);
+                    ability.setState(Ability.STATE.COOLDOWN);
+                    ability.setCooldown(ability.getMaxCooldown() / 20);
+                }
+            }
         }
         // do something when the player is a hollow
         else if (entityStats.getRace().equals(ModValues.HOLLOW))

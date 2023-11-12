@@ -19,6 +19,7 @@ public enum SourceElement
 	SMOKE,
 	METAL,
 	AIR,
+	SHADOW
 	;
 	
 
