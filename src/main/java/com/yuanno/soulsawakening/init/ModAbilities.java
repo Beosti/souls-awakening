@@ -2,8 +2,27 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.elements.heal.HealingTouchingAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.RevitilazingAuraAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.SelfHealingAbility;
+import com.yuanno.soulsawakening.abilities.elements.lunar.LunarBlessingAbility;
+import com.yuanno.soulsawakening.abilities.elements.lunar.LunarCrescentAbility;
+import com.yuanno.soulsawakening.abilities.elements.lunar.LunarWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.normal.NormalBuffAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.AntidoteAuraAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.DarkStepAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.ShadowAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.UmbralCloakAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.LightningStepAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStrikeAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.AquaSlashAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.TidalWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.WaterPrisonAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
@@ -25,8 +44,15 @@ public class ModAbilities {
 
     public static final DeferredRegister<Ability<?>> ABILITIES= DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
 
-    public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE, VenomousCloudAbility.INSTANCE, AntidoteAuraAbility.INSTANCE};
     public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
+    public static final Ability[] HEAL_ZANPAKUTO = new Ability[] {HealingTouchingAbility.INSTANCE, RevitilazingAuraAbility.INSTANCE, SelfHealingAbility.INSTANCE};
+    public static final Ability[] LUNAR_ZANPAKUTO = new Ability[] {LunarBlessingAbility.INSTANCE, LunarCrescentAbility.INSTANCE, LunarWaveAbility.INSTANCE};
+    public static final Ability[] NORMAL_ZANPAKUTO = new Ability[] {NormalBuffAbility.INSTANCE};
+    public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE, VenomousCloudAbility.INSTANCE, AntidoteAuraAbility.INSTANCE};
+    public static final Ability[] SHADOW_ZANPAKUTO = new Ability[] {DarkStepAbility.INSTANCE, ShadowAttackAbility.INSTANCE, UmbralCloakAbility.INSTANCE};
+    public static final Ability[] THUNDER_ZANPAKUTO = new Ability[] {LightningStepAbility.INSTANCE, ThunderAttackAbility.INSTANCE, ThunderStrikeAbility.INSTANCE};
+    public static final Ability[] WATER_ZANPAKUTO = new Ability[] {AquaSlashAbility.INSTANCE, TidalWaveAbility.INSTANCE, WaterPrisonAbility.INSTANCE};
+    public static final Ability[] WIND_ZANPAKUTO = new Ability[] {GaleForceAbility.INSTANCE, WhirldWindDanceAbility.INSTANCE, WindAttackAbility.INSTANCE};
     public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE};
 
     public static void register(IEventBus eventBus)
