@@ -9,6 +9,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.IReorderingProcessor;
@@ -28,6 +29,15 @@ import java.util.function.Supplier;
 public class Beapi {
 
     private static HashMap<String, String> langMap = new HashMap<String, String>();
+
+    public static Vector3d propulsion(LivingEntity entity, double extraVelX, double extraVelZ)
+    {
+        return propulsion(entity, extraVelX, 0, extraVelZ);
+    }
+    public static Vector3d propulsion(LivingEntity entity, double extraVelX, double extraVelY, double extraVelZ)
+    {
+        return entity.getLookAngle().multiply(extraVelX, extraVelY, extraVelZ);
+    }
 
     public static <T extends Entity> java.util.List<T> getNearbyEntities(BlockPos pos, IWorld world, double radius, @Nullable Predicate<Entity> predicate, Class<? extends T>... clazzez) {
         return getNearbyEntities(pos, world, radius, radius, radius, predicate, clazzez);
