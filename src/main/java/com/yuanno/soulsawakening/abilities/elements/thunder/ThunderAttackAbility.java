@@ -13,9 +13,9 @@ public class ThunderAttackAbility extends Ability {
 
 
     public ThunderAttackAbility() {
-        this.setName("Fire Attack");
+        this.setName("Thunder Attack");
         this.setPassive(true);
-        this.setActivationType(ActivationType.ATTACK);
+        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);
     }
 

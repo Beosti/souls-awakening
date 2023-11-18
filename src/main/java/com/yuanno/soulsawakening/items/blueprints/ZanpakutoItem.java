@@ -3,7 +3,28 @@ package com.yuanno.soulsawakening.items.blueprints;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.HealingTouchingAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.RevitilazingAuraAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.SelfHealingAbility;
+import com.yuanno.soulsawakening.abilities.elements.lunar.LunarBlessingAbility;
+import com.yuanno.soulsawakening.abilities.elements.lunar.LunarCrescentAbility;
+import com.yuanno.soulsawakening.abilities.elements.lunar.LunarWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.normal.NormalBuffAbility;
+import com.yuanno.soulsawakening.abilities.elements.poison.AntidoteAuraAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.DarkStepAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.ShadowAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.UmbralCloakAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.LightningStepAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStrikeAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.AquaSlashAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.TidalWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.WaterPrisonAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -79,7 +100,7 @@ public class ZanpakutoItem extends SwordItem {
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
         if (currentOwner.isEmpty()) {
-            ELEMENT element = ELEMENT.FIRE;
+            ELEMENT element = ELEMENT.DARK;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             itemStack.getTag().putString("zanpakutoElement", element.name());
@@ -97,14 +118,49 @@ public class ZanpakutoItem extends SwordItem {
             entityStats.setZanjutsuPoints(0);
             switch (element)
             {
+                case DARK:
+                    abilityData.addUnlockedAbility(DarkStepAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(ShadowAttackAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(UmbralCloakAbility.INSTANCE);
+                    break;
                 case FIRE:
                     abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
                     abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
                     abilityData.addUnlockedAbility(FireBallAbility.INSTANCE);
                     break;
-                    case POISON:
-                        abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
-                        break;
+                case HEAL:
+                    abilityData.addUnlockedAbility(HealingTouchingAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(RevitilazingAuraAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(SelfHealingAbility.INSTANCE);
+                    break;
+                case LIGHTNING:
+                    abilityData.addUnlockedAbility(LightningStepAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(ThunderAttackAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(ThunderStrikeAbility.INSTANCE);
+                    break;
+                case LUNAR:
+                    abilityData.addUnlockedAbility(LunarBlessingAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(LunarCrescentAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(LunarWaveAbility.INSTANCE);
+                    break;
+                case NORMAL:
+                    abilityData.addUnlockedAbility(NormalBuffAbility.INSTANCE);
+                    break;
+                case POISON:
+                    abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(VenomousCloudAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(AntidoteAuraAbility.INSTANCE);
+                    break;
+                case WATER:
+                    abilityData.addUnlockedAbility(AquaSlashAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(TidalWaveAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(WaterPrisonAbility.INSTANCE);
+                    break;
+                case WIND:
+                    abilityData.addUnlockedAbility(GaleForceAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(WhirldWindDanceAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
+                    break;
             }
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);

@@ -43,22 +43,29 @@ public class ModAbilities {
 
 
     public static final DeferredRegister<Ability<?>> ABILITIES= DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
+    public static final Ability[] DARK_ZANPAKUTO = new Ability[] {DarkStepAbility.INSTANCE, ShadowAttackAbility.INSTANCE, UmbralCloakAbility.INSTANCE};
 
     public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
     public static final Ability[] HEAL_ZANPAKUTO = new Ability[] {HealingTouchingAbility.INSTANCE, RevitilazingAuraAbility.INSTANCE, SelfHealingAbility.INSTANCE};
+    public static final Ability[] THUNDER_ZANPAKUTO = new Ability[] {LightningStepAbility.INSTANCE, ThunderAttackAbility.INSTANCE, ThunderStrikeAbility.INSTANCE};
     public static final Ability[] LUNAR_ZANPAKUTO = new Ability[] {LunarBlessingAbility.INSTANCE, LunarCrescentAbility.INSTANCE, LunarWaveAbility.INSTANCE};
     public static final Ability[] NORMAL_ZANPAKUTO = new Ability[] {NormalBuffAbility.INSTANCE};
     public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE, VenomousCloudAbility.INSTANCE, AntidoteAuraAbility.INSTANCE};
-    public static final Ability[] SHADOW_ZANPAKUTO = new Ability[] {DarkStepAbility.INSTANCE, ShadowAttackAbility.INSTANCE, UmbralCloakAbility.INSTANCE};
-    public static final Ability[] THUNDER_ZANPAKUTO = new Ability[] {LightningStepAbility.INSTANCE, ThunderAttackAbility.INSTANCE, ThunderStrikeAbility.INSTANCE};
     public static final Ability[] WATER_ZANPAKUTO = new Ability[] {AquaSlashAbility.INSTANCE, TidalWaveAbility.INSTANCE, WaterPrisonAbility.INSTANCE};
     public static final Ability[] WIND_ZANPAKUTO = new Ability[] {GaleForceAbility.INSTANCE, WhirldWindDanceAbility.INSTANCE, WindAttackAbility.INSTANCE};
     public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE};
 
     public static void register(IEventBus eventBus)
     {
+        registerAbilities(DARK_ZANPAKUTO);
         registerAbilities(FIRE_ZANPAKUTO);
+        registerAbilities(HEAL_ZANPAKUTO);
+        registerAbilities(THUNDER_ZANPAKUTO);
+        registerAbilities(LUNAR_ZANPAKUTO);
+        registerAbilities(NORMAL_ZANPAKUTO);
         registerAbilities(POISON_ZANPAKUTO);
+        registerAbilities(WATER_ZANPAKUTO);
+        registerAbilities(WIND_ZANPAKUTO);
         registerAbilities(HOLLOW);
     }
 

@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.abilities.elements.shadow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -25,7 +26,7 @@ public class UmbralCloakAbility extends Ability {
     @Override
     public void onRightClick(PlayerEntity player)
     {
-        if (!player.hasEffect(Effects.INVISIBILITY))
-            player.addEffect(new EffectInstance(Effects.INVISIBILITY, 160, 2));
+        if (!player.hasEffect(ModEffects.VANISH_INVISIBILITY.get()))
+            player.addEffect(new EffectInstance(ModEffects.VANISH_INVISIBILITY.get(), 160, 2, false, false));
     }
 }

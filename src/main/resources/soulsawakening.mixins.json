@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "package": "com.yuanno.soulsawakening.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "soulsawakening.refmap.json",
+  "mixins": [
+
+    "EntityMixin"
+
+  ],
+  "client": [
+
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": -1
+  },
+  "minVersion": "0.8"
+}

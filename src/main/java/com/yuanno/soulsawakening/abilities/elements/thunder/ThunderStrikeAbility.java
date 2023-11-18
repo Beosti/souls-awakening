@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ThunderStrikeAbility extends Ability {
     public static final ThunderStrikeAbility INSTANCE = new ThunderStrikeAbility();
-    private final static DamageSource LIGHTNING_DAMAGE = new ModDamageSource("fire_wave").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.FIRE);
+    private final static DamageSource LIGHTNING_DAMAGE = new ModDamageSource("lightning_wave").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.LIGHTNING);
 
     public ThunderStrikeAbility()
     {
