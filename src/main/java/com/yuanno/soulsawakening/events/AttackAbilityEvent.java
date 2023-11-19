@@ -43,7 +43,7 @@ public class AttackAbilityEvent {
                         for (Ability ability : abilityData.getUnlockedAbilities())
                         {
                             if (!ability.getActivationType().equals(Ability.ActivationType.ATTACK) || !ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
-                                return;
+                                continue;
                             ability.activate(livingEntityTarget, player);
                         }
                     }

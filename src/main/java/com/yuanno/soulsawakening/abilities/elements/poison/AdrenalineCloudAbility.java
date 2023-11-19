@@ -2,24 +2,20 @@ package com.yuanno.soulsawakening.abilities.elements.poison;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
-import com.yuanno.soulsawakening.api.SourceElement;
-import com.yuanno.soulsawakening.api.SourceType;
-import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
 
 import java.util.List;
 
-public class AntidoteAuraAbility extends Ability {
+public class AdrenalineCloudAbility extends Ability {
 
-    public static final AntidoteAuraAbility INSTANCE = new AntidoteAuraAbility();
-    public AntidoteAuraAbility()
+    public static final AdrenalineCloudAbility INSTANCE = new AdrenalineCloudAbility();
+    public AdrenalineCloudAbility()
     {
-        this.setName("Antidote Cloud");
+        this.setName("Adrenaline Cloud");
         this.setCooldown(17);
         this.setMaxCooldown(17);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
@@ -32,11 +28,12 @@ public class AntidoteAuraAbility extends Ability {
     public void onRightClick(PlayerEntity player)
     {
         List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
+        targets.add(player);
         for (LivingEntity livingEntity : targets)
         {
-            if (!livingEntity.hasEffect(Effects.ABSORPTION))
-                livingEntity.addEffect(new EffectInstance(Effects.ABSORPTION, 120, 1));
-            float missingHealth = livingEntity.getMaxHealth() - livingEntity.getHealth();
-            livingEntity.heal(missingHealth / 2);
+            if (!livingEntity.hasEffect(Effects.MOVEMENT_SPEED))
+                livingEntity.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 240, 1));
+            if (!livingEntity.hasEffect(Effects.DAMAGE_BOOST))
+                livingEntity.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, 240, 1));
         }
     }}

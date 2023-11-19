@@ -25,6 +25,16 @@ public class WaterPrisonAbility extends Ability {
     {
         target.level.setBlockAndUpdate(target.blockPosition(), Blocks.WATER.defaultBlockState());
         target.level.setBlockAndUpdate(target.blockPosition().above(), Blocks.WATER.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().below(), Blocks.ICE.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().above().above(), Blocks.ICE.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().east(), Blocks.ICE.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().north(), Blocks.ICE.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().south(), Blocks.ICE.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().west(), Blocks.ICE.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().above().east(), Blocks.ICE.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().above().north(), Blocks.ICE.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().above().south(), Blocks.ICE.defaultBlockState());
+        target.level.setBlockAndUpdate(target.blockPosition().above().west(), Blocks.ICE.defaultBlockState());
 
     }
 }

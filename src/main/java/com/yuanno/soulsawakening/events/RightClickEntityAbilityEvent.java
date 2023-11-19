@@ -51,7 +51,6 @@ public class RightClickEntityAbilityEvent {
                         continue;
                     if (!ability.getState().equals(Ability.STATE.READY))
                         continue;
-                    System.out.println("Right clicked entity!");
                     ability.onRightClickEntity(target, player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);
@@ -123,7 +122,6 @@ public class RightClickEntityAbilityEvent {
                     if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && player.isCrouching())
                         continue;
 
-                    System.out.println("Right clicked empty!");
                     ability.onRightClick(player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);

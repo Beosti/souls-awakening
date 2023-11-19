@@ -23,8 +23,8 @@ public class NormalBuffAbility extends Ability {
     @Override
     public void onRightClick(PlayerEntity user)
     {
-        user.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, 200, 2));
-        user.addEffect(new EffectInstance(Effects.DIG_SPEED, 200, 2));
+        user.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, 400, 3));
+        user.addEffect(new EffectInstance(Effects.DIG_SPEED, 400, 3));
 
 
     }

@@ -27,7 +27,7 @@ public class ShadowAttackAbility extends Ability{
     @Override
     public void activate(LivingEntity livingEntityTarget, PlayerEntity player)
     {
-        if (!livingEntityTarget.hasEffect(Effects.BLINDNESS))
-            livingEntityTarget.addEffect(new EffectInstance(Effects.BLINDNESS, 40, 0));
+        if (!livingEntityTarget.hasEffect(Effects.CONFUSION))
+            livingEntityTarget.addEffect(new EffectInstance(Effects.CONFUSION, 40, 0));
     }
 }

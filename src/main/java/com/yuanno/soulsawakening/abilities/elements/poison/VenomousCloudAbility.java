@@ -33,6 +33,7 @@ public class VenomousCloudAbility extends Ability {
     public void onRightClick(PlayerEntity player)
     {
         List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
+        targets.remove(player);
         for (LivingEntity livingEntity : targets)
         {
             if (!livingEntity.hasEffect(Effects.POISON))

@@ -10,7 +10,7 @@ import com.yuanno.soulsawakening.abilities.elements.lunar.LunarBlessingAbility;
 import com.yuanno.soulsawakening.abilities.elements.lunar.LunarCrescentAbility;
 import com.yuanno.soulsawakening.abilities.elements.lunar.LunarWaveAbility;
 import com.yuanno.soulsawakening.abilities.elements.normal.NormalBuffAbility;
-import com.yuanno.soulsawakening.abilities.elements.poison.AntidoteAuraAbility;
+import com.yuanno.soulsawakening.abilities.elements.poison.AdrenalineCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.DarkStepAbility;
@@ -100,7 +100,7 @@ public class ZanpakutoItem extends SwordItem {
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
         if (currentOwner.isEmpty()) {
-            ELEMENT element = ELEMENT.LUNAR;
+            ELEMENT element = ELEMENT.WIND;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             itemStack.getTag().putString("zanpakutoElement", element.name());
@@ -149,7 +149,7 @@ public class ZanpakutoItem extends SwordItem {
                 case POISON:
                     abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
                     abilityData.addUnlockedAbility(VenomousCloudAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(AntidoteAuraAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(AdrenalineCloudAbility.INSTANCE);
                     break;
                 case WATER:
                     abilityData.addUnlockedAbility(AquaSlashAbility.INSTANCE);
