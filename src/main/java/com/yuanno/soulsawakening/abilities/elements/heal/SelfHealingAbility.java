@@ -1,13 +1,14 @@
 package com.yuanno.soulsawakening.abilities.elements.heal;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
-public class SelfHealingAbility extends Ability {
+public class SelfHealingAbility extends Ability implements IRightClickEmptyAbility {
     public static final SelfHealingAbility INSTANCE = new SelfHealingAbility();
 
     public SelfHealingAbility()

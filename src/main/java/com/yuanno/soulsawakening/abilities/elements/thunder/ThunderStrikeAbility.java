@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.thunder;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
@@ -17,7 +18,7 @@ import net.minecraft.util.math.RayTraceResult;
 
 import java.util.List;
 
-public class ThunderStrikeAbility extends Ability {
+public class ThunderStrikeAbility extends Ability implements IRightClickEmptyAbility {
     public static final ThunderStrikeAbility INSTANCE = new ThunderStrikeAbility();
     private final static DamageSource LIGHTNING_DAMAGE = new ModDamageSource("lightning_wave").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.LIGHTNING);
 
@@ -32,7 +33,7 @@ public class ThunderStrikeAbility extends Ability {
     }
 
     @Override
-    public void onRightClick(PlayerEntity player)
+    public void onShiftRightClick(PlayerEntity player)
     {
         RayTraceResult rayTraceResult = Beapi.rayTraceBlocksAndEntities(player, 20);
         BlockPos blockPos = null;

@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.heal;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.LivingEntity;
@@ -10,7 +11,7 @@ import net.minecraft.potion.Effects;
 
 import java.util.List;
 
-public class RevitilazingAuraAbility extends Ability {
+public class RevitilazingAuraAbility extends Ability implements IRightClickEmptyAbility {
     public static final RevitilazingAuraAbility INSTANCE = new RevitilazingAuraAbility();
 
     public RevitilazingAuraAbility()
@@ -24,7 +25,7 @@ public class RevitilazingAuraAbility extends Ability {
     }
 
     @Override
-    public void onRightClick(PlayerEntity user)
+    public void onShiftRightClick(PlayerEntity user)
     {
         List<LivingEntity> targets = Beapi.getNearbyEntities(user.blockPosition(), user.level, 10, null, LivingEntity.class);
         for (LivingEntity livingEntity : targets)

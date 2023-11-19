@@ -1,13 +1,14 @@
 package com.yuanno.soulsawakening.abilities.elements.water;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
 import com.yuanno.soulsawakening.entities.projectiles.water.WaterSlashProjectile;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class WaterPrisonAbility extends Ability {
+public class WaterPrisonAbility extends Ability implements IRightClickEntityAbility {
     public static final WaterPrisonAbility INSTANCE = new WaterPrisonAbility();
 
     public WaterPrisonAbility()

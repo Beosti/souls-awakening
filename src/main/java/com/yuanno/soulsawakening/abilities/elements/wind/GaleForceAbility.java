@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.wind;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +11,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 
-public class GaleForceAbility extends Ability {
+public class GaleForceAbility extends Ability implements IRightClickEmptyAbility {
     public static final GaleForceAbility INSTANCE = new GaleForceAbility();
 
     public GaleForceAbility()

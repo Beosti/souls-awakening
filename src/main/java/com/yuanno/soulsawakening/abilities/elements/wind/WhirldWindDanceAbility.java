@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening.abilities.elements.wind;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
@@ -13,7 +15,7 @@ import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.List;
 
-public class WhirldWindDanceAbility extends Ability {
+public class WhirldWindDanceAbility extends Ability implements IRightClickEmptyAbility {
     public static final WhirldWindDanceAbility INSTANCE = new WhirldWindDanceAbility();
     private final static DamageSource WIND_DAMAGE = new ModDamageSource("wind_wave").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.WIND);
     int propulsion = 5;
@@ -29,7 +31,7 @@ public class WhirldWindDanceAbility extends Ability {
     }
 
     @Override
-    public void onRightClick(PlayerEntity player)
+    public void onShiftRightClick(PlayerEntity player)
     {
         List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
         targets.remove(player);

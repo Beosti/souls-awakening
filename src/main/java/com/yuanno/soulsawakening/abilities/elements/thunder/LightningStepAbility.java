@@ -1,13 +1,14 @@
 package com.yuanno.soulsawakening.abilities.elements.thunder;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 
-public class LightningStepAbility extends Ability {
+public class LightningStepAbility extends Ability implements IRightClickEmptyAbility {
     public static final LightningStepAbility INSTANCE = new LightningStepAbility();
 
     public LightningStepAbility()

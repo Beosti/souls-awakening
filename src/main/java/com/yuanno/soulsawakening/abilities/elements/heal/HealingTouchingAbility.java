@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.heal;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.LivingEntity;
@@ -10,7 +11,7 @@ import net.minecraft.potion.Effects;
 
 import java.util.List;
 
-public class HealingTouchingAbility extends Ability {
+public class HealingTouchingAbility extends Ability implements IRightClickEntityAbility {
     public static final HealingTouchingAbility INSTANCE = new HealingTouchingAbility();
 
     public HealingTouchingAbility()
@@ -22,7 +23,6 @@ public class HealingTouchingAbility extends Ability {
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);
     }
-
     @Override
     public void onRightClickEntity(LivingEntity entity, PlayerEntity user)
     {

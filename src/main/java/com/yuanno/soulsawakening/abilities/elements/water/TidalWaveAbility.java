@@ -1,12 +1,13 @@
 package com.yuanno.soulsawakening.abilities.elements.water;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.water.TidalWaveProjectile;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class TidalWaveAbility extends Ability {
+public class TidalWaveAbility extends Ability implements IRightClickEmptyAbility {
     public static final TidalWaveAbility INSTANCE = new TidalWaveAbility();
 
     public TidalWaveAbility()
@@ -20,7 +21,7 @@ public class TidalWaveAbility extends Ability {
     }
 
     @Override
-    public void onRightClick(PlayerEntity user)
+    public void onShiftRightClick(PlayerEntity user)
     {
         TidalWaveProjectile projectile = new TidalWaveProjectile(user.level, user);
         user.level.addFreshEntity(projectile);

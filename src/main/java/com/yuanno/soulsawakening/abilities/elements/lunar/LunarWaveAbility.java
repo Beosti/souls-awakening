@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.lunar;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
@@ -14,7 +15,7 @@ import net.minecraft.util.DamageSource;
 
 import java.util.List;
 
-public class LunarWaveAbility extends Ability {
+public class LunarWaveAbility extends Ability implements IRightClickEmptyAbility {
     public static final LunarWaveAbility INSTANCE = new LunarWaveAbility();
     public LunarWaveAbility()
     {
@@ -28,7 +29,7 @@ public class LunarWaveAbility extends Ability {
     }
 
     @Override
-    public void onRightClick(PlayerEntity player)
+    public void onShiftRightClick(PlayerEntity player)
     {
         List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
         for (LivingEntity livingEntity : targets)

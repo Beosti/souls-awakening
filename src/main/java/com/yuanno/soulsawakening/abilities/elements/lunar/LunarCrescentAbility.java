@@ -1,12 +1,14 @@
 package com.yuanno.soulsawakening.abilities.elements.lunar;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.lunar.LunarCrescentProjectile;
 import com.yuanno.soulsawakening.init.ModResources;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class LunarCrescentAbility extends Ability {
+public class LunarCrescentAbility extends Ability implements IRightClickEmptyAbility {
     public static final LunarCrescentAbility INSTANCE = new LunarCrescentAbility();
 
     public LunarCrescentAbility()

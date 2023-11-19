@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.lunar;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.LivingEntity;
@@ -8,7 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
-public class LunarBlessingAbility extends Ability {
+public class LunarBlessingAbility extends Ability implements IRightClickEntityAbility {
     public static final LunarBlessingAbility INSTANCE = new LunarBlessingAbility();
 
     public LunarBlessingAbility()

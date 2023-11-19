@@ -2,6 +2,8 @@ package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -45,13 +47,15 @@ public class RightClickEntityAbilityEvent {
                 for (int i = 0; i < abilityData.getActiveAbilities().size(); i++)
                 {
                     Ability ability = abilityData.getActiveAbilities().get(i);
-                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY))
+                    if (!(ability instanceof IRightClickEntityAbility))
                         continue;
                     if (!ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
                         continue;
                     if (!ability.getState().equals(Ability.STATE.READY))
                         continue;
-                    ability.onRightClickEntity(target, player);
+
+
+                    ((IRightClickEntityAbility) ability).onRightClickEntity(target, player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);
                     entityInteractFired = true;
@@ -62,9 +66,9 @@ public class RightClickEntityAbilityEvent {
             {
                 for (Ability ability : abilityData.getActiveAbilities())
                 {
-                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY) || !ability.getZanpakutoState().equals(ModResources.STATE.BANKAI) || !ability.getState().equals(Ability.STATE.READY))
+                    if (!(ability instanceof IRightClickEntityAbility) || !ability.getZanpakutoState().equals(ModResources.STATE.BANKAI) || !ability.getState().equals(Ability.STATE.READY))
                         return;
-                    ability.onRightClickEntity(target, player);
+                    ((IRightClickEntityAbility) ability).onRightClickEntity(target, player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);
                 }
@@ -75,9 +79,9 @@ public class RightClickEntityAbilityEvent {
         {
             for (Ability ability : abilityData.getActiveAbilities())
             {
-                if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY) || !ability.getState().equals(Ability.STATE.READY))
+                if (!(ability instanceof IRightClickEntityAbility))
                     return;
-                ability.onRightClickEntity(target, player);
+                ((IRightClickEntityAbility) ability).onRightClickEntity(target, player);
                 ability.setState(Ability.STATE.COOLDOWN);
                 ability.setCooldown(ability.getMaxCooldown() / 20);
 
@@ -111,18 +115,23 @@ public class RightClickEntityAbilityEvent {
                 for (int i = 0; i < abilityData.getActiveAbilities().size(); i++)
                 {
                     Ability ability = abilityData.getActiveAbilities().get(i);
-                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && !ability.getActivationType().equals(Ability.ActivationType.SHIFT_RIGHT_CLICK))
-                        continue;
                     if (!ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
                         continue;
                     if (!ability.getState().equals(Ability.STATE.READY))
                         continue;
-                    if (ability.getActivationType().equals(Ability.ActivationType.SHIFT_RIGHT_CLICK) && !player.isCrouching())
+                    if (!(ability instanceof IRightClickEmptyAbility))
                         continue;
-                    if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && player.isCrouching())
+                    System.out.println(ability.getActivationType());
+                    Ability.ActivationType activationType = ability.getActivationType();
+                    if (activationType.equals(Ability.ActivationType.SHIFT_RIGHT_CLICK) && player.isCrouching())
+                        ((IRightClickEmptyAbility) ability).onShiftRightClick(player);
+                    else if (activationType.equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && !player.isCrouching())
+                        ((IRightClickEmptyAbility) ability).onRightClick(player);
+                    else
                         continue;
 
-                    ability.onRightClick(player);
+
+
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);
                     return;
@@ -134,7 +143,7 @@ public class RightClickEntityAbilityEvent {
                 {
                     if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) || !ability.getZanpakutoState().equals(ModResources.STATE.BANKAI) || !ability.getState().equals(Ability.STATE.READY))
                         return;
-                    ability.onRightClick(player);
+                    ((IRightClickEmptyAbility) ability).onRightClick(player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);
                 }

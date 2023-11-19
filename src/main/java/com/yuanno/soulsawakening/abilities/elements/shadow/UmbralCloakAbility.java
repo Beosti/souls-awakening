@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.shadow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModResources;
@@ -10,7 +11,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 
-public class UmbralCloakAbility extends Ability {
+public class UmbralCloakAbility extends Ability implements IRightClickEmptyAbility {
     public static final UmbralCloakAbility INSTANCE = new UmbralCloakAbility();
 
     public UmbralCloakAbility()
@@ -24,7 +25,7 @@ public class UmbralCloakAbility extends Ability {
     }
 
     @Override
-    public void onRightClick(PlayerEntity player)
+    public void onShiftRightClick(PlayerEntity player)
     {
         if (!player.hasEffect(ModEffects.VANISH_INVISIBILITY.get()))
             player.addEffect(new EffectInstance(ModEffects.VANISH_INVISIBILITY.get(), 160, 2, false, false));

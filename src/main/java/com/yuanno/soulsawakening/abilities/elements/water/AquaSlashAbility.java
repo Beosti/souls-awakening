@@ -1,12 +1,13 @@
 package com.yuanno.soulsawakening.abilities.elements.water;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.water.WaterSlashProjectile;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class AquaSlashAbility extends Ability {
+public class AquaSlashAbility extends Ability implements IRightClickEmptyAbility {
     public static final AquaSlashAbility INSTANCE = new AquaSlashAbility();
 
     public AquaSlashAbility()

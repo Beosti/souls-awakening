@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.poison;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
@@ -14,7 +15,7 @@ import net.minecraft.util.DamageSource;
 
 import java.util.List;
 
-public class VenomousCloudAbility extends Ability {
+public class VenomousCloudAbility extends Ability implements IRightClickEmptyAbility {
 
     public static final VenomousCloudAbility INSTANCE = new VenomousCloudAbility();
     private final static DamageSource FIRE_DAMAGE = new ModDamageSource("venomous_cloud").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.POISON);
@@ -30,7 +31,7 @@ public class VenomousCloudAbility extends Ability {
     }
 
     @Override
-    public void onRightClick(PlayerEntity player)
+    public void onShiftRightClick(PlayerEntity player)
     {
         List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
         targets.remove(player);

@@ -1,11 +1,12 @@
 package com.yuanno.soulsawakening.abilities.elements.fire;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class FireBallAbility extends Ability {
+public class FireBallAbility extends Ability implements IRightClickEmptyAbility {
     public static final FireBallAbility INSTANCE = new FireBallAbility();
 
     public FireBallAbility()

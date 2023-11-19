@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.poison;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.LivingEntity;
@@ -10,7 +11,7 @@ import net.minecraft.potion.Effects;
 
 import java.util.List;
 
-public class AdrenalineCloudAbility extends Ability {
+public class AdrenalineCloudAbility extends Ability implements IRightClickEmptyAbility {
 
     public static final AdrenalineCloudAbility INSTANCE = new AdrenalineCloudAbility();
     public AdrenalineCloudAbility()
