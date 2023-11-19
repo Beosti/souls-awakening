@@ -43,7 +43,7 @@ public class RightClickEntityAbilityEvent {
                 {
                     Ability ability = abilityData.getActiveAbilities().get(i);
                     System.out.println(ability);
-                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY) && !ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY))
+                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY))
                         continue;
                     if (!ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
                         continue;
