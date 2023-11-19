@@ -26,6 +26,7 @@ public class FireProjectiles {
     public static void registerEntityRenderers(FMLClientSetupEvent event)
     {
         RenderingRegistry.registerEntityRenderingHandler(FIREBALL.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
+                        .setScale(1, 1, 1)
                 .setColor("#FF0000"));
     }
 }

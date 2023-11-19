@@ -19,8 +19,9 @@ public class CubeModel extends EntityModel
 		this.texHeight = 64;
 
 		shape1 = new ModelRenderer(this);
-		shape1.setPos(0.0F, 4.0F, 0.0F);
-		shape1.texOffs(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, true);
+		shape1.setPos(0.0F, 0.0F, 0.0F);
+		shape1.texOffs(0, 0)
+				.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, true);
 	}
 
 	@Override

@@ -100,7 +100,7 @@ public class ZanpakutoItem extends SwordItem {
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
         if (currentOwner.isEmpty()) {
-            ELEMENT element = ELEMENT.DARK;
+            ELEMENT element = ELEMENT.FIRE;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             itemStack.getTag().putString("zanpakutoElement", element.name());
