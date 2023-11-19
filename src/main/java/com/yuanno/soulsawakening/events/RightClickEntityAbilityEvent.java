@@ -14,7 +14,10 @@ import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -22,7 +25,7 @@ import net.minecraftforge.fml.common.Mod;
 public class RightClickEntityAbilityEvent {
 
     @SubscribeEvent
-    public static void onRightClickEntity(PlayerInteractEvent.EntityInteract event)
+    public static void onRightClickEntity(PlayerInteractEvent.RightClickItem.EntityInteract event)
     {
         PlayerEntity player = event.getPlayer();
         if (!(event.getTarget() instanceof  LivingEntity))
@@ -42,13 +45,13 @@ public class RightClickEntityAbilityEvent {
                 for (int i = 0; i < abilityData.getActiveAbilities().size(); i++)
                 {
                     Ability ability = abilityData.getActiveAbilities().get(i);
-                    System.out.println(ability);
                     if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY))
                         continue;
                     if (!ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
                         continue;
                     if (!ability.getState().equals(Ability.STATE.READY))
                         continue;
+                    System.out.println("Right clicked entity!");
                     ability.onRightClickEntity(target, player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);
@@ -82,10 +85,9 @@ public class RightClickEntityAbilityEvent {
     }
 
     @SubscribeEvent
-    public static void onRightClick(PlayerInteractEvent.RightClickItem event)
+    public static void onRightClick(PlayerInteractEvent.EntityInteract event)
     {
         PlayerEntity player = event.getPlayer();
-
         if (player.level.isClientSide)
             return;
 
@@ -110,6 +112,7 @@ public class RightClickEntityAbilityEvent {
                         continue;
                     if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && player.isCrouching())
                         continue;
+                    System.out.println("Right clicked empty!");
                     ability.onRightClick(player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);
