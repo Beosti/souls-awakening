@@ -15,7 +15,7 @@ public class RevitilazingAuraAbility extends Ability {
 
     public RevitilazingAuraAbility()
     {
-        this.setName("Self Healing");
+        this.setName("Revitilazing Aura");
         this.setCooldown(20);
         this.setMaxCooldown(20);
         this.setPassive(false);
@@ -30,7 +30,7 @@ public class RevitilazingAuraAbility extends Ability {
         for (LivingEntity livingEntity : targets)
         {
             if (!livingEntity.hasEffect(Effects.REGENERATION))
-                livingEntity.addEffect(new EffectInstance(Effects.REGENERATION, 120, 1));
+                livingEntity.addEffect(new EffectInstance(Effects.REGENERATION, 240, 2));
 
         }
 

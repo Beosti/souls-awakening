@@ -31,7 +31,7 @@ public class SelfHealingAbility extends Ability {
         else
             user.addEffect(new EffectInstance(Effects.ABSORPTION, 120, 1));
         float missingHealth = user.getMaxHealth() - user.getHealth();
-        user.heal(missingHealth / 2);
+        user.heal(missingHealth / 2 + 4);
 
     }
 }

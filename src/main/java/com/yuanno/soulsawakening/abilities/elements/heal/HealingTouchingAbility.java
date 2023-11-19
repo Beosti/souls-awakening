@@ -15,7 +15,7 @@ public class HealingTouchingAbility extends Ability {
 
     public HealingTouchingAbility()
     {
-        this.setName("Self Healing");
+        this.setName("Healing Touch");
         this.setCooldown(20);
         this.setMaxCooldown(20);
         this.setPassive(false);
@@ -34,6 +34,6 @@ public class HealingTouchingAbility extends Ability {
         else
             entity.addEffect(new EffectInstance(Effects.ABSORPTION, 120, 1));
         float missingHealth = entity.getMaxHealth() - entity.getHealth();
-        entity.heal(missingHealth / 2);
+        entity.heal(missingHealth / 2 + 4);
     }
 }
