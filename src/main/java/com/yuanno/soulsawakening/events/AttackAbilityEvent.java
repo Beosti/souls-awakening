@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IAttackAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -42,9 +43,9 @@ public class AttackAbilityEvent {
                     {
                         for (Ability ability : abilityData.getUnlockedAbilities())
                         {
-                            if (!ability.getActivationType().equals(Ability.ActivationType.ATTACK) || !ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
+                            if (!(ability instanceof IAttackAbility) || !ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
                                 continue;
-                            ability.activate(livingEntityTarget, player);
+                            ((IAttackAbility) ability).activate(livingEntityTarget, player);
                         }
                     }
                 }
@@ -55,8 +56,8 @@ public class AttackAbilityEvent {
             {
                 for (Ability ability : abilityData.getUnlockedAbilities())
                 {
-                    if (ability.getActivationType().equals(Ability.ActivationType.ATTACK)) {
-                        ability.activate(livingEntityTarget, player);
+                    if ((ability instanceof IAttackAbility)) {
+                        ((IAttackAbility) ability).activate(livingEntityTarget, player);
                         double knockback = 1.5;
                         ((LivingEntity)livingEntityTarget).knockback((float)knockback * 0.5F, (double) MathHelper.sin(player.yRot * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(player.yRot * ((float)Math.PI / 180F))));
                     }

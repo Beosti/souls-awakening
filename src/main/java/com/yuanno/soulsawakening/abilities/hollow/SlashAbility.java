@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IAttackAbility;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -13,7 +14,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.server.ServerWorld;
 
-public class SlashAbility extends Ability {
+public class SlashAbility extends Ability implements IAttackAbility {
     public static final SlashAbility INSTANCE = new SlashAbility();
     private final static DamageSource SLASH_DAMAGE = new ModDamageSource("slash").setSourceTypes(SourceType.SLASH).setSourceElement(SourceElement.NONE);
 
