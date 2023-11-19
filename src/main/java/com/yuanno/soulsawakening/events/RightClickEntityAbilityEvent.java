@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class RightClickEntityAbilityEvent {
-
+    private static boolean entityInteractFired = false;
     @SubscribeEvent
     public static void onRightClickEntity(PlayerInteractEvent.RightClickItem.EntityInteract event)
     {
@@ -55,6 +55,8 @@ public class RightClickEntityAbilityEvent {
                     ability.onRightClickEntity(target, player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);
+                    entityInteractFired = true;
+                    return;
                 }
             }
             else if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.BANKAI)) // do stuff while in bankai state and right click
@@ -85,14 +87,22 @@ public class RightClickEntityAbilityEvent {
     }
 
     @SubscribeEvent
-    public static void onRightClick(PlayerInteractEvent.EntityInteract event)
+    public static void onRightClick(PlayerInteractEvent.RightClickItem event)
     {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
-
+        if (entityInteractFired)
+        {
+            entityInteractFired = false;
+            return;
+        }
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
+        //if (event instanceof PlayerInteractEvent.RightClickItem.EntityInteract)
+        {
+            //
+        }
         // do something when the player is a shinigami and has shikai in hand
         if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
         {
@@ -112,10 +122,12 @@ public class RightClickEntityAbilityEvent {
                         continue;
                     if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && player.isCrouching())
                         continue;
+
                     System.out.println("Right clicked empty!");
                     ability.onRightClick(player);
                     ability.setState(Ability.STATE.COOLDOWN);
                     ability.setCooldown(ability.getMaxCooldown() / 20);
+                    return;
                 }
             }
             else if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.BANKAI)) // do stuff while in bankai state and right click
