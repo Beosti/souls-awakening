@@ -76,8 +76,8 @@ public class ZanpakutoItem extends SwordItem {
         {
             PlayerEntity player = (PlayerEntity) owner;
             IEntityStats entityStats = EntityStatsCapability.get(player);
-            int zanpakutoDamage = 7 + entityStats.getZanjutsuPoints()/10;
-            this.setDamage(itemStack, Math.round(zanpakutoDamage));
+            int zanpakutoDamage = (int) entityStats.getZanjutsuPoints() + 7;
+            this.setDamage(itemStack, (int) Math.floor(zanpakutoDamage));
         }
         if (!currentOwner.isEmpty()) {
             super.hurtEnemy(itemStack, target, owner);

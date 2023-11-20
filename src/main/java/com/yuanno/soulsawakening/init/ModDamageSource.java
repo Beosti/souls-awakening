@@ -1,7 +1,10 @@
 package com.yuanno.soulsawakening.init;
 
+import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 
 public class ModDamageSource extends DamageSource {
@@ -45,4 +48,12 @@ public class ModDamageSource extends DamageSource {
         this.sourceTypes = sourceTypes;
         return this;
     }
+
+
+
+    public static AbilityDamageSource causeAbilityDamage(LivingEntity player, Ability ability)
+    {
+        return new AbilityDamageSource("ability", player, ability);
+    }
+
 }

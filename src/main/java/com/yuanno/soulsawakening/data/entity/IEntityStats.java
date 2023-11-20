@@ -14,15 +14,27 @@ public interface IEntityStats {
     void alterHollowPoints(int hollowPoints);
     int getHollowPoints();
 
-    void setZanjutsuPoints(int zanjutsuPoints);
-    void alterZanjutsuPoints(int zanjutsuPoints);
-    int getZanjutsuPoints();
+    void setClassLevel(int classLevel);
+    void alterClassLevel(int alterLevel);
+    int getClassLevel();
+
+    void setClassPoints(int classPoints);
+    void alterClassPoints(int alterPoints);
+    int getClassPoints();
+
+    void setClassExperience(int classExperience);
+    void alterClassExperience(int classExperience);
+    int getClassExperience();
+
+    void setZanjutsuPoints(double zanjutsuPoints);
+    void alterZanjutsuPoints(double zanjutsuPoints);
+    double getZanjutsuPoints();
 
     void setHakudaPoints(double hakudaPoints);
     void alterHakudaPoints(double hakudaPoints);
     double getHakudaPoints();
 
-    void setHohoPoints(int hohoPoints);
-    void alterHohoPoints(int hohoPoints);
-    int getHohoPoints();
+    void setHohoPoints(double hohoPoints);
+    void alterHohoPoints(double hohoPoints);
+    double getHohoPoints();
 }

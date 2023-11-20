@@ -5,9 +5,12 @@ public class EntityStatsBase implements IEntityStats {
     private String race = "";
     private String rank = "";
     private int hollowPoints;
-    private int zanjutsuPoints;
+    private int classLevel;
+    private int classPoints;
+    private int classExperience;
+    private double zanjutsuPoints;
     private double hakudaPoints;
-    private int hohoPoints;
+    private double hohoPoints;
 
     @Override
     public void setRace(String race)
@@ -64,17 +67,71 @@ public class EntityStatsBase implements IEntityStats {
     }
 
     @Override
-    public void setZanjutsuPoints(int zanjutsuPoints) {
+    public void setClassLevel(int classLevel)
+    {
+        this.classLevel = classLevel;
+    }
+
+    @Override
+    public void alterClassLevel(int alterLevel)
+    {
+        this.classLevel += alterLevel;
+    }
+
+    @Override
+    public int getClassLevel()
+    {
+        return this.classLevel;
+    }
+
+    @Override
+    public void setClassPoints(int classPoints)
+    {
+        this.classPoints = classPoints;
+    }
+
+    @Override
+    public void alterClassPoints(int alteredPoints)
+    {
+        this.classPoints += alteredPoints;
+    }
+
+    @Override
+    public int getClassPoints()
+    {
+        return this.classPoints;
+    }
+
+    @Override
+    public void setClassExperience(int classExperience)
+    {
+        this.classExperience = classExperience;
+    }
+
+    @Override
+    public void alterClassExperience(int alterExperience)
+    {
+        this.classExperience += alterExperience;
+    }
+
+    @Override
+    public int getClassExperience()
+    {
+        return this.classExperience;
+    }
+
+    @Override
+    public void setZanjutsuPoints(double zanjutsuPoints) {
         this.zanjutsuPoints = zanjutsuPoints;
     }
 
     @Override
-    public void alterZanjutsuPoints(int zanjutsuPoints) {
+    public void alterZanjutsuPoints(double zanjutsuPoints) {
         this.zanjutsuPoints += zanjutsuPoints;
     }
 
     @Override
-    public int getZanjutsuPoints() {
+    public double getZanjutsuPoints() {
         return this.zanjutsuPoints;
     }
 
@@ -94,17 +151,17 @@ public class EntityStatsBase implements IEntityStats {
     }
 
     @Override
-    public void setHohoPoints(int hohoPoints) {
+    public void setHohoPoints(double hohoPoints) {
         this.hohoPoints = hohoPoints;
     }
 
     @Override
-    public void alterHohoPoints(int hohoPoints) {
+    public void alterHohoPoints(double hohoPoints) {
         this.hohoPoints += hohoPoints;
     }
 
     @Override
-    public int getHohoPoints() {
+    public double getHohoPoints() {
         return this.hohoPoints;
     }
 }

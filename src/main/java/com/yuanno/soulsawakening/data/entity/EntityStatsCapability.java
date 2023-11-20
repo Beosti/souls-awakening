@@ -31,9 +31,12 @@ public class EntityStatsCapability {
                 props.putString("race", instance.getRace());
                 props.putString("rank", instance.getRank());
                 props.putInt("hollowpoints", instance.getHollowPoints());
-                props.putInt("zanjutsupoints", instance.getZanjutsuPoints());
+                props.putDouble("zanjutsupoints", instance.getZanjutsuPoints());
                 props.putDouble("hakudapoints", instance.getHakudaPoints());
-                props.putInt("hohopoints", instance.getHohoPoints());
+                props.putDouble("hohopoints", instance.getHohoPoints());
+                props.putInt("classlevel", instance.getClassLevel());
+                props.putInt("classpoints", instance.getClassPoints());
+                props.putInt("classexperience", instance.getClassExperience());
                 return props;
             }
 
@@ -44,9 +47,12 @@ public class EntityStatsCapability {
                 instance.setRace(props.getString("race"));
                 instance.setRank(props.getString("rank"));
                 instance.setHollowPoints(props.getInt("hollowpoints"));
-                instance.setZanjutsuPoints(props.getInt("zanjutsupoints"));
+                instance.setZanjutsuPoints(props.getDouble("zanjutsupoints"));
                 instance.setHakudaPoints(props.getDouble("hakudapoints"));
-                instance.setHohoPoints(props.getInt("hohopoints"));
+                instance.setHohoPoints(props.getDouble("hohopoints"));
+                instance.setClassLevel(props.getInt("classlevel"));
+                instance.setClassPoints(props.getInt("classpoints"));
+                instance.setClassExperience(props.getInt("classexperience"));
             }
         }, () -> new EntityStatsBase());
 

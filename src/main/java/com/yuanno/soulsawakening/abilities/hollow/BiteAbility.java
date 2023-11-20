@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
+import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -15,7 +16,7 @@ import net.minecraft.util.DamageSource;
 
 public class BiteAbility extends Ability implements IRightClickEntityAbility {
     public static final BiteAbility INSTANCE = new BiteAbility();
-    private final static DamageSource BITE_DAMAGE = new ModDamageSource("bite").setSourceTypes(SourceType.SPIKE).setSourceElement(SourceElement.NONE);
+    public final static DamageSource BITE_DAMAGE = new ModDamageSource("bite").setSourceTypes(SourceType.SPIKE).setSourceElement(SourceElement.NONE);
     public BiteAbility()
     {
         this.setName("Bite");
@@ -32,10 +33,6 @@ public class BiteAbility extends Ability implements IRightClickEntityAbility {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         int biteDamage = (6 + entityStats.getHollowPoints()/5);
         target.hurt(BITE_DAMAGE, Math.round(biteDamage));
-        if (target.isDeadOrDying())
-        {
-            entityStats.alterHollowPoints(1);
-            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-        }
+        target.hurt(AbilityDamageSource.causeAbilityDamage(player, this), biteDamage);
     }
 }

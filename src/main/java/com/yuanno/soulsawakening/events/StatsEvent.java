@@ -75,13 +75,6 @@ public class StatsEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (!statsProps.hasRace())
             statsHandling(player);
-        for (Ability ability : abilityData.getUnlockedAbilities())
-        {
-            if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_ENTITY)) {
-                System.out.println(ability.getMaxCooldown());
-                System.out.println(ability.getCooldown());
-            }
-        }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), statsProps), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
 

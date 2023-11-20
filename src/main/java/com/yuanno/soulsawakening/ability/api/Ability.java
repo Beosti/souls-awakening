@@ -36,6 +36,7 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         this.setState(STATE.READY);
     }
 
+
     public void setZanpakutoState(ModResources.STATE state)
     {
         this.zanpakutoState = state;

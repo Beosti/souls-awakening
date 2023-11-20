@@ -1,11 +1,14 @@
 package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.hollow.BiteAbility;
+import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsBase;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.init.ModAbilities;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -17,6 +20,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,7 +37,6 @@ public class StatPointsEvent {
      * if fullbringer/shinigami something happens
      * if hitting fist you get hakuda
      * if hitting killing with zanpakuto you get zanjutsu
-     * @param event
      */
     @SubscribeEvent
     public static void onAttackEvent(AttackEntityEvent event)
@@ -53,13 +56,13 @@ public class StatPointsEvent {
         if (player.getMainHandItem().isEmpty())
         {
             target.hurt(HAKUDA_DAMAGE, hakudaPoints);
-            entityStats.alterHakudaPoints(0.05);
+            entityStats.alterHakudaPoints(0.005);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         }
-        else if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem()) && livingEntityTarget.getHealth() < 7 + zanjutsuPoints)
+        else if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
         {
             target.hurt(ZANJUTSU_DAMAGE, zanjutsuPoints);
-            entityStats.alterZanjutsuPoints(1);
+            entityStats.alterZanjutsuPoints(0.005);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         }
     }
@@ -94,5 +97,36 @@ public class StatPointsEvent {
                 playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20 + newMaxHealth);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onDeathEntity(LivingDeathEvent event)
+    {
+        if (!(event.getSource().getDirectEntity() instanceof PlayerEntity))
+            return;
+        System.out.println(event.getEntity());
+        PlayerEntity player = (PlayerEntity) event.getSource().getDirectEntity();
+        if (player.level.isClientSide)
+            return;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem())) // and kills a hollow
+        {
+            entityStats.alterClassExperience(1);
+            if (entityStats.getClassExperience() > entityStats.getClassLevel() * 3)
+            {
+                entityStats.alterClassPoints(1);
+                entityStats.alterClassLevel(1);
+                entityStats.setClassExperience(0);
+            }
+        }
+        else if (entityStats.getRace().equals(ModValues.HOLLOW)
+                && event.getSource() instanceof AbilityDamageSource
+                && ((AbilityDamageSource) event.getSource()).getAbilitySource().equals(BiteAbility.INSTANCE))
+        {
+            System.out.println("CHECK 1");
+            entityStats.alterHollowPoints(1);
+        }
+        System.out.println(event.getSource());
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
     }
 }
