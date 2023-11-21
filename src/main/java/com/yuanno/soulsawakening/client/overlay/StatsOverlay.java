@@ -6,6 +6,10 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.misc.IMiscData;
+import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
+import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.AbstractGui;
@@ -24,7 +28,12 @@ public class StatsOverlay extends AbstractGui {
         ClientPlayerEntity player = Minecraft.getInstance().player;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
+        IMiscData miscData = MiscDataCapability.get(player);
+        if (!miscData.getCanRenderOverlay())
+            return;
         String race = entityStats.getRace();
+        if (race.equals(ModValues.SHINIGAMI) && !(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))
+            return;
         if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT)
         {
             drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "RACE: " + TextFormatting.RESET + race, 330, 20, -1);

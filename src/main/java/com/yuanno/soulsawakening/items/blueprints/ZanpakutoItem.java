@@ -43,6 +43,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -90,8 +91,7 @@ public class ZanpakutoItem extends SwordItem {
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
     {
-        if (player.level.isClientSide)
-            return ActionResult.fail(player.getItemInHand(hand));
+
 
         ItemStack itemStack = player.getItemInHand(hand);
         IEntityStats entityStats = EntityStatsCapability.get(player);
@@ -99,7 +99,7 @@ public class ZanpakutoItem extends SwordItem {
             itemStack.setTag(new CompoundNBT());
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
-        if (currentOwner.isEmpty()) {
+        if (currentOwner.isEmpty() && !player.level.isClientSide) {
             ELEMENT element = ELEMENT.DARK;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
@@ -114,8 +114,11 @@ public class ZanpakutoItem extends SwordItem {
                 entityStats.setRace(ModValues.FULLBRINGER);
             }
             entityStats.setHohoPoints(0);
+            entityStats.addAvailableStats(0);
             entityStats.setHakudaPoints(0);
+            entityStats.addAvailableStats(0);
             entityStats.setZanjutsuPoints(0);
+            entityStats.addAvailableStats(0);
             switch (element)
             {
                 case DARK:
@@ -170,6 +173,7 @@ public class ZanpakutoItem extends SwordItem {
             return ActionResult.fail(itemStack);
 
         return ActionResult.success(itemStack);
+
     }
 
 

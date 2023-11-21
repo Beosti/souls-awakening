@@ -5,6 +5,8 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.AbilityDataProvider;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.EntityStatsProvider;
+import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
+import com.yuanno.soulsawakening.data.misc.MiscDataProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,6 +22,7 @@ public class ModCapabilities {
     {
         EntityStatsCapability.register();
         AbilityDataCapability.register();
+        MiscDataCapability.register();
     }
 
     @SubscribeEvent
@@ -31,6 +34,7 @@ public class ModCapabilities {
         if (event.getObject() instanceof LivingEntity)
         {
             event.addCapability(new ResourceLocation(Main.MODID, "entity_stats"), new EntityStatsProvider());
+            event.addCapability(new ResourceLocation(Main.MODID, "misc_data"), new MiscDataProvider());
         }
         if (event.getObject() instanceof PlayerEntity)
         {

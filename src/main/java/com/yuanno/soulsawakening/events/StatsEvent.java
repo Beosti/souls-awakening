@@ -50,6 +50,7 @@ public class StatsEvent {
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
             entityStats.setHollowPoints(0);
+            entityStats.addAvailableStats(0);
         }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);

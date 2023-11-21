@@ -83,7 +83,6 @@ public class StatPointsEvent {
                     if (entityStats.getHakudaPoints() >= 1) {
                         double newMaxHealth = Math.round(entityStats.getHakudaPoints());
                         AttributeModifier maxHealthModifier = new AttributeModifier("HealthBoost", newMaxHealth, AttributeModifier.Operation.ADDITION);
-
                         // Apply the new maximum health value to the player
                         //playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).removeModifier(maxHealthModifier);
                         playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20 + newMaxHealth);
@@ -104,7 +103,6 @@ public class StatPointsEvent {
     {
         if (!(event.getSource().getDirectEntity() instanceof PlayerEntity))
             return;
-        System.out.println(event.getEntity());
         PlayerEntity player = (PlayerEntity) event.getSource().getDirectEntity();
         if (player.level.isClientSide)
             return;
@@ -123,10 +121,8 @@ public class StatPointsEvent {
                 && event.getSource() instanceof AbilityDamageSource
                 && ((AbilityDamageSource) event.getSource()).getAbilitySource().equals(BiteAbility.INSTANCE))
         {
-            System.out.println("CHECK 1");
             entityStats.alterHollowPoints(1);
         }
-        System.out.println(event.getSource());
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
     }
 }

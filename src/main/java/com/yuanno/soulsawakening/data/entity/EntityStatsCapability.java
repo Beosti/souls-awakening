@@ -1,10 +1,7 @@
 package com.yuanno.soulsawakening.data.entity;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.StringNBT;
+import net.minecraft.nbt.*;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -37,6 +34,16 @@ public class EntityStatsCapability {
                 props.putInt("classlevel", instance.getClassLevel());
                 props.putInt("classpoints", instance.getClassPoints());
                 props.putInt("classexperience", instance.getClassExperience());
+
+                CompoundNBT listNBT = new CompoundNBT();
+                List<Double> availableStats = instance.getAvailableStats();
+                ListNBT listTag = new ListNBT();
+                for (Double value : availableStats)
+                    listTag.add(DoubleNBT.valueOf(value));
+
+                listNBT.put("availabeStatsData", listTag);
+                props.put("availableStats", listNBT);
+
                 return props;
             }
 
@@ -53,6 +60,17 @@ public class EntityStatsCapability {
                 instance.setClassLevel(props.getInt("classlevel"));
                 instance.setClassPoints(props.getInt("classpoints"));
                 instance.setClassExperience(props.getInt("classexperience"));
+
+                CompoundNBT listNBT = props.getCompound("availableStats");
+                ListNBT listTag = listNBT.getList("availabeStatsData", Constants.NBT.TAG_DOUBLE);
+                List<Double> epithetList = new ArrayList<>();
+                for (int i = 0; i < listTag.size(); i++)
+                {
+                    double value = listTag.getDouble(i);
+                    epithetList.add(value);
+                    instance.addAvailableStats(value);
+                }
+
             }
         }, () -> new EntityStatsBase());
 

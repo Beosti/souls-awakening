@@ -1,5 +1,7 @@
 package com.yuanno.soulsawakening.data.entity;
 
+import java.util.List;
+
 public interface IEntityStats {
 
     void setRace(String race);
@@ -37,4 +39,9 @@ public interface IEntityStats {
     void setHohoPoints(double hohoPoints);
     void alterHohoPoints(double hohoPoints);
     double getHohoPoints();
+
+    void addAvailableStats(double stats);
+    void removeAvailableStats(double stats);
+    boolean hasAvailableStats(double stat);
+    List<Double> getAvailableStats();
 }

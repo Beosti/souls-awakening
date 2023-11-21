@@ -1,5 +1,8 @@
 package com.yuanno.soulsawakening.data.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EntityStatsBase implements IEntityStats {
 
     private String race = "";
@@ -11,6 +14,7 @@ public class EntityStatsBase implements IEntityStats {
     private double zanjutsuPoints;
     private double hakudaPoints;
     private double hohoPoints;
+    public List<Double> availableStats = new ArrayList<>();
 
     @Override
     public void setRace(String race)
@@ -163,5 +167,34 @@ public class EntityStatsBase implements IEntityStats {
     @Override
     public double getHohoPoints() {
         return this.hohoPoints;
+    }
+
+
+    @Override
+    public void addAvailableStats(double stats)
+    {
+       // if (!this.availableStats.contains(stats))
+        System.out.println("ADDED STATS");
+        this.availableStats.add(stats);
+    }
+
+
+
+    @Override
+    public void removeAvailableStats(double stats)
+    {
+        this.availableStats.remove(stats);
+    }
+
+    @Override
+    public boolean hasAvailableStats(double stat)
+    {
+        return this.availableStats.contains(stat);
+    }
+
+    @Override
+    public List<Double> getAvailableStats()
+    {
+        return this.availableStats;
     }
 }
