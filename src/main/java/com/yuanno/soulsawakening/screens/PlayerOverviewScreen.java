@@ -56,7 +56,7 @@ public class PlayerOverviewScreen extends Screen {
         if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI))
             statsAmount = 3;
         else if (entityStats.getRace().equals(ModValues.HOLLOW))
-            statsAmount = 1;
+            statsAmount = 0;
         for (int i = 0; i < statsAmount; i++)
         {
             int finalI = i;
@@ -122,6 +122,7 @@ public class PlayerOverviewScreen extends Screen {
         if (race.equals(ModValues.HOLLOW))
         {
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Hollow points: " + TextFormatting.RESET + entityStats.getHollowPoints(), leftShift, posY + 60, -1);
+            //drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 105, -1);
         }
         else if (race.equals(ModValues.FULLBRINGER) || race.equals(ModValues.SHINIGAMI))
         {
@@ -129,8 +130,6 @@ public class PlayerOverviewScreen extends Screen {
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Haku points: " + TextFormatting.RESET + hakuPoints, leftShift, posY + 75, -1);
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Hoho points: " + TextFormatting.RESET + hohoPoints, leftShift, posY + 90, -1);
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 105, -1);
-
-
         }
     }
     @Override

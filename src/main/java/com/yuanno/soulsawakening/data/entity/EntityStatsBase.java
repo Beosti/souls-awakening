@@ -173,8 +173,6 @@ public class EntityStatsBase implements IEntityStats {
     @Override
     public void addAvailableStats(double stats)
     {
-       // if (!this.availableStats.contains(stats))
-        System.out.println("ADDED STATS");
         this.availableStats.add(stats);
     }
 

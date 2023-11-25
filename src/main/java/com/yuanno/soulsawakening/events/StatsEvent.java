@@ -46,17 +46,24 @@ public class StatsEvent {
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        if (entityStats.getRace().equals(ModValues.HUMAN))
+        IMiscData miscData = MiscDataCapability.get(player);
+        if (entityStats.getRace().equals(ModValues.HUMAN)) {
             entityStats.setRace(ModValues.SPIRIT);
+            miscData.setCanRenderOverlay(true);
+        }
         else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
             entityStats.setRace(ModValues.HOLLOW);
+            miscData.setCanRenderOverlay(true);
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
             entityStats.setHollowPoints(0);
             entityStats.addAvailableStats(0);
+
         }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+        PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
+
     }
 
     public static void statsHandling(PlayerEntity player)
@@ -79,11 +86,12 @@ public class StatsEvent {
         PlayerEntity player = event.getPlayer();
         IEntityStats statsProps = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
+        IMiscData miscData = MiscDataCapability.get(player);
         if (!statsProps.hasRace())
             statsHandling(player);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), statsProps), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-
+        PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
     }
 
     @SubscribeEvent
@@ -94,7 +102,8 @@ public class StatsEvent {
             PacketHandler.sendTo(new SSyncAbilityDataPacket(event.getPlayer().getId(), newAbilityData), event.getPlayer());
             IEntityStats newEntityStats = EntityStatsCapability.get(event.getPlayer());
             PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getPlayer().getId(), newEntityStats), event.getPlayer());
-
+            IMiscData miscData = MiscDataCapability.get(event.getPlayer());
+            PacketHandler.sendTo(new SSyncMiscDataPacket(event.getPlayer().getId(), miscData), event.getPlayer());
 
         } else
             StatsEvent.restoreFullData(event.getOriginal(), event.getPlayer());
@@ -115,6 +124,10 @@ public class StatsEvent {
         IAbilityData newAbilityData = AbilityDataCapability.get(player);
         AbilityDataCapability.INSTANCE.readNBT(newAbilityData, null, nbt);
 
+        IMiscData oldMiscData = MiscDataCapability.get(original);
+        nbt = MiscDataCapability.INSTANCE.writeNBT(oldMiscData, null);
+        IMiscData newMiscData = MiscDataCapability.get(player);
+        MiscDataCapability.INSTANCE.readNBT(newMiscData, null, nbt);
 
         /*
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), newAbilityData), player);
