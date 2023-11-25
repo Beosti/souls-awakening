@@ -5,10 +5,12 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
+import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CSyncMiscDataPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncentityStatsPacket;
+import com.yuanno.soulsawakening.networking.client.CSyncentityStatsStatsPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,6 +19,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.awt.*;
 
@@ -48,30 +51,21 @@ public class PlayerOverviewScreen extends Screen {
 
         int classPoints = entityStats.getClassPoints();
         int leftShift = posX - 75;
-        /*
-        this.addButton(new net.minecraft.client.gui.widget.button.Button(posX, posY + 40 + (i * 40), 100, 20, new TranslationTextComponent(finalEpithet), b ->
-        {
-            entityStats.setCurrentEpithet(finalEpithet);
-            WyNetwork.sendToServer(new CSyncentityStatsPacket(entityStats));
-            init();
-        })).active = !finalEpithet.equals(entityStats.getCurrentEpithet());
 
-
-
-        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift, posY + 60, 100, 20, new TranslationTextComponent("+"), b ->
-        {
-
-        })
-
-         */
-        for (int i = 0; i < entityStats.getAvailableStats().size(); i++)
+        int statsAmount = 0;
+        if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI))
+            statsAmount = 3;
+        else if (entityStats.getRace().equals(ModValues.HOLLOW))
+            statsAmount = 1;
+        for (int i = 0; i < statsAmount; i++)
         {
             int finalI = i;
             this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 60 + (i * 15), 10, 10, new TranslationTextComponent("+"), b ->
             {
                 entityStats.alterClassPoints(-1);
                 handleStats(finalI);
-                PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+                PacketHandler.sendToServer(new CSyncentityStatsStatsPacket(entityStats));
+
                 init();
             })).active = classPoints > 0 && !entityStats.getRace().equals(ModValues.HUMAN);
         }
@@ -80,11 +74,11 @@ public class PlayerOverviewScreen extends Screen {
 
     private void handleStats(int integer)
     {
-        if (integer == 0)
+        if (integer == 2)
             entityStats.alterHohoPoints(1);
         else if (integer == 1)
             entityStats.alterHakudaPoints(1);
-        else if (integer == 2)
+        else if (integer == 0)
             entityStats.alterZanjutsuPoints(1);
     }
 

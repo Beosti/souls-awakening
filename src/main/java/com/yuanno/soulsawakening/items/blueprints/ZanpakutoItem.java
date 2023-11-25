@@ -60,7 +60,7 @@ public class ZanpakutoItem extends SwordItem {
     private ItemStack stack;
 
     public ZanpakutoItem() {
-        super(ModTiers.WEAPON, 7, 0.5f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
+        super(ModTiers.WEAPON, 5, 0.5f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
         this.zanpakutoState = ModResources.STATE.SEALED;
     }
 
@@ -73,19 +73,7 @@ public class ZanpakutoItem extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity owner) {
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
-        if (owner instanceof PlayerEntity)
-        {
-            PlayerEntity player = (PlayerEntity) owner;
-            IEntityStats entityStats = EntityStatsCapability.get(player);
-            int zanpakutoDamage = (int) entityStats.getZanjutsuPoints() + 7;
-            this.setDamage(itemStack, (int) Math.floor(zanpakutoDamage));
-        }
-        if (!currentOwner.isEmpty()) {
-            super.hurtEnemy(itemStack, target, owner);
-            return true;
-        }
-        else
-            return false;
+        return !currentOwner.isEmpty();
     }
 
     @Override
@@ -112,13 +100,11 @@ public class ZanpakutoItem extends SwordItem {
             else if (entityStats.getRace().equals(ModValues.HUMAN))
             {
                 entityStats.setRace(ModValues.FULLBRINGER);
+
             }
             entityStats.setHohoPoints(0);
-            entityStats.addAvailableStats(0);
             entityStats.setHakudaPoints(0);
-            entityStats.addAvailableStats(0);
             entityStats.setZanjutsuPoints(0);
-            entityStats.addAvailableStats(0);
             switch (element)
             {
                 case DARK:

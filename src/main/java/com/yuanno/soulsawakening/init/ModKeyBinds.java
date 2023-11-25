@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.events.ZanpakutoChangeEvent;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -70,6 +72,9 @@ public class ModKeyBinds {
             if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
             {
                 ZanpakutoItem zanpakuto = (ZanpakutoItem) player.getMainHandItem().getItem();
+                IEntityStats entityStats = EntityStatsCapability.get(player);
+                if (entityStats.getZanjutsuPoints() < 10)
+                    return;
                 switch (zanpakuto.getZanpakutoState())
                 {
                     case SEALED:
@@ -78,7 +83,7 @@ public class ModKeyBinds {
                         break;
                     case SHIKAI:
                         zanpakuto.setZanpakutoState(ModResources.STATE.BANKAI);
-                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.BANKAI));
+                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.SEALED));
                         break;
                     case BANKAI:
                         zanpakuto.setZanpakutoState(ModResources.STATE.SEALED);

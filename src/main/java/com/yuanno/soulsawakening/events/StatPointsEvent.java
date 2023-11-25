@@ -8,6 +8,9 @@ import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsBase;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
+import com.yuanno.soulsawakening.events.stats.HohoGainEvent;
+import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
 import com.yuanno.soulsawakening.init.ModAbilities;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModItems;
@@ -20,7 +23,9 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -58,12 +63,40 @@ public class StatPointsEvent {
             target.hurt(HAKUDA_DAMAGE, hakudaPoints);
             entityStats.alterHakudaPoints(0.005);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+            HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player);
+            if (MinecraftForge.EVENT_BUS.post(hakudaGainEvent))
+                return;
         }
         else if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
         {
             target.hurt(ZANJUTSU_DAMAGE, zanjutsuPoints);
-            entityStats.alterZanjutsuPoints(0.005);
+            entityStats.alterZanjutsuPoints(0.05);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+            ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player);
+            if (MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent))
+                return;
+        }
+    }
+
+    @SubscribeEvent
+    public static void onRunning(LivingEvent.LivingUpdateEvent event)
+    {
+        if (event.getEntityLiving().level.isClientSide)
+            return;
+        if (!(event.getEntityLiving() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && player.isSprinting() && player.tickCount % 20 == 0)
+        {
+            double hohoPointsRaw = entityStats.getHohoPoints();
+            int hohoPoints = (int) Math.floor(hohoPointsRaw) + 1;
+            entityStats.alterHohoPoints(0.0001 * (hohoPoints * 0.73));
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+            HohoGainEvent hohoGainEvent = new HohoGainEvent(player);
+            if (MinecraftForge.EVENT_BUS.post(hohoGainEvent))
+                return;
         }
     }
 
@@ -80,14 +113,10 @@ public class StatPointsEvent {
             if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER)) {
                 if (!event.getSource().equals(DamageSource.CACTUS)) {
                     entityStats.alterHakudaPoints(0.05);
-                    if (entityStats.getHakudaPoints() >= 1) {
-                        double newMaxHealth = Math.round(entityStats.getHakudaPoints());
-                        AttributeModifier maxHealthModifier = new AttributeModifier("HealthBoost", newMaxHealth, AttributeModifier.Operation.ADDITION);
-                        // Apply the new maximum health value to the player
-                        //playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).removeModifier(maxHealthModifier);
-                        playerHurtEntity.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20 + newMaxHealth);
-                    }
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(playerHurtEntity.getId(), entityStats), playerHurtEntity);
+                    HohoGainEvent hohoGainEvent = new HohoGainEvent(playerHurtEntity);
+                    if (MinecraftForge.EVENT_BUS.post(hohoGainEvent))
+                        return;
                 }
             }
             else if (entityStats.getRace().equals(ModValues.HOLLOW))
@@ -115,6 +144,7 @@ public class StatPointsEvent {
                 entityStats.alterClassPoints(1);
                 entityStats.alterClassLevel(1);
                 entityStats.setClassExperience(0);
+                PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             }
         }
         else if (entityStats.getRace().equals(ModValues.HOLLOW)
@@ -122,7 +152,7 @@ public class StatPointsEvent {
                 && ((AbilityDamageSource) event.getSource()).getAbilitySource().equals(BiteAbility.INSTANCE))
         {
             entityStats.alterHollowPoints(1);
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         }
-        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
     }
 }

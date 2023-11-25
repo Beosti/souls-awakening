@@ -8,10 +8,13 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.misc.IMiscData;
+import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -60,10 +63,12 @@ public class StatsEvent {
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
+        IMiscData miscData = MiscDataCapability.get(player);
         if (entityStats.hasRace())
             return;
         entityStats.setRace(ModValues.HUMAN);
-
+        miscData.setCanRenderOverlay(true);
+        PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
 
