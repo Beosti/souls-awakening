@@ -24,20 +24,19 @@ public class ShinigamiStatsCommand {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher)
     {
-        dispatcher.register(Commands.literal("shinigami")
-                .requires((commandSource) -> commandSource.hasPermission(4))
+        dispatcher.register(Commands.literal("class").requires((commandSource) -> commandSource.hasPermission(4))
                 .then(Commands.argument("target", EntityArgument.player())
-                        .then(Commands.argument("stats", StringArgumentType.string()).suggests(SUGGEST_STAT))
+                        .then(Commands.argument("stats", StringArgumentType.string()).suggests(SUGGEST_STAT)
                             .then(Commands.argument("add|set", StringArgumentType.string()).suggests(SUGGEST_SET)
-                                    .then(Commands.argument("amount", IntegerArgumentType.integer()))
-                                .executes((command ->
+                                    .then((Commands.argument("amount", IntegerArgumentType.integer()))
+                                .executes((command) ->
                                 {
                                     String stats = StringArgumentType.getString(command, "stats");
                                     String change = StringArgumentType.getString(command, "add|set");
                                     int amount = IntegerArgumentType.getInteger(command, "amount");
 
                                     return setStat(command.getSource(), EntityArgument.getPlayer(command, "target"), stats, change, amount);
-                                })))));
+                                }))))));
     }
 
     private static final SuggestionProvider<CommandSource> SUGGEST_SET = (source, builder) -> {
@@ -55,6 +54,8 @@ public class ShinigamiStatsCommand {
         suggestions.add("zanjutsu");
         suggestions.add("hoho");
         suggestions.add("hakuda");
+        suggestions.add("hollow");
+        suggestions.add("class");
 
         return ISuggestionProvider.suggest(suggestions.stream(), builder);
     };
@@ -62,9 +63,19 @@ public class ShinigamiStatsCommand {
     private static int setStat(CommandSource commandSource, PlayerEntity player, String stats, String change, int amount)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
+        if (stats.equals("zanjutsu") || stats.equals("hoho") || stats.equals("hakuda") && !entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
         {
-            commandSource.sendSuccess(new TranslationTextComponent("Can only set the stats of fullbringers and shinigamis with this command!"), true);
+            commandSource.sendSuccess(new TranslationTextComponent("Can only set these stats if you're a shinigami or fullbringer!"), true);
+            return 0;
+        }
+        else if (stats.equals("hollow") && !entityStats.getRace().equals(ModValues.HOLLOW))
+        {
+            commandSource.sendSuccess(new TranslationTextComponent("Can only set these stats if you're a hollow!"), true);
+            return 0;
+        }
+        else if (stats.equals("class") && entityStats.getRace().equals(ModValues.HUMAN) || entityStats.getRace().equals(ModValues.SPIRIT))
+        {
+            commandSource.sendSuccess(new TranslationTextComponent("Can not set these stats to this race, only shinigami, hollow and fullbringers!"), true);
             return 0;
         }
         if (change.equals("add"))
@@ -83,6 +94,14 @@ public class ShinigamiStatsCommand {
                     entityStats.alterHakudaPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
+                case ("hollow"):
+                    entityStats.alterHollowPoints(amount);
+                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                    break;
+                case ("class"):
+                    entityStats.alterClassPoints(amount);
+                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                    break;
             }
         }
         else if (change.equals("set"))
@@ -99,6 +118,14 @@ public class ShinigamiStatsCommand {
                     break;
                 case ("hakuda"):
                     entityStats.setHakudaPoints(amount);
+                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                    break;
+                case ("hollow"):
+                    entityStats.setHollowPoints(amount);
+                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                    break;
+                case ("class"):
+                    entityStats.setClassPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
             }

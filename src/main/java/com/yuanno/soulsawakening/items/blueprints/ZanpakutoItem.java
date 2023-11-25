@@ -79,8 +79,6 @@ public class ZanpakutoItem extends SwordItem {
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
     {
-
-
         ItemStack itemStack = player.getItemInHand(hand);
         IEntityStats entityStats = EntityStatsCapability.get(player);
         if (!itemStack.hasTag())
@@ -88,7 +86,7 @@ public class ZanpakutoItem extends SwordItem {
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
         if (currentOwner.isEmpty() && !player.level.isClientSide) {
-            ELEMENT element = ELEMENT.DARK;
+            ELEMENT element = ELEMENT.getRandomElement();
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             itemStack.getTag().putString("zanpakutoElement", element.name());
@@ -100,11 +98,13 @@ public class ZanpakutoItem extends SwordItem {
             else if (entityStats.getRace().equals(ModValues.HUMAN))
             {
                 entityStats.setRace(ModValues.FULLBRINGER);
-
             }
-            entityStats.setHohoPoints(0);
-            entityStats.setHakudaPoints(0);
-            entityStats.setZanjutsuPoints(0);
+            if (entityStats.getHohoPoints() <= 0)
+                entityStats.setHohoPoints(0);
+            if (entityStats.getHakudaPoints() <= 0)
+                entityStats.setHakudaPoints(0);
+            if (entityStats.getZanjutsuPoints() <= 0)
+                entityStats.setZanjutsuPoints(0);
             switch (element)
             {
                 case DARK:
@@ -200,10 +200,14 @@ public class ZanpakutoItem extends SwordItem {
     public enum ELEMENT {
         NONE, DARK, FIRE, HEAL, LIGHTNING, LUNAR, NORMAL, POISON, WATER, WIND;
 
-        public static ELEMENT getRandomElement()
-        {
+        public static ELEMENT getRandomElement() {
             Random random = new Random();
-            return values()[random.nextInt(values().length)];
+            ELEMENT[] elements = values();
+
+            // Exclude NONE from the random selection
+            int index = random.nextInt(elements.length - 1) + 1;
+
+            return elements[index];
         }
     }
 

@@ -74,12 +74,20 @@ public class PlayerOverviewScreen extends Screen {
 
     private void handleStats(int integer)
     {
-        if (integer == 2)
-            entityStats.alterHohoPoints(1);
-        else if (integer == 1)
-            entityStats.alterHakudaPoints(1);
-        else if (integer == 0)
-            entityStats.alterZanjutsuPoints(1);
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER))
+        {
+            if (integer == 2)
+                entityStats.alterHohoPoints(1);
+            else if (integer == 1)
+                entityStats.alterHakudaPoints(1);
+            else if (integer == 0)
+                entityStats.alterZanjutsuPoints(1);
+        }
+        else if (entityStats.getRace().equals(ModValues.HOLLOW))
+        {
+            if (integer == 0)
+                entityStats.alterHollowPoints(1);
+        }
     }
 
     @Override

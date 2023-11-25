@@ -4,7 +4,9 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
 import com.yuanno.soulsawakening.events.stats.HohoGainEvent;
+import com.yuanno.soulsawakening.events.stats.HollowGainEvent;
 import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -49,14 +51,23 @@ public class CSyncentityStatsStatsPacket {
                 IEntityStats props = EntityStatsCapability.get(player);
                 EntityStatsCapability.INSTANCE.getStorage().readNBT(EntityStatsCapability.INSTANCE, props, null, message.data);
                 ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player);
-                if (MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent))
-                    return;
-                HohoGainEvent hohoGainEvent = new HohoGainEvent(player);
-                if (MinecraftForge.EVENT_BUS.post(hohoGainEvent))
-                    return;
-                HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player);
-                if (MinecraftForge.EVENT_BUS.post(hakudaGainEvent))
-                    return;
+                if (props.getRace().equals(ModValues.FULLBRINGER) || props.getRace().equals(ModValues.SHINIGAMI))
+                {
+                    if (MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent))
+                        return;
+                    HohoGainEvent hohoGainEvent = new HohoGainEvent(player);
+                    if (MinecraftForge.EVENT_BUS.post(hohoGainEvent))
+                        return;
+                    HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player);
+                    if (MinecraftForge.EVENT_BUS.post(hakudaGainEvent))
+                        return;
+                }
+                else if (props.getRace().equals(ModValues.HOLLOW))
+                {
+                    HollowGainEvent hollowGainEvent = new HollowGainEvent(player);
+                    if (MinecraftForge.EVENT_BUS.post(hollowGainEvent))
+                        return;
+                }
             });
         }
         ctx.get().setPacketHandled(true);
