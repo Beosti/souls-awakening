@@ -63,7 +63,7 @@ public class ShinigamiStatsCommand {
     private static int setStat(CommandSource commandSource, PlayerEntity player, String stats, String change, int amount)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (stats.equals("zanjutsu") || stats.equals("hoho") || stats.equals("hakuda") && !entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
+        if ((stats.equals("zanjutsu") || stats.equals("hoho") || stats.equals("hakuda")) && !entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
         {
             commandSource.sendSuccess(new TranslationTextComponent("Can only set these stats if you're a shinigami or fullbringer!"), true);
             return 0;

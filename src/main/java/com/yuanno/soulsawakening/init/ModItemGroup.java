@@ -13,7 +13,7 @@ public class ModItemGroup {
     public static final ItemGroup SOULS_AWAKENINGS_MISC = new ItemGroup("soulsawakeningModTabMisc") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(ModItems.REISHI_ESSENCE.get());
+            return new ItemStack(ModItems.REISHI.get());
         }
     };
     public static final ItemGroup SOULS_AWAKENINGS_WEAPONS = new ItemGroup("soulsawakeningModTabWeapons") {

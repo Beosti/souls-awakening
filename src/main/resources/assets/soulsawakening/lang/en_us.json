@@ -6,7 +6,7 @@
   "itemGroup.soulsawakeningModTabMisc": "Souls awakening misc",
   "itemGroup.soulsawakeningModTabWeapons": "Souls awakening weapons",
 
-  "block.soulsawakening.reishi_ore": "Reishi ore",
+  "block.soulsawakening.reishi": "Reishi",
 
   "item.soulsawakening.reishi_essence": "Reishi essence",
   "item.soulsawakening.reishi_ingot": "Reishi ingot",
@@ -16,6 +16,8 @@
   "gui.soulsawakening.tree": "Skill tree",
   "gui.soulsawakening.hollow_tree": "Hollow",
   "gui.soulsawakening.shinigami_tree": "Shinigami",
-  "gui.soulsawakening.quincy_tree": "Quincy"
+  "gui.soulsawakening.quincy_tree": "Quincy",
+
+  "block.soulsawakening.reishi_ore": "Reishi Ore"
 
 }

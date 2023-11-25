@@ -82,7 +82,7 @@ public class ModKeyBinds {
                         PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.SHIKAI));
                         break;
                     case SHIKAI:
-                        zanpakuto.setZanpakutoState(ModResources.STATE.BANKAI);
+                        zanpakuto.setZanpakutoState(ModResources.STATE.SEALED);
                         PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.SEALED));
                         break;
                     case BANKAI:

@@ -39,7 +39,7 @@ public class Main
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModAttributes.ATTRIBUTES.register(modEventBus);
-
+        ModFeatures.register(modEventBus);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);

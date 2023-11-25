@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "soulsawakening:reishi_essence"
+      "item": "soulsawakening:reishi"
     },
     {
-      "item": "soulsawakening:reishi_essence"
+      "item": "soulsawakening:reishi"
     },
     {
-      "item": "soulsawakening:reishi_essence"
+      "item": "soulsawakening:reishi"
     },
     {
-      "item": "soulsawakening:reishi_essence"
+      "item": "soulsawakening:reishi"
     },
     {
       "item": "minecraft:iron_ingot"

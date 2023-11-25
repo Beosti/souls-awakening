@@ -2,7 +2,7 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
-import com.yuanno.soulsawakening.items.misc.ReishiEssenceItem;
+import com.yuanno.soulsawakening.items.misc.ReishiItem;
 import com.yuanno.soulsawakening.items.misc.ReishiIngotItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
@@ -18,7 +18,7 @@ public class ModItems {
     public List<Supplier<Item>> items = new ArrayList<>();
 
     // MISC
-    public static final RegistryObject<Item> REISHI_ESSENCE = ITEMS.register("reishi_essence", ReishiEssenceItem::new);
+    public static final RegistryObject<Item> REISHI = ITEMS.register("reishi", ReishiItem::new);
     public static final RegistryObject<Item> REISHI_INGOT = ITEMS.register("reishi_ingot", ReishiIngotItem::new);
 
 
