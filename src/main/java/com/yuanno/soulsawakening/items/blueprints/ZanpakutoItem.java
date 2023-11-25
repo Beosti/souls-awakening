@@ -45,6 +45,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -73,7 +74,13 @@ public class ZanpakutoItem extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity owner) {
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
-        return !currentOwner.isEmpty();
+        if (currentOwner.isEmpty())
+            return false;
+        else {
+            ((LivingEntity)target).knockback((float)0.65 * 0.5F, (double) MathHelper.sin(owner.yRot * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(owner.yRot * ((float)Math.PI / 180F))));
+
+            return true;
+        }
     }
 
     @Override
