@@ -212,7 +212,10 @@ public class ZanpakutoItem extends SwordItem {
             ELEMENT[] elements = values();
 
             // Exclude NONE from the random selection
-            int index = random.nextInt(elements.length - 1) + 1;
+            int index;
+            do {
+                index = random.nextInt(elements.length);
+            } while (elements[index] == NONE);
 
             return elements[index];
         }
