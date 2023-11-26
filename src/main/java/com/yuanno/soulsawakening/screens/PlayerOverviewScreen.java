@@ -27,13 +27,11 @@ import java.awt.*;
 @OnlyIn(Dist.CLIENT)
 public class PlayerOverviewScreen extends Screen {
     private final PlayerEntity player;
-    private final IEntityStats entityStats;
     private final IMiscData miscData;
     Button plusStatsButton;
     protected PlayerOverviewScreen() {
         super(new StringTextComponent(""));
         this.player = Minecraft.getInstance().player;
-        this.entityStats = EntityStatsCapability.get(this.player);
         this.miscData = MiscDataCapability.get(this.player);
         miscData.setCanRenderOverlay(false);
         PacketHandler.sendToServer(new CSyncMiscDataPacket(miscData));
@@ -48,8 +46,9 @@ public class PlayerOverviewScreen extends Screen {
         PlayerEntity playerEntity = mc.player;
         int posX = ((this.width - 256) / 2);
         int posY = (this.height - 256) / 2;
-
+        IEntityStats entityStats = EntityStatsCapability.get(playerEntity);
         int classPoints = entityStats.getClassPoints();
+        System.out.println(classPoints);
         int leftShift = posX - 75;
 
         int statsAmount = 0;
@@ -62,18 +61,21 @@ public class PlayerOverviewScreen extends Screen {
             int finalI = i;
             this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 60 + (i * 15), 10, 10, new TranslationTextComponent("+"), b ->
             {
-                entityStats.alterClassPoints(-1);
-                handleStats(finalI);
-                PacketHandler.sendToServer(new CSyncentityStatsStatsPacket(entityStats));
-
+                if (entityStats.getClassPoints() > 0)
+                {
+                    entityStats.alterClassPoints(-1);
+                    handleStats(finalI, entityStats);
+                    PacketHandler.sendToServer(new CSyncentityStatsStatsPacket(entityStats));
+                }
                 init();
-            })).active = classPoints > 0 && !entityStats.getRace().equals(ModValues.HUMAN);
+            })).active = classPoints > 0;
         }
 
     }
 
-    private void handleStats(int integer)
+    private void handleStats(int integer, IEntityStats entityStats)
     {
+
         if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER))
         {
             if (integer == 2)
