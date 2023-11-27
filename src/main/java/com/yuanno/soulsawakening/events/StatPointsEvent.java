@@ -55,7 +55,6 @@ public class StatPointsEvent {
             return;
         if (!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
             return;
-        LivingEntity livingEntityTarget = (LivingEntity) target;
         int hakudaPoints = (int) entityStats.getHakudaPoints();
         int zanjutsuPoints = (int) entityStats.getZanjutsuPoints()/20;
         if (player.getMainHandItem().isEmpty())

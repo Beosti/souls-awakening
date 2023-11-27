@@ -16,7 +16,7 @@ import net.minecraft.util.DamageSource;
 
 public class BiteAbility extends Ability implements IRightClickEntityAbility {
     public static final BiteAbility INSTANCE = new BiteAbility();
-    public final static DamageSource BITE_DAMAGE = new ModDamageSource("bite").setSourceTypes(SourceType.SPIKE).setSourceElement(SourceElement.NONE);
+
     public BiteAbility()
     {
         this.setName("Bite");

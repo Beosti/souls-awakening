@@ -93,7 +93,6 @@ public class ZanpakutoItem extends SwordItem {
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
 
-        System.out.println((!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER)));
 
         if (entityStats.getRace().equals(ModValues.SHINIGAMI)
                 || entityStats.getRace().equals(ModValues.FULLBRINGER)
