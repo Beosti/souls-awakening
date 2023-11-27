@@ -48,7 +48,6 @@ public class PlayerOverviewScreen extends Screen {
         int posY = (this.height - 256) / 2;
         IEntityStats entityStats = EntityStatsCapability.get(playerEntity);
         int classPoints = entityStats.getClassPoints();
-        System.out.println(classPoints);
         int leftShift = posX - 75;
 
         int statsAmount = 0;

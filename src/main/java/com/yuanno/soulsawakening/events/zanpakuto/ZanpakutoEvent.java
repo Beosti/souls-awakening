@@ -1,14 +1,18 @@
-package com.yuanno.soulsawakening.events;
+package com.yuanno.soulsawakening.events.zanpakuto;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.api.SoulboundItemHelper;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
+import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -57,6 +61,31 @@ public class ZanpakutoEvent {
         }
     }
 
+    @SubscribeEvent
+    public static void onZanpakutoChange(ZanpakutoChangeEvent event)
+    {
+        IEntityStats entityStats = EntityStatsCapability.get(event.getPlayer());
+        //PacketHandler.sendToServer(new CChange());
+        ItemStack zanpakutoItem = event.getZanpakutoItem();
+        System.out.println(zanpakutoItem.getTag().getString("owner"));
+
+
+        if (entityStats.getZanjutsuPoints() < 10)
+            return;
+        String state = zanpakutoItem.getTag().getString("zanpakutoState");
+        if (state.equals(ModResources.STATE.SEALED.name()))
+        {
+            CompoundNBT tagCompound = zanpakutoItem.getTag();
+            tagCompound.putString("zanpakutoState", ModResources.STATE.SHIKAI.name());
+            zanpakutoItem.setTag(tagCompound);
+        }
+        else if(state.equals(ModResources.STATE.SHIKAI.name()))
+        {
+            CompoundNBT tagCompound = zanpakutoItem.getTag();
+            tagCompound.putString("zanpakutoState", ModResources.STATE.SEALED.name());
+            zanpakutoItem.setTag(tagCompound);
+        }
+    }
     /*
     @SubscribeEvent
     public static void onZanpakutoChange(ZanpakutoChangeEvent event)

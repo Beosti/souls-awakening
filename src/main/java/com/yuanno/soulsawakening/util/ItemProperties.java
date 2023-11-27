@@ -11,44 +11,41 @@ public class ItemProperties {
 
     private static final IItemPropertyGetter ZANPAKUTO_STAGE = (itemStack, world, livingEntity) ->
     {
-        ZanpakutoItem zanpakutoItem = (ZanpakutoItem) itemStack.getItem();
 
-        switch (zanpakutoItem.getZanpakutoState())
-        {
-            case SEALED:
-                return 1;
-            case SHIKAI:
-                return 2;
-            case BANKAI:
-                return 3;
-            default:
-                return 1;
-        }
+        if (itemStack.getTag().getString("zanpakutoState").equals(ModResources.STATE.SEALED.name()))
+            return 1;
+        else if (itemStack.getTag().getString("zanpakutoState").equals(ModResources.STATE.SHIKAI.name()))
+            return 2;
+        else if (itemStack.getTag().getString("zanpakutoState").equals(ModResources.STATE.BANKAI.name()))
+            return 3;
+        else
+            return 1;
     };
     private static final IItemPropertyGetter ZANPAKUTO_ELEMENT = (itemStack, world, livingEntity) ->
     {
+        String zanpakutoElement = itemStack.getTag().getString("zanpakutoElement");
         ZanpakutoItem zanpakutoItem = (ZanpakutoItem) itemStack.getItem();
         if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SEALED))
             return 0;
-        switch (zanpakutoItem.getZanpakutoElement())
+        switch (zanpakutoElement)
         {
-            case DARK:
+            case ("DARK"):
                 return 1;
-            case FIRE:
+            case ("FIRE"):
                 return 2;
-            case HEAL:
+            case ("HEAL"):
                 return 3;
-            case LIGHTNING:
+            case ("LIGHTNING"):
                 return 4;
-            case LUNAR:
+            case ("LUNAR"):
                 return 5;
-            case NORMAL:
+            case ("NORMAL"):
                 return 6;
-            case POISON:
+            case ("POISON"):
                 return 7;
-            case WATER:
+            case ("WATER"):
                 return 8;
-            case WIND:
+            case ("WIND"):
                 return 9;
             default:
                 return 0;
@@ -56,12 +53,12 @@ public class ItemProperties {
     };
     private static final IItemPropertyGetter ZANPAKUTO_TYPE = (itemStack, world, livingEntity) ->
     {
-        ZanpakutoItem zanpakutoItem = (ZanpakutoItem) itemStack.getItem();
-        switch (zanpakutoItem.getZanpakutoType())
+        String zanpakutoElement = itemStack.getTag().getString("zanpakutoType");
+        switch (zanpakutoElement)
         {
-            case TYPE_1:
+            case ("TYPE_1"):
                 return 1;
-            case TYPE_2:
+            case ("TYPE_2"):
                 return 2;
             default:
                 return 1;

@@ -92,6 +92,13 @@ public class ZanpakutoItem extends SwordItem {
             itemStack.setTag(new CompoundNBT());
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
+
+        System.out.println((!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER)));
+
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI)
+                || entityStats.getRace().equals(ModValues.FULLBRINGER)
+                || entityStats.getRace().equals(ModValues.HOLLOW))
+            return ActionResult.fail(itemStack);
         if (currentOwner.isEmpty() && !player.level.isClientSide) {
             ELEMENT element = ELEMENT.getRandomElement();
             IAbilityData abilityData = AbilityDataCapability.get(player);
@@ -162,7 +169,7 @@ public class ZanpakutoItem extends SwordItem {
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             return ActionResult.success(itemStack);
         }
-        else if (!currentOwner.equals(player.getDisplayName().getString()) || !entityStats.getRace().equals(ModValues.SHINIGAMI))
+        else if (!currentOwner.equals(player.getDisplayName().getString()))
             return ActionResult.fail(itemStack);
 
         return ActionResult.success(itemStack);

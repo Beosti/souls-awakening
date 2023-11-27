@@ -1,19 +1,15 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.events.ZanpakutoChangeEvent;
+import com.yuanno.soulsawakening.events.zanpakuto.ZanpakutoChangeEvent;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CChangeZanpakutoStatePacket;
 import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
+import com.yuanno.soulsawakening.screens.PlayerOverviewScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -69,32 +65,10 @@ public class ModKeyBinds {
         }
         if (zanpakutoStateNext.isDown())
         {
-            if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
-            {
-                ZanpakutoItem zanpakuto = (ZanpakutoItem) player.getMainHandItem().getItem();
-                IEntityStats entityStats = EntityStatsCapability.get(player);
-                if (entityStats.getZanjutsuPoints() < 10)
-                    return;
-                switch (zanpakuto.getZanpakutoState())
-                {
-                    case SEALED:
-                        zanpakuto.setZanpakutoState(ModResources.STATE.SHIKAI);
-                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.SHIKAI));
-                        break;
-                    case SHIKAI:
-                        zanpakuto.setZanpakutoState(ModResources.STATE.SEALED);
-                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.SEALED));
-                        break;
-                    case BANKAI:
-                        zanpakuto.setZanpakutoState(ModResources.STATE.SEALED);
-                        PacketHandler.sendToServer(new CChangeZanpakutoStatePacket(ModResources.STATE.SEALED));
-                        break;
-                }
-                ZanpakutoItem zanpakutoChange = (ZanpakutoItem) player.getMainHandItem().getItem();
-                player.sendMessage(new TranslationTextComponent("Your zanpakuto entered the " + zanpakutoChange.getZanpakutoState().toString().toLowerCase() + " stage"), Util.NIL_UUID);
-                Event zanpakutoChangeEvent = new ZanpakutoChangeEvent(player, zanpakuto);
-                MinecraftForge.EVENT_BUS.post(zanpakutoChangeEvent);
+            if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get())) {
+                PacketHandler.sendToServer(new CChangeZanpakutoStatePacket());
             }
+
         }
     }
 }
