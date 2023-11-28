@@ -129,7 +129,7 @@ public class AttributeStatsGainEvent {
             return;
         }
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (event.getItemStack().getItem() instanceof SwordItem && entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && entityStats.getZanjutsuPoints() > 1)
+        if (event.getItemStack().getItem() instanceof SwordItem && (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER)) && entityStats.getZanjutsuPoints() > 0)
         {
             StringTextComponent damageBonus = new StringTextComponent(TextFormatting.WHITE + "" + new TranslationTextComponent("Zanjutsu Bonus").getString());
             if (!event.getToolTip().contains(damageBonus)) {

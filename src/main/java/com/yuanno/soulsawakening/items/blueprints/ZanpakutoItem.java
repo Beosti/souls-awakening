@@ -36,6 +36,7 @@ import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -43,11 +44,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -63,6 +64,25 @@ public class ZanpakutoItem extends SwordItem {
     public ZanpakutoItem() {
         super(ModTiers.WEAPON, 5, 0.5f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
         this.zanpakutoState = ModResources.STATE.SEALED;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if (Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("§4A rare sword linked by the soul with the owner of it"));
+        } else {
+            tooltip.add(new TranslationTextComponent("§4Hold " + "§eSHIFT " + "§4" + "for more Information!"));
+        }
+        if (stack.getTag().getString("owner").isEmpty()) {
+            super.appendHoverText(stack, world, tooltip, flagIn);
+            return;
+        }
+        else
+        {
+            String currentOwner = stack.getTag().getString("owner");
+            tooltip.add(new StringTextComponent("§4Owner: " + currentOwner));
+        }
+        super.appendHoverText(stack, world, tooltip, flagIn);
     }
 
     @Override
@@ -188,17 +208,7 @@ public class ZanpakutoItem extends SwordItem {
             return;
     }
 
-    @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> list, ITooltipFlag par4)
-    {
-        if (itemStack.getTag().getString("owner").isEmpty())
-            return;
-        else
-        {
-            String currentOwner = itemStack.getTag().getString("owner");
-            list.add(new StringTextComponent("§4Owner: " + currentOwner));
-        }
-    }
+
 
     public enum TYPE {
         TYPE_1, TYPE_2;
