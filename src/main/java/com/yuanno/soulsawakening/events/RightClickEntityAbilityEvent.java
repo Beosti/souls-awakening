@@ -81,15 +81,9 @@ public class RightClickEntityAbilityEvent {
             {
                 if (!(ability instanceof IRightClickEntityAbility))
                     continue;
-                if (!ability.getState().equals(Ability.STATE.READY) || ability.getPassive())
+                if (!ability.getState().equals(Ability.STATE.READY) && !(ability.getPassive()))
                     continue;
-                Ability.ActivationType activationType = ability.getActivationType();
-                if (activationType.equals(Ability.ActivationType.SHIFT_RIGHT_CLICK) && player.isCrouching())
-                    ((IRightClickEmptyAbility) ability).onShiftRightClick(player);
-                else if (activationType.equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && !player.isCrouching())
-                    ((IRightClickEmptyAbility) ability).onRightClick(player);
-                else
-                    continue;
+                ((IRightClickEntityAbility) ability).onRightClickEntity(target, player);
                 ability.setState(Ability.STATE.COOLDOWN);
                 ability.setCooldown(ability.getMaxCooldown() / 20);
 

@@ -22,7 +22,8 @@ public class HollowAcidEffect extends SpecialEffect{
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier)
     {
-        livingEntity.hurt(ModDamageSource.ACID, 1.0F);
+        if (livingEntity.tickCount % 20 == 0)
+            livingEntity.hurt(ModDamageSource.ACID, 1.5F);
     }
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier)
