@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.hollow.AcidicTouchAbility;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.abilities.hollow.BiteAbility;
 import com.yuanno.soulsawakening.abilities.hollow.SlashAbility;
@@ -56,6 +57,7 @@ public class StatsEvent {
             miscData.setCanRenderOverlay(true);
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
+            abilityData.addUnlockedAbility(AcidicTouchAbility.INSTANCE);
             entityStats.setHollowPoints(0);
             entityStats.addAvailableStats(0);
 

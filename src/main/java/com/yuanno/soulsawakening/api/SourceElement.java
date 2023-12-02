@@ -15,6 +15,7 @@ public enum SourceElement
 	LIGHTNING,
 	RUBBER,
 	EXPLOSION,
+	ACID,
 	POISON,
 	SMOKE,
 	METAL,

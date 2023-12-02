@@ -9,6 +9,7 @@ import net.minecraft.util.DamageSource;
 
 public class ModDamageSource extends DamageSource {
 
+    public static final DamageSource ACID = new ModDamageSource("acid").setSourceElement(SourceElement.ACID).bypassArmor().setMagic();
     private SourceElement element = SourceElement.NONE;
     private SourceType[] sourceTypes = {};
 
