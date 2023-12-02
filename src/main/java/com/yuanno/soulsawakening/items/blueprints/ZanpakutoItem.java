@@ -119,7 +119,8 @@ public class ZanpakutoItem extends SwordItem {
                 || entityStats.getRace().equals(ModValues.HOLLOW))
             return ActionResult.fail(itemStack);
         if (currentOwner.isEmpty() && !player.level.isClientSide) {
-            ELEMENT element = ELEMENT.getRandomElement();
+            //ELEMENT element = ELEMENT.getRandomElement();
+            ELEMENT element = ELEMENT.LIGHTNING;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             itemStack.getTag().putString("zanpakutoElement", element.name());

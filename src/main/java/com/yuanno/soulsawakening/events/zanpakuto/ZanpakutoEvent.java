@@ -65,9 +65,7 @@ public class ZanpakutoEvent {
     public static void onZanpakutoChange(ZanpakutoChangeEvent event)
     {
         IEntityStats entityStats = EntityStatsCapability.get(event.getPlayer());
-        //PacketHandler.sendToServer(new CChange());
         ItemStack zanpakutoItem = event.getZanpakutoItem();
-        System.out.println(zanpakutoItem.getTag().getString("owner"));
 
 
         if (entityStats.getZanjutsuPoints() < 10)

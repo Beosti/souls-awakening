@@ -30,6 +30,7 @@ public class FireWaveAbility extends Ability implements IRightClickEmptyAbility 
     public void onShiftRightClick(PlayerEntity player)
     {
         List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
+        targets.remove(player);
         for (LivingEntity livingEntity : targets)
         {
             livingEntity.setSecondsOnFire(5);
