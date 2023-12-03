@@ -57,14 +57,29 @@ public class PlayerOverviewScreen extends Screen {
             statsAmount = 0;
         if (entityStats.getRace().equals(ModValues.HOLLOW))
         {
-            this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 60, 10, 10, new TranslationTextComponent("Evolution"), b ->
+            this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 57, 80, 16, new TranslationTextComponent("Evolution"), b ->
             {
-                if (entityStats.getHollowPoints() > 50)
+                if (entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.ARRANCAR)))
                 {
-
+                    switch (entityStats.getRank()) {
+                        case (ModValues.BASE):
+                            entityStats.setRank(ModValues.GILLIAN);
+                            break;
+                        case (ModValues.GILLIAN):
+                            entityStats.setRank(ModValues.ADJUCHA);
+                            break;
+                        case (ModValues.ADJUCHA):
+                            entityStats.setRank(ModValues.VASTO_LORDE);
+                            break;
+                        case (ModValues.VASTO_LORDE):
+                            entityStats.setRank(ModValues.ARRANCAR);
+                            break;
+                    }
+                    entityStats.setHollowPoints(0);
+                    PacketHandler.sendToServer(new CSyncentityStatsStatsPacket(entityStats));
                 }
                 init();
-            })).active = entityStats.getHollowPoints() > 50;
+            })).active = entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.ARRANCAR));
         }
         for (int i = 0; i < statsAmount; i++)
         {
@@ -134,6 +149,7 @@ public class PlayerOverviewScreen extends Screen {
         if (race.equals(ModValues.HOLLOW))
         {
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Hollow points: " + TextFormatting.RESET + entityStats.getHollowPoints(), leftShift, posY + 60, -1);
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Rank: " + TextFormatting.RESET + entityStats.getRank(), leftShift, posY + 75, -1);
             //drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 105, -1);
         }
         else if (race.equals(ModValues.FULLBRINGER) || race.equals(ModValues.SHINIGAMI))

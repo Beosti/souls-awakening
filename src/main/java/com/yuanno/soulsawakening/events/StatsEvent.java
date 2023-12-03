@@ -55,6 +55,7 @@ public class StatsEvent {
         }
         else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
             entityStats.setRace(ModValues.HOLLOW);
+            entityStats.setRank(ModValues.BASE);
             miscData.setCanRenderOverlay(true);
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
