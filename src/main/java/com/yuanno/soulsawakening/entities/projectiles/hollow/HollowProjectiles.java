@@ -17,7 +17,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class HollowProjectiles {
 
     public static final RegistryObject<EntityType<CeroProjectile>> CERO = Beapi.registerEntityType("Cero", () -> Beapi.createEntityType(CeroProjectile::new)
-            .sized(1.0F, 1.0F)
+            .sized(2.5F, 2.5F)
             .build(Main.MODID + ":cero"));
 
     @OnlyIn(Dist.CLIENT)

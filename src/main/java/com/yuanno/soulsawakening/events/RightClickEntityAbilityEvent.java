@@ -8,11 +8,14 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.events.ability.RightClickEmptyEvent;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.client.CChangeZanpakutoStatePacket;
+import com.yuanno.soulsawakening.networking.client.CRightClickEmptyPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -86,17 +89,20 @@ public class RightClickEntityAbilityEvent {
                 ((IRightClickEntityAbility) ability).onRightClickEntity(target, player);
                 ability.setState(Ability.STATE.COOLDOWN);
                 ability.setCooldown(ability.getMaxCooldown() / 20);
-
+                entityInteractFired = true;
+                return;
             }
         }
     }
 
     @SubscribeEvent
-    public static void onRightClick(PlayerInteractEvent.RightClickItem event)
+    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event)
     {
+        System.out.println("RIGHT CLICK");
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
+
         if (entityInteractFired)
         {
             entityInteractFired = false;
@@ -105,11 +111,12 @@ public class RightClickEntityAbilityEvent {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         //if (event instanceof PlayerInteractEvent.RightClickItem.EntityInteract)
-        {
+       // {
             //
-        }
+       // }
         // do something when the player is a shinigami and has shikai in hand
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
+
+        if ((entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER)) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
         {
             ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
             if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SHIKAI)) // do stuff while in shikai state and right click
@@ -151,7 +158,56 @@ public class RightClickEntityAbilityEvent {
                 }
             }
         }
+        /*
         else if (entityStats.getRace().equals(ModValues.HOLLOW))
+        {
+            for (Ability ability : abilityData.getActiveAbilities())
+            {
+                if (!(ability instanceof IRightClickEmptyAbility))
+                    continue;
+                if (!ability.getState().equals(Ability.STATE.READY) && !(ability.getPassive()))
+                    continue;
+                ((IRightClickEmptyAbility) ability).onRightClick(player);
+                ability.setState(Ability.STATE.COOLDOWN);
+                ability.setCooldown(ability.getMaxCooldown() / 20);
+
+            }
+        }
+
+         */
+    }
+
+    /**
+     * This event does actually nothing except throw this right click empty event through a packet so it can be used in a custom event used right after
+     * @param event
+     */
+    @SubscribeEvent
+    public static void onRightClickEmpty(PlayerInteractEvent.RightClickEmpty event)
+    {
+        PacketHandler.sendToServer(new CRightClickEmptyPacket());
+    }
+
+    /**
+     * This is actually the event from above copy-pasted except that this server sided (which is needed for what it should do)
+     * It just passes a short side through a packet to make it work
+     * @param event
+     */
+    @SubscribeEvent
+    public static void onEmptyRightClick(RightClickEmptyEvent event)
+    {
+        PlayerEntity player = event.getPlayer();
+        System.out.println("CHECK 1");
+        if (player.level.isClientSide)
+            return;
+        System.out.println("CHECK 2");
+        if (entityInteractFired)
+        {
+            entityInteractFired = false;
+            return;
+        }
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        if (entityStats.getRace().equals(ModValues.HOLLOW))
         {
             for (Ability ability : abilityData.getActiveAbilities())
             {

@@ -22,6 +22,6 @@ public class CeroAbility extends Ability implements IRightClickEmptyAbility {
     {
         CeroProjectile ceroProjectile = new CeroProjectile(user.level, user);
         user.level.addFreshEntity(ceroProjectile);
-        ceroProjectile.shootFromRotation(user, user.xRot, user.yRot, 0, 0.5f, 1);
+        ceroProjectile.shootFromRotation(user, user.xRot, user.yRot, 0, 2f, 1);
     }
 }
