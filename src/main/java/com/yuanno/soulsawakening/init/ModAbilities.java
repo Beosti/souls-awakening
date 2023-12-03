@@ -23,14 +23,11 @@ import com.yuanno.soulsawakening.abilities.elements.water.WaterPrisonAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
-import com.yuanno.soulsawakening.abilities.hollow.AcidicTouchAbility;
-import com.yuanno.soulsawakening.abilities.hollow.HollowRegenerationAbility;
+import com.yuanno.soulsawakening.abilities.hollow.*;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
-import com.yuanno.soulsawakening.abilities.hollow.BiteAbility;
-import com.yuanno.soulsawakening.abilities.hollow.SlashAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import net.minecraft.util.ResourceLocation;
@@ -55,7 +52,7 @@ public class ModAbilities {
     public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE, VenomousCloudAbility.INSTANCE, AdrenalineCloudAbility.INSTANCE};
     public static final Ability[] WATER_ZANPAKUTO = new Ability[] {AquaSlashAbility.INSTANCE, TidalWaveAbility.INSTANCE, WaterPrisonAbility.INSTANCE};
     public static final Ability[] WIND_ZANPAKUTO = new Ability[] {GaleForceAbility.INSTANCE, WhirldWindDanceAbility.INSTANCE, WindAttackAbility.INSTANCE};
-    public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE, AcidicTouchAbility.INSTANCE, HollowRegenerationAbility.INSTANCE};
+    public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE, AcidicTouchAbility.INSTANCE, CeroAbility.INSTANCE, HollowRegenerationAbility.INSTANCE};
 
     public static void register(IEventBus eventBus)
     {

@@ -16,6 +16,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(CChangeZanpakutoStatePacket.class, CChangeZanpakutoStatePacket::encode, CChangeZanpakutoStatePacket::decode, CChangeZanpakutoStatePacket::handle);
         PacketHandler.registerPacket(CSyncMiscDataPacket.class, CSyncMiscDataPacket::encode, CSyncMiscDataPacket::decode, CSyncMiscDataPacket::handle);
         PacketHandler.registerPacket(CSyncentityStatsStatsPacket.class, CSyncentityStatsStatsPacket::encode, CSyncentityStatsStatsPacket::decode, CSyncentityStatsStatsPacket::handle);
+        PacketHandler.registerPacket(CSyncAbilityDataPacket.class, CSyncAbilityDataPacket::encode, CSyncAbilityDataPacket::decode, CSyncAbilityDataPacket::handle);
 
 
 

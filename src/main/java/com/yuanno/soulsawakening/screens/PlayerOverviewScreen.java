@@ -1,6 +1,9 @@
 package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.yuanno.soulsawakening.abilities.hollow.CeroAbility;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
@@ -8,6 +11,7 @@ import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.client.CSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncMiscDataPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncentityStatsPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncentityStatsStatsPacket;
@@ -47,6 +51,7 @@ public class PlayerOverviewScreen extends Screen {
         int posX = ((this.width - 256) / 2);
         int posY = (this.height - 256) / 2;
         IEntityStats entityStats = EntityStatsCapability.get(playerEntity);
+        IAbilityData abilityData = AbilityDataCapability.get(playerEntity);
         int classPoints = entityStats.getClassPoints();
         int leftShift = posX - 75;
 
@@ -64,6 +69,7 @@ public class PlayerOverviewScreen extends Screen {
                     switch (entityStats.getRank()) {
                         case (ModValues.BASE):
                             entityStats.setRank(ModValues.GILLIAN);
+                            abilityData.addUnlockedAbility(CeroAbility.INSTANCE);
                             break;
                         case (ModValues.GILLIAN):
                             entityStats.setRank(ModValues.ADJUCHA);
@@ -76,7 +82,9 @@ public class PlayerOverviewScreen extends Screen {
                             break;
                     }
                     entityStats.setHollowPoints(0);
-                    PacketHandler.sendToServer(new CSyncentityStatsStatsPacket(entityStats));
+                    PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+                    PacketHandler.sendToServer(new CSyncAbilityDataPacket(abilityData));
+
                 }
                 init();
             })).active = entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.ARRANCAR));

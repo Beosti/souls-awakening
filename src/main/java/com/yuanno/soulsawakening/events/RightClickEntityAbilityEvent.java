@@ -151,5 +151,19 @@ public class RightClickEntityAbilityEvent {
                 }
             }
         }
+        else if (entityStats.getRace().equals(ModValues.HOLLOW))
+        {
+            for (Ability ability : abilityData.getActiveAbilities())
+            {
+                if (!(ability instanceof IRightClickEmptyAbility))
+                    continue;
+                if (!ability.getState().equals(Ability.STATE.READY) && !(ability.getPassive()))
+                    continue;
+                ((IRightClickEmptyAbility) ability).onRightClick(player);
+                ability.setState(Ability.STATE.COOLDOWN);
+                ability.setCooldown(ability.getMaxCooldown() / 20);
+
+            }
+        }
     }
 }
