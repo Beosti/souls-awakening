@@ -55,6 +55,17 @@ public class PlayerOverviewScreen extends Screen {
             statsAmount = 3;
         else if (entityStats.getRace().equals(ModValues.HOLLOW))
             statsAmount = 0;
+        if (entityStats.getRace().equals(ModValues.HOLLOW))
+        {
+            this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 60, 10, 10, new TranslationTextComponent("Evolution"), b ->
+            {
+                if (entityStats.getHollowPoints() > 50)
+                {
+
+                }
+                init();
+            })).active = entityStats.getHollowPoints() > 50;
+        }
         for (int i = 0; i < statsAmount; i++)
         {
             int finalI = i;

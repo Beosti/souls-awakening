@@ -12,5 +12,8 @@ public class ModValues {
     public static final String FULLBRINGER = "Fullbringer";
 
     // RANK
-
+    public static final String BASE = "Base";
+    public static final String GILLIAN = "Gillian";
+    public static final String ADJUCHA = "Adjucha";
+    public static final String VASTO_LORDE = "Vasto Lorde";
 }
