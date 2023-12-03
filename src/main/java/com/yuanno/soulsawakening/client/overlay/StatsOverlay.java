@@ -45,7 +45,7 @@ public class StatsOverlay extends AbstractGui {
 
                     drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "Cooldown: " + TextFormatting.RESET + (int) abilityData.getUnlockedAbilities().get(i).getCooldown(), 130, 20 + i * 15, -1);
                 }
-                else
+                else if (abilityData.getUnlockedAbilities().get(i).getPassive() && abilityData.getUnlockedAbilities().get(i).getShown())
                     drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "Ability: " + TextFormatting.RESET + abilityData.getUnlockedAbilities().get(i).getName(), 20, 20 + i * 15, -1);
             }
         }

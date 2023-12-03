@@ -18,6 +18,8 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private double maxCooldown;
     private STATE state;
     private ModResources.STATE zanpakutoState;
+    private boolean isShown = true;
+
     public Ability(String name, int cooldown, int maxCooldown, ActivationType activationType) {
         this.name = name;
         this.cooldown = cooldown;
@@ -30,6 +32,14 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         this.maxCooldown = maxCooldown;
         this.activationType = activationType;
         this.isPassive = isPassive;
+    }
+    public Ability(String name, int cooldown, int maxCooldown, ActivationType activationType, boolean isPassive, boolean isShown) {
+        this.name = name;
+        this.cooldown = cooldown;
+        this.maxCooldown = maxCooldown;
+        this.activationType = activationType;
+        this.isPassive = isPassive;
+        this.isShown = isShown;
     }
 
     public Ability() {
@@ -116,6 +126,16 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     public void setState(STATE state)
     {
         this.state = state;
+    }
+
+    public void setShown(boolean shown)
+    {
+        this.isShown = shown;
+    }
+
+    public boolean getShown()
+    {
+        return this.isShown;
     }
     public enum STATE {
         COOLDOWN, READY, PASSIVE
