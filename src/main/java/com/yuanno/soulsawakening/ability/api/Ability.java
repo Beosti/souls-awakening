@@ -147,7 +147,8 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         compoundNBT.putString("displayname", this.getName());
         compoundNBT.putDouble("cooldown", this.getCooldown());
         compoundNBT.putDouble("maxcooldown", this.getMaxCooldown());
-        compoundNBT.putString("type", this.getActivationType().toString());
+        if (!(this instanceof IContinuousAbility))
+            compoundNBT.putString("type", this.getActivationType().toString());
         compoundNBT.putString("state", this.getState().toString());
 
         return compoundNBT;
@@ -160,7 +161,8 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         this.setCooldown(cooldown);
         int maxCooldown = (int) (compoundNBT.getDouble("maxcooldown") / 20);
         this.setMaxCooldown(maxCooldown);
-        this.setActivationType(Ability.ActivationType.valueOf(compoundNBT.getString("type")));
+        if (!(this instanceof IContinuousAbility))
+            this.setActivationType(Ability.ActivationType.valueOf(compoundNBT.getString("type")));
         this.setState(Ability.STATE.valueOf(compoundNBT.getString("state")));
     }
 

@@ -47,6 +47,7 @@ public class StatsOverlay extends AbstractGui {
                 }
                 else if (abilityData.getUnlockedAbilities().get(i).getPassive() && abilityData.getUnlockedAbilities().get(i).getShown())
                     drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "Ability: " + TextFormatting.RESET + abilityData.getUnlockedAbilities().get(i).getName(), 20, 20 + i * 15, -1);
+
             }
         }
     }
