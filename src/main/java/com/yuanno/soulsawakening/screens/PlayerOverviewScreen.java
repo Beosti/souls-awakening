@@ -8,6 +8,7 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
+import com.yuanno.soulsawakening.events.hollow.HollowEvolutionEvent;
 import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -61,28 +62,16 @@ public class PlayerOverviewScreen extends Screen {
         {
             this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 57, 80, 16, new TranslationTextComponent("Evolution"), b ->
             {
+
+
                 if (entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.ARRANCAR)))
                 {
-                    switch (entityStats.getRank()) {
-                        case (ModValues.BASE):
-                            entityStats.setRank(ModValues.GILLIAN);
-                            abilityData.addUnlockedAbility(CeroAbility.INSTANCE);
-                            break;
-                        case (ModValues.GILLIAN):
-                            entityStats.setRank(ModValues.ADJUCHA);
-                            break;
-                        case (ModValues.ADJUCHA):
-                            entityStats.setRank(ModValues.VASTO_LORDE);
-                            break;
-                        case (ModValues.VASTO_LORDE):
-                            entityStats.setRank(ModValues.ARRANCAR);
-                            break;
-                    }
-                    entityStats.setHollowPoints(0);
-                    PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
-                    PacketHandler.sendToServer(new CSyncAbilityDataPacket(abilityData));
+                    HollowEvolutionEvent hollowEvolutionEvent = new HollowEvolutionEvent(player);
+                    MinecraftForge.EVENT_BUS.post(hollowEvolutionEvent);
 
                 }
+
+
                 init();
             })).active = entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.ARRANCAR));
         }

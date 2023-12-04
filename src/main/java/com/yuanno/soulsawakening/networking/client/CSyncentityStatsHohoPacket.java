@@ -55,8 +55,7 @@ public class CSyncentityStatsHohoPacket {
                 {
 
                     HohoGainEvent hohoGainEvent = new HohoGainEvent(player);
-                    if (MinecraftForge.EVENT_BUS.post(hohoGainEvent))
-                        return;
+                    MinecraftForge.EVENT_BUS.post(hohoGainEvent);
                 }
 
             });

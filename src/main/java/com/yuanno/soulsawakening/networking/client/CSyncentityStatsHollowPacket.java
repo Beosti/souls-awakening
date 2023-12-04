@@ -53,8 +53,8 @@ public class CSyncentityStatsHollowPacket {
                 if (props.getRace().equals(ModValues.HOLLOW))
                 {
                     HollowGainEvent hollowGainEvent = new HollowGainEvent(player);
-                    if (MinecraftForge.EVENT_BUS.post(hollowGainEvent))
-                        return;
+                    MinecraftForge.EVENT_BUS.post(hollowGainEvent);
+
                 }
             });
         }

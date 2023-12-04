@@ -54,8 +54,7 @@ public class CSyncentityStatsHakudaPacket {
                 if (props.getRace().equals(ModValues.FULLBRINGER) || props.getRace().equals(ModValues.SHINIGAMI))
                 {
                     HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player);
-                    if (MinecraftForge.EVENT_BUS.post(hakudaGainEvent))
-                        return;
+                    MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
                 }
             });
         }

@@ -53,8 +53,8 @@ public class CSyncentityStatsZanjutsuPacket {
                 ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player);
                 if (props.getRace().equals(ModValues.FULLBRINGER) || props.getRace().equals(ModValues.SHINIGAMI))
                 {
-                    if (MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent))
-                        return;
+                    MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent);
+
                 }
             });
         }

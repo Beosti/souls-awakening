@@ -63,8 +63,8 @@ public class StatPointsEvent {
             entityStats.alterHakudaPoints(0.005);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player);
-            if (MinecraftForge.EVENT_BUS.post(hakudaGainEvent))
-                return;
+            MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
+
         }
         else if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
         {
@@ -72,8 +72,7 @@ public class StatPointsEvent {
             entityStats.alterZanjutsuPoints(0.05);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player);
-            if (MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent))
-                return;
+            MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent);
         }
     }
 
@@ -97,8 +96,7 @@ public class StatPointsEvent {
         entityStats.alterHohoPoints(0.0001 * (hohoPoints * 0.73));
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         HohoGainEvent hohoGainEvent = new HohoGainEvent(player);
-        if (MinecraftForge.EVENT_BUS.post(hohoGainEvent))
-            return;
+        MinecraftForge.EVENT_BUS.post(hohoGainEvent);
 
     }
 
@@ -117,8 +115,7 @@ public class StatPointsEvent {
                     entityStats.alterHakudaPoints(0.05);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(playerHurtEntity.getId(), entityStats), playerHurtEntity);
                     HohoGainEvent hohoGainEvent = new HohoGainEvent(playerHurtEntity);
-                    if (MinecraftForge.EVENT_BUS.post(hohoGainEvent))
-                        return;
+                    MinecraftForge.EVENT_BUS.post(hohoGainEvent);
                 }
             }
             else if (entityStats.getRace().equals(ModValues.HOLLOW))
