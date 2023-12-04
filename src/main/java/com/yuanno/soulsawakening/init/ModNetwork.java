@@ -18,6 +18,10 @@ public class ModNetwork {
         PacketHandler.registerPacket(CSyncentityStatsStatsPacket.class, CSyncentityStatsStatsPacket::encode, CSyncentityStatsStatsPacket::decode, CSyncentityStatsStatsPacket::handle);
         PacketHandler.registerPacket(CSyncAbilityDataPacket.class, CSyncAbilityDataPacket::encode, CSyncAbilityDataPacket::decode, CSyncAbilityDataPacket::handle);
         PacketHandler.registerPacket(CRightClickEmptyPacket.class, CRightClickEmptyPacket::encode, CRightClickEmptyPacket::decode, CRightClickEmptyPacket::handle);
+        PacketHandler.registerPacket(CSyncentityStatsZanjutsuPacket.class, CSyncentityStatsZanjutsuPacket::encode, CSyncentityStatsZanjutsuPacket::decode, CSyncentityStatsZanjutsuPacket::handle);
+        PacketHandler.registerPacket(CSyncentityStatsHakudaPacket.class, CSyncentityStatsHakudaPacket::encode, CSyncentityStatsHakudaPacket::decode, CSyncentityStatsHakudaPacket::handle);
+        PacketHandler.registerPacket(CSyncentityStatsHohoPacket.class, CSyncentityStatsHohoPacket::encode, CSyncentityStatsHohoPacket::decode, CSyncentityStatsHohoPacket::handle);
+        PacketHandler.registerPacket(CSyncentityStatsHollowPacket.class, CSyncentityStatsHollowPacket::encode, CSyncentityStatsHollowPacket::decode, CSyncentityStatsHollowPacket::handle);
 
 
 

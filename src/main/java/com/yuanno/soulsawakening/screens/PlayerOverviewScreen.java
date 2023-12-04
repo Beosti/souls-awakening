@@ -11,10 +11,7 @@ import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.client.CSyncAbilityDataPacket;
-import com.yuanno.soulsawakening.networking.client.CSyncMiscDataPacket;
-import com.yuanno.soulsawakening.networking.client.CSyncentityStatsPacket;
-import com.yuanno.soulsawakening.networking.client.CSyncentityStatsStatsPacket;
+import com.yuanno.soulsawakening.networking.client.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -98,7 +95,7 @@ public class PlayerOverviewScreen extends Screen {
                 {
                     entityStats.alterClassPoints(-1);
                     handleStats(finalI, entityStats);
-                    PacketHandler.sendToServer(new CSyncentityStatsStatsPacket(entityStats));
+                    //PacketHandler.sendToServer(new CSyncentityStatsStatsPacket(entityStats));
                 }
                 init();
             })).active = classPoints > 0;
@@ -111,17 +108,27 @@ public class PlayerOverviewScreen extends Screen {
 
         if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER))
         {
-            if (integer == 2)
+            if (integer == 2) {
                 entityStats.alterHohoPoints(1);
-            else if (integer == 1)
+                PacketHandler.sendToServer(new CSyncentityStatsHohoPacket(entityStats));
+
+            }
+            else if (integer == 1) {
                 entityStats.alterHakudaPoints(1);
-            else if (integer == 0)
+                PacketHandler.sendToServer(new CSyncentityStatsHakudaPacket(entityStats));
+
+            }
+            else if (integer == 0) {
                 entityStats.alterZanjutsuPoints(1);
+                PacketHandler.sendToServer(new CSyncentityStatsZanjutsuPacket(entityStats));
+            }
         }
         else if (entityStats.getRace().equals(ModValues.HOLLOW))
         {
-            if (integer == 0)
+            if (integer == 0) {
                 entityStats.alterHollowPoints(1);
+                PacketHandler.sendToServer(new CSyncentityStatsHollowPacket(entityStats));
+            }
         }
     }
 

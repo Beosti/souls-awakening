@@ -85,18 +85,21 @@ public class StatPointsEvent {
         if (!(event.getEntityLiving() instanceof PlayerEntity))
             return;
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        if (!player.isSprinting())
+            return;
+        if (player.tickCount % 20 != 0)
+            return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (!(entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER)))
+            return;
+        double hohoPointsRaw = entityStats.getHohoPoints();
+        int hohoPoints = (int) Math.floor(hohoPointsRaw) + 1;
+        entityStats.alterHohoPoints(0.0001 * (hohoPoints * 0.73));
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        HohoGainEvent hohoGainEvent = new HohoGainEvent(player);
+        if (MinecraftForge.EVENT_BUS.post(hohoGainEvent))
+            return;
 
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && player.isSprinting() && player.tickCount % 20 == 0)
-        {
-            double hohoPointsRaw = entityStats.getHohoPoints();
-            int hohoPoints = (int) Math.floor(hohoPointsRaw) + 1;
-            entityStats.alterHohoPoints(0.0001 * (hohoPoints * 0.73));
-            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-            HohoGainEvent hohoGainEvent = new HohoGainEvent(player);
-            if (MinecraftForge.EVENT_BUS.post(hohoGainEvent))
-                return;
-        }
     }
 
     @SubscribeEvent
