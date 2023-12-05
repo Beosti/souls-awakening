@@ -19,7 +19,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO fix this command
 public class ShinigamiStatsCommand {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher)

@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.events.hollow;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.abilities.hollow.CeroAbility;
+import com.yuanno.soulsawakening.abilities.hollow.GargantaAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -21,6 +22,8 @@ public class HollowSpecificEvents {
     public static void hollowEvolutionEvent(HollowEvolutionEvent event)
     {
         PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
 
@@ -31,6 +34,7 @@ public class HollowSpecificEvents {
                 break;
                 case (ModValues.GILLIAN):
                     entityStats.setRank(ModValues.ADJUCHA);
+                    abilityData.addUnlockedAbility(GargantaAbility.INSTANCE);
                     break;
                     case (ModValues.ADJUCHA):
                         entityStats.setRank(ModValues.VASTO_LORDE);
@@ -42,7 +46,5 @@ public class HollowSpecificEvents {
             entityStats.setHollowPoints(0);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-
-
     }
 }

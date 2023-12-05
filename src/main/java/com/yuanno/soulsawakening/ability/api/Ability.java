@@ -8,7 +8,6 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.Locale;
 
-// TODO make a continuous ability
 public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private String name;
     private double cooldown;

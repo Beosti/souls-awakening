@@ -52,7 +52,7 @@ public class ModAbilities {
     public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE, VenomousCloudAbility.INSTANCE, AdrenalineCloudAbility.INSTANCE};
     public static final Ability[] WATER_ZANPAKUTO = new Ability[] {AquaSlashAbility.INSTANCE, TidalWaveAbility.INSTANCE, WaterPrisonAbility.INSTANCE};
     public static final Ability[] WIND_ZANPAKUTO = new Ability[] {GaleForceAbility.INSTANCE, WhirldWindDanceAbility.INSTANCE, WindAttackAbility.INSTANCE};
-    public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE, AcidicTouchAbility.INSTANCE, CeroAbility.INSTANCE, HollowRegenerationAbility.INSTANCE};
+    public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE, AcidicTouchAbility.INSTANCE, CeroAbility.INSTANCE, HollowRegenerationAbility.INSTANCE, GargantaAbility.INSTANCE};
 
     public static void register(IEventBus eventBus)
     {

@@ -98,7 +98,6 @@ public class RightClickEntityAbilityEvent {
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event)
     {
-        System.out.println("RIGHT CLICK");
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
@@ -130,7 +129,6 @@ public class RightClickEntityAbilityEvent {
                         continue;
                     if (!(ability instanceof IRightClickEmptyAbility))
                         continue;
-                    System.out.println(ability.getActivationType());
                     Ability.ActivationType activationType = ability.getActivationType();
                     if (activationType.equals(Ability.ActivationType.SHIFT_RIGHT_CLICK) && player.isCrouching())
                         ((IRightClickEmptyAbility) ability).onShiftRightClick(player);
@@ -196,10 +194,8 @@ public class RightClickEntityAbilityEvent {
     public static void onEmptyRightClick(RightClickEmptyEvent event)
     {
         PlayerEntity player = event.getPlayer();
-        System.out.println("CHECK 1");
         if (player.level.isClientSide)
             return;
-        System.out.println("CHECK 2");
         if (entityInteractFired)
         {
             entityInteractFired = false;
@@ -215,10 +211,20 @@ public class RightClickEntityAbilityEvent {
                     continue;
                 if (!ability.getState().equals(Ability.STATE.READY) && !(ability.getPassive()))
                     continue;
-                ((IRightClickEmptyAbility) ability).onRightClick(player);
-                ability.setState(Ability.STATE.COOLDOWN);
-                ability.setCooldown(ability.getMaxCooldown() / 20);
+                if (ability.getActivationType().equals(Ability.ActivationType.SHIFT_RIGHT_CLICK) && player.isCrouching()) {
+                    ability.setState(Ability.STATE.COOLDOWN);
+                    ability.setCooldown(ability.getMaxCooldown() / 20);
+                    ((IRightClickEmptyAbility) ability).onShiftRightClick(player);
+                }
+                else if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && !player.isCrouching()) {
+                    ability.setState(Ability.STATE.COOLDOWN);
+                    ability.setCooldown(ability.getMaxCooldown() / 20);
+                    ((IRightClickEmptyAbility) ability).onRightClick(player);
+                }
+                else
+                    continue;
 
+                return;
             }
         }
     }

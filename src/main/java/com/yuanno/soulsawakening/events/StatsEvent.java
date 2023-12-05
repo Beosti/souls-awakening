@@ -149,8 +149,10 @@ public class StatsEvent {
         PlayerEntity player = event.getPlayer();
         IEntityStats stats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
+        IMiscData miscData = MiscDataCapability.get(player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncEntityStatsPacket(player.getId(), stats), player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+        PacketHandler.sendToAllTrackingAndSelf(new SSyncMiscDataPacket(player.getId(), miscData), player);
         //MinecraftForge.EVENT_BUS.post(new EntityEvent.Size(player, player.getPose(), player.getDimensions(player.getPose()), player.getBbHeight()));
     }
 
