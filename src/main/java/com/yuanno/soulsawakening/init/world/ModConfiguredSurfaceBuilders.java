@@ -1,6 +1,7 @@
-package com.yuanno.soulsawakening.init;
+package com.yuanno.soulsawakening.init.world;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.init.ModBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -11,7 +12,7 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
 public class ModConfiguredSurfaceBuilders {
 
-    public static ConfiguredSurfaceBuilder<?> HUECO_MUNDO = register("hueco_mundo", SurfaceBuilder.NETHER.configured(new SurfaceBuilderConfig(
+    public static ConfiguredSurfaceBuilder<?> HUECO_MUNDO = register("hueco_mundo", SurfaceBuilder.DEFAULT.configured(new SurfaceBuilderConfig(
             ModBlocks.HOLLOW_SAND.get().defaultBlockState(), ModBlocks.HOLLOW_SAND.get().defaultBlockState(), ModBlocks.HOLLOW_SAND.get().defaultBlockState()
     )));
 

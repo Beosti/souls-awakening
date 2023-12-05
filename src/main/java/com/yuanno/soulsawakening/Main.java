@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening;
 
 import com.yuanno.soulsawakening.client.overlay.StatsOverlay;
 import com.yuanno.soulsawakening.init.*;
+import com.yuanno.soulsawakening.init.world.ModBiomes;
 import com.yuanno.soulsawakening.util.ItemProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -9,7 +10,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

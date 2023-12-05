@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.init;
+package com.yuanno.soulsawakening.init.world;
 
 import com.yuanno.soulsawakening.Main;
 import net.minecraft.util.RegistryKey;
