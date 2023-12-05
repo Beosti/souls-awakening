@@ -1,0 +1,12 @@
+{
+  "type": "soulsawakening:hueco_mundo",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": -2048856837,
+    "settings": "minecraft:overworld",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "soulsawakening:hueco_mundo"
+    }
+  }
+}

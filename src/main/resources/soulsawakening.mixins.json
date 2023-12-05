@@ -9,7 +9,7 @@
 
   ],
   "client": [
-
+    "ServerWorldInfoMixin"
   ],
   "server": [],
   "injectors": {

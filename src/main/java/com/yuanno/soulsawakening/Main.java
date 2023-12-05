@@ -40,7 +40,7 @@ public class Main
         ModBlocks.BLOCKS.register(modEventBus);
         ModAttributes.ATTRIBUTES.register(modEventBus);
         ModFeatures.register(modEventBus);
-
+        ModBiomes.register(modEventBus);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
