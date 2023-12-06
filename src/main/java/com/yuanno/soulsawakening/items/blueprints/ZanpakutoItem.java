@@ -62,16 +62,16 @@ public class ZanpakutoItem extends SwordItem {
     private ItemStack stack;
 
     public ZanpakutoItem() {
-        super(ModTiers.WEAPON, 5, 0.5f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
+        super(ModTiers.WEAPON, 6, -2.6f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
         this.zanpakutoState = ModResources.STATE.SEALED;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (Screen.hasShiftDown()) {
-            tooltip.add(new TranslationTextComponent("§4A rare sword linked by the soul with the owner of it"));
+            tooltip.add(new TranslationTextComponent("§6A rare sword linked by the soul with the owner of it"));
         } else {
-            tooltip.add(new TranslationTextComponent("§4Hold " + "§eSHIFT " + "§4" + "for more Information!"));
+            tooltip.add(new TranslationTextComponent("§6Hold " + "§eSHIFT " + "§6" + "for more Information!"));
         }
         if (stack.getTag().getString("owner").isEmpty()) {
             super.appendHoverText(stack, world, tooltip, flagIn);
@@ -80,7 +80,7 @@ public class ZanpakutoItem extends SwordItem {
         else
         {
             String currentOwner = stack.getTag().getString("owner");
-            tooltip.add(new StringTextComponent("§4Owner: " + currentOwner));
+            tooltip.add(new StringTextComponent("§6Owner: " + currentOwner));
         }
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
@@ -119,8 +119,8 @@ public class ZanpakutoItem extends SwordItem {
                 || entityStats.getRace().equals(ModValues.HOLLOW))
             return ActionResult.fail(itemStack);
         if (currentOwner.isEmpty() && !player.level.isClientSide) {
-            //ELEMENT element = ELEMENT.getRandomElement();
-            ELEMENT element = ELEMENT.LIGHTNING;
+            ELEMENT element = ELEMENT.getRandomElement();
+            //ELEMENT element = ELEMENT.LIGHTNING;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             itemStack.getTag().putString("zanpakutoElement", element.name());

@@ -32,7 +32,7 @@ public abstract class MiscItem extends Item {
                 colorCode = "§2";
                 break;
             case RARE:
-                colorCode = "§4";
+                colorCode = "§6";
                 break;
             case EPIC:
                 colorCode = "§5";
