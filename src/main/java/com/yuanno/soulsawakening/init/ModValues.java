@@ -17,4 +17,7 @@ public class ModValues {
     public static final String ADJUCHA = "Adjucha";
     public static final String VASTO_LORDE = "Vasto Lorde";
     public static final String ARRANCAR = "Arrancar";
+
+    // ELEMENTS
+
 }
