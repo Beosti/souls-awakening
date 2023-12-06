@@ -17,6 +17,8 @@
   "gui.soulsawakening.quincy_tree": "Quincy",
 
   "block.soulsawakening.reishi_ore": "Reishi Ore",
-  "block.soulsawakening.hollow_sand": "Hollow Sand"
+  "block.soulsawakening.hollow_sand": "Hollow Sand",
+
+  "entity.soulsawakening.centipede": "Hollow Centipede"
 
 }

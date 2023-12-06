@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening;
 
+import com.yuanno.soulsawakening.client.ClientHandler;
 import com.yuanno.soulsawakening.client.overlay.StatsOverlay;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.init.world.ModBiomes;
@@ -39,8 +40,10 @@ public class Main
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModAttributes.ATTRIBUTES.register(modEventBus);
+        ModEntities.ENTITIES.register(modEventBus);
         ModFeatures.register(modEventBus);
         ModBiomes.register(modEventBus);
+
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
@@ -61,6 +64,7 @@ public class Main
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
+        ClientHandler.onSetup();
 
         ModKeyBinds.init();
         ItemProperties.register();
