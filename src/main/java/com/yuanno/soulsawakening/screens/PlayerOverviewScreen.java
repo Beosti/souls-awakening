@@ -63,12 +63,12 @@ public class PlayerOverviewScreen extends Screen {
         {
             this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 57, 80, 16, new TranslationTextComponent("Evolution"), b ->
             {
-                if (entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.ARRANCAR)))
+                if (entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE)))
                 {
                     PacketHandler.sendToServer(new CHollowEvolutionPacket());
                     this.onClose();
                 }
-            })).active = entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.ARRANCAR));
+            })).active = entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE));
         }
         for (int i = 0; i < statsAmount; i++)
         {
