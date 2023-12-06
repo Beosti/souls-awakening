@@ -44,7 +44,6 @@ public class PlayerOverviewScreen extends Screen {
     @Override
     public void init()
     {
-        System.out.println("BACK TO INNIT");
         Minecraft mc = Minecraft.getInstance();
         PlayerEntity playerEntity = mc.player;
         this.buttons.clear();
@@ -62,15 +61,13 @@ public class PlayerOverviewScreen extends Screen {
             statsAmount = 0;
         if (entityStats.getRace().equals(ModValues.HOLLOW))
         {
-            // TODO has to fix the bug of it not deactivating
             this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 57, 80, 16, new TranslationTextComponent("Evolution"), b ->
             {
                 if (entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.ARRANCAR)))
                 {
                     PacketHandler.sendToServer(new CHollowEvolutionPacket());
-                    init();
+                    this.onClose();
                 }
-                init();
             })).active = entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.ARRANCAR));
         }
         for (int i = 0; i < statsAmount; i++)
