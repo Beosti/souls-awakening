@@ -24,6 +24,6 @@ public class HollowProjectiles {
     @SubscribeEvent
     public static void registerEntityRenderers(FMLClientSetupEvent event)
     {
-        RenderingRegistry.registerEntityRenderingHandler(CERO.get(), new StretchingProjectileRenderer.Factory(new CubeModel()).setStretchScale(3, 3, 10).setColor("#FF0000"));
+        RenderingRegistry.registerEntityRenderingHandler(CERO.get(), new StretchingProjectileRenderer.Factory(new CubeModel()).setStretchScale(2.5, 2.5).setColor("#FF0000"));
     }
 }
