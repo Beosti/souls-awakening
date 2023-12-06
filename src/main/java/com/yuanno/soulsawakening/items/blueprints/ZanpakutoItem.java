@@ -62,7 +62,7 @@ public class ZanpakutoItem extends SwordItem {
     private ItemStack stack;
 
     public ZanpakutoItem() {
-        super(ModTiers.WEAPON, 6, -2.6f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
+        super(ModTiers.WEAPON, 5, -2.6f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
         this.zanpakutoState = ModResources.STATE.SEALED;
     }
 
