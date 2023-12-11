@@ -8,8 +8,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.yuanno.soulsawakening.entity.CentipedeEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.util.math.MathHelper;
 
 public class CentipedeModel<T extends CentipedeEntity> extends EntityModel<T> {
 	private final ModelRenderer leftside;
@@ -313,6 +312,16 @@ public class CentipedeModel<T extends CentipedeEntity> extends EntityModel<T> {
 
 	@Override
 	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		/*
+		this.Poot3Left_r1.xRot = MathHelper.cos(limbSwing * 0.03662F) * 1.4F * limbSwingAmount;
+		this.Poot2Left_r1.xRot = MathHelper.cos(limbSwing * 0.03662F) * 1.4F * limbSwingAmount;
+		this.Poot5Left_r1.xRot = MathHelper.cos(limbSwing * 0.03662F) * 1.4F * limbSwingAmount;
+
+		this.Poot2Right_r1.xRot = MathHelper.cos(limbSwing * 0.03662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.Poot3Right_r1.xRot = MathHelper.cos(limbSwing * 0.03662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.Poot4Right_r1.xRot = MathHelper.cos(limbSwing * 0.03662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+
+		 */
 
 	}
 
@@ -321,6 +330,9 @@ public class CentipedeModel<T extends CentipedeEntity> extends EntityModel<T> {
 	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
 	{
 		bb_main.render(matrixStack, buffer, packedLight, packedOverlay);
+		leftside.render(matrixStack, buffer, packedLight, packedOverlay);
+		rightside.render(matrixStack, buffer, packedLight, packedOverlay);
+
 	}
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
 		modelRenderer.xRot = x;
