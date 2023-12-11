@@ -21,6 +21,7 @@ public class ClientHandler {
     public static void onSetup()
     {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CENTIPEDE.get(), new CentipedeRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CLAW.get(), new ClawRenderer.Factory());
         Map<String, PlayerRenderer> playerSkinMap = Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap();
         ClientHandler.addPlayerLayers(playerSkinMap.get("default"));
         ClientHandler.addPlayerLayers(playerSkinMap.get("slim"));

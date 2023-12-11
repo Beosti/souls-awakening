@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.entity.CentipedeEntity;
+import com.yuanno.soulsawakening.entity.ClawEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -19,6 +20,12 @@ public class ModEntities {
                             .sized(1.3f, 2f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "centipede").toString()));
+    public static final RegistryObject<EntityType<ClawEntity>> CLAW = ENTITIES
+            .register("claw",
+                    () -> EntityType.Builder.of(ClawEntity::new, EntityClassification.CREATURE)
+                            .sized(2f, 2f)
+                            .setTrackingRange(5)
+                            .build(new ResourceLocation(Main.MODID, "claw").toString()));
 
     public static void register(IEventBus eventBus) {
         ENTITIES.register(eventBus);
