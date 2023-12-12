@@ -1,9 +1,6 @@
 package com.yuanno.soulsawakening.init;
 
-import com.yuanno.soulsawakening.entity.BulkEntity;
-import com.yuanno.soulsawakening.entity.CentipedeEntity;
-import com.yuanno.soulsawakening.entity.ClawEntity;
-import com.yuanno.soulsawakening.entity.JetEntity;
+import com.yuanno.soulsawakening.entity.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,5 +16,6 @@ public class ModEventBusEvents {
         event.put(ModEntities.CLAW.get(), ClawEntity.setCustomAttributes().build());
         event.put(ModEntities.JET.get(), JetEntity.setCustomAttributes().build());
         event.put(ModEntities.BULK.get(), BulkEntity.setCustomAttributes().build());
+        event.put(ModEntities.BEAST.get(), BeastEntity.setCustomAttributes().build());
     }
 }

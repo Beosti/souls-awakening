@@ -24,6 +24,7 @@ public class ClientHandler {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CLAW.get(), new ClawRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.JET.get(), new JetRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.BULK.get(), new BulkRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.BEAST.get(), new BeastRenderer.Factory());
 
         Map<String, PlayerRenderer> playerSkinMap = Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap();
         ClientHandler.addPlayerLayers(playerSkinMap.get("default"));
