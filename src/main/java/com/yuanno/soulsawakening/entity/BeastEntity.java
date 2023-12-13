@@ -1,7 +1,11 @@
 package com.yuanno.soulsawakening.entity;
 
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModEffects;
+import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -9,68 +13,24 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
-public class BeastEntity extends CreatureEntity {
+public class BeastEntity extends HollowEntity {
     private static final float SCALE_FACTOR = 1.5f; // Adjust this value based on your scaling factor
     public BeastEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
+        this.element = "thunder";
     }
-
-    /*
-    @Override
-    public AxisAlignedBB getBoundingBox() {
-        AxisAlignedBB originalBoundingBox = super.getBoundingBox();
-
-        //double scaledWidth = originalBoundingBox.getXsize() * SCALE_FACTOR;
-        double scaledHeight = originalBoundingBox.getYsize() * SCALE_FACTOR;
-        //double scaledDepth = originalBoundingBox.getZsize() * SCALE_FACTOR;
-
-        //double offsetX = (scaledWidth - originalBoundingBox.getXsize()) / 2.0;
-        double offsetY = (scaledHeight - originalBoundingBox.getYsize()) / 2.0;
-        //double offsetZ = (scaledDepth - originalBoundingBox.getZsize()) / 2.0;
-
-        return new AxisAlignedBB(
-                originalBoundingBox.minX,
-                originalBoundingBox.minY - offsetY,
-                originalBoundingBox.minZ,
-                originalBoundingBox.maxX,
-                originalBoundingBox.maxY,
-                originalBoundingBox.maxZ
-        );
-    }
-
-     */
-
-
-
-    /*
-    @Override
-    public void setPos(double x, double y, double z) {
-        // Adjust the initial y position to prevent the entity from jumping
-        super.setPos(x, y + 4, z);
-
-        // Update the bounding box based on the new position
-        this.setBoundingBox(getBoundingBox().move(0, 4, 0));
-    }
-
-    @Override
-    public AxisAlignedBB getBoundingBox() {
-        AxisAlignedBB originalBoundingBox = super.getBoundingBox();
-
-        // Adjust the position of the bounding box vertically
-        AxisAlignedBB modifiedBoundingBox = originalBoundingBox.move(0, 4, 0);
-        return modifiedBoundingBox;
-    }
-
-     */
 
     @Override
     protected void registerGoals()
@@ -88,20 +48,6 @@ public class BeastEntity extends CreatureEntity {
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
 
     }
-
-    /*
-    @Override
-    public boolean doHurtTarget(Entity p_70652_1_) {
-        boolean flag = super.doHurtTarget(p_70652_1_);
-        if (flag && this.getMainHandItem().isEmpty() && p_70652_1_ instanceof LivingEntity) {
-            float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(ModEffects.HOLLOW_ACID.get(), 140 * (int)f));
-        }
-
-        return flag;
-    }
-
-     */
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes()
     {
@@ -131,8 +77,6 @@ public class BeastEntity extends CreatureEntity {
     public boolean isSensitiveToWater() {
         return false;
     }
-
-
 
     @Override
     @Nullable

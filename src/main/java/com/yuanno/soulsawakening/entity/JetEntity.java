@@ -1,6 +1,10 @@
 package com.yuanno.soulsawakening.entity;
 
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModAttributes;
+import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -10,6 +14,9 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -21,9 +28,10 @@ import net.minecraft.world.gen.Heightmap;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Random;
 
 public class JetEntity extends FlyingEntity implements IMob {
-
+    String element;
     private Vector3d moveTargetPoint = Vector3d.ZERO;
     private BlockPos anchorPoint = BlockPos.ZERO;
     private JetEntity.AttackPhase attackPhase = JetEntity.AttackPhase.CIRCLE;
@@ -33,7 +41,7 @@ public class JetEntity extends FlyingEntity implements IMob {
         super(p_i48575_1_, p_i48575_2_);
         this.moveControl = new JetEntity.MoveHelperController(this);
         this.lookControl = new JetEntity.LookHelperController(this);
-
+        this.element = "air";
     }
     public static AttributeModifierMap.MutableAttribute setCustomAttributes()
     {
@@ -324,4 +332,40 @@ public class JetEntity extends FlyingEntity implements IMob {
 
         }
     }
+
+    public void die(DamageSource source)
+    {
+        super.die(source);
+
+        if (!(source.getEntity() instanceof PlayerEntity))
+            return;
+
+        PlayerEntity player = (PlayerEntity) source.getEntity();
+        if (!player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem().asItem()))
+            return;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
+            return;
+        ItemStack zanpakutoItem = player.getMainHandItem();
+        int chancePercentage = 5;
+
+        Random random = new Random();
+        int randomNumber = random.nextInt(100) + 1;
+        if (randomNumber <= chancePercentage) {
+            addPoint(zanpakutoItem, this.element);
+        }
+    }
+
+    void addPoint(ItemStack zanpakutoItem, String element)
+    {
+        CompoundNBT tagCompound = zanpakutoItem.getTag();
+        int elementalPoints = tagCompound.getInt("element");
+        if (elementalPoints >= 5)
+            return;
+        int thunderPoint = tagCompound.getInt(element);
+        tagCompound.putInt(element, thunderPoint + 1);
+        tagCompound.putInt("element", elementalPoints + 1);
+        zanpakutoItem.setTag(tagCompound);
+    }
+
 }
