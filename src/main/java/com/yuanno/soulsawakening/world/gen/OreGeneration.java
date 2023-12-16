@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.world.gen;
 
+import com.yuanno.soulsawakening.world.OreType;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.GenerationStage;
@@ -10,7 +11,6 @@ import net.minecraft.world.gen.placement.ConfiguredPlacement;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.fml.RegistryObject;
 
 public class OreGeneration {
     public static void generateOres(final BiomeLoadingEvent event)

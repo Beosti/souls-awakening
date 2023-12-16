@@ -12,5 +12,6 @@ public class WorldEvents {
     public static void biomeLoadingEvent(final BiomeLoadingEvent event)
     {
         OreGeneration.generateOres(event);
+        EntityGeneration.onEntitySpawn(event);
     }
 }
