@@ -14,6 +14,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -68,8 +70,16 @@ public class ZanpakutoEvent {
         ItemStack zanpakutoItem = event.getZanpakutoItem();
 
 
-        if (entityStats.getZanjutsuPoints() < 10)
+        if (entityStats.getZanjutsuPoints() < 20) {
+            event.getPlayer().sendMessage(new StringTextComponent("Need to have at least 20 Zanjutsu points!"), Util.NIL_UUID);
             return;
+        }
+        int elementalPoints = zanpakutoItem.getTag().getInt("element");
+        if (elementalPoints < 5)
+        {
+            event.getPlayer().sendMessage(new StringTextComponent("Need to have at least 5 elemental points! You get them by killing hollows"), Util.NIL_UUID);
+            return;
+        }
         String state = zanpakutoItem.getTag().getString("zanpakutoState");
         if (state.equals(ModResources.STATE.SEALED.name()))
         {

@@ -82,6 +82,28 @@ public class ZanpakutoItem extends SwordItem {
             String currentOwner = stack.getTag().getString("owner");
             tooltip.add(new StringTextComponent("§6Owner: " + currentOwner));
         }
+        if (stack.getTag().getInt("element") == 0)
+        {
+            return;
+        }
+        else
+        {
+            int elementalPoints = stack.getTag().getInt("element");
+            tooltip.add(new StringTextComponent("Elemental points: " + elementalPoints));
+
+            int thunderPoints = stack.getTag().getInt("thunder");
+            tooltip.add(new StringTextComponent("§ethunder: " + thunderPoints));
+            int normalPoints = stack.getTag().getInt("normal");
+            tooltip.add(new StringTextComponent("§7normal: " + normalPoints));
+            int poisonPoints = stack.getTag().getInt("poison");
+            tooltip.add(new StringTextComponent("§2poison: " + poisonPoints));
+            int waterPoints = stack.getTag().getInt("water");
+            tooltip.add(new StringTextComponent("§bwater: " + waterPoints));
+            int airPoints = stack.getTag().getInt("air");
+            tooltip.add(new StringTextComponent("§aair: " + airPoints));
+
+
+        }
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
 
