@@ -36,7 +36,6 @@ public class BeastEntity extends HollowEntity {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PlusEntity.class, false));
 
-        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1, true));
         this.goalSelector.addGoal(4, new ImprovedMeleeAttackGoal(this, 1, true));
 
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));

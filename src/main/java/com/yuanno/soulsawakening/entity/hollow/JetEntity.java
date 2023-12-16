@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.entity.hollow;
 
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -89,12 +90,24 @@ public class JetEntity extends FlyingEntity implements IMob {
             } else {
                 this.nextScanTick = 60;
                 List<PlayerEntity> list = JetEntity.this.level.getNearbyPlayers(this.attackTargeting, JetEntity.this, JetEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
+                List<PlusEntity> listPlus = JetEntity.this.level.getNearbyEntities(PlusEntity.class, this.attackTargeting, JetEntity.this, JetEntity.this.getBoundingBox().inflate(16.0D, 64.0D, 16.0D));
                 if (!list.isEmpty()) {
                     list.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
 
                     for(PlayerEntity playerentity : list) {
                         if (JetEntity.this.canAttack(playerentity, EntityPredicate.DEFAULT)) {
                             JetEntity.this.setTarget(playerentity);
+                            return true;
+                        }
+                    }
+                }
+                else if (!listPlus.isEmpty())
+                {
+                    listPlus.sort(Comparator.<Entity, Double>comparing(Entity::getY).reversed());
+
+                    for(PlusEntity plusEntity : listPlus) {
+                        if (JetEntity.this.canAttack(plusEntity, EntityPredicate.DEFAULT)) {
+                            JetEntity.this.setTarget(plusEntity);
                             return true;
                         }
                     }

@@ -35,19 +35,17 @@ public class PlusEntity extends CreatureEntity {
     protected void registerGoals()
     {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new MeleeAttackGoal(this, 1, true));
         this.goalSelector.addGoal(2, new LookAtGoal(this, PlayerEntity.class, 4));
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
 
-        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes()
     {
         return MobEntity.createMobAttributes()
-                .add(Attributes.ATTACK_DAMAGE, 50)
+                .add(Attributes.ATTACK_DAMAGE, 0)
                 .add(Attributes.ARMOR, 20)
-                .add(Attributes.MAX_HEALTH, 300)
+                .add(Attributes.MAX_HEALTH, 1)
                 .add(Attributes.FOLLOW_RANGE, 100)
                 .add(Attributes.MOVEMENT_SPEED, 3)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);

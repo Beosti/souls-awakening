@@ -1,5 +1,7 @@
 package com.yuanno.soulsawakening.entity.hollow;
 
+import com.yuanno.soulsawakening.entity.ImprovedMeleeAttackGoal;
+import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -35,7 +37,8 @@ public class ClawEntity extends HollowEntity {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
-        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PlusEntity.class, false));
+        this.goalSelector.addGoal(4, new ImprovedMeleeAttackGoal(this, 1, true));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 4));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
