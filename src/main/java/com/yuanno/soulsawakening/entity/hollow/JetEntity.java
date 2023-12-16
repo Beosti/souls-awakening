@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.entity;
+package com.yuanno.soulsawakening.entity.hollow;
 
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;

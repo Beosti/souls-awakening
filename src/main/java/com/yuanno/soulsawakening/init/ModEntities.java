@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.entity.*;
+import com.yuanno.soulsawakening.entity.hollow.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -43,7 +44,12 @@ public class ModEntities {
                             .sized(2f, 2f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "beast").toString()));
-
+    public static final RegistryObject<EntityType<PlusEntity>> PLUS = ENTITIES
+            .register("plus",
+                    () -> EntityType.Builder.of(PlusEntity::new, EntityClassification.CREATURE)
+                            .sized(1f, 2f)
+                            .setTrackingRange(5)
+                            .build(new ResourceLocation(Main.MODID, "plus").toString()));
 
     public static void register(IEventBus eventBus) {
         ENTITIES.register(eventBus);

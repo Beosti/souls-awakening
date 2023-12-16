@@ -1,9 +1,7 @@
-package com.yuanno.soulsawakening.entity;
+package com.yuanno.soulsawakening.entity.hollow;
 
-import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -12,22 +10,19 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class CentipedeEntity extends HollowEntity {
+public class BulkEntity extends HollowEntity {
 
-    public CentipedeEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
+    public BulkEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = ModValues.DARK;
+        this.element = ModValues.NORMAL;
     }
 
     @Override
@@ -52,7 +47,7 @@ public class CentipedeEntity extends HollowEntity {
         boolean flag = super.doHurtTarget(p_70652_1_);
         if (flag && this.getMainHandItem().isEmpty() && p_70652_1_ instanceof LivingEntity) {
             float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(Effects.POISON, 140 * (int)f));
+            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(ModEffects.HOLLOW_ACID.get(), 140 * (int)f));
         }
 
         return flag;
@@ -87,8 +82,6 @@ public class CentipedeEntity extends HollowEntity {
         return false;
     }
 
-
-
     @Override
     @Nullable
     public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataTag)
@@ -97,6 +90,5 @@ public class CentipedeEntity extends HollowEntity {
         return spawnData;
 
     }
-
 
 }

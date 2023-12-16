@@ -1,11 +1,11 @@
-package com.yuanno.soulsawakening.models;// Made with Blockbench 4.2.4
+package com.yuanno.soulsawakening.models.hollow;// Made with Blockbench 4.2.4
 // Exported for Minecraft version 1.15 - 1.16 with MCP mappings
 // Paste this class into your mod and generate all required imports
 
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.yuanno.soulsawakening.entity.JetEntity;
+import com.yuanno.soulsawakening.entity.hollow.JetEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 

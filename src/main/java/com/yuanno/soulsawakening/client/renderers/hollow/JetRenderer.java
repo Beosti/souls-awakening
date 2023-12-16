@@ -1,9 +1,9 @@
-package com.yuanno.soulsawakening.client;
+package com.yuanno.soulsawakening.client.renderers.hollow;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entity.JetEntity;
-import com.yuanno.soulsawakening.models.JetModel;
+import com.yuanno.soulsawakening.entity.hollow.JetEntity;
+import com.yuanno.soulsawakening.models.hollow.JetModel;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;

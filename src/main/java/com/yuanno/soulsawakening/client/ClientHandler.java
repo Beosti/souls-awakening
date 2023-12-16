@@ -1,5 +1,7 @@
 package com.yuanno.soulsawakening.client;
 
+import com.yuanno.soulsawakening.client.renderers.PlusRenderer;
+import com.yuanno.soulsawakening.client.renderers.hollow.*;
 import com.yuanno.soulsawakening.init.ModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
@@ -25,6 +27,8 @@ public class ClientHandler {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.JET.get(), new JetRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.BULK.get(), new BulkRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.BEAST.get(), new BeastRenderer.Factory());
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.PLUS.get(), new PlusRenderer.Factory());
 
         Map<String, PlayerRenderer> playerSkinMap = Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap();
         ClientHandler.addPlayerLayers(playerSkinMap.get("default"));
