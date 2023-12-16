@@ -1,7 +1,34 @@
 package com.yuanno.soulsawakening.events.zanpakuto;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
+import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.HealingTouchingAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.RevitilazingAuraAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.SelfHealingAbility;
+import com.yuanno.soulsawakening.abilities.elements.lunar.LunarBlessingAbility;
+import com.yuanno.soulsawakening.abilities.elements.lunar.LunarCrescentAbility;
+import com.yuanno.soulsawakening.abilities.elements.lunar.LunarWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.normal.NormalBuffAbility;
+import com.yuanno.soulsawakening.abilities.elements.poison.AdrenalineCloudAbility;
+import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.DarkStepAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.ShadowAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.UmbralCloakAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.LightningStepAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStrikeAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.AquaSlashAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.TidalWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.WaterPrisonAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
 import com.yuanno.soulsawakening.api.SoulboundItemHelper;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItems;
@@ -10,6 +37,7 @@ import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -21,10 +49,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class ZanpakutoEvent {
@@ -71,6 +96,8 @@ public class ZanpakutoEvent {
     @SubscribeEvent
     public static void onZanpakutoChange(ZanpakutoChangeEvent event)
     {
+        if (event.getPlayer().level.isClientSide)
+            return;
         IEntityStats entityStats = EntityStatsCapability.get(event.getPlayer());
         ItemStack zanpakutoItem = event.getZanpakutoItem();
 
@@ -88,11 +115,79 @@ public class ZanpakutoEvent {
         String element = zanpakutoItem.getTag().getString("zanpakutoElement");
         if (element.isEmpty())
         {
-            int thunderPoints = zanpakutoItem.getTag().getInt("thunder");
+            Map<String, Integer> elementalPointsHash = new HashMap<>();
+
+            int thunderPoints = zanpakutoItem.getTag().getInt("lightning"); // TODO change this to modvalues instead of just string
+            elementalPointsHash.put("lightning", thunderPoints);
+
             int normalPoints = zanpakutoItem.getTag().getInt("normal");
+            elementalPointsHash.put("normal", normalPoints);
+
             int poisonPoints = zanpakutoItem.getTag().getInt("poison");
+            elementalPointsHash.put("poison", poisonPoints);
+
             int waterPoints = zanpakutoItem.getTag().getInt("water");
+            elementalPointsHash.put("water", waterPoints);
+
             int airPoints = zanpakutoItem.getTag().getInt("air");
+            elementalPointsHash.put("air", airPoints);
+
+            String elementChosen = calculateMostProbableElement(elementalPointsHash);
+            CompoundNBT tagCompound = zanpakutoItem.getTag();
+            tagCompound.putString("zanpakutoElement", elementChosen.toUpperCase());
+            System.out.println(elementChosen);
+            zanpakutoItem.setTag(tagCompound);
+            IAbilityData abilityData = AbilityDataCapability.get(event.getPlayer());
+            elementChosen.toUpperCase();
+
+            switch (elementChosen)
+            {
+                case ("DARK"):
+                    abilityData.addUnlockedAbility(DarkStepAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(ShadowAttackAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(UmbralCloakAbility.INSTANCE);
+                    break;
+                case ("FIRE"):
+                    abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(FireBallAbility.INSTANCE);
+                    break;
+                case ("HEAL"):
+                    abilityData.addUnlockedAbility(HealingTouchingAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(RevitilazingAuraAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(SelfHealingAbility.INSTANCE);
+                    break;
+                case ("LIGHTNING"):
+                    abilityData.addUnlockedAbility(LightningStepAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(ThunderAttackAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(ThunderStrikeAbility.INSTANCE);
+                    break;
+                case ("LUNAR"):
+                    abilityData.addUnlockedAbility(LunarBlessingAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(LunarCrescentAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(LunarWaveAbility.INSTANCE);
+                    break;
+                case ("NORMAL"):
+                    abilityData.addUnlockedAbility(NormalBuffAbility.INSTANCE);
+                    break;
+                case ("POISON"):
+                    abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(VenomousCloudAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(AdrenalineCloudAbility.INSTANCE);
+                    break;
+                case ("WATER"):
+                    abilityData.addUnlockedAbility(AquaSlashAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(TidalWaveAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(WaterPrisonAbility.INSTANCE);
+                    break;
+                case ("WIND"):
+                    abilityData.addUnlockedAbility(GaleForceAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(WhirldWindDanceAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
+                    break;
+            }
+
+            PacketHandler.sendTo(new SSyncAbilityDataPacket(event.getPlayer().getId(), abilityData), event.getPlayer());
 
         }
 
@@ -111,59 +206,32 @@ public class ZanpakutoEvent {
         }
     }
 
-    public static String calculateElements(Map<String, Integer> elementPoints) {
-        int totalPoints = calculateTotalPoints(elementPoints);
+    public static String calculateMostProbableElement(Map<String, Integer> elementCounts) {
+        // Calculate the total count
+        int totalCount = elementCounts.values().stream().mapToInt(Integer::intValue).sum();
 
-        // Check if at least 50% points in one element guarantees that element
-        for (Map.Entry<String, Integer> entry : elementPoints.entrySet()) {
-            if ((double) entry.getValue() / totalPoints >= 0.5) {
-                return entry.getKey();
+        // Initialize variables to track the most probable element and its probability
+        String mostProbableElement = null;
+        double maxProbability = 0.0;
+
+        // Calculate the probability for each element and find the most probable one
+        for (Map.Entry<String, Integer> entry : elementCounts.entrySet()) {
+            String element = entry.getKey();
+            int count = entry.getValue();
+
+            // Calculate the probability
+            double probability = (double) count / totalCount;
+
+            // Update most probable element if needed
+            if (probability > maxProbability) {
+                mostProbableElement = element;
+                maxProbability = probability;
             }
         }
 
-        // Check if two elements have the exact same amount of points and together are over 50% of total points
-        if (hasSamePoints(elementPoints.values())) {
-            return "Combined Element";
-        }
-
-        // Calculate the element with the highest and second highest points
-        String maxElement = getMaxElement(elementPoints);
-        String secondMaxElement = getSecondMaxElement(elementPoints);
-
-        // Check if the highest element point count is higher than the second highest
-        double chance = calculateChance(elementPoints.get(maxElement), elementPoints.get(secondMaxElement), totalPoints);
-        return String.format("%s (%.2f%% chance)", maxElement, chance);
+        return mostProbableElement;
     }
 
-    private static int calculateTotalPoints(Map<String, Integer> elementPoints) {
-        return elementPoints.values().stream().mapToInt(Integer::intValue).sum();
-    }
-
-    private static boolean hasSamePoints(Collection<Integer> points) {
-        Set<Integer> uniquePoints = new HashSet<>(points);
-        return uniquePoints.size() < points.size();
-    }
-
-    private static String getMaxElement(Map<String, Integer> elementPoints) {
-        return elementPoints.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElseThrow(RuntimeException::new); // Handle the case where the map is empty
-    }
-
-    private static String getSecondMaxElement(Map<String, Integer> elementPoints) {
-        String maxElement = getMaxElement(elementPoints);
-        return elementPoints.entrySet().stream()
-                .filter(entry -> !entry.getKey().equals(maxElement))
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElseThrow(RuntimeException::new); // Handle the case where the map is empty
-    }
-
-    private static double calculateChance(int highestPoints, int secondHighestPoints, int totalPoints) {
-        // Replace this formula with your desired formula for calculating the percentage chance
-        return ((double) highestPoints / totalPoints) * 100;
-    }
 
 
 

@@ -29,7 +29,7 @@ public class BeastEntity extends HollowEntity {
     private static final float SCALE_FACTOR = 1.5f; // Adjust this value based on your scaling factor
     public BeastEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = "thunder";
+        this.element = "lightning";
     }
 
     @Override
