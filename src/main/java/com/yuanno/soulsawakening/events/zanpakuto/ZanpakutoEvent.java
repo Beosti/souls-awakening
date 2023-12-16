@@ -208,6 +208,16 @@ public class ZanpakutoEvent {
         // Calculate the total count
         int totalCount = elementCounts.values().stream().mapToInt(Integer::intValue).sum();
 
+        // Special cases here
+        // lightning
+        if (elementCounts.get(ModValues.FIRE) >= 2 && elementCounts.get(ModValues.WIND) >= 2)
+            return ModValues.LIGHTNING;
+        else if (elementCounts.get(ModValues.DARK) >= 2 && elementCounts.get(ModValues.WATER) >= 2)
+            return ModValues.POISON;
+        else if (elementCounts.get(ModValues.NORMAL) >= 2 && elementCounts.get(ModValues.WATER) >= 2)
+            return ModValues.HEAL;
+        else if (elementCounts.get(ModValues.NORMAL) >= 2 && elementCounts.get(ModValues.DARK) >= 2)
+            return ModValues.LUNAR;
         // Initialize variables to track the most probable element and its probability
         String mostProbableElement = null;
         double maxProbability = 0.0;
