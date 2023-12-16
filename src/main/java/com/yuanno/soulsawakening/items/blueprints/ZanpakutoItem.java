@@ -145,7 +145,7 @@ public class ZanpakutoItem extends SwordItem {
             //ELEMENT element = ELEMENT.LIGHTNING;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
-            itemStack.getTag().putString("zanpakutoElement", element.name());
+            //itemStack.getTag().putString("zanpakutoElement", element.name());
             itemStack.getTag().putString("zanpakutoType", TYPE.getRandomType().name());
             itemStack.getTag().putString("zanpakutoState", ModResources.STATE.SEALED.name());
             if (entityStats.getRace().equals(ModValues.SPIRIT)) {
@@ -161,6 +161,7 @@ public class ZanpakutoItem extends SwordItem {
                 entityStats.setHakudaPoints(0);
             if (entityStats.getZanjutsuPoints() <= 0)
                 entityStats.setZanjutsuPoints(0);
+            /* -> will be added for the random config
             switch (element)
             {
                 case DARK:
@@ -207,6 +208,8 @@ public class ZanpakutoItem extends SwordItem {
                     abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
                     break;
             }
+
+             */
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             return ActionResult.success(itemStack);

@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
@@ -50,38 +51,39 @@ import net.minecraft.util.text.TranslationTextComponent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShikaiCommand {
+public class ElementPointsCommand {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher)
     {
-        dispatcher.register(Commands.literal("element").requires((commandSource) -> commandSource.hasPermission(2))
+        dispatcher.register(Commands.literal("zanpakuto").requires((commandSource) -> commandSource.hasPermission(3))
                 .then(Commands.argument("target", EntityArgument.player())
-                        .then(Commands.argument("element", StringArgumentType.string()).suggests(SUGGEST_SET)
+                        .then(Commands.argument("points", IntegerArgumentType.integer())
+                                .then(Commands.argument("element", StringArgumentType.string()).suggests(SUGGEST_SET)
                                 .executes((command) ->
                                 {
                                     String element = StringArgumentType.getString(command, "element");
-
-                                    return setZanpakutoElement(command.getSource(), EntityArgument.getPlayer(command, "target"), element);
-                                }))));
+                                    Integer points = IntegerArgumentType.getInteger(command, "points");
+                                    return setZanpakutoElement(command.getSource(), EntityArgument.getPlayer(command, "target"), element, points);
+                                })))));
     }
 
     private static final SuggestionProvider<CommandSource> SUGGEST_SET = (source, builder) -> {
         List<String> suggestions = new ArrayList<>();
 
-        suggestions.add(ZanpakutoItem.ELEMENT.DARK.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.FIRE.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.HEAL.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.LIGHTNING.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.LUNAR.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.NORMAL.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.POISON.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.WATER.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.WIND.name());
+        //suggestions.add(ZanpakutoItem.ELEMENT.DARK.name());
+        //suggestions.add(ZanpakutoItem.ELEMENT.FIRE.name());
+        //suggestions.add(ZanpakutoItem.ELEMENT.HEAL.name());
+        suggestions.add("thunder");
+        //suggestions.add(ZanpakutoItem.ELEMENT.LUNAR.name());
+        suggestions.add("normal");
+        suggestions.add("poison");
+        suggestions.add("water");
+        suggestions.add("wind");
 
         return ISuggestionProvider.suggest(suggestions.stream(), builder);
     };
 
-    private static int setZanpakutoElement(CommandSource commandSource, PlayerEntity player, String element)
+    private static int setZanpakutoElement(CommandSource commandSource, PlayerEntity player, String element, Integer pointsAmount)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
@@ -97,56 +99,18 @@ public class ShikaiCommand {
         }
         ItemStack zanpakutoItem = player.getMainHandItem();
         CompoundNBT tagCompound = zanpakutoItem.getTag();
-        tagCompound.putString("zanpakutoElement", element);
-        zanpakutoItem.setTag(tagCompound);
-        abilityData.clearUnlockedAbilities();
-
-        switch (element)
+        int elementalPoints = tagCompound.getInt("element");
+        if (elementalPoints + pointsAmount > 5)
         {
-            case "DARK":
-                abilityData.addUnlockedAbility(DarkStepAbility.INSTANCE);
-                abilityData.addUnlockedAbility(ShadowAttackAbility.INSTANCE);
-                abilityData.addUnlockedAbility(UmbralCloakAbility.INSTANCE);
-                break;
-            case "FIRE":
-                abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
-                abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
-                abilityData.addUnlockedAbility(FireBallAbility.INSTANCE);
-                break;
-            case "HEAL":
-                abilityData.addUnlockedAbility(HealingTouchingAbility.INSTANCE);
-                abilityData.addUnlockedAbility(RevitilazingAuraAbility.INSTANCE);
-                abilityData.addUnlockedAbility(SelfHealingAbility.INSTANCE);
-                break;
-            case "LIGHTNING":
-                abilityData.addUnlockedAbility(LightningStepAbility.INSTANCE);
-                abilityData.addUnlockedAbility(ThunderAttackAbility.INSTANCE);
-                abilityData.addUnlockedAbility(ThunderStrikeAbility.INSTANCE);
-                break;
-            case "LUNAR":
-                abilityData.addUnlockedAbility(LunarBlessingAbility.INSTANCE);
-                abilityData.addUnlockedAbility(LunarCrescentAbility.INSTANCE);
-                abilityData.addUnlockedAbility(LunarWaveAbility.INSTANCE);
-                break;
-            case "NORMAL":
-                abilityData.addUnlockedAbility(NormalBuffAbility.INSTANCE);
-                break;
-            case "POISON":
-                abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
-                abilityData.addUnlockedAbility(VenomousCloudAbility.INSTANCE);
-                abilityData.addUnlockedAbility(AdrenalineCloudAbility.INSTANCE);
-                break;
-            case "WATER":
-                abilityData.addUnlockedAbility(AquaSlashAbility.INSTANCE);
-                abilityData.addUnlockedAbility(TidalWaveAbility.INSTANCE);
-                abilityData.addUnlockedAbility(WaterPrisonAbility.INSTANCE);
-                break;
-            case "WIND":
-                abilityData.addUnlockedAbility(GaleForceAbility.INSTANCE);
-                abilityData.addUnlockedAbility(WhirldWindDanceAbility.INSTANCE);
-                abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
-                break;
+            commandSource.sendSuccess(new TranslationTextComponent("The total amount of elemental points cannot exceed 5!"), true);
+            return 0;
         }
+        int specialPoints = tagCompound.getInt(element);
+        tagCompound.putInt(element, specialPoints + pointsAmount);
+        tagCompound.putInt("element", elementalPoints + pointsAmount);
+        zanpakutoItem.setTag(tagCompound);
+
+
 
 
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);

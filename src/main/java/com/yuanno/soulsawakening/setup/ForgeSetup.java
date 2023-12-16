@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.setup;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.commands.ElementPointsCommand;
 import com.yuanno.soulsawakening.commands.RaceCommand;
 import com.yuanno.soulsawakening.commands.ShikaiCommand;
 import com.yuanno.soulsawakening.commands.ShinigamiStatsCommand;
@@ -37,6 +38,7 @@ public class ForgeSetup {
     public static void serverStarting(FMLServerStartingEvent event)
     {
         CommandDispatcher dispatcher = event.getServer().getCommands().getDispatcher();
+        ElementPointsCommand.register(dispatcher);
         RaceCommand.register(dispatcher);
         ShinigamiStatsCommand.register(dispatcher);
         ShikaiCommand.register(dispatcher);
