@@ -27,7 +27,7 @@ public class CentipedeEntity extends HollowEntity {
 
     public CentipedeEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = "poison";
+        this.element = ModValues.DARK;
     }
 
     @Override

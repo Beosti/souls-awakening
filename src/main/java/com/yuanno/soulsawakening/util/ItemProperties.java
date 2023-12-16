@@ -25,7 +25,6 @@ public class ItemProperties {
     {
         String zanpakutoElement = itemStack.getTag().getString("zanpakutoElement");
         ZanpakutoItem zanpakutoItem = (ZanpakutoItem) itemStack.getItem();
-        System.out.println("zanpakutoElement");
         if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SEALED))
             return 0;
         switch (zanpakutoElement)

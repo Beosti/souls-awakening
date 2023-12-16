@@ -28,7 +28,7 @@ public class ClawEntity extends HollowEntity {
 
     public ClawEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = "water";
+        this.element = ModValues.WATER;
     }
 
     @Override

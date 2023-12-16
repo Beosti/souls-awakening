@@ -91,16 +91,18 @@ public class ZanpakutoItem extends SwordItem {
             int elementalPoints = stack.getTag().getInt("element");
             tooltip.add(new StringTextComponent("Elemental points: " + elementalPoints));
 
-            int thunderPoints = stack.getTag().getInt("thunder");
-            tooltip.add(new StringTextComponent("§ethunder: " + thunderPoints));
-            int normalPoints = stack.getTag().getInt("normal");
+            //int thunderPoints = stack.getTag().getInt("thunder");
+            //tooltip.add(new StringTextComponent("§ethunder: " + thunderPoints));
+            int normalPoints = stack.getTag().getInt(ModValues.NORMAL);
             tooltip.add(new StringTextComponent("§7normal: " + normalPoints));
-            int poisonPoints = stack.getTag().getInt("poison");
-            tooltip.add(new StringTextComponent("§2poison: " + poisonPoints));
-            int waterPoints = stack.getTag().getInt("water");
+            int poisonPoints = stack.getTag().getInt(ModValues.DARK);
+            tooltip.add(new StringTextComponent("§0dark: " + poisonPoints));
+            int waterPoints = stack.getTag().getInt(ModValues.WATER);
             tooltip.add(new StringTextComponent("§bwater: " + waterPoints));
-            int airPoints = stack.getTag().getInt("air");
+            int airPoints = stack.getTag().getInt(ModValues.WIND);
             tooltip.add(new StringTextComponent("§aair: " + airPoints));
+            int firePoints = stack.getTag().getInt(ModValues.FIRE);
+            tooltip.add(new StringTextComponent("§cfire: " + firePoints));
 
 
         }

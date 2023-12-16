@@ -73,13 +73,13 @@ public class ElementPointsCommand {
         //suggestions.add(ZanpakutoItem.ELEMENT.DARK.name());
         //suggestions.add(ZanpakutoItem.ELEMENT.FIRE.name());
         //suggestions.add(ZanpakutoItem.ELEMENT.HEAL.name());
-        suggestions.add("thunder");
+        //suggestions.add("thunder");
         //suggestions.add(ZanpakutoItem.ELEMENT.LUNAR.name());
         suggestions.add("normal");
-        suggestions.add("poison");
+        suggestions.add("fire");
         suggestions.add("water");
         suggestions.add("wind");
-
+        suggestions.add("dark");
         return ISuggestionProvider.suggest(suggestions.stream(), builder);
     };
 

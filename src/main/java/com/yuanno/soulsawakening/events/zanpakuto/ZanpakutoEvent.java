@@ -117,30 +117,28 @@ public class ZanpakutoEvent {
         {
             Map<String, Integer> elementalPointsHash = new HashMap<>();
 
-            int thunderPoints = zanpakutoItem.getTag().getInt("lightning"); // TODO change this to modvalues instead of just string
-            elementalPointsHash.put("lightning", thunderPoints);
+            int normalPoints = zanpakutoItem.getTag().getInt(ModValues.NORMAL);
+            elementalPointsHash.put(ModValues.NORMAL, normalPoints);
 
-            int normalPoints = zanpakutoItem.getTag().getInt("normal");
-            elementalPointsHash.put("normal", normalPoints);
+            int darkPoints = zanpakutoItem.getTag().getInt(ModValues.DARK);
+            elementalPointsHash.put(ModValues.DARK, darkPoints);
 
-            int poisonPoints = zanpakutoItem.getTag().getInt("poison");
-            elementalPointsHash.put("poison", poisonPoints);
+            int waterPoints = zanpakutoItem.getTag().getInt(ModValues.WATER);
+            elementalPointsHash.put(ModValues.WATER, waterPoints);
 
-            int waterPoints = zanpakutoItem.getTag().getInt("water");
-            elementalPointsHash.put("water", waterPoints);
+            int airPoints = zanpakutoItem.getTag().getInt(ModValues.WIND);
+            elementalPointsHash.put(ModValues.WIND, airPoints);
 
-            int airPoints = zanpakutoItem.getTag().getInt("air");
-            elementalPointsHash.put("air", airPoints);
+            int firePoints = zanpakutoItem.getTag().getInt(ModValues.FIRE);
+            elementalPointsHash.put(ModValues.FIRE, firePoints);
 
             String elementChosen = calculateMostProbableElement(elementalPointsHash);
             CompoundNBT tagCompound = zanpakutoItem.getTag();
             tagCompound.putString("zanpakutoElement", elementChosen.toUpperCase());
-            System.out.println(elementChosen);
             zanpakutoItem.setTag(tagCompound);
             IAbilityData abilityData = AbilityDataCapability.get(event.getPlayer());
-            elementChosen.toUpperCase();
-
-            switch (elementChosen)
+            String uppercasedElement = elementChosen.toUpperCase();
+            switch (uppercasedElement)
             {
                 case ("DARK"):
                     abilityData.addUnlockedAbility(DarkStepAbility.INSTANCE);

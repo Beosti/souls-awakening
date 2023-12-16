@@ -41,7 +41,7 @@ public class JetEntity extends FlyingEntity implements IMob {
         super(p_i48575_1_, p_i48575_2_);
         this.moveControl = new JetEntity.MoveHelperController(this);
         this.lookControl = new JetEntity.LookHelperController(this);
-        this.element = "air";
+        this.element = ModValues.WIND;
     }
     public static AttributeModifierMap.MutableAttribute setCustomAttributes()
     {

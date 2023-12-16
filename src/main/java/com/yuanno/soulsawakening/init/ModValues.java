@@ -19,5 +19,13 @@ public class ModValues {
     public static final String ARRANCAR = "Arrancar";
 
     // ELEMENTS
-
+    public static final String DARK = "dark";
+    public static final String FIRE = "fire";
+    public static final String HEAL = "heal";
+    public static final String LIGHTNING = "lightning";
+    public static final String LUNAR = "lunar";
+    public static final String NORMAL = "normal";
+    public static final String POISON = "poison";
+    public static final String WATER = "water";
+    public static final String WIND = "wind";
 }

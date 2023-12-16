@@ -27,7 +27,7 @@ public class BulkEntity extends HollowEntity {
 
     public BulkEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = "normal";
+        this.element = ModValues.NORMAL;
     }
 
     @Override
