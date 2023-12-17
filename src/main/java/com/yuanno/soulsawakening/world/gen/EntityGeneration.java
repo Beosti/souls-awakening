@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening.world.gen;
 
 import com.yuanno.soulsawakening.init.ModEntities;
+import com.yuanno.soulsawakening.init.world.ModBiomes;
+import com.yuanno.soulsawakening.init.world.ModDimensions;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
@@ -28,6 +30,13 @@ public class EntityGeneration {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BULK.get(), 1, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CENTIPEDE.get(), 1, 1, 1));
 
+        }
+        if (!types.contains(BiomeDictionary.Type.WET)
+                && !types.contains(BiomeDictionary.Type.OCEAN)
+                && !types.contains(BiomeDictionary.Type.RIVER)
+                && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(ModDimensions.HUECO_MUNDO))
+        {
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.PLUS.get(), 20, 1, 1));
         }
     }
 }
