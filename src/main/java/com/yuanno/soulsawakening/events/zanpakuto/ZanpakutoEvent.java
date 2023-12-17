@@ -38,6 +38,7 @@ import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -84,12 +85,19 @@ public class ZanpakutoEvent {
     {
         if (event.getCrafting().getItem() == ModItems.ZANPAKUTO.get())
         {
+            if (event.getPlayer().level.isClientSide)
+                return;
+            IEntityStats entityStats = EntityStatsCapability.get(event.getPlayer());
+            if (entityStats.getRace().equals(ModValues.HOLLOW))
+                return;
+            else if (entityStats.getRace().equals(ModValues.HUMAN))
+                entityStats.setRace(ModValues.FULLBRINGER);
+            else if (entityStats.getRace().equals(ModValues.SPIRIT))
+                entityStats.setRace(ModValues.SHINIGAMI);
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getPlayer().getId(), entityStats), event.getPlayer());
             SoulboundItemHelper.setOwner(event.getCrafting().getStack(), event.getPlayer());
             ZanpakutoItem zanpakutoItem = (ZanpakutoItem) event.getCrafting().getItem();
             zanpakutoItem.setOwner(event.getPlayer(), event.getCrafting());
-            IEntityStats entityStats = EntityStatsCapability.get(event.getPlayer());
-            if (entityStats.getRace().equals(ModValues.SPIRIT))
-                entityStats.setRace(ModValues.SHINIGAMI);
         }
     }
 
