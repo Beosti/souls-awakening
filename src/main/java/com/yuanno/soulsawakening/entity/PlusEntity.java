@@ -19,6 +19,7 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -27,9 +28,14 @@ import java.util.Random;
 
 public class PlusEntity extends CreatureEntity {
 
+    public String[] options = {"cool", "magma", "receptionist", "vex"};
+    public String constantSkin;
     public PlusEntity(EntityType type, World world)
     {
         super(type, world);
+        Random random = new Random();
+        int randomIndex = random.nextInt(options.length);
+        this.constantSkin = options[randomIndex];
     }
     @Override
     protected void registerGoals()
