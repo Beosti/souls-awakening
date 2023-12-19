@@ -31,6 +31,7 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -40,6 +41,7 @@ import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
@@ -90,10 +92,16 @@ public class ZanpakutoEvent {
             IEntityStats entityStats = EntityStatsCapability.get(event.getPlayer());
             if (entityStats.getRace().equals(ModValues.HOLLOW))
                 return;
-            else if (entityStats.getRace().equals(ModValues.HUMAN))
+            else if (entityStats.getRace().equals(ModValues.HUMAN)) {
                 entityStats.setRace(ModValues.FULLBRINGER);
-            else if (entityStats.getRace().equals(ModValues.SPIRIT))
+                ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) event.getPlayer());
+                ModAdvancements.FULLBRINGER.trigger((ServerPlayerEntity) event.getPlayer());
+            }
+            else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
                 entityStats.setRace(ModValues.SHINIGAMI);
+                ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) event.getPlayer());
+                ModAdvancements.SHINIGAMI.trigger((ServerPlayerEntity) event.getPlayer());
+            }
             PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getPlayer().getId(), entityStats), event.getPlayer());
             SoulboundItemHelper.setOwner(event.getCrafting().getStack(), event.getPlayer());
             ZanpakutoItem zanpakutoItem = (ZanpakutoItem) event.getCrafting().getItem();

@@ -19,6 +19,30 @@
   "block.soulsawakening.reishi_ore": "Reishi Ore",
   "block.soulsawakening.hollow_sand": "Hollow Sand",
 
-  "entity.soulsawakening.centipede": "Hollow Centipede"
+  "entity.soulsawakening.centipede": "Hollow Centipede",
+
+  "advancements.soulsawakening.items.root.title": "Souls awakening",
+  "advancements.soulsawakening.items.root.description": "Becoming more spiritually aware!",
+
+  "advancements.soulsawakening.items.get_zanpakuto.title": "Zanpakuto unlocked",
+  "advancements.soulsawakening.items.get_zanpakuto.description": "Spiritually ready for combat",
+
+  "advancements.soulsawakening.items.get_reishi_ingot.title": "Collector of spirit",
+  "advancements.soulsawakening.items.get_reishi_ingot.description": "A start for a hoarder of spirit",
+
+  "advancements.soulsawakening.race.root.title": "Shedding human",
+  "advancements.soulsawakening.race.root.description": "Humanity wasn't the end, nor wil it ever be",
+
+  "advancements.soulsawakening.race.spirit.title": "Spirit",
+  "advancements.soulsawakening.race.spirit.description": "Opening the door of a new world",
+
+  "advancements.soulsawakening.race.shinigami.title": "Shinigami",
+  "advancements.soulsawakening.race.shinigami.description": "A war against the others",
+
+  "advancements.soulsawakening.race.fullbringer.title": "Fullbringer",
+  "advancements.soulsawakening.race.fullbringer.description": "Skipping a few steps",
+
+  "advancements.soulsawakening.race.hollow.title": "Hollow",
+  "advancements.soulsawakening.race.hollow.description": "Insatiable hunger... forever"
 
 }

@@ -9,7 +9,8 @@
 
   ],
   "client": [
-    "ServerWorldInfoMixin"
+    "client.ServerWorldInfoMixin",
+    "client.DeathScreenMixin"
   ],
   "server": [],
   "injectors": {

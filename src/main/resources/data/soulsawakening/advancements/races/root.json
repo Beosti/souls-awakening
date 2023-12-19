@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "soulsawakening:reishi"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.race.root.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.race.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png"
+  },
+  "criteria": {
+    "race": {
+      "trigger": "soulsawakening:racechange"
+    }
+  },
+  "requirements": [
+    [
+      "race"
+    ]
+  ]
+}

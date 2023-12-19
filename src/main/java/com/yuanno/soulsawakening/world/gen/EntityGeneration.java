@@ -37,6 +37,8 @@ public class EntityGeneration {
                 && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(ModDimensions.HUECO_MUNDO))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.PLUS.get(), 20, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.SHINIGAMI.get(), 20, 1, 1));
+
         }
     }
 }

@@ -1,0 +1,28 @@
+{
+  "parent": "soulsawakening:races/root",
+  "display": {
+    "icon": {
+      "item": "soulsawakening:reishi_ingot"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.race.spirit.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.race.spirit.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "spirit": {
+      "trigger": "soulsawakening:spirit"
+    }
+  },
+  "requirements": [
+    [
+      "spirit"
+    ]
+  ]
+}

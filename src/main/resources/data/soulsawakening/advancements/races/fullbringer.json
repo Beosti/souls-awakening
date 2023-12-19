@@ -1,0 +1,28 @@
+{
+  "parent": "soulsawakening:races/root",
+  "display": {
+    "icon": {
+      "item": "soulsawakening:zanpakuto"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.race.fullbringer.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.race.fullbringer.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "fullbringer": {
+      "trigger": "soulsawakening:fullbringer"
+    }
+  },
+  "requirements": [
+    [
+      "fullbringer"
+    ]
+  ]
+}

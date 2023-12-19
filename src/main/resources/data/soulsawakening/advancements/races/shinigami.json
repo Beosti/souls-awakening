@@ -1,0 +1,28 @@
+{
+  "parent": "soulsawakening:races/spirit",
+  "display": {
+    "icon": {
+      "item": "soulsawakening:zanpakuto"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.race.shinigami.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.race.shinigami.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "shinigami": {
+      "trigger": "soulsawakening:shinigami"
+    }
+  },
+  "requirements": [
+    [
+      "shinigami"
+    ]
+  ]
+}

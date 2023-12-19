@@ -29,10 +29,7 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.init.ModItemGroup;
-import com.yuanno.soulsawakening.init.ModResources;
-import com.yuanno.soulsawakening.init.ModTiers;
-import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -41,6 +38,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
@@ -152,10 +150,14 @@ public class ZanpakutoItem extends SwordItem {
             itemStack.getTag().putString("zanpakutoState", ModResources.STATE.SEALED.name());
             if (entityStats.getRace().equals(ModValues.SPIRIT)) {
                 entityStats.setRace(ModValues.SHINIGAMI);
+                ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
+                ModAdvancements.SHINIGAMI.trigger((ServerPlayerEntity) player);
             }
             else if (entityStats.getRace().equals(ModValues.HUMAN))
             {
                 entityStats.setRace(ModValues.FULLBRINGER);
+                ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
+                ModAdvancements.FULLBRINGER.trigger((ServerPlayerEntity) player);
             }
             if (entityStats.getHohoPoints() <= 0)
                 entityStats.setHohoPoints(0);

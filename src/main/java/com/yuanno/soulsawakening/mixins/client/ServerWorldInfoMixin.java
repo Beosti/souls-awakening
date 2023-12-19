@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.mixins;
+package com.yuanno.soulsawakening.mixins.client;
 
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.world.storage.ServerWorldInfo;

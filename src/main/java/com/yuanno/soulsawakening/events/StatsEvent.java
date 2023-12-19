@@ -12,12 +12,14 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
+import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -51,11 +53,16 @@ public class StatsEvent {
         IMiscData miscData = MiscDataCapability.get(player);
         if (entityStats.getRace().equals(ModValues.HUMAN)) {
             entityStats.setRace(ModValues.SPIRIT);
+            ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
+            ModAdvancements.SPIRIT.trigger((ServerPlayerEntity) player);
+
             miscData.setCanRenderOverlay(true);
         }
         else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
             entityStats.setRace(ModValues.HOLLOW);
             entityStats.setRank(ModValues.BASE);
+            ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
+            ModAdvancements.HOLLOW.trigger((ServerPlayerEntity) player);
             miscData.setCanRenderOverlay(true);
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);

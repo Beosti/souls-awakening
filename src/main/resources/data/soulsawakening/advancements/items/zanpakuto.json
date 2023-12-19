@@ -1,0 +1,35 @@
+{
+  "parent": "soulsawakening:items/reishi_ingot",
+  "display": {
+    "icon": {
+      "item": "soulsawakening:zanpakuto"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.items.get_zanpakuto.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.items.get_zanpakuto.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "zanpakuto": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "soulsawakening:zanpakuto"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "zanpakuto"
+    ]
+  ]
+}
