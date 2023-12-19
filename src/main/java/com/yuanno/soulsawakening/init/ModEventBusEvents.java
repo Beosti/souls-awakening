@@ -20,6 +20,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.BEAST.get(), BeastEntity.setCustomAttributes().build());
         event.put(ModEntities.PLUS.get(), PlusEntity.setCustomAttributes().build());
         event.put(ModEntities.SHINIGAMI.get(), ShinigamiEntity.setCustomAttributes().build());
+        event.put(ModEntities.SHIKAI.get(), InnerShikaiEntity.setCustomAttributes().build());
 
     }
 }

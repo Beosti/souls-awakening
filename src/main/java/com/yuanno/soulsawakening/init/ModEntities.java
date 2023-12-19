@@ -56,6 +56,12 @@ public class ModEntities {
                             .sized(1f, 2f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "shinigami").toString()));
+    public static final RegistryObject<EntityType<InnerShikaiEntity>> SHIKAI = ENTITIES
+            .register("shikai",
+                    () -> EntityType.Builder.of(InnerShikaiEntity::new, EntityClassification.CREATURE)
+                            .sized(1f, 2f)
+                            .setTrackingRange(5)
+                            .build(new ResourceLocation(Main.MODID, "shikai").toString()));
     public static void register(IEventBus eventBus) {
         ENTITIES.register(eventBus);
     }

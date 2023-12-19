@@ -31,10 +31,8 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.init.ModAdvancements;
-import com.yuanno.soulsawakening.init.ModItems;
-import com.yuanno.soulsawakening.init.ModResources;
-import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.entity.InnerShikaiEntity;
+import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
@@ -47,6 +45,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -131,6 +130,14 @@ public class ZanpakutoEvent {
         String element = zanpakutoItem.getTag().getString("zanpakutoElement");
         if (element.isEmpty())
         {
+            World world = event.getPlayer().level;
+            /*
+            InnerShikaiEntity innerShikaiEntity = new InnerShikaiEntity(ModEntities.SHIKAI.get(), event.getPlayer().level);
+            innerShikaiEntity.moveTo(event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ());
+            innerShikaiEntity.setOwner(event.getPlayer().getUUID());
+            world.addFreshEntity(innerShikaiEntity);
+
+             */
             Map<String, Integer> elementalPointsHash = new HashMap<>();
 
             int normalPoints = zanpakutoItem.getTag().getInt(ModValues.NORMAL);

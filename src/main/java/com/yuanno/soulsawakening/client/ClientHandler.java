@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.client;
 
+import com.yuanno.soulsawakening.client.renderers.InnerShikaiRenderer;
 import com.yuanno.soulsawakening.client.renderers.PlusRenderer;
 import com.yuanno.soulsawakening.client.renderers.ShinigamiRenderer;
 import com.yuanno.soulsawakening.client.renderers.hollow.*;
@@ -31,6 +32,7 @@ public class ClientHandler {
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.PLUS.get(), new PlusRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SHINIGAMI.get(), new ShinigamiRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.SHIKAI.get(), new InnerShikaiRenderer.Factory());
 
         Map<String, PlayerRenderer> playerSkinMap = Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap();
         ClientHandler.addPlayerLayers(playerSkinMap.get("default"));
