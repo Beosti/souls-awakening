@@ -7,6 +7,7 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
@@ -14,6 +15,7 @@ import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -35,7 +37,7 @@ public class HollowSpecificEvents {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         AttributeModifier attributeModifierGillian = new AttributeModifier("Gillian attack bonus", 5, AttributeModifier.Operation.ADDITION);
-        AttributeModifier attributeModifierAdjucha = new AttributeModifier("Adjucha Speed Bonus", 0.4, AttributeModifier.Operation.ADDITION);
+        AttributeModifier attributeModifierAdjucha = new AttributeModifier("Adjucha Speed Bonus", 0.2, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttackSpeed = new AttributeModifier("Vasto Lorde Attack Speed Bonus", 1, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttack = new AttributeModifier("Vasto Lorde Attack Bonus", 5, AttributeModifier.Operation.ADDITION);
 
@@ -44,16 +46,19 @@ public class HollowSpecificEvents {
                 entityStats.setRank(ModValues.GILLIAN);
                 abilityData.addUnlockedAbility(CeroAbility.INSTANCE);
                 player.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(attributeModifierGillian);
+                ModAdvancements.GILLIAN.trigger((ServerPlayerEntity) player);
                 break;
                 case (ModValues.GILLIAN):
                     entityStats.setRank(ModValues.ADJUCHA);
                     abilityData.addUnlockedAbility(GargantaAbility.INSTANCE);
                     player.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(attributeModifierAdjucha);
+                    ModAdvancements.ADJUCHA.trigger((ServerPlayerEntity) player);
                     break;
                     case (ModValues.ADJUCHA):
                         entityStats.setRank(ModValues.VASTO_LORDE);
                         player.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(attributeModifierVastoLordeAttack);
                         player.getAttribute(Attributes.ATTACK_SPEED).addPermanentModifier(attributeModifierVastoLordeAttackSpeed);
+                        ModAdvancements.VASTO_LORDE.trigger((ServerPlayerEntity) player);
                         break;
                         /*
                         case (ModValues.VASTO_LORDE):

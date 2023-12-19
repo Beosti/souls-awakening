@@ -1,6 +1,10 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.achievements.*;
+import com.yuanno.soulsawakening.achievements.hollow.AdjuchaTrigger;
+import com.yuanno.soulsawakening.achievements.hollow.GillianTrigger;
+import com.yuanno.soulsawakening.achievements.hollow.HollowTrigger;
+import com.yuanno.soulsawakening.achievements.hollow.VastoLordeTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraftforge.eventbus.api.IEventBus;
 
@@ -10,6 +14,10 @@ public class ModAdvancements {
     public static final FullbringerTrigger FULLBRINGER = new FullbringerTrigger();
     public static final SpiritTrigger SPIRIT = new SpiritTrigger();
     public static final HollowTrigger HOLLOW = new HollowTrigger();
+    public static final GillianTrigger GILLIAN = new GillianTrigger();
+    public static final AdjuchaTrigger ADJUCHA = new AdjuchaTrigger();
+    public static final VastoLordeTrigger VASTO_LORDE = new VastoLordeTrigger();
+
     public static final RaceChangeTrigger RACE_CHANGE = new RaceChangeTrigger();
 
 
@@ -20,5 +28,9 @@ public class ModAdvancements {
         CriteriaTriggers.register(SPIRIT);
         CriteriaTriggers.register(HOLLOW);
         CriteriaTriggers.register(RACE_CHANGE);
+        CriteriaTriggers.register(GILLIAN);
+        CriteriaTriggers.register(ADJUCHA);
+        CriteriaTriggers.register(VASTO_LORDE);
+
     }
 }

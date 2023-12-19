@@ -1,0 +1,28 @@
+{
+  "parent": "soulsawakening:races/hollow",
+  "display": {
+    "icon": {
+      "item": "soulsawakening:reishi"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.race.gillian.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.race.gillian.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "gillian": {
+      "trigger": "soulsawakening:gillian"
+    }
+  },
+  "requirements": [
+    [
+      "gillian"
+    ]
+  ]
+}

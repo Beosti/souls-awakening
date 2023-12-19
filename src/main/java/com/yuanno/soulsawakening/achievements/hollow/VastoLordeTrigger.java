@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.achievements;
+package com.yuanno.soulsawakening.achievements.hollow;
 
 import com.google.gson.JsonObject;
 import com.yuanno.soulsawakening.Main;
@@ -13,8 +13,8 @@ import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.loot.ConditionArraySerializer;
 import net.minecraft.util.ResourceLocation;
 
-public class HollowTrigger extends AbstractCriterionTrigger<HollowTrigger.Instance> {
-    private static final ResourceLocation ID = new ResourceLocation(Main.MODID, "hollow");
+public class VastoLordeTrigger extends AbstractCriterionTrigger<VastoLordeTrigger.Instance> {
+    private static final ResourceLocation ID = new ResourceLocation(Main.MODID, "vasto_lorde");
 
     @Override
     public ResourceLocation getId()
@@ -23,16 +23,16 @@ public class HollowTrigger extends AbstractCriterionTrigger<HollowTrigger.Instan
     }
 
     @Override
-    public HollowTrigger.Instance createInstance(JsonObject jsonObject, EntityPredicate.AndPredicate entityPredicate, ConditionArrayParser parser)
+    public VastoLordeTrigger.Instance createInstance(JsonObject jsonObject, EntityPredicate.AndPredicate entityPredicate, ConditionArrayParser parser)
     {
-        return new HollowTrigger.Instance(entityPredicate);
+        return new VastoLordeTrigger.Instance(entityPredicate);
     }
 
     public void trigger(ServerPlayerEntity player)
     {
         this.trigger(player, (instance) ->{
             IEntityStats entityStats = EntityStatsCapability.get(player);
-            return entityStats.getRace().equals(ModValues.HOLLOW);
+            return entityStats.getRank().equals(ModValues.VASTO_LORDE);
         });
     }
 
@@ -40,7 +40,7 @@ public class HollowTrigger extends AbstractCriterionTrigger<HollowTrigger.Instan
     {
         public Instance(EntityPredicate.AndPredicate entityPredicate)
         {
-            super(HollowTrigger.ID, entityPredicate);
+            super(VastoLordeTrigger.ID, entityPredicate);
         }
 
         @Override
