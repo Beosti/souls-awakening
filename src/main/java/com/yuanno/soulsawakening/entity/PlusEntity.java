@@ -70,7 +70,9 @@ public class PlusEntity extends CreatureEntity {
             {
                 String killerString = selectRandomStringHollow();
                 player.sendMessage(new StringTextComponent(killerString), Util.NIL_UUID);
-                entityStats.alterHollowPoints(1);
+                Random randomSpecial = new Random();
+                int extraHollowPoints = randomSpecial.nextInt(10);
+                entityStats.alterHollowPoints(1 + extraHollowPoints);
                 PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
 
                 this.kill();

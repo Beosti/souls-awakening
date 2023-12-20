@@ -36,7 +36,7 @@ public class TickAbilityEvent {
             }
             else if (ability instanceof IContinuousAbility)
             {
-                if (player.tickCount % 20 == 0)
+                if (player.tickCount % 20 == 0 && !player.level.isClientSide)
                     ((IContinuousAbility) ability).onContinuousAbility(player);
             }
         }

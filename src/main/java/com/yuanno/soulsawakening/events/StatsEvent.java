@@ -66,7 +66,7 @@ public class StatsEvent {
             miscData.setCanRenderOverlay(true);
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
-            abilityData.addUnlockedAbility(AcidicTouchAbility.INSTANCE);
+            //abilityData.addUnlockedAbility(AcidicTouchAbility.INSTANCE);
             abilityData.addUnlockedAbility(HollowRegenerationAbility.INSTANCE);
             entityStats.setHollowPoints(0);
             entityStats.addAvailableStats(0);

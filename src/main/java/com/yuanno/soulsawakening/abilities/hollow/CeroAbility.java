@@ -11,8 +11,8 @@ public class CeroAbility extends Ability implements IRightClickEmptyAbility {
     public CeroAbility()
     {
         this.setName("Cero");
-        this.setCooldown(20);
-        this.setMaxCooldown(20);
+        this.setCooldown(45);
+        this.setMaxCooldown(45);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
     }

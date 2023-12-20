@@ -12,6 +12,10 @@ import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.particles.ParticleEffect;
+import com.yuanno.soulsawakening.particles.hollow.HollowEvolutionEffectAdjucha;
+import com.yuanno.soulsawakening.particles.hollow.HollowEvolutionEffectGillian;
+import com.yuanno.soulsawakening.particles.hollow.HollowEvolutionEffectVastoLorde;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,6 +32,10 @@ public class HollowSpecificEvents {
     public static final UUID VASTO_LORDE_ATTACK_SPEED_BONUS_ID = UUID.fromString("e19608b6-8b16-11ee-b9d1-0242ac120002");
     public static final UUID VASTO_LORDE_ATTACK_BONUS_ID = UUID.fromString("e19608b6-8b16-11ee-b9d1-0242ac120002");
 
+    public static final ParticleEffect PARTICLES_GILLIAN = new HollowEvolutionEffectGillian();
+    public static final ParticleEffect PARTICLES_ADJUCHA = new HollowEvolutionEffectAdjucha();
+    public static final ParticleEffect PARTICLES_VASTOLORDE = new HollowEvolutionEffectVastoLorde();
+
     @SubscribeEvent
     public static void hollowEvolutionEvent(HollowEvolutionEvent event)
     {
@@ -37,24 +45,27 @@ public class HollowSpecificEvents {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         AttributeModifier attributeModifierGillian = new AttributeModifier("Gillian attack bonus", 5, AttributeModifier.Operation.ADDITION);
-        AttributeModifier attributeModifierAdjucha = new AttributeModifier("Adjucha Speed Bonus", 0.2, AttributeModifier.Operation.ADDITION);
+        AttributeModifier attributeModifierAdjucha = new AttributeModifier("Adjucha Speed Bonus", 0.11, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttackSpeed = new AttributeModifier("Vasto Lorde Attack Speed Bonus", 1, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttack = new AttributeModifier("Vasto Lorde Attack Bonus", 5, AttributeModifier.Operation.ADDITION);
 
         switch (entityStats.getRank()) {
             case (ModValues.BASE):
+                PARTICLES_GILLIAN.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
                 entityStats.setRank(ModValues.GILLIAN);
                 abilityData.addUnlockedAbility(CeroAbility.INSTANCE);
                 player.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(attributeModifierGillian);
                 ModAdvancements.GILLIAN.trigger((ServerPlayerEntity) player);
                 break;
                 case (ModValues.GILLIAN):
+                    PARTICLES_ADJUCHA.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
                     entityStats.setRank(ModValues.ADJUCHA);
                     abilityData.addUnlockedAbility(GargantaAbility.INSTANCE);
                     player.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(attributeModifierAdjucha);
                     ModAdvancements.ADJUCHA.trigger((ServerPlayerEntity) player);
                     break;
                     case (ModValues.ADJUCHA):
+                        PARTICLES_VASTOLORDE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
                         entityStats.setRank(ModValues.VASTO_LORDE);
                         player.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(attributeModifierVastoLordeAttack);
                         player.getAttribute(Attributes.ATTACK_SPEED).addPermanentModifier(attributeModifierVastoLordeAttackSpeed);

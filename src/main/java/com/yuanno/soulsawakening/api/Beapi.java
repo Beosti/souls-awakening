@@ -10,9 +10,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SRemoveEntityEffectPacket;
+import net.minecraft.network.play.server.SSpawnParticlePacket;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.EntityPredicates;
@@ -20,6 +24,7 @@ import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
@@ -27,6 +32,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -40,6 +46,29 @@ public class Beapi {
 
     public static void sendRemoveEffectToAllNearby(LivingEntity player, Vector3d pos, int distance, Effect effect) {
         player.getServer().getPlayerList().broadcast(null, pos.x, pos.y, pos.z, distance, player.getCommandSenderWorld().dimension(), new SRemoveEntityEffectPacket(player.getId(), effect));
+    }
+    public static double randomDouble()
+    {
+        return new Random().nextDouble() * 2 - 1;
+    }
+    public static double randomWithRange(int min, int max)
+    {
+        return new Random().nextInt(max + 1 - min) + min;
+    }
+
+    public static void spawnParticles(IParticleData data, ServerWorld world, double posX, double posY, double posZ)
+    {
+        IPacket<?> ipacket = new SSpawnParticlePacket(data, true, (float) posX, (float) posY, (float) posZ, 0, 0, 0, 0, 1);
+
+        for (int j = 0; j < world.players().size(); ++j)
+        {
+            ServerPlayerEntity player = world.players().get(j);
+            BlockPos blockpos = new BlockPos(player.getX(), player.getY(), player.getZ());
+            if (blockpos.closerThan(new Vector3d(posX, posY, posZ), 512))
+            {
+                player.connection.send(ipacket);
+            }
+        }
     }
 
     public static Vector3d propulsion(LivingEntity entity, double extraVelX, double extraVelZ)
