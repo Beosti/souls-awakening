@@ -84,7 +84,7 @@ public class ZanpakutoItem extends SwordItem {
         {
             return;
         }
-        else
+        else if (Screen.hasAltDown())
         {
             int elementalPoints = stack.getTag().getInt("element");
             tooltip.add(new StringTextComponent("Elemental points: " + elementalPoints));
@@ -102,6 +102,11 @@ public class ZanpakutoItem extends SwordItem {
             int firePoints = stack.getTag().getInt(ModValues.FIRE);
             tooltip.add(new StringTextComponent("§cfire: " + firePoints));
 
+
+        }
+        else
+        {
+            tooltip.add(new TranslationTextComponent("§6Hold " + "§fALT " +"§6" + "for information about elemental points!"));
 
         }
         super.appendHoverText(stack, world, tooltip, flagIn);
