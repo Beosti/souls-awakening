@@ -24,6 +24,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<GenericParticleData>> HOLLOW = PARTICLE_TYPES.register("hollow", GenericParticleData::new);
     public static final RegistryObject<ParticleType<GenericParticleData>> CERO = PARTICLE_TYPES.register("cero", GenericParticleData::new);
     public static final RegistryObject<ParticleType<GenericParticleData>> FIRE = PARTICLE_TYPES.register("fire", GenericParticleData::new);
+    public static final RegistryObject<ParticleType<GenericParticleData>> HEALING = PARTICLE_TYPES.register("healing", GenericParticleData::new);
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -34,6 +35,7 @@ public class ModParticleTypes {
         manager.register(ModParticleTypes.HOLLOW.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/hollow_particle.png")));
         manager.register(ModParticleTypes.CERO.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/cero_particle.png")));
         manager.register(ModParticleTypes.FIRE.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/fire_particle.png")));
+        manager.register(ModParticleTypes.HEALING.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/healing_particle.png")));
 
     }
 

@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.GenericParticleData;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 

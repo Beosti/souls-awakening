@@ -23,7 +23,6 @@ public class BiteParticleEffect extends ParticleEffect {
             double particlePosY = posY - OFFSET * motionY;
             double particlePosZ = posZ - OFFSET * motionZ;
 
-            // Use your custom BiteParticleData class here instead of GenericParticleData
             GenericParticleData biteParticle = new GenericParticleData(ModParticleTypes.HOLLOW.get());
             biteParticle.setLife(1);
             biteParticle.setSize(SIZE);
