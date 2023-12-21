@@ -25,7 +25,7 @@ public class CeroProjectile extends AbilityProjectileEntity {
         this.setMaxLife(128);
         this.setPhysical(false);
         this.onEntityImpactEvent = this::onEntityImpactEvent;
-
+        this.onBlockImpactEvent = this::onBlockImpactEvent;
     }
     //TODO add explosion
     private void onEntityImpactEvent(LivingEntity entity)
@@ -36,6 +36,9 @@ public class CeroProjectile extends AbilityProjectileEntity {
 
     private void onBlockImpactEvent(BlockPos blockPos)
     {
+        if (this.getOwner() != null)
+            if (!this.getOwner().level.isClientSide)
+                PARTICLES.spawn(this.getOwner().level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0);
 
     }
 

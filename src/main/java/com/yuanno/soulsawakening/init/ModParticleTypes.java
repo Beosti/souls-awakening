@@ -22,6 +22,7 @@ public class ModParticleTypes {
 
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Main.MODID);
     public static final RegistryObject<ParticleType<GenericParticleData>> HOLLOW = PARTICLE_TYPES.register("hollow", GenericParticleData::new);
+    public static final RegistryObject<ParticleType<GenericParticleData>> CERO = PARTICLE_TYPES.register("cero", GenericParticleData::new);
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -30,6 +31,7 @@ public class ModParticleTypes {
         final ParticleManager manager = Minecraft.getInstance().particleEngine;
 
         manager.register(ModParticleTypes.HOLLOW.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/hollow_particle.png")));
+        manager.register(ModParticleTypes.CERO.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/cero_particle.png")));
 
     }
 

@@ -24,7 +24,7 @@ public class CeroProjectileParticleEffect extends ParticleEffect {
             double particlePosY = posY - OFFSET * motionY;
             double particlePosZ = posZ - OFFSET * motionZ;
 
-            GenericParticleData fireworkParticle = new GenericParticleData(ModParticleTypes.HOLLOW.get());
+            GenericParticleData fireworkParticle = new GenericParticleData(ModParticleTypes.CERO.get());
             fireworkParticle.setColor(250, 0, 0, 1);
             fireworkParticle.setLife(20);
             fireworkParticle.setSize(SIZE);
