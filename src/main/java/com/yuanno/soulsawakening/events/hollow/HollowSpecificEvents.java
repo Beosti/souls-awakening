@@ -8,14 +8,13 @@ import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModAdvancements;
+import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
-import com.yuanno.soulsawakening.particles.hollow.HollowEvolutionEffectAdjucha;
-import com.yuanno.soulsawakening.particles.hollow.HollowEvolutionEffectGillian;
-import com.yuanno.soulsawakening.particles.hollow.HollowEvolutionEffectVastoLorde;
+import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,9 +31,10 @@ public class HollowSpecificEvents {
     public static final UUID VASTO_LORDE_ATTACK_SPEED_BONUS_ID = UUID.fromString("e19608b6-8b16-11ee-b9d1-0242ac120002");
     public static final UUID VASTO_LORDE_ATTACK_BONUS_ID = UUID.fromString("e19608b6-8b16-11ee-b9d1-0242ac120002");
 
-    public static final ParticleEffect PARTICLES_GILLIAN = new HollowEvolutionEffectGillian();
-    public static final ParticleEffect PARTICLES_ADJUCHA = new HollowEvolutionEffectAdjucha();
-    public static final ParticleEffect PARTICLES_VASTOLORDE = new HollowEvolutionEffectVastoLorde();
+    public static final ParticleEffect PARTICLES_WAVE = new WaveParticleEffect(1.4);
+    public static final ParticleEffect PARTICLES_WAVE_ADJUCHA = new WaveParticleEffect(1.6);
+    public static final ParticleEffect PARTICLES_WAVE_VASTO = new WaveParticleEffect(1.8);
+
 
     @SubscribeEvent
     public static void hollowEvolutionEvent(HollowEvolutionEvent event)
@@ -51,21 +51,21 @@ public class HollowSpecificEvents {
 
         switch (entityStats.getRank()) {
             case (ModValues.BASE):
-                PARTICLES_GILLIAN.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+                PARTICLES_WAVE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
                 entityStats.setRank(ModValues.GILLIAN);
                 abilityData.addUnlockedAbility(CeroAbility.INSTANCE);
                 player.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(attributeModifierGillian);
                 ModAdvancements.GILLIAN.trigger((ServerPlayerEntity) player);
                 break;
                 case (ModValues.GILLIAN):
-                    PARTICLES_ADJUCHA.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+                    PARTICLES_WAVE_ADJUCHA.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
                     entityStats.setRank(ModValues.ADJUCHA);
                     abilityData.addUnlockedAbility(GargantaAbility.INSTANCE);
                     player.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(attributeModifierAdjucha);
                     ModAdvancements.ADJUCHA.trigger((ServerPlayerEntity) player);
                     break;
                     case (ModValues.ADJUCHA):
-                        PARTICLES_VASTOLORDE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+                        PARTICLES_WAVE_VASTO.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
                         entityStats.setRank(ModValues.VASTO_LORDE);
                         player.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(attributeModifierVastoLordeAttack);
                         player.getAttribute(Attributes.ATTACK_SPEED).addPermanentModifier(attributeModifierVastoLordeAttackSpeed);

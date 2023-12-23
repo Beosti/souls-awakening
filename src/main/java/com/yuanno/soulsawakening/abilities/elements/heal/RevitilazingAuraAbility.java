@@ -3,7 +3,10 @@ package com.yuanno.soulsawakening.abilities.elements.heal;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.particles.ParticleEffect;
+import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -13,6 +16,7 @@ import java.util.List;
 
 public class RevitilazingAuraAbility extends Ability implements IRightClickEmptyAbility {
     public static final RevitilazingAuraAbility INSTANCE = new RevitilazingAuraAbility();
+    public static final ParticleEffect PARTICLES_WAVE = new WaveParticleEffect(1.4);
 
     public RevitilazingAuraAbility()
     {
@@ -27,6 +31,7 @@ public class RevitilazingAuraAbility extends Ability implements IRightClickEmpty
     @Override
     public void onShiftRightClick(PlayerEntity user)
     {
+        PARTICLES_WAVE.spawn(user.level, user.getX(), user.getY(), user.getZ(), 0, 0, 0, ModParticleTypes.HEALING.get());
         List<LivingEntity> targets = Beapi.getNearbyEntities(user.blockPosition(), user.level, 10, null, LivingEntity.class);
         for (LivingEntity livingEntity : targets)
         {

@@ -9,8 +9,7 @@ import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
-import com.yuanno.soulsawakening.particles.fire.FireWaveParticleEffect;
-import com.yuanno.soulsawakening.particles.hollow.HollowEvolutionEffectVastoLorde;
+import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
@@ -20,7 +19,7 @@ import java.util.List;
 public class FireWaveAbility extends Ability implements IRightClickEmptyAbility {
     public static final FireWaveAbility INSTANCE = new FireWaveAbility();
     private final static DamageSource FIRE_DAMAGE = new ModDamageSource("fire_wave").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.FIRE);
-    public static final ParticleEffect PARTICLES_FIRE = new FireWaveParticleEffect();
+    public static final ParticleEffect PARTICLES_FIRE = new WaveParticleEffect(1.6);
 
     public FireWaveAbility()
     {
@@ -42,6 +41,7 @@ public class FireWaveAbility extends Ability implements IRightClickEmptyAbility 
             livingEntity.setSecondsOnFire(5);
             livingEntity.hurt(FIRE_DAMAGE, 5);
         }
-        PARTICLES_FIRE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0);
+
+        PARTICLES_FIRE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.FIRE.get());
     }
 }

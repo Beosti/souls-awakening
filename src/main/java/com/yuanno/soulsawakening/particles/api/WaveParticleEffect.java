@@ -1,18 +1,28 @@
-package com.yuanno.soulsawakening.particles.hollow;
+package com.yuanno.soulsawakening.particles.api;
 
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.GenericParticleData;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-public class HollowEvolutionEffectGillian extends ParticleEffect {
+public class WaveParticleEffect extends ParticleEffect {
 
+    private double motion;
+    public WaveParticleEffect(double motion)
+    {
+        this.motion = motion;
+    }
+    public WaveParticleEffect()
+    {
+        this.motion = 1.5;
+    }
     @Override
-    public void spawn(World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ)
+    public void spawn(World world, double posX, double posY, double posZ, double motionX, double motionY, double motionZ, ParticleType particleType)
     {
         double phi = 0;
         double x, y, z;
@@ -37,20 +47,20 @@ public class HollowEvolutionEffectGillian extends ParticleEffect {
                 z = (radius* Math.sin(theta) * Math.sin(phi)) + Beapi.randomDouble();
                  */
 
-                motionX = x * 1.2;
+                motionX = x * motion; // 1.6 for fire
                 motionY = 0.2 + (random.nextDouble() / 8);
-                motionZ = z * 1.2;
+                motionZ = z * motion; // 1.6 for fire
 
                 GenericParticleData data;
                 if(i % 3 == 0)
-                    data = new GenericParticleData(ModParticleTypes.HOLLOW.get());
+                    data = new GenericParticleData(particleType);
                 else
-                    data = new GenericParticleData(ModParticleTypes.HOLLOW.get());
-                data.setLife(5);
-                data.setSize(5F);
+                    data = new GenericParticleData(particleType);
+                data.setLife(7);
+                data.setSize(3F);
                 data.setMotion(motionX, motionY / 2, motionZ);
                 //data.setColor(0.7F, 0, 0.7F, 0.5F); -> purple
-                data.setColor(0, 0, 0, 1);
+                data.setColor(1, 1, 1, 1);
                 Beapi.spawnParticles(data, (ServerWorld) world, posX + x, posY - 0.2 + y, posZ + z);
 
                 i++;
