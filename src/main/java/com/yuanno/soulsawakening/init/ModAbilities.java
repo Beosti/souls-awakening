@@ -14,7 +14,7 @@ import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.DarkStepAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.ShadowAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.UmbralCloakAbility;
-import com.yuanno.soulsawakening.abilities.elements.thunder.LightningStepAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStepAbility;
 import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStrikeAbility;
 import com.yuanno.soulsawakening.abilities.elements.water.AquaSlashAbility;
@@ -46,7 +46,7 @@ public class ModAbilities {
 
     public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
     public static final Ability[] HEAL_ZANPAKUTO = new Ability[] {HealingTouchingAbility.INSTANCE, RevitilazingAuraAbility.INSTANCE, SelfHealingAbility.INSTANCE};
-    public static final Ability[] THUNDER_ZANPAKUTO = new Ability[] {LightningStepAbility.INSTANCE, ThunderAttackAbility.INSTANCE, ThunderStrikeAbility.INSTANCE};
+    public static final Ability[] THUNDER_ZANPAKUTO = new Ability[] {ThunderStepAbility.INSTANCE, ThunderAttackAbility.INSTANCE, ThunderStrikeAbility.INSTANCE};
     public static final Ability[] LUNAR_ZANPAKUTO = new Ability[] {LunarBlessingAbility.INSTANCE, LunarCrescentAbility.INSTANCE, LunarWaveAbility.INSTANCE};
     public static final Ability[] NORMAL_ZANPAKUTO = new Ability[] {NormalBuffAbility.INSTANCE};
     public static final Ability[] POISON_ZANPAKUTO = new Ability[] {PoisonAttackAbility.INSTANCE, VenomousCloudAbility.INSTANCE, AdrenalineCloudAbility.INSTANCE};

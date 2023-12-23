@@ -27,6 +27,8 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<GenericParticleData>> HEALING = PARTICLE_TYPES.register("healing", GenericParticleData::new);
     public static final RegistryObject<ParticleType<GenericParticleData>> POISON = PARTICLE_TYPES.register("poison", GenericParticleData::new);
     public static final RegistryObject<ParticleType<GenericParticleData>> THUNDER = PARTICLE_TYPES.register("thunder", GenericParticleData::new);
+    public static final RegistryObject<ParticleType<GenericParticleData>> DARK = PARTICLE_TYPES.register("dark", GenericParticleData::new);
+    public static final RegistryObject<ParticleType<GenericParticleData>> LUNAR = PARTICLE_TYPES.register("lunar", GenericParticleData::new);
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -40,6 +42,8 @@ public class ModParticleTypes {
         manager.register(ModParticleTypes.HEALING.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/healing_particle.png")));
         manager.register(ModParticleTypes.POISON.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/poison_particle.png")));
         manager.register(ModParticleTypes.THUNDER.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/thunder_particle.png")));
+        manager.register(ModParticleTypes.DARK.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/dark_particle.png")));
+        manager.register(ModParticleTypes.LUNAR.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/lunar_particle.png")));
 
     }
 

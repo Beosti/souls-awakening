@@ -3,13 +3,18 @@ package com.yuanno.soulsawakening.abilities.elements.heal;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
+import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.particles.ParticleEffect;
+import com.yuanno.soulsawakening.particles.api.HoveringParticleEffect;
+import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
 public class SelfHealingAbility extends Ability implements IRightClickEmptyAbility {
     public static final SelfHealingAbility INSTANCE = new SelfHealingAbility();
+    public static final ParticleEffect PARTICLES_HOVER = new HoveringParticleEffect(3, 4);
 
     public SelfHealingAbility()
     {
@@ -24,6 +29,7 @@ public class SelfHealingAbility extends Ability implements IRightClickEmptyAbili
     @Override
     public void onRightClick(PlayerEntity user)
     {
+        PARTICLES_HOVER.spawn(user.level, user.getX(), user.getY(), user.getZ(), 0, 0, 0, ModParticleTypes.HEALING.get());
         if (user.hasEffect(Effects.ABSORPTION))
         {
             user.removeEffect(Effects.ABSORPTION);

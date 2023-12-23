@@ -19,7 +19,7 @@ import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.DarkStepAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.ShadowAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.UmbralCloakAbility;
-import com.yuanno.soulsawakening.abilities.elements.thunder.LightningStepAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStepAbility;
 import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStrikeAbility;
 import com.yuanno.soulsawakening.abilities.elements.water.AquaSlashAbility;
@@ -119,7 +119,7 @@ public class ShikaiCommand {
                 abilityData.addUnlockedAbility(SelfHealingAbility.INSTANCE);
                 break;
             case "LIGHTNING":
-                abilityData.addUnlockedAbility(LightningStepAbility.INSTANCE);
+                abilityData.addUnlockedAbility(ThunderStepAbility.INSTANCE);
                 abilityData.addUnlockedAbility(ThunderAttackAbility.INSTANCE);
                 abilityData.addUnlockedAbility(ThunderStrikeAbility.INSTANCE);
                 break;

@@ -10,8 +10,10 @@ import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModResources;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class WhirldWindDanceAbility extends Ability implements IRightClickEmptyA
 
             entityi.hurt(WIND_DAMAGE, 5);
         });
+        ((ServerWorld) player.level).sendParticles(ParticleTypes.SPIT, player.getX(), player.getY(), player.getZ(), (int) 100, 3, 2, 3, 1);
 
     }
 }
