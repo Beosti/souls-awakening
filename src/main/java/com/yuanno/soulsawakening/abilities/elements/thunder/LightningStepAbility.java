@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.thunder;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.init.ModResources;
@@ -28,4 +29,6 @@ public class LightningStepAbility extends Ability implements IRightClickEmptyAbi
         BlockPos blockPos = new BlockPos(rayTraceResult.getLocation());
         player.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
+
+
 }

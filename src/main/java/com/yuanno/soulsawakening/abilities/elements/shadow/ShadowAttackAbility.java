@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.abilities.elements.shadow;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IAttackAbility;
+import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.init.ModDamageSource;
@@ -31,4 +32,6 @@ public class ShadowAttackAbility extends Ability implements IAttackAbility {
         if (!livingEntityTarget.hasEffect(Effects.CONFUSION))
             livingEntityTarget.addEffect(new EffectInstance(Effects.CONFUSION, 40, 0));
     }
+
+
 }

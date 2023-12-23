@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.events;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IContinuousAbility;
+import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -31,7 +32,8 @@ public class TickAbilityEvent {
             {
                 if (ability.getState().equals(Ability.STATE.READY))
                     continue;
-
+                if (ability instanceof IDuringCooldownAbility)
+                    ((IDuringCooldownAbility) ability).onCooldown(player);
                 ability.duringCooldown();
             }
             else if (ability instanceof IContinuousAbility)

@@ -1,17 +1,25 @@
 package com.yuanno.soulsawakening.abilities.elements.wind;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.init.ModDamageSource;
+import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModResources;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.server.SAnimateHandPacket;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 
-public class GaleForceAbility extends Ability implements IRightClickEmptyAbility {
+import java.util.List;
+
+public class GaleForceAbility extends Ability implements IRightClickEmptyAbility, IDuringCooldownAbility {
     public static final GaleForceAbility INSTANCE = new GaleForceAbility();
 
     public GaleForceAbility()
@@ -27,9 +35,29 @@ public class GaleForceAbility extends Ability implements IRightClickEmptyAbility
     @Override
     public void onRightClick(PlayerEntity player)
     {
-        Vector3d speed = Beapi.propulsion(player, 5, 5);
-        player.setDeltaMovement(speed.x, 0.5, speed.z);
+        Vector3d speed = Beapi.propulsion(player, 3, 3);
+        player.setDeltaMovement(speed.x, 0.3, speed.z);
         player.hurtMarked = true;
         ((ServerWorld) player.level).getChunkSource().broadcastAndSend(player, new SAnimateHandPacket(player, 0));
+    }
+
+    @Override
+    public void onCooldown(PlayerEntity user)
+    {
+        if (this.canDealDamage())
+        {
+            List<LivingEntity> targets = Beapi.getNearbyEntities(user.blockPosition(), user.level, 5, null, LivingEntity.class);
+            targets.remove(user);
+
+            targets.forEach(entity ->
+            {
+                if(user.canSee(entity))
+                    entity.hurt(AbilityDamageSource.causeAbilityDamage(user, this), 10);
+            });
+        }    }
+
+    public boolean canDealDamage()
+    {
+        return this.getCooldown() > this.getMaxCooldown() * 0.9;
     }
 }
