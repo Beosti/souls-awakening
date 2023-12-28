@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.items.ZanpakutoWakizashiItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -31,7 +32,7 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class AttributeStatsGainEvent {
     public static final UUID ZANJUTSU_ATTACK_BONUS_ID = UUID.fromString("e19608b6-8b16-11ee-b9d1-0242ac120002");
-    public static final UUID HOHO_SPEED_BONUS_ID = UUID.fromString("d85b324a-8b2e-11ee-b9d1-0242ac120002");
+    public static final UUID WAKIZASHI_ATTACK_SPEED_ID = UUID.fromString("d85b324a-8b2e-11ee-b9d1-0242ac120002");
 
     @SubscribeEvent
     public static void hohoGainEvent(HohoGainEvent event)
@@ -89,6 +90,12 @@ public class AttributeStatsGainEvent {
             {
                 event.removeModifier(Attributes.ATTACK_DAMAGE, mod);
             }
+        }
+        if (itemStack.getItem().asItem() instanceof ZanpakutoWakizashiItem)
+        {
+            AttributeModifier mod = new AttributeModifier(WAKIZASHI_ATTACK_SPEED_ID, "Wakizashi Bonus", -0.3, AttributeModifier.Operation.ADDITION);
+
+            event.addModifier(ModAttributes.ATTACK_RANGE.get(), mod);
         }
     }
 

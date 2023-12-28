@@ -53,6 +53,8 @@
   "advancements.soulsawakening.race.adjucha.description": "Discovering a new world",
 
   "advancements.soulsawakening.race.vasto_lorde.title": "Vasto Lorde",
-  "advancements.soulsawakening.race.vasto_lorde.description": "Is this the peak?"
+  "advancements.soulsawakening.race.vasto_lorde.description": "Is this the peak?",
+
+  "soulsawakening.attack_range": "Attack range"
 
 }
