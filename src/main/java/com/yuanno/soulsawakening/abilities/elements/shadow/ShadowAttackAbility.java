@@ -25,7 +25,6 @@ public class ShadowAttackAbility extends Ability implements IAttackAbility {
 
     public ShadowAttackAbility() {
         this.setName("Shadow Attack");
-        this.setPassive(true);
         this.setActivationType(Ability.ActivationType.ATTACK);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);
     }

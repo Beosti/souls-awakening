@@ -28,4 +28,7 @@ public class ModValues {
     public static final String POISON = "poison";
     public static final String WATER = "water";
     public static final String WIND = "wind";
+
+    // SPECIFIC
+    public static final String SHINSO = "shinso";
 }

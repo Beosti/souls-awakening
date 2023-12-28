@@ -24,6 +24,9 @@ import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
 import com.yuanno.soulsawakening.abilities.hollow.*;
+import com.yuanno.soulsawakening.abilities.shinso.LongRangeAbility;
+import com.yuanno.soulsawakening.abilities.shinso.ShootAbility;
+import com.yuanno.soulsawakening.abilities.shinso.WideShootAbility;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
@@ -43,7 +46,6 @@ public class ModAbilities {
 
     public static final DeferredRegister<Ability<?>> ABILITIES= DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
     public static final Ability[] DARK_ZANPAKUTO = new Ability[] {DarkStepAbility.INSTANCE, ShadowAttackAbility.INSTANCE, UmbralCloakAbility.INSTANCE};
-
     public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
     public static final Ability[] HEAL_ZANPAKUTO = new Ability[] {HealingTouchingAbility.INSTANCE, RevitilazingAuraAbility.INSTANCE, SelfHealingAbility.INSTANCE};
     public static final Ability[] THUNDER_ZANPAKUTO = new Ability[] {ThunderStepAbility.INSTANCE, ThunderAttackAbility.INSTANCE, ThunderStrikeAbility.INSTANCE};
@@ -53,6 +55,7 @@ public class ModAbilities {
     public static final Ability[] WATER_ZANPAKUTO = new Ability[] {AquaSlashAbility.INSTANCE, TidalWaveAbility.INSTANCE, WaterPrisonAbility.INSTANCE};
     public static final Ability[] WIND_ZANPAKUTO = new Ability[] {GaleForceAbility.INSTANCE, WhirldWindDanceAbility.INSTANCE, WindAttackAbility.INSTANCE};
     public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE, AcidicTouchAbility.INSTANCE, CeroAbility.INSTANCE, HollowRegenerationAbility.INSTANCE, GargantaAbility.INSTANCE};
+    public static final Ability[] SHINSO = new Ability[] {LongRangeAbility.INSTANCE, ShootAbility.INSTANCE, WideShootAbility.INSTANCE};
 
     public static void register(IEventBus eventBus)
     {
@@ -66,6 +69,7 @@ public class ModAbilities {
         registerAbilities(WATER_ZANPAKUTO);
         registerAbilities(WIND_ZANPAKUTO);
         registerAbilities(HOLLOW);
+        registerAbilities(SHINSO);
     }
 
     private static void registerAbilities(Ability[] abilities)

@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.events.ability;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IAttackAbility;
+import com.yuanno.soulsawakening.ability.api.IPunchAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -34,21 +35,27 @@ public class AttackAbilityEvent {
             LivingEntity livingEntityTarget = (LivingEntity) target;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             // when a player is a shinigami check the zanpakuto
-            if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER))
+            if ((entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER)) && (player.getMainHandItem().getItem() instanceof ZanpakutoItem))
             {
-                if (player.getMainHandItem().getItem() instanceof ZanpakutoItem)
-                {
-                    ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
-                    if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SHIKAI)) // if the zanpakuto is in shikai state
+
+                ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
+                if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SHIKAI)) // if the zanpakuto is in shikai state
                     {
                         for (Ability ability : abilityData.getUnlockedAbilities())
                         {
-                            if (!(ability instanceof IAttackAbility) || !ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
+                            if (!ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
                                 continue;
-                            ((IAttackAbility) ability).activate(livingEntityTarget, player);
+                            if (ability instanceof IAttackAbility)
+                                ((IAttackAbility) ability).activate(livingEntityTarget, player);
+                            else if (ability instanceof IPunchAbility && ability.getState().equals(Ability.STATE.READY))
+                            {
+                                ((IPunchAbility) ability).onHitEntity(livingEntityTarget, player);
+                                ((IPunchAbility) ability).startCooldown(player);
+                                ability.setState(Ability.STATE.COOLDOWN);
+                                ability.setCooldown(ability.getMaxCooldown() / 20);
+                            }
                         }
                     }
-                }
             }
 
             // when a player is a hollow

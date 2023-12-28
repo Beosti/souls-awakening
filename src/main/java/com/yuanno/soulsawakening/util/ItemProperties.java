@@ -47,6 +47,8 @@ public class ItemProperties {
                 return 8;
             case ("WIND"):
                 return 9;
+            case ("SHINSO"):
+                return 10;
             default:
                 return 0;
         }

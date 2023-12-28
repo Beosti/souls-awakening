@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.ability.api;
 
 import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -12,7 +13,7 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private String name;
     private double cooldown;
     private ActivationType activationType;
-    private boolean isPassive;
+    private boolean isPassive = false;
     private boolean isReady = true;
     private double maxCooldown;
     private STATE state;
@@ -56,12 +57,15 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         return this.zanpakutoState;
     }
 
-    public void duringCooldown()
+    public void duringCooldown(PlayerEntity player)
     {
         if (this.isPassive || this.state.equals(STATE.READY))
             return;
-        if (this.getCooldown() <= 0)
+        if (this.getCooldown() <= 0 && !this.getState().equals(STATE.READY)) {
             this.setState(STATE.READY);
+            if (this instanceof IPunchAbility)
+                ((IPunchAbility) this).startContinuity(player);
+        }
         else if (this.state.equals(STATE.COOLDOWN))
             this.alterCooldown(- 1);
     }

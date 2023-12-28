@@ -19,7 +19,6 @@ public class ThunderAttackAbility extends Ability implements IAttackAbility {
 
     public ThunderAttackAbility() {
         this.setName("Thunder Attack");
-        this.setPassive(true);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);
     }

@@ -21,7 +21,6 @@ public class SlashAbility extends Ability implements IAttackAbility {
     public SlashAbility()
     {
         this.setName("Slash");
-        this.setPassive(true);
         this.setActivationType(ActivationType.ATTACK);
     }
 

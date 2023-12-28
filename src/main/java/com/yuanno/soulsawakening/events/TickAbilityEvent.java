@@ -34,9 +34,9 @@ public class TickAbilityEvent {
                     continue;
                 if (ability instanceof IDuringCooldownAbility)
                     ((IDuringCooldownAbility) ability).onCooldown(player);
-                ability.duringCooldown();
+                ability.duringCooldown(player);
             }
-            else if (ability instanceof IContinuousAbility)
+            else if (ability.getPassive())
             {
                 if (player.tickCount % 20 == 0 && !player.level.isClientSide)
                     ((IContinuousAbility) ability).onContinuousAbility(player);

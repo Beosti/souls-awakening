@@ -14,7 +14,6 @@ public class WindAttackAbility extends Ability implements IAttackAbility {
 
     public WindAttackAbility() {
         this.setName("Wind Attack");
-        this.setPassive(true);
         this.setActivationType(ActivationType.ATTACK);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);
     }

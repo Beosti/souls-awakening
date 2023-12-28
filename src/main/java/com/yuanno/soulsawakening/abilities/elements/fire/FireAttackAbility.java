@@ -12,7 +12,6 @@ public class FireAttackAbility extends Ability implements IAttackAbility {
 
     public FireAttackAbility() {
         this.setName("Fire Attack");
-        this.setPassive(true);
         this.setActivationType(ActivationType.ATTACK);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);
     }

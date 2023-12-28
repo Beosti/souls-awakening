@@ -13,7 +13,6 @@ public class PoisonAttackAbility extends Ability implements IAttackAbility {
     public PoisonAttackAbility()
     {
         this.setName("Poison Attack");
-        this.setPassive(true);
         this.setActivationType(ActivationType.ATTACK);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);
     }

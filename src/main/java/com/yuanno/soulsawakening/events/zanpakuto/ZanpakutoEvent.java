@@ -26,6 +26,9 @@ import com.yuanno.soulsawakening.abilities.elements.water.WaterPrisonAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
+import com.yuanno.soulsawakening.abilities.shinso.LongRangeAbility;
+import com.yuanno.soulsawakening.abilities.shinso.ShootAbility;
+import com.yuanno.soulsawakening.abilities.shinso.WideShootAbility;
 import com.yuanno.soulsawakening.api.SoulboundItemHelper;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
@@ -204,6 +207,11 @@ public class ZanpakutoEvent {
                     abilityData.addUnlockedAbility(WhirldWindDanceAbility.INSTANCE);
                     abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
                     break;
+                case ("SHINSO"):
+                    abilityData.addUnlockedAbility(ShootAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(WideShootAbility.INSTANCE);
+                    abilityData.addUnlockedAbility(LongRangeAbility.INSTANCE);
+
             }
 
             PacketHandler.sendTo(new SSyncAbilityDataPacket(event.getPlayer().getId(), abilityData), event.getPlayer());
@@ -239,6 +247,8 @@ public class ZanpakutoEvent {
             return ModValues.HEAL;
         else if (elementCounts.get(ModValues.NORMAL) >= 2 && elementCounts.get(ModValues.DARK) >= 2)
             return ModValues.LUNAR;
+        else if (elementCounts.get(ModValues.WIND) >= 2 && elementCounts.get(ModValues.NORMAL) >= 2)
+            return ModValues.SHINSO;
         // Initialize variables to track the most probable element and its probability
         String mostProbableElement = null;
         double maxProbability = 0.0;

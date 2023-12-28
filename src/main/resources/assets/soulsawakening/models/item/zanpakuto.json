@@ -175,6 +175,22 @@
         "type": 2.0
       },
       "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_wind_2"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 10.0,
+        "type": 1.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_shinso"
+    },
+    {
+      "predicate": {
+        "stage": 2.0,
+        "element": 10.0,
+        "type": 2.0
+      },
+      "model": "soulsawakening:item/zanpakuto/zanpakuto_shikai_shinso"
     }
   ]
 }
