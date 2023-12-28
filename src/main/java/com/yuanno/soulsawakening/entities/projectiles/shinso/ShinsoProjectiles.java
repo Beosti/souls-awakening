@@ -22,13 +22,13 @@ public class ShinsoProjectiles {
             .build(Main.MODID + ":blade"));
 
     public static final RegistryObject<EntityType<WideBladeProjectile>> WIDE_BLADE = Beapi.registerEntityType("Wide Blade", () -> Beapi.createEntityType(WideBladeProjectile::new)
-            .sized(1F, 10F)
+            .sized(20, 1F)
             .build(Main.MODID + ":wide_blade"));
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerEntityRenderers(FMLClientSetupEvent event)
     {
         RenderingRegistry.registerEntityRenderingHandler(BLADE.get(), new StretchingProjectileRenderer.Factory(new CubeModel()).setStretchScale(1, 1).setColor("#FFFFFF"));
-        RenderingRegistry.registerEntityRenderingHandler(WIDE_BLADE.get(), new AbilityProjectileRenderer.Factory(new CubeModel()).setScale(1, 10, 0.5).setColor("#FFFFFF"));
+        RenderingRegistry.registerEntityRenderingHandler(WIDE_BLADE.get(), new AbilityProjectileRenderer.Factory(new CubeModel()).setScale(20, 1, 0.5).setColor("#FFFFFF"));
     }
 }

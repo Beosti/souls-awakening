@@ -14,8 +14,8 @@ public class ShootAbility extends Ability implements IRightClickEmptyAbility {
     public ShootAbility()
     {
         this.setName("Shoot");
-        this.setCooldown(45);
-        this.setMaxCooldown(45);
+        this.setCooldown(4);
+        this.setMaxCooldown(4);
         this.setPassive(false);
         this.setActivationType(Ability.ActivationType.RIGHT_CLICK_EMPTY);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);

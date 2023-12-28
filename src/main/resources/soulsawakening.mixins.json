@@ -4,13 +4,16 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "soulsawakening.refmap.json",
   "mixins": [
-
+    "ServerPlayNetHandlerMixin",
+    "RangedAttributeMixin",
+    "PlayerEntityMixin",
     "EntityMixin"
 
   ],
   "client": [
     "client.ServerWorldInfoMixin",
-    "client.DeathScreenMixin"
+    "client.DeathScreenMixin",
+    "client.GameRendererMixin"
   ],
   "server": [],
   "injectors": {

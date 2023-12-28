@@ -236,7 +236,7 @@ public class ZanpakutoItem extends SwordItem {
     }
 
     public enum ELEMENT {
-        NONE, DARK, FIRE, HEAL, LIGHTNING, LUNAR, NORMAL, POISON, WATER, WIND;
+        NONE, DARK, FIRE, HEAL, LIGHTNING, LUNAR, NORMAL, POISON, WATER, WIND, SHINSO;
 
         public static ELEMENT getRandomElement() {
             Random random = new Random();

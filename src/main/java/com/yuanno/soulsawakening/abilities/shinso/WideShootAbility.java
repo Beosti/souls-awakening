@@ -13,8 +13,8 @@ public class WideShootAbility extends Ability implements IRightClickEmptyAbility
     public WideShootAbility()
     {
         this.setName("Wide Shoot");
-        this.setCooldown(45);
-        this.setMaxCooldown(45);
+        this.setCooldown(20);
+        this.setMaxCooldown(20);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setZanpakutoState(ModResources.STATE.SHIKAI);
     }

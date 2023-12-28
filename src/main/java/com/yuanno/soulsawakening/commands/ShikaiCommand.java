@@ -77,6 +77,7 @@ public class ShikaiCommand {
         suggestions.add(ZanpakutoItem.ELEMENT.POISON.name());
         suggestions.add(ZanpakutoItem.ELEMENT.WATER.name());
         suggestions.add(ZanpakutoItem.ELEMENT.WIND.name());
+        suggestions.add(ZanpakutoItem.ELEMENT.SHINSO.name());
 
         return ISuggestionProvider.suggest(suggestions.stream(), builder);
     };

@@ -21,12 +21,30 @@ public class WideBladeProjectile extends AbilityProjectileEntity {
         this.setMaxLife(100);
         this.setPhysical(true);
         this.setPassThroughBlocks();
-        this.onBlockImpactEvent = this::onHitBlock;
+        this.onTickEvent = this::onTick;
     }
 
-    private void onHitBlock(BlockPos hit)
+    private void onTick()
     {
         World world = this.level;
-        world.setBlock(hit, Blocks.AIR.defaultBlockState(), 2);
+
+        // gets the blocks around this entity and turns them into air
+        double x0 = this.getX();
+        double y0 = this.getY();
+        double z0 = this.getZ();
+
+        int radius = 1;
+
+        for (double y = y0 - radius; y <= y0 + radius; y++)
+        {
+            for (double x = x0 - radius; x <= x0 + radius; x++)
+            {
+                for (double z = z0 - radius; z <= z0 + radius; z++)
+                {
+                    BlockPos pos = new BlockPos(x, y, z);
+                    world.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+                }
+            }
+        }
     }
 }
