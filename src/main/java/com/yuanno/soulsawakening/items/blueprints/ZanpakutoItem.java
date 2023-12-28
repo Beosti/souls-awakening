@@ -39,6 +39,11 @@ public class ZanpakutoItem extends SwordItem {
         this.zanpakutoState = ModResources.STATE.SEALED;
     }
 
+    public ZanpakutoItem(int i, float v) {
+        super(ModTiers.WEAPON, i, v, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
+        this.zanpakutoState = ModResources.STATE.SEALED;
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (Screen.hasShiftDown()) {

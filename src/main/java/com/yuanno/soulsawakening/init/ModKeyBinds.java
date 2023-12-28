@@ -65,7 +65,7 @@ public class ModKeyBinds {
         }
         if (zanpakutoStateNext.isDown())
         {
-            if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get())) {
+            if (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) {
                 PacketHandler.sendToServer(new CChangeZanpakutoStatePacket());
             }
 

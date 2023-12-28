@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +30,7 @@ public class HollowEntity extends CreatureEntity {
             return;
 
         PlayerEntity player = (PlayerEntity) source.getEntity();
-        if (!player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem().asItem()))
+        if (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         if (!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))

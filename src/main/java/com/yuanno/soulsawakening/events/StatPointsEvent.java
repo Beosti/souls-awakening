@@ -15,6 +15,7 @@ import com.yuanno.soulsawakening.init.ModAbilities;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.Entity;
@@ -66,7 +67,7 @@ public class StatPointsEvent {
             MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
 
         }
-        else if (player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
+        else if (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem)
         {
             target.hurt(ZANJUTSU_DAMAGE, zanjutsuPoints);
             entityStats.alterZanjutsuPoints(0.05);
@@ -135,7 +136,7 @@ public class StatPointsEvent {
         if (player.level.isClientSide)
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI) && player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem())) // and kills a hollow
+        if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI) && player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) // and kills a hollow
         {
             entityStats.alterClassExperience(1);
             if (entityStats.getClassExperience() > entityStats.getClassLevel() * 3)

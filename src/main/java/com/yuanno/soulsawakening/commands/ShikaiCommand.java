@@ -90,7 +90,7 @@ public class ShikaiCommand {
             commandSource.sendSuccess(new TranslationTextComponent("Need to be a shinigami or fullbringer!"), true);
             return 0;
         }
-        if (!player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
+        if (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))
         {
             commandSource.sendSuccess(new TranslationTextComponent("Have to hold a zanpakuto in hand!"), true);
             return 0;

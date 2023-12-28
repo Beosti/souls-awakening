@@ -6,6 +6,7 @@ import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -354,7 +355,7 @@ public class JetEntity extends FlyingEntity implements IMob {
             return;
 
         PlayerEntity player = (PlayerEntity) source.getEntity();
-        if (!player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get().getItem().asItem()))
+        if (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         if (!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))

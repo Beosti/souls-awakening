@@ -10,6 +10,7 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -66,7 +67,7 @@ public class ElementPointsCommand {
             commandSource.sendSuccess(new TranslationTextComponent("Need to be a shinigami or fullbringer!"), true);
             return 0;
         }
-        if (!player.getMainHandItem().getItem().equals(ModItems.ZANPAKUTO.get()))
+        if (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))
         {
             commandSource.sendSuccess(new TranslationTextComponent("Have to hold a zanpakuto in hand!"), true);
             return 0;

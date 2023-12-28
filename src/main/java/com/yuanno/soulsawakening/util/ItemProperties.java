@@ -70,5 +70,9 @@ public class ItemProperties {
         ItemModelsProperties.register(ModItems.ZANPAKUTO.get(), new ResourceLocation("element"), ZANPAKUTO_ELEMENT);
         ItemModelsProperties.register(ModItems.ZANPAKUTO.get(), new ResourceLocation("type"), ZANPAKUTO_TYPE);
 
+        ItemModelsProperties.register(ModItems.ZANPAKUTO_WAKIZASHI.get(), new ResourceLocation("stage"), ZANPAKUTO_STAGE);
+        ItemModelsProperties.register(ModItems.ZANPAKUTO_WAKIZASHI.get(), new ResourceLocation("element"), ZANPAKUTO_ELEMENT);
+        ItemModelsProperties.register(ModItems.ZANPAKUTO_WAKIZASHI.get(), new ResourceLocation("type"), ZANPAKUTO_TYPE);
+
     }
 }

@@ -82,7 +82,7 @@ public class ZanpakutoEvent {
     @SubscribeEvent
     public static void onZanpakutoCraftin(PlayerEvent.ItemCraftedEvent event)
     {
-        if (event.getCrafting().getItem() == ModItems.ZANPAKUTO.get())
+        if (event.getCrafting().getItem().asItem() instanceof ZanpakutoItem)
         {
             if (event.getPlayer().level.isClientSide)
                 return;

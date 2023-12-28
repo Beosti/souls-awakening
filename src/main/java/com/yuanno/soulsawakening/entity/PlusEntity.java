@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.CreatureEntity;
@@ -78,7 +79,7 @@ public class PlusEntity extends CreatureEntity {
                 this.kill();
             }
             else if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI)
-                    && player.getMainHandItem().getItem().asItem().equals(ModItems.ZANPAKUTO.get().getItem().asItem()))
+                    && (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))
             {
                 String saviorString = selectRandomStringShinigami();
                 player.sendMessage(new StringTextComponent(saviorString), Util.NIL_UUID);
