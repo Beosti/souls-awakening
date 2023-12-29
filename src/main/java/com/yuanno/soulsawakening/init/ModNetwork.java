@@ -15,7 +15,6 @@ public class ModNetwork {
         PacketHandler.registerPacket(COpenPlayerScreenPacket.class, COpenPlayerScreenPacket::encode, COpenPlayerScreenPacket::decode, COpenPlayerScreenPacket::handle);
         PacketHandler.registerPacket(CChangeZanpakutoStatePacket.class, CChangeZanpakutoStatePacket::encode, CChangeZanpakutoStatePacket::decode, CChangeZanpakutoStatePacket::handle);
         PacketHandler.registerPacket(CSyncMiscDataPacket.class, CSyncMiscDataPacket::encode, CSyncMiscDataPacket::decode, CSyncMiscDataPacket::handle);
-        PacketHandler.registerPacket(CSyncentityStatsStatsPacket.class, CSyncentityStatsStatsPacket::encode, CSyncentityStatsStatsPacket::decode, CSyncentityStatsStatsPacket::handle);
         PacketHandler.registerPacket(CSyncAbilityDataPacket.class, CSyncAbilityDataPacket::encode, CSyncAbilityDataPacket::decode, CSyncAbilityDataPacket::handle);
         PacketHandler.registerPacket(CRightClickEmptyPacket.class, CRightClickEmptyPacket::encode, CRightClickEmptyPacket::decode, CRightClickEmptyPacket::handle);
         PacketHandler.registerPacket(CSyncentityStatsZanjutsuPacket.class, CSyncentityStatsZanjutsuPacket::encode, CSyncentityStatsZanjutsuPacket::decode, CSyncentityStatsZanjutsuPacket::handle);

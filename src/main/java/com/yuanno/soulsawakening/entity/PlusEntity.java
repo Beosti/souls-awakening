@@ -2,6 +2,8 @@ package com.yuanno.soulsawakening.entity;
 
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
+import com.yuanno.soulsawakening.events.stats.HollowGainEvent;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -24,6 +26,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.Random;
 
@@ -74,6 +77,8 @@ public class PlusEntity extends CreatureEntity {
                 Random randomSpecial = new Random();
                 int extraHollowPoints = randomSpecial.nextInt(10);
                 entityStats.alterHollowPoints(1 + extraHollowPoints);
+                HollowGainEvent hollowGainEvent = new HollowGainEvent(player);
+                MinecraftForge.EVENT_BUS.post(hollowGainEvent);
                 PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
 
                 this.kill();

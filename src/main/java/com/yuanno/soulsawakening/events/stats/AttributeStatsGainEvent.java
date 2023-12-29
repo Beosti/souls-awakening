@@ -6,6 +6,8 @@ import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.ZanpakutoWakizashiItem;
+import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -42,6 +44,10 @@ public class AttributeStatsGainEvent {
             return;
 
         IEntityStats entityStats = EntityStatsCapability.get(player);
+        double hohoPointsRaw = entityStats.getHohoPoints();
+        int hohoPointsStats = (int) Math.floor(hohoPointsRaw) + 1;
+        entityStats.alterHohoPoints(0.0001 * (hohoPointsStats * 0.73));
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
 
         double hohoPoints = entityStats.getHohoPoints() / 10000;
         AttributeModifier attributeModifier = new AttributeModifier("Hoho Speed Bonus", hohoPoints, AttributeModifier.Operation.ADDITION);
@@ -59,8 +65,10 @@ public class AttributeStatsGainEvent {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
-        ModifiableAttributeInstance maxHpAttribute = player.getAttribute(Attributes.MAX_HEALTH);
         IEntityStats entityStats = EntityStatsCapability.get(player);
+        entityStats.alterHakudaPoints(0.05);
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        ModifiableAttributeInstance maxHpAttribute = player.getAttribute(Attributes.MAX_HEALTH);
         maxHpAttribute.setBaseValue(20 + entityStats.getHakudaPoints());
         player.setHealth((float) maxHpAttribute.getValue());
         ((ServerPlayerEntity) player).connection.send(new SUpdateHealthPacket(player.getHealth(), player.getFoodData().getFoodLevel(), player.getFoodData().getSaturationLevel()));
@@ -68,7 +76,14 @@ public class AttributeStatsGainEvent {
     @SubscribeEvent
     public static void zanjutsuGainEvent(ZanjutsuGainEvent event)
     {
-        // might add a way to gain the damage here instead of somewhere else
+        PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        entityStats.alterZanjutsuPoints(0.05);
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+
+
     }
 
     @SubscribeEvent
