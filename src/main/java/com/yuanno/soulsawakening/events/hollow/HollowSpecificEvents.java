@@ -44,10 +44,10 @@ public class HollowSpecificEvents {
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        AttributeModifier attributeModifierGillian = new AttributeModifier("Gillian attack bonus", 5, AttributeModifier.Operation.ADDITION);
-        AttributeModifier attributeModifierAdjucha = new AttributeModifier("Adjucha Speed Bonus", 0.11, AttributeModifier.Operation.ADDITION);
-        AttributeModifier attributeModifierVastoLordeAttackSpeed = new AttributeModifier("Vasto Lorde Attack Speed Bonus", 1, AttributeModifier.Operation.ADDITION);
-        AttributeModifier attributeModifierVastoLordeAttack = new AttributeModifier("Vasto Lorde Attack Bonus", 5, AttributeModifier.Operation.ADDITION);
+        AttributeModifier attributeModifierGillian = new AttributeModifier(UUID.fromString("4658d71c-a663-11ee-a506-0242ac120002"), "Gillian attack bonus", 5, AttributeModifier.Operation.ADDITION);
+        AttributeModifier attributeModifierAdjucha = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Adjucha Speed Bonus", 0.10, AttributeModifier.Operation.ADDITION);
+        AttributeModifier attributeModifierVastoLordeAttackSpeed = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Vasto Lorde Attack Speed Bonus", 1, AttributeModifier.Operation.ADDITION);
+        AttributeModifier attributeModifierVastoLordeAttack = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Vasto Lorde Attack Bonus", 5, AttributeModifier.Operation.ADDITION);
 
         switch (entityStats.getRank()) {
             case (ModValues.BASE):

@@ -11,11 +11,14 @@ import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.events.hollow.HollowEvolutionEvent;
 import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
+import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -154,7 +157,7 @@ public class PlayerOverviewScreen extends Screen {
         }
         else if (race.equals(ModValues.FULLBRINGER) || race.equals(ModValues.SHINIGAMI))
         {
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Zanjutsu points: " + TextFormatting.RESET + zanjutsuPoints, leftShift, posY + 60, -1);
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Zanju points: " + TextFormatting.RESET + zanjutsuPoints, leftShift, posY + 60, -1);
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Haku points: " + TextFormatting.RESET + hakuPoints, leftShift, posY + 75, -1);
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Hoho points: " + TextFormatting.RESET + hohoPoints, leftShift, posY + 90, -1);
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 105, -1);
@@ -165,10 +168,26 @@ public class PlayerOverviewScreen extends Screen {
     {
         PlayerEntity playerEntity = this.getMinecraft().player;
         IEntityStats entityStats = EntityStatsCapability.get(playerEntity);
+        ModifiableAttributeInstance attributes = playerEntity.getAttribute(Attributes.MOVEMENT_SPEED);
+        double baseDamage = 1 + entityStats.getHakudaPoints();
+        double hollowBaseDamage = playerEntity.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        double speed = playerEntity.getAttributeValue(Attributes.MOVEMENT_SPEED);
+        double attackSpeed = playerEntity.getAttributeValue(Attributes.ATTACK_SPEED);
+        String formattedSpeed = String.format("%.2f", speed);
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
         int leftShift = posX + 180;
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Max health: " + TextFormatting.RESET + playerEntity.getMaxHealth(), leftShift, posY + 20, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Max health: " + TextFormatting.RESET + (int) playerEntity.getMaxHealth(), leftShift, posY + 20, -1);
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER))
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + baseDamage, leftShift, posY + 40, -1);
+        else if (entityStats.getRace().equals(ModValues.HOLLOW) && entityStats.getRank().equals(ModValues.GILLIAN))
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + 6, leftShift, posY + 40, -1);
+        else if (entityStats.getRank().equals(ModValues.HOLLOW) && entityStats.getRank().equals(ModValues.VASTO_LORDE))
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + 11, leftShift, posY + 40, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Extra sword damage: " + TextFormatting.RESET + (int) entityStats.getZanjutsuPoints(), leftShift, posY + 60, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Attack speed: " + TextFormatting.RESET + (int) attackSpeed, leftShift, posY + 80, -1);
+
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Speed: " + TextFormatting.RESET + formattedSpeed, leftShift, posY + 100, -1);
 
     }
     @Override

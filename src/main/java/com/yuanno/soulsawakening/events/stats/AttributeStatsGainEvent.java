@@ -74,10 +74,10 @@ public class AttributeStatsGainEvent {
         AttributeModifier attributeModifier = new AttributeModifier("Hoho Speed Bonus", hohoPoints, AttributeModifier.Operation.ADDITION);
         if (player.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(attributeModifier)) {
             player.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(attributeModifier);
-            player.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(attributeModifier);
+            player.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(attributeModifier);
         }
         else
-            player.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(attributeModifier);
+            player.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(attributeModifier);
 
     }
     @SubscribeEvent
