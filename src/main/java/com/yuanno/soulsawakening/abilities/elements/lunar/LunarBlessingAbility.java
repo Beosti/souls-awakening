@@ -2,8 +2,7 @@ package com.yuanno.soulsawakening.abilities.elements.lunar;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
-import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
-import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -19,7 +18,7 @@ public class LunarBlessingAbility extends Ability implements IRightClickEntityAb
         this.setMaxCooldown(20);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
-        this.setZanpakutoState(ModResources.STATE.SHIKAI);
+        this.setZanpakutoState(ModValues.STATE.SHIKAI);
     }
 
     @Override

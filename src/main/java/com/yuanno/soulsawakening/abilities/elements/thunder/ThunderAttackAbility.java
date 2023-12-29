@@ -4,13 +4,12 @@ import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IAttackAbility;
 import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
-import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.HoveringParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 
 public class ThunderAttackAbility extends Ability implements IAttackAbility {
     public static final ThunderAttackAbility INSTANCE = new ThunderAttackAbility();
@@ -20,7 +19,7 @@ public class ThunderAttackAbility extends Ability implements IAttackAbility {
     public ThunderAttackAbility() {
         this.setName("Thunder Attack");
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
-        this.setZanpakutoState(ModResources.STATE.SHIKAI);
+        this.setZanpakutoState(ModValues.STATE.SHIKAI);
     }
 
     @Override

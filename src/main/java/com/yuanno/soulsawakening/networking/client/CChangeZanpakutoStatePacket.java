@@ -43,7 +43,7 @@ public class CChangeZanpakutoStatePacket {
             contextSupplier.get().enqueueWork(() ->
             {
                 PlayerEntity player = contextSupplier.get().getSender();
-                Event zanpakutoChangeEvent = new ZanpakutoChangeEvent(player);
+                ZanpakutoChangeEvent zanpakutoChangeEvent = new ZanpakutoChangeEvent(player);
                 MinecraftForge.EVENT_BUS.post(zanpakutoChangeEvent);
             });
         }

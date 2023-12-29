@@ -6,7 +6,7 @@ import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.init.ModDamageSource;
-import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.LightningBoltEntity;
@@ -29,7 +29,7 @@ public class ThunderStrikeAbility extends Ability implements IRightClickEmptyAbi
         this.setMaxCooldown(16);
         this.setPassive(false);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
-        this.setZanpakutoState(ModResources.STATE.SHIKAI);
+        this.setZanpakutoState(ModValues.STATE.SHIKAI);
     }
 
     @Override

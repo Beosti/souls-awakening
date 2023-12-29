@@ -7,7 +7,7 @@ import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
-import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.LivingEntity;
@@ -32,7 +32,7 @@ public class VenomousCloudAbility extends Ability implements IRightClickEmptyAbi
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setState(STATE.READY);
         this.setPassive(false);
-        this.setZanpakutoState(ModResources.STATE.SHIKAI);
+        this.setZanpakutoState(ModValues.STATE.SHIKAI);
     }
 
     @Override

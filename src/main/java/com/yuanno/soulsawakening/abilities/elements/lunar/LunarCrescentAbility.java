@@ -2,10 +2,8 @@ package com.yuanno.soulsawakening.abilities.elements.lunar;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
-import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.lunar.LunarCrescentProjectile;
-import com.yuanno.soulsawakening.init.ModResources;
-import net.minecraft.entity.LivingEntity;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class LunarCrescentAbility extends Ability implements IRightClickEmptyAbility {
@@ -18,7 +16,7 @@ public class LunarCrescentAbility extends Ability implements IRightClickEmptyAbi
         this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
-        this.setZanpakutoState(ModResources.STATE.SHIKAI);
+        this.setZanpakutoState(ModValues.STATE.SHIKAI);
     }
 
     @Override

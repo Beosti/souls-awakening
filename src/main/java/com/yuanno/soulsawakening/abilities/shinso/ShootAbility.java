@@ -1,11 +1,9 @@
 package com.yuanno.soulsawakening.abilities.shinso;
 
-import com.yuanno.soulsawakening.abilities.hollow.CeroAbility;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
-import com.yuanno.soulsawakening.entities.projectiles.hollow.CeroProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.shinso.BladeProjectile;
-import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class ShootAbility extends Ability implements IRightClickEmptyAbility {
@@ -18,7 +16,7 @@ public class ShootAbility extends Ability implements IRightClickEmptyAbility {
         this.setMaxCooldown(4);
         this.setPassive(false);
         this.setActivationType(Ability.ActivationType.RIGHT_CLICK_EMPTY);
-        this.setZanpakutoState(ModResources.STATE.SHIKAI);
+        this.setZanpakutoState(ModValues.STATE.SHIKAI);
     }
 
     @Override

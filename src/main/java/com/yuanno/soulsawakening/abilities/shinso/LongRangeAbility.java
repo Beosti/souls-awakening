@@ -2,10 +2,8 @@ package com.yuanno.soulsawakening.abilities.shinso;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IPunchAbility;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
-import com.yuanno.soulsawakening.entities.projectiles.shinso.WideBladeProjectile;
 import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +21,7 @@ public class LongRangeAbility extends Ability implements IPunchAbility {
         this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.ATTACK);
-        this.setZanpakutoState(ModResources.STATE.SHIKAI);
+        this.setZanpakutoState(ModValues.STATE.SHIKAI);
     }
 
     public void startContinuity(PlayerEntity player) {

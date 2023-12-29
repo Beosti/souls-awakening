@@ -2,8 +2,7 @@ package com.yuanno.soulsawakening.abilities.elements.normal;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
-import com.yuanno.soulsawakening.init.ModResources;
-import net.minecraft.entity.LivingEntity;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -18,7 +17,7 @@ public class NormalBuffAbility extends Ability implements IRightClickEmptyAbilit
         this.setMaxCooldown(20);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
-        this.setZanpakutoState(ModResources.STATE.SHIKAI);
+        this.setZanpakutoState(ModValues.STATE.SHIKAI);
     }
 
     @Override

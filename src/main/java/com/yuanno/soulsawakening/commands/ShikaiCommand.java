@@ -32,7 +32,6 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -68,16 +67,16 @@ public class ShikaiCommand {
     private static final SuggestionProvider<CommandSource> SUGGEST_SET = (source, builder) -> {
         List<String> suggestions = new ArrayList<>();
 
-        suggestions.add(ZanpakutoItem.ELEMENT.DARK.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.FIRE.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.HEAL.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.LIGHTNING.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.LUNAR.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.NORMAL.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.POISON.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.WATER.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.WIND.name());
-        suggestions.add(ZanpakutoItem.ELEMENT.SHINSO.name());
+        suggestions.add(ModValues.ELEMENT.DARK.name());
+        suggestions.add(ModValues.ELEMENT.FIRE.name());
+        suggestions.add(ModValues.ELEMENT.HEAL.name());
+        suggestions.add(ModValues.ELEMENT.LIGHTNING.name());
+        suggestions.add(ModValues.ELEMENT.LUNAR.name());
+        suggestions.add(ModValues.ELEMENT.NORMAL.name());
+        suggestions.add(ModValues.ELEMENT.POISON.name());
+        suggestions.add(ModValues.ELEMENT.WATER.name());
+        suggestions.add(ModValues.ELEMENT.WIND.name());
+        suggestions.add(ModValues.ELEMENT.SHINSO.name());
 
         return ISuggestionProvider.suggest(suggestions.stream(), builder);
     };

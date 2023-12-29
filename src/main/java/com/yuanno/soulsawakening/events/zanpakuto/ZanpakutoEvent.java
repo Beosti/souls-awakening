@@ -219,16 +219,16 @@ public class ZanpakutoEvent {
         }
 
         String state = zanpakutoItem.getTag().getString("zanpakutoState");
-        if (state.equals(ModResources.STATE.SEALED.name()))
+        if (state.equals(ModValues.STATE.SEALED.name()))
         {
             CompoundNBT tagCompound = zanpakutoItem.getTag();
-            tagCompound.putString("zanpakutoState", ModResources.STATE.SHIKAI.name());
+            tagCompound.putString("zanpakutoState", ModValues.STATE.SHIKAI.name());
             zanpakutoItem.setTag(tagCompound);
         }
-        else if(state.equals(ModResources.STATE.SHIKAI.name()))
+        else if(state.equals(ModValues.STATE.SHIKAI.name()))
         {
             CompoundNBT tagCompound = zanpakutoItem.getTag();
-            tagCompound.putString("zanpakutoState", ModResources.STATE.SEALED.name());
+            tagCompound.putString("zanpakutoState", ModValues.STATE.SEALED.name());
             zanpakutoItem.setTag(tagCompound);
         }
     }

@@ -1,8 +1,7 @@
 package com.yuanno.soulsawakening.util;
 
 import com.yuanno.soulsawakening.init.ModItems;
-import com.yuanno.soulsawakening.init.ModResources;
-import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
@@ -12,11 +11,11 @@ public class ItemProperties {
     private static final IItemPropertyGetter ZANPAKUTO_STAGE = (itemStack, world, livingEntity) ->
     {
 
-        if (itemStack.getTag().getString("zanpakutoState").equals(ModResources.STATE.SEALED.name()))
+        if (itemStack.getTag().getString("zanpakutoState").equals(ModValues.STATE.SEALED.name()))
             return 1;
-        else if (itemStack.getTag().getString("zanpakutoState").equals(ModResources.STATE.SHIKAI.name()))
+        else if (itemStack.getTag().getString("zanpakutoState").equals(ModValues.STATE.SHIKAI.name()))
             return 2;
-        else if (itemStack.getTag().getString("zanpakutoState").equals(ModResources.STATE.BANKAI.name()))
+        else if (itemStack.getTag().getString("zanpakutoState").equals(ModValues.STATE.BANKAI.name()))
             return 3;
         else
             return 1;
@@ -24,8 +23,7 @@ public class ItemProperties {
     private static final IItemPropertyGetter ZANPAKUTO_ELEMENT = (itemStack, world, livingEntity) ->
     {
         String zanpakutoElement = itemStack.getTag().getString("zanpakutoElement");
-        ZanpakutoItem zanpakutoItem = (ZanpakutoItem) itemStack.getItem();
-        if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SEALED))
+        if (zanpakutoElement.equals(ModValues.STATE.SEALED.name()))
             return 0;
         switch (zanpakutoElement)
         {

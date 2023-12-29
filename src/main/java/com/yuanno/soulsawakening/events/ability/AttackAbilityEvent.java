@@ -8,12 +8,12 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -38,12 +38,13 @@ public class AttackAbilityEvent {
             if ((entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER)) && (player.getMainHandItem().getItem() instanceof ZanpakutoItem))
             {
 
-                ZanpakutoItem zanpakutoItem = (ZanpakutoItem) player.getMainHandItem().getItem();
-                if (zanpakutoItem.getZanpakutoState().equals(ModResources.STATE.SHIKAI)) // if the zanpakuto is in shikai state
+                ItemStack zanpakutoItem = player.getMainHandItem();
+                String state = zanpakutoItem.getTag().getString("zanpakutoState"); // specifically get the stack tag to avoid bugs
+                if (state.equals(ModValues.STATE.SHIKAI.name())) // if the zanpakuto is in shikai state
                     {
                         for (Ability ability : abilityData.getUnlockedAbilities())
                         {
-                            if (!ability.getZanpakutoState().equals(ModResources.STATE.SHIKAI))
+                            if (!ability.getZanpakutoState().equals(ModValues.STATE.SHIKAI))
                                 continue;
                             if (ability instanceof IAttackAbility)
                                 ((IAttackAbility) ability).activate(livingEntityTarget, player);

@@ -1,13 +1,9 @@
 package com.yuanno.soulsawakening.ability.api;
 
-import com.yuanno.soulsawakening.init.ModResources;
 import com.yuanno.soulsawakening.init.ModValues;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-
-import java.util.Locale;
 
 public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private String name;
@@ -17,7 +13,7 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private boolean isReady = true;
     private double maxCooldown;
     private STATE state;
-    private ModResources.STATE zanpakutoState;
+    private ModValues.STATE zanpakutoState;
     private boolean isShown = true;
 
     public Ability(String name, int cooldown, int maxCooldown, ActivationType activationType) {
@@ -47,12 +43,12 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     }
 
 
-    public void setZanpakutoState(ModResources.STATE state)
+    public void setZanpakutoState(ModValues.STATE state)
     {
         this.zanpakutoState = state;
     }
 
-    public ModResources.STATE getZanpakutoState()
+    public ModValues.STATE getZanpakutoState()
     {
         return this.zanpakutoState;
     }

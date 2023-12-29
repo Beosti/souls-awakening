@@ -37,14 +37,13 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class StatPointsEvent {
-
+    /**
+     * if doing something as shinigami/fullbringer/spirit
+     * you pull event and in there something happens
+     */
     private final static DamageSource HAKUDA_DAMAGE = new ModDamageSource("hakuda").setSourceTypes(SourceType.FIST).setSourceElement(SourceElement.NONE);
 
-    /**
-     * if fullbringer/shinigami something happens
-     * if hitting fist you get hakuda
-     * if hitting killing with zanpakuto you get zanjutsu
-     */
+
     @SubscribeEvent
     public static void onAttackEvent(AttackEntityEvent event)
     {

@@ -18,7 +18,6 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -26,22 +25,21 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Random;
 
 public class ZanpakutoItem extends SwordItem {
-    private ELEMENT zanpakutoElement = ELEMENT.NONE;
-    private ModResources.STATE zanpakutoState = ModResources.STATE.SEALED;
-    private TYPE zanpakutoType;
+    private ModValues.ELEMENT zanpakutoElement = ModValues.ELEMENT.NONE;
+    private ModValues.STATE zanpakutoState = ModValues.STATE.SEALED;
+    private ModValues.TYPE zanpakutoType;
     private ItemStack stack;
 
     public ZanpakutoItem() {
         super(ModTiers.WEAPON, 5, -2.55f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
-        this.zanpakutoState = ModResources.STATE.SEALED;
+        this.zanpakutoState = ModValues.STATE.SEALED;
     }
 
     public ZanpakutoItem(int i, float v) {
         super(ModTiers.WEAPON, i, v, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
-        this.zanpakutoState = ModResources.STATE.SEALED;
+        this.zanpakutoState = ModValues.STATE.SEALED;
     }
 
     @Override
@@ -69,8 +67,6 @@ public class ZanpakutoItem extends SwordItem {
             int elementalPoints = stack.getTag().getInt("element");
             tooltip.add(new StringTextComponent("Elemental points: " + elementalPoints));
 
-            //int thunderPoints = stack.getTag().getInt("thunder");
-            //tooltip.add(new StringTextComponent("§ethunder: " + thunderPoints));
             int normalPoints = stack.getTag().getInt(ModValues.NORMAL);
             tooltip.add(new StringTextComponent("§7normal: " + normalPoints));
             int poisonPoints = stack.getTag().getInt(ModValues.DARK);
@@ -104,8 +100,8 @@ public class ZanpakutoItem extends SwordItem {
         if (currentOwner.isEmpty())
             return false;
         else {
-            ((LivingEntity)target).knockback((float)0.65 * 0.5F, (double) MathHelper.sin(owner.yRot * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(owner.yRot * ((float)Math.PI / 180F))));
-
+            //((LivingEntity)target).knockback((float)0.65 * 0.5F, (double) MathHelper.sin(owner.yRot * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(owner.yRot * ((float)Math.PI / 180F))));
+            super.hurtEnemy(itemStack, target, owner);
             return true;
         }
     }
@@ -126,13 +122,13 @@ public class ZanpakutoItem extends SwordItem {
                 || entityStats.getRace().equals(ModValues.HOLLOW))
             return ActionResult.fail(itemStack);
         if (currentOwner.isEmpty() && !player.level.isClientSide) {
-            ELEMENT element = ELEMENT.getRandomElement();
+            ModValues.ELEMENT element = ModValues.ELEMENT.getRandomElement();
             //ELEMENT element = ELEMENT.LIGHTNING;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             //itemStack.getTag().putString("zanpakutoElement", element.name());
-            itemStack.getTag().putString("zanpakutoType", TYPE.getRandomType().name());
-            itemStack.getTag().putString("zanpakutoState", ModResources.STATE.SEALED.name());
+            itemStack.getTag().putString("zanpakutoType", ModValues.TYPE.getRandomType().name());
+            itemStack.getTag().putString("zanpakutoState", ModValues.STATE.SEALED.name());
             if (entityStats.getRace().equals(ModValues.SPIRIT)) {
                 entityStats.setRace(ModValues.SHINIGAMI);
                 ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
@@ -210,8 +206,6 @@ public class ZanpakutoItem extends SwordItem {
 
     }
 
-
-
     public void setOwner(PlayerEntity player, ItemStack itemStack)
     {
         if (!itemStack.hasTag())
@@ -221,83 +215,6 @@ public class ZanpakutoItem extends SwordItem {
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
         else
             return;
-    }
-
-
-
-    public enum TYPE {
-        TYPE_1, TYPE_2;
-
-        public static TYPE getRandomType()
-        {
-            Random random = new Random();
-            return values()[random.nextInt(values().length)];
-        }
-    }
-
-    public enum ELEMENT {
-        NONE, DARK, FIRE, HEAL, LIGHTNING, LUNAR, NORMAL, POISON, WATER, WIND, SHINSO;
-
-        public static ELEMENT getRandomElement() {
-            Random random = new Random();
-            ELEMENT[] elements = values();
-
-            // Exclude NONE from the random selection
-            int index;
-            do {
-                index = random.nextInt(elements.length);
-            } while (elements[index] == NONE);
-
-            return elements[index];
-        }
-    }
-
-
-
-
-    public ModResources.STATE getNextZanpakutoState(ModResources.STATE currentState) {
-        ModResources.STATE[] states = ModResources.STATE.values();
-        int currentIndex = currentState.ordinal();
-        int nextIndex = (currentIndex + 1) % states.length;  // Calculate the next index in a circular manner
-        return states[nextIndex];
-    }
-    public ELEMENT getZanpakutoElement() {
-        String elementName = stack.getTag().getString("zanpakutoElement");
-        return ELEMENT.valueOf(elementName);
-    }
-
-    public TYPE getZanpakutoType() {
-        String typeName = stack.getTag().getString("zanpakutoType");
-        return TYPE.valueOf(typeName);
-    }
-
-    public ModResources.STATE getZanpakutoState() {
-        if (stack != null) {
-            String stateName = stack.getTag().getString("zanpakutoState");
-
-            // Handle cases where the state name is invalid or not present
-            try {
-                return ModResources.STATE.valueOf(stateName);
-            } catch (IllegalArgumentException e) {
-                // Log the error or handle it accordingly
-                // For now, we'll return SEALED in case of an invalid state
-                return ModResources.STATE.SEALED;
-            }
-        } else {
-            return ModResources.STATE.SEALED;
-        }
-    }
-
-    public void setZanpakutoElement(ELEMENT element) {
-        stack.getTag().putString("zanpakutoElement", element.name());
-    }
-
-    public void setZanpakutoType(TYPE type) {
-        stack.getTag().putString("zanpakutoType", type.name());
-    }
-
-    public void setZanpakutoState(ModResources.STATE state) {
-        stack.getTag().putString("zanpakutoState", state.name());
     }
 
 }

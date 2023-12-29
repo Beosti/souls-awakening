@@ -1,5 +1,9 @@
 package com.yuanno.soulsawakening.init;
 
+import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
+
+import java.util.Random;
+
 public class ModValues {
 
     // RACES
@@ -31,4 +35,40 @@ public class ModValues {
 
     // SPECIFIC
     public static final String SHINSO = "shinso";
+
+    public enum ELEMENT {
+        NONE, DARK, FIRE, HEAL, LIGHTNING, LUNAR, NORMAL, POISON, WATER, WIND, SHINSO;
+
+        public static ELEMENT getRandomElement() {
+            Random random = new Random();
+            ELEMENT[] elements = values();
+
+            // Exclude NONE from the random selection
+            int index;
+            do {
+                index = random.nextInt(elements.length);
+            } while (elements[index] == NONE);
+
+            return elements[index];
+        }
+    }
+
+    public enum STATE {
+        SEALED, SHIKAI, BANKAI;
+        public static STATE getRandomState()
+        {
+            Random random = new Random();
+            return values()[random.nextInt(values().length)];
+        }
+    }
+
+    public enum TYPE {
+        TYPE_1, TYPE_2;
+
+        public static TYPE getRandomType()
+        {
+            Random random = new Random();
+            return values()[random.nextInt(values().length)];
+        }
+    }
 }

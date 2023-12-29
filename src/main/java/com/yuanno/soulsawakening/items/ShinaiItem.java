@@ -19,9 +19,9 @@ public class ShinaiItem extends SwordItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (Screen.hasShiftDown()) {
-            tooltip.add(new TranslationTextComponent("§6A sword made out of bamboo to exercise sword-handling skills"));
+            tooltip.add(new TranslationTextComponent("§7A sword made out of bamboo to exercise sword-handling skills"));
         } else {
-            tooltip.add(new TranslationTextComponent("§6Hold " + "§eSHIFT " + "§6" + "for more Information!"));
+            tooltip.add(new TranslationTextComponent("§7Hold " + "§eSHIFT " + "§7" + "for more Information!"));
         }
     }
 }
