@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.abilities.hollow.CeroAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
@@ -125,7 +126,7 @@ public class PlayerOverviewScreen extends Screen {
 
         this.renderBackground(matrixStack);
         statsRendering(matrixStack);
-
+        baseStatsRendering(matrixStack);
         super.render(matrixStack, x, y, f);
     }
 
@@ -158,6 +159,17 @@ public class PlayerOverviewScreen extends Screen {
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Hoho points: " + TextFormatting.RESET + hohoPoints, leftShift, posY + 90, -1);
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 105, -1);
         }
+    }
+
+    public void baseStatsRendering(MatrixStack matrixStack)
+    {
+        PlayerEntity playerEntity = this.getMinecraft().player;
+        IEntityStats entityStats = EntityStatsCapability.get(playerEntity);
+        int posX = (this.width - 256) / 2;
+        int posY = (this.height - 256) / 2;
+        int leftShift = posX + 180;
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Max health: " + TextFormatting.RESET + playerEntity.getMaxHealth(), leftShift, posY + 20, -1);
+
     }
     @Override
     public boolean isPauseScreen()

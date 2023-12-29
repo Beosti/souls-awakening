@@ -38,8 +38,8 @@ public class BiteAbility extends Ability implements IRightClickEntityAbility {
         if (target instanceof PlusEntity)
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        int biteDamage = (6 + entityStats.getHollowPoints()/5);
-        target.hurt(AbilityDamageSource.causeAbilityDamage(player, this), biteDamage);
+        double biteDamage = (6 + entityStats.getHollowPoints()/5);
+        target.hurt(AbilityDamageSource.causeAbilityDamage(player, this), (float) biteDamage);
         PARTICLES.spawn(target.level, target.getX(), target.getY(), target.getZ(), 0, 0, 0);
     }
 }

@@ -63,9 +63,14 @@ public class StatPointsEvent {
             HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player);
             MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
         }
-        else if (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem || player.getMainHandItem().getItem().asItem() instanceof ShinaiItem)
+        else if (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem)
         {
-            ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player);
+            ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player, 0.1);
+            MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent);
+        }
+        else if (player.getMainHandItem().getItem().asItem() instanceof ShinaiItem)
+        {
+            ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player, 0.2);
             MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent);
         }
     }
@@ -132,8 +137,8 @@ public class StatPointsEvent {
                 && event.getSource() instanceof AbilityDamageSource
                 && ((AbilityDamageSource) event.getSource()).getAbilitySource().equals(BiteAbility.INSTANCE))
         {
-            entityStats.alterHollowPoints(1);
-            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+            HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player);
+            MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
         }
     }
 }

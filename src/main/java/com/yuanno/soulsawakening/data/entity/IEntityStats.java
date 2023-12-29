@@ -12,9 +12,9 @@ public interface IEntityStats {
     String getRank();
     boolean hasRank();
 
-    void setHollowPoints(int hollowPoints);
-    void alterHollowPoints(int hollowPoints);
-    int getHollowPoints();
+    void setHollowPoints(double hollowPoints);
+    void alterHollowPoints(double hollowPoints);
+    double getHollowPoints();
 
     void setClassLevel(int classLevel);
     void alterClassLevel(int alterLevel);

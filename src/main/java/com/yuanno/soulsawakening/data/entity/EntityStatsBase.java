@@ -7,7 +7,7 @@ public class EntityStatsBase implements IEntityStats {
 
     private String race = "";
     private String rank = "";
-    private int hollowPoints;
+    private double hollowPoints;
     private int classLevel;
     private int classPoints;
     private int classExperience;
@@ -53,19 +53,19 @@ public class EntityStatsBase implements IEntityStats {
     }
 
     @Override
-    public void setHollowPoints(int hollowPoints)
+    public void setHollowPoints(double hollowPoints)
     {
         this.hollowPoints = hollowPoints;
     }
 
     @Override
-    public void alterHollowPoints(int hollowPoints)
+    public void alterHollowPoints(double hollowPoints)
     {
         this.hollowPoints += hollowPoints;
     }
 
     @Override
-    public int getHollowPoints()
+    public double getHollowPoints()
     {
         return this.hollowPoints;
     }

@@ -27,7 +27,7 @@ public class EntityStatsCapability {
                 CompoundNBT props = new CompoundNBT();
                 props.putString("race", instance.getRace());
                 props.putString("rank", instance.getRank());
-                props.putInt("hollowpoints", instance.getHollowPoints());
+                props.putDouble("hollowpoints", instance.getHollowPoints());
                 props.putDouble("zanjutsupoints", instance.getZanjutsuPoints());
                 props.putDouble("hakudapoints", instance.getHakudaPoints());
                 props.putDouble("hohopoints", instance.getHohoPoints());
@@ -53,7 +53,7 @@ public class EntityStatsCapability {
                 CompoundNBT props = (CompoundNBT) nbt;
                 instance.setRace(props.getString("race"));
                 instance.setRank(props.getString("rank"));
-                instance.setHollowPoints(props.getInt("hollowpoints"));
+                instance.setHollowPoints(props.getDouble("hollowpoints"));
                 instance.setZanjutsuPoints(props.getDouble("zanjutsupoints"));
                 instance.setHakudaPoints(props.getDouble("hakudapoints"));
                 instance.setHohoPoints(props.getDouble("hohopoints"));

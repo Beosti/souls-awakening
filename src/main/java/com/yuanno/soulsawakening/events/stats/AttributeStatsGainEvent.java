@@ -37,6 +37,27 @@ public class AttributeStatsGainEvent {
     public static final UUID WAKIZASHI_ATTACK_SPEED_ID = UUID.fromString("d85b324a-8b2e-11ee-b9d1-0242ac120002");
 
     @SubscribeEvent
+    public static void hollowGainEvent(HollowGainEvent event)
+    {
+        PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        double amountToAdd;
+        if (!event.isExactAmount())
+        {
+            double rawAmount = event.getAmount();
+            double currentHollow = entityStats.getHollowPoints();
+            amountToAdd = rawAmount * (Math.pow(0.95, currentHollow / 10));
+        }
+        else
+            amountToAdd = event.getAmount();
+        entityStats.alterHollowPoints(amountToAdd);
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+
+
+    }
+    @SubscribeEvent
     public static void hohoGainEvent(HohoGainEvent event)
     {
         PlayerEntity player = event.getPlayer();
@@ -66,8 +87,18 @@ public class AttributeStatsGainEvent {
         if (player.level.isClientSide)
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        entityStats.alterHakudaPoints(0.05);
+        double amountToAdd;
+        if (!event.isExactAmount())
+        {
+            double rawAmount = event.getAmount();
+            double currentHakuda = entityStats.getHakudaPoints();
+            amountToAdd = rawAmount * (Math.pow(0.95, currentHakuda / 10));
+        }
+        else
+            amountToAdd = event.getAmount();
+        entityStats.alterHakudaPoints(amountToAdd);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+
         ModifiableAttributeInstance maxHpAttribute = player.getAttribute(Attributes.MAX_HEALTH);
         maxHpAttribute.setBaseValue(20 + entityStats.getHakudaPoints());
         player.setHealth((float) maxHpAttribute.getValue());
@@ -80,7 +111,16 @@ public class AttributeStatsGainEvent {
         if (player.level.isClientSide)
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        entityStats.alterZanjutsuPoints(0.05);
+        double amountToAdd;
+        if (!event.isExactAmount())
+        {
+            double rawAmount = event.getAmount();
+            double currentZanjutsu = entityStats.getZanjutsuPoints();
+            amountToAdd = rawAmount * (Math.pow(0.95, currentZanjutsu / 10));
+        }
+        else
+            amountToAdd = event.getAmount();
+        entityStats.alterZanjutsuPoints(amountToAdd);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
 
 

@@ -6,6 +6,10 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
+import com.yuanno.soulsawakening.events.stats.HohoGainEvent;
+import com.yuanno.soulsawakening.events.stats.HollowGainEvent;
+import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -15,6 +19,7 @@ import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,20 +87,20 @@ public class ShinigamiStatsCommand {
             switch (stats)
             {
                 case ("zanjutsu"):
-                    entityStats.alterZanjutsuPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                    ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player, amount, true);
+                    MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent);
                     break;
                 case ("hoho"):
-                    entityStats.alterHohoPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                    HohoGainEvent hohoGainEvent = new HohoGainEvent(player, amount);
+                    MinecraftForge.EVENT_BUS.post(hohoGainEvent);
                     break;
                 case ("hakuda"):
-                    entityStats.alterHakudaPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                    HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player, amount, true);
+                    MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
                     break;
                 case ("hollow"):
-                    entityStats.alterHollowPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                    HollowGainEvent hollowGainEvent = new HollowGainEvent(player, amount, true);
+                    MinecraftForge.EVENT_BUS.post(hollowGainEvent);
                     break;
                 case ("class"):
                     entityStats.alterClassPoints(amount);
