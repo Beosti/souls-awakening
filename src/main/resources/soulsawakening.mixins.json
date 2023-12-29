@@ -5,7 +5,6 @@
   "refmap": "soulsawakening.refmap.json",
   "mixins": [
     "ServerPlayNetHandlerMixin",
-    "RangedAttributeMixin",
     "PlayerEntityMixin",
     "EntityMixin"
 
