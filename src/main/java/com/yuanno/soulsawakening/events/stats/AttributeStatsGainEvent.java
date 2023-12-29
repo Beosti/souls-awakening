@@ -69,7 +69,12 @@ public class AttributeStatsGainEvent {
         int hohoPointsStats = (int) Math.floor(hohoPointsRaw) + 1;
         entityStats.alterHohoPoints(0.0001 * (hohoPointsStats * 0.73));
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        AttributeModifier attributeModifierAttack = new AttributeModifier("Hoho Attack Speed Bonus", entityStats.getHohoPoints(), AttributeModifier.Operation.ADDITION);
 
+        if (player.getAttribute(Attributes.ATTACK_SPEED).hasModifier(attributeModifierAttack)) {
+            player.getAttribute(Attributes.ATTACK_SPEED).removeModifier(attributeModifierAttack);
+            player.getAttribute(Attributes.ATTACK_SPEED).addPermanentModifier(attributeModifierAttack);
+        }
         double hohoPoints = entityStats.getHohoPoints() / 10000;
         AttributeModifier attributeModifier = new AttributeModifier("Hoho Speed Bonus", hohoPoints, AttributeModifier.Operation.ADDITION);
         if (player.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(attributeModifier)) {

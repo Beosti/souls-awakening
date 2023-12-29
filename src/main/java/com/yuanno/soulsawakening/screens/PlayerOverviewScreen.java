@@ -174,6 +174,8 @@ public class PlayerOverviewScreen extends Screen {
         double speed = playerEntity.getAttributeValue(Attributes.MOVEMENT_SPEED);
         double attackSpeed = playerEntity.getAttributeValue(Attributes.ATTACK_SPEED);
         String formattedSpeed = String.format("%.2f", speed);
+        String formattedAttackSpeed = String.format("%.2f", attackSpeed);
+
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
         int leftShift = posX + 180;
@@ -184,8 +186,10 @@ public class PlayerOverviewScreen extends Screen {
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + 6, leftShift, posY + 40, -1);
         else if (entityStats.getRank().equals(ModValues.HOLLOW) && entityStats.getRank().equals(ModValues.VASTO_LORDE))
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + 11, leftShift, posY + 40, -1);
+        else
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + 1, leftShift, posY + 40, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Extra sword damage: " + TextFormatting.RESET + (int) entityStats.getZanjutsuPoints(), leftShift, posY + 60, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Attack speed: " + TextFormatting.RESET + (int) attackSpeed, leftShift, posY + 80, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Attack speed: " + TextFormatting.RESET + formattedAttackSpeed, leftShift, posY + 80, -1);
 
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Speed: " + TextFormatting.RESET + formattedSpeed, leftShift, posY + 100, -1);
 
