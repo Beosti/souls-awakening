@@ -35,7 +35,7 @@ public class StatsOverlay extends AbstractGui {
 
         if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT)
         {
-            drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "RACE: " + TextFormatting.RESET + race, 330, 20, -1);
+            //drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "RACE: " + TextFormatting.RESET + race, 330, 20, -1);
             if ((race.equals(ModValues.SHINIGAMI) || race.equals(ModValues.FULLBRINGER)) && (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) || entityStats.getZanjutsuPoints() < 10))
                 return;
             for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)

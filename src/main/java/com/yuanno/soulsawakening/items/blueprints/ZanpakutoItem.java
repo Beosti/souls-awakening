@@ -14,6 +14,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
@@ -94,6 +95,7 @@ public class ZanpakutoItem extends SwordItem {
         this.stack = stack;
 
     }
+
     @Override
     public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity owner) {
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
@@ -101,7 +103,9 @@ public class ZanpakutoItem extends SwordItem {
             return false;
         else {
             //((LivingEntity)target).knockback((float)0.65 * 0.5F, (double) MathHelper.sin(owner.yRot * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(owner.yRot * ((float)Math.PI / 180F))));
-            super.hurtEnemy(itemStack, target, owner);
+            itemStack.hurtAndBreak(0, target, (p_220045_0_) -> {
+                p_220045_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
+            });
             return true;
         }
     }

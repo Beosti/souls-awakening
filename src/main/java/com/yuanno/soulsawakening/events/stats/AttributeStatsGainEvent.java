@@ -48,7 +48,7 @@ public class AttributeStatsGainEvent {
         {
             double rawAmount = event.getAmount();
             double currentHollow = entityStats.getHollowPoints();
-            amountToAdd = rawAmount * (Math.pow(0.95, currentHollow / 10));
+            amountToAdd = rawAmount * (Math.pow(0.70, currentHollow / 10));
         }
         else
             amountToAdd = event.getAmount();
@@ -97,13 +97,14 @@ public class AttributeStatsGainEvent {
         {
             double rawAmount = event.getAmount();
             double currentHakuda = entityStats.getHakudaPoints();
-            amountToAdd = rawAmount * (Math.pow(0.95, currentHakuda / 10));
+            amountToAdd = rawAmount * (Math.pow(0.70, currentHakuda / 10));
         }
         else
             amountToAdd = event.getAmount();
         entityStats.alterHakudaPoints(amountToAdd);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-
+        if (!(entityStats.getHakudaPoints() % 1 == 0))
+            return;
         ModifiableAttributeInstance maxHpAttribute = player.getAttribute(Attributes.MAX_HEALTH);
         maxHpAttribute.setBaseValue(20 + entityStats.getHakudaPoints());
         player.setHealth((float) maxHpAttribute.getValue());

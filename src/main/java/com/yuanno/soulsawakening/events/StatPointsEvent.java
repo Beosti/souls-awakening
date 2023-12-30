@@ -8,8 +8,11 @@ import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsBase;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entity.hollow.HollowEntity;
+import com.yuanno.soulsawakening.entity.hollow.JetEntity;
 import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
 import com.yuanno.soulsawakening.events.stats.HohoGainEvent;
+import com.yuanno.soulsawakening.events.stats.HollowGainEvent;
 import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
 import com.yuanno.soulsawakening.init.ModAbilities;
 import com.yuanno.soulsawakening.init.ModDamageSource;
@@ -122,10 +125,12 @@ public class StatPointsEvent {
         if (player.level.isClientSide)
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI) && player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) // and kills a hollow
+        if ((entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI))
+                && (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem || player.getMainHandItem().getItem().asItem() instanceof ShinaiItem)
+                && (event.getEntityLiving() instanceof HollowEntity || event.getEntityLiving() instanceof JetEntity))
         {
             entityStats.alterClassExperience(1);
-            if (entityStats.getClassExperience() > entityStats.getClassLevel() * 3)
+            if (entityStats.getClassExperience() >= entityStats.getClassLevel() * 3)
             {
                 entityStats.alterClassPoints(1);
                 entityStats.alterClassLevel(1);
@@ -137,8 +142,8 @@ public class StatPointsEvent {
                 && event.getSource() instanceof AbilityDamageSource
                 && ((AbilityDamageSource) event.getSource()).getAbilitySource().equals(BiteAbility.INSTANCE))
         {
-            HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player);
-            MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
+            HollowGainEvent hollowGainEvent = new HollowGainEvent(player);
+            MinecraftForge.EVENT_BUS.post(hollowGainEvent);
         }
     }
 }

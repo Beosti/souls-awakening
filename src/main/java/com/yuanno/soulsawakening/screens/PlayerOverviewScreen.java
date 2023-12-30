@@ -28,6 +28,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.awt.*;
+import java.util.Arrays;
 
 
 @OnlyIn(Dist.CLIENT)
@@ -63,17 +64,23 @@ public class PlayerOverviewScreen extends Screen {
             statsAmount = 3;
         else if (entityStats.getRace().equals(ModValues.HOLLOW))
             statsAmount = 0;
-        if (entityStats.getRace().equals(ModValues.HOLLOW))
-        {
-            this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 57, 80, 16, new TranslationTextComponent("Evolution"), b ->
-            {
-                if (entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE)))
-                {
+        if (entityStats.getRace().equals(ModValues.HOLLOW)) {
+            this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 57, 80, 16, new TranslationTextComponent("Evolution"), b -> {
+                if (entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE))) {
                     PacketHandler.sendToServer(new CHollowEvolutionPacket());
                     this.onClose();
                 }
+            }, (button, matrixStack, mouseX, mouseY) -> {
+                if (button.isHovered() && button.active) {
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("You can consume all your hollow points, evolving to the next stage"), mouseX, mouseY);
+                }
+                else if (button.isHovered())
+                {
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("You need 50 hollow points to evolve"), mouseX, mouseY);
+                }
             })).active = entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE));
         }
+
         for (int i = 0; i < statsAmount; i++)
         {
             int finalI = i;
@@ -85,7 +92,16 @@ public class PlayerOverviewScreen extends Screen {
                     handleStats(finalI, entityStats);
                     //PacketHandler.sendToServer(new CSyncentityStatsStatsPacket(entityStats));
                 }
+
                 init();
+            }, (button, matrixStack, mouseX, mouseY) ->
+            {
+                if (button.isHovered() && finalI == 2)
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("Increases speed and attack speed"), mouseX, mouseY);
+                if (button.isHovered() && finalI == 1)
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("Increases damage with your empty hand and more health"), mouseX, mouseY);
+                if (button.isHovered() && finalI == 0)
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("Increases damage with a sword"), mouseX, mouseY);
             })).active = classPoints > 0;
         }
 
@@ -130,6 +146,7 @@ public class PlayerOverviewScreen extends Screen {
         this.renderBackground(matrixStack);
         statsRendering(matrixStack);
         baseStatsRendering(matrixStack);
+
         super.render(matrixStack, x, y, f);
     }
 
@@ -181,11 +198,11 @@ public class PlayerOverviewScreen extends Screen {
         int leftShift = posX + 180;
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Max health: " + TextFormatting.RESET + (int) playerEntity.getMaxHealth(), leftShift, posY + 20, -1);
         if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER))
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + baseDamage, leftShift, posY + 40, -1);
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + (int) baseDamage, leftShift, posY + 40, -1);
         else if (entityStats.getRace().equals(ModValues.HOLLOW) && entityStats.getRank().equals(ModValues.GILLIAN))
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + 6, leftShift, posY + 40, -1);
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + (int) 6, leftShift, posY + 40, -1);
         else if (entityStats.getRank().equals(ModValues.HOLLOW) && entityStats.getRank().equals(ModValues.VASTO_LORDE))
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + 11, leftShift, posY + 40, -1);
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + (int) 11, leftShift, posY + 40, -1);
         else
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + 1, leftShift, posY + 40, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Extra sword damage: " + TextFormatting.RESET + (int) entityStats.getZanjutsuPoints(), leftShift, posY + 60, -1);
