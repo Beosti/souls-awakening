@@ -26,7 +26,7 @@ import groovy.json.JsonOutput
 import java.text.DecimalFormat
 
 def shortHash = 'git rev-parse --short HEAD'.execute().in.text.trim()
-version = '0.1.0'
+version = '1.0'
 group = 'com.yuanno.soulsawakening' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "soulsawakening"
 
@@ -157,8 +157,8 @@ jar {
     manifest {
         attributes([
                 "MixinConfigs": archivesBaseName+".mixins.json",
-                "Implementation-Title": "soulsawakening",
-                "Implementation-Version": "0.1.0",
+                "Implementation-Title": "modid",
+                "Implementation-Version": "1.0",
                 "Implementation-Commit": shortHash,
                 "Implementation-Vendor" : group,
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
