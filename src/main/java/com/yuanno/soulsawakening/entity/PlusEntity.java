@@ -76,7 +76,7 @@ public class PlusEntity extends CreatureEntity {
                 player.sendMessage(new StringTextComponent(killerString), Util.NIL_UUID);
                 Random randomSpecial = new Random();
                 int extraHollowPoints = randomSpecial.nextInt(10);
-                HollowGainEvent hollowGainEvent = new HollowGainEvent(player);
+                HollowGainEvent hollowGainEvent = new HollowGainEvent(player, extraHollowPoints);
                 MinecraftForge.EVENT_BUS.post(hollowGainEvent);
                 PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
 

@@ -37,6 +37,8 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Random;
+
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class StatPointsEvent {
@@ -142,7 +144,25 @@ public class StatPointsEvent {
                 && event.getSource() instanceof AbilityDamageSource
                 && ((AbilityDamageSource) event.getSource()).getAbilitySource().equals(BiteAbility.INSTANCE))
         {
-            HollowGainEvent hollowGainEvent = new HollowGainEvent(player);
+            Random random = new Random();
+
+            int min = 1;
+            int max = 5;
+
+            int randomInRange = random.nextInt((max - min) + 1) + min;
+            HollowGainEvent hollowGainEvent = new HollowGainEvent(player, randomInRange);
+            MinecraftForge.EVENT_BUS.post(hollowGainEvent);
+        }
+        else if (entityStats.getRace().equals(ModValues.HOLLOW)
+                && (event.getEntityLiving() instanceof HollowEntity || event.getEntityLiving() instanceof JetEntity))
+        {
+            Random random = new Random();
+
+            int min = 1;
+            int max = 5;
+
+            int randomInRange = random.nextInt((max - min) + 1) + min;
+            HollowGainEvent hollowGainEvent = new HollowGainEvent(player, randomInRange);
             MinecraftForge.EVENT_BUS.post(hollowGainEvent);
         }
     }
