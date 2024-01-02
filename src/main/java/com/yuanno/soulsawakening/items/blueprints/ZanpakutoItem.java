@@ -71,7 +71,7 @@ public class ZanpakutoItem extends SwordItem {
             int normalPoints = stack.getTag().getInt(ModValues.NORMAL);
             tooltip.add(new StringTextComponent("§7normal: " + normalPoints));
             int poisonPoints = stack.getTag().getInt(ModValues.DARK);
-            tooltip.add(new StringTextComponent("§0dark: " + poisonPoints));
+            tooltip.add(new StringTextComponent("§8dark: " + poisonPoints));
             int waterPoints = stack.getTag().getInt(ModValues.WATER);
             tooltip.add(new StringTextComponent("§bwater: " + waterPoints));
             int airPoints = stack.getTag().getInt(ModValues.WIND);
