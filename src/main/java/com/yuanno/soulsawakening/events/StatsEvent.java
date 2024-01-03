@@ -19,6 +19,7 @@ import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -26,9 +27,12 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class StatsEvent {
+    private static ArrayList<ItemStack> soulboundItems = new ArrayList<>();
 
     @SubscribeEvent
     public static void joinWorldEvent(PlayerEvent.PlayerLoggedInEvent event)
@@ -49,9 +53,21 @@ public class StatsEvent {
         if (!(event.getEntityLiving() instanceof PlayerEntity))
             return;
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        if (!soulboundItems.isEmpty())
+            soulboundItems.clear();
+        for (int i = 0; i < player.inventory.getContainerSize(); i++)
+        {
+            if (!player.inventory.getItem(i).hasTag())
+                continue;
+            if (player.inventory.getItem(i).getTag().getBoolean("soulbound")) {
+                soulboundItems.add(player.inventory.getItem(i).copy());
+                player.inventory.getItem(i).shrink(1);
+            }
+        }
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
+
         if (entityStats.getRace().equals(ModValues.HUMAN)) {
             entityStats.setRace(ModValues.SPIRIT);
             ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
@@ -109,6 +125,12 @@ public class StatsEvent {
 
     @SubscribeEvent
     public static void onClonePlayer(PlayerEvent.Clone event) {
+        if (!soulboundItems.isEmpty())
+        {
+            for (ItemStack soulboundItem : soulboundItems) {
+                event.getPlayer().inventory.add(soulboundItem);
+            }
+        }
         if (event.isWasDeath()) {
             StatsEvent.restoreFullData(event.getOriginal(), event.getPlayer());
             IAbilityData newAbilityData = AbilityDataCapability.get(event.getPlayer());
@@ -141,6 +163,7 @@ public class StatsEvent {
         nbt = MiscDataCapability.INSTANCE.writeNBT(oldMiscData, null);
         IMiscData newMiscData = MiscDataCapability.get(player);
         MiscDataCapability.INSTANCE.readNBT(newMiscData, null, nbt);
+
 
         /*
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), newAbilityData), player);

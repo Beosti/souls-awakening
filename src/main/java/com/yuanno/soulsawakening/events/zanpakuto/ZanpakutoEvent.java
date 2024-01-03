@@ -96,11 +96,14 @@ public class ZanpakutoEvent {
                 entityStats.setRace(ModValues.FULLBRINGER);
                 ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) event.getPlayer());
                 ModAdvancements.FULLBRINGER.trigger((ServerPlayerEntity) event.getPlayer());
+                event.getCrafting().getOrCreateTag().putBoolean("soulbound", true);
+
             }
             else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
                 entityStats.setRace(ModValues.SHINIGAMI);
                 ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) event.getPlayer());
                 ModAdvancements.SHINIGAMI.trigger((ServerPlayerEntity) event.getPlayer());
+                event.getCrafting().getOrCreateTag().putBoolean("soulbound", true);
             }
             PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getPlayer().getId(), entityStats), event.getPlayer());
             SoulboundItemHelper.setOwner(event.getCrafting().getStack(), event.getPlayer());

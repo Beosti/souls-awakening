@@ -119,7 +119,7 @@ public class ZanpakutoItem extends SwordItem {
             itemStack.setTag(new CompoundNBT());
 
         String currentOwner = itemStack.getOrCreateTag().getString("owner");
-
+        itemStack.getOrCreateTag().putBoolean("soulbound", true);
 
         if (entityStats.getRace().equals(ModValues.SHINIGAMI)
                 || entityStats.getRace().equals(ModValues.FULLBRINGER)
