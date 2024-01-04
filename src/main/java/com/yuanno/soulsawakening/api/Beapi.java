@@ -21,9 +21,11 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.IReorderingProcessor;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -59,7 +61,13 @@ public class Beapi {
         return String.format("%02d:%02d", time / 60, time % 60);
     }
 
+    public static boolean isInChallengeDimension(World world) {
+        return isInChallengeDimension(world.dimension());
+    }
 
+    public static boolean isInChallengeDimension(RegistryKey<World> world) {
+        return world.location().toString().contains("challenges_");
+    }
     public static void spawnParticles(IParticleData data, ServerWorld world, double posX, double posY, double posZ)
     {
         IPacket<?> ipacket = new SSpawnParticlePacket(data, true, (float) posX, (float) posY, (float) posZ, 0, 0, 0, 0, 1);

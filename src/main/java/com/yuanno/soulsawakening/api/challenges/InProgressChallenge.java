@@ -1,6 +1,14 @@
 package com.yuanno.soulsawakening.api.challenges;
 
+import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.Interval;
+import com.yuanno.soulsawakening.data.ChallengesWorldData;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
+import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
+import com.yuanno.soulsawakening.data.challenges.IChallengesData;
+import com.yuanno.soulsawakening.init.ModEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -87,7 +95,7 @@ public class InProgressChallenge {
 					this.rewardsAwarded = true;
 				}
 
-				ITextComponent countdownMessage = new StringTextComponent("§f§l" + new TranslationTextComponent(ModI18n.CHALLENGE_MESSAGE_END_COUNTDOWN, this.endWaitInterval.getTick()).getString() + "§r");
+				ITextComponent countdownMessage = new StringTextComponent("§f§l" + new TranslationTextComponent("End countdown", this.endWaitInterval.getTick()).getString() + "§r");
 				this.sendGroupActionbar(countdownMessage, 5, 20, 5);
 			}
 			return;
@@ -103,7 +111,7 @@ public class InProgressChallenge {
 			// Checks to see how many group members are still alive
 			int groupLeft = 0;
 			for (LivingEntity groupMember : this.group) {
-				if (groupMember.isAlive() && WyHelper.isInChallengeDimension(groupMember.level)) {
+				if (groupMember.isAlive() && Beapi.isInChallengeDimension(groupMember.level)) {
 					groupLeft++;
 					break;
 				}
@@ -129,7 +137,7 @@ public class InProgressChallenge {
 			}			
 		}
 		else if(this.phase.equals(Phase.BUILD)) {
-			this.sendGroupTitle(ModI18n.CHALLENGE_MESSAGE_START_TITLE, ModI18n.CHALLENGE_MESSAGE_START_SUBTITLE, 5, 90, 10);
+			this.sendGroupTitle(new TranslationTextComponent("Started"), new TranslationTextComponent("Start"), 5, 90, 10);
 			long start = System.currentTimeMillis();
 			
 			this.arena.buildArena(this);
@@ -169,7 +177,7 @@ public class InProgressChallenge {
 				this.phase = Phase.RUN;	
 				this.group.forEach(entity -> entity.removeEffect(ModEffects.IN_EVENT.get()));
 				this.enemies.forEach(entity -> entity.removeEffect(ModEffects.IN_EVENT.get()));
-				this.sendGroupTitle(ModI18n.CHALLENGE_MESSAGE_START_FIGHT, 2, 5, 2);
+				this.sendGroupTitle(new TranslationTextComponent("Message start fight"), 2, 5, 2);
 				this.startTick = this.shard.getGameTime();
 			}
 		}
@@ -204,7 +212,7 @@ public class InProgressChallenge {
 					challenge.setComplete(true);
 				}
 				
-				StringTextComponent reportStr = new StringTextComponent(ModI18n.CHALLENGE_MESSAGE_COMPLETION_REPORT.getString() + "" + timeStr);
+				StringTextComponent reportStr = new StringTextComponent(new TranslationTextComponent("Mission report") + "" + timeStr);
 				
 				player.sendMessage(this.core.getLocalizedTitle(), Util.NIL_UUID);
 				player.sendMessage(reportStr, Util.NIL_UUID);
@@ -263,8 +271,8 @@ public class InProgressChallenge {
 			entity.addEffect(new EffectInstance(ModEffects.IN_EVENT.get(), COUNTDOWN_TICKS, 0));
 			
 			IAbilityData props = AbilityDataCapability.get(entity);
-			IHakiData hakiProps = HakiDataCapability.get(entity);
 
+			/*
 			for (IAbility ability : props.getEquippedAbilities()) {
 				if (ability == null) {
 					continue;
@@ -273,9 +281,10 @@ public class InProgressChallenge {
 				ability.getComponent(ModAbilityKeys.DISABLE).ifPresent(c -> c.startDisable(entity, 1));
 				ability.getComponent(ModAbilityKeys.COOLDOWN).ifPresent(c -> c.stopCooldown(entity));
 			}
+
+			 */
 			
-			hakiProps.setHakiOveruse(0);
-			
+
 			// Remove potion effects during Hard mode and above
 			if (this.hasRestrictions() && this.hasActiveRestrictions()) {
 				Iterator<EffectInstance> iter = entity.getActiveEffectsMap().values().iterator();
@@ -296,7 +305,7 @@ public class InProgressChallenge {
 			 * Forcefully load the chunks otherwise no entities will get returned and the
 			 * below code will be useless
 			 */
-			ForgeChunkManager.forceChunk(this.shard, ModMain.PROJECT_ID, this.pos, 0, 0, true, false);
+			ForgeChunkManager.forceChunk(this.shard, Main.MODID, this.pos, 0, 0, true, false);
 		}
 
 		/*
@@ -336,7 +345,7 @@ public class InProgressChallenge {
 	
 	private void sendGroupActionbar(ITextComponent text, int fadeInTime, int stayTime, int fadeOutTime) {
 		for (LivingEntity groupMember : this.group) {
-			if (groupMember.isAlive() && groupMember instanceof ServerPlayerEntity && WyHelper.isInChallengeDimension(groupMember.level)) {
+			if (groupMember.isAlive() && groupMember instanceof ServerPlayerEntity && Beapi.isInChallengeDimension(groupMember.level)) {
 				ServerPlayerEntity player = ((ServerPlayerEntity) groupMember);
 				try {
 					player.connection.send(new STitlePacket(fadeInTime, stayTime, fadeOutTime));

@@ -1,5 +1,7 @@
 package com.yuanno.soulsawakening.data.challenges;
 
+import com.yuanno.soulsawakening.api.challenges.Challenge;
+import com.yuanno.soulsawakening.api.challenges.ChallengeCore;
 import xyz.pixelatedw.mineminenomi.api.challenges.Challenge;
 import xyz.pixelatedw.mineminenomi.api.challenges.ChallengeCore;
 
