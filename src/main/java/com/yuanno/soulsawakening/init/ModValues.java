@@ -36,6 +36,7 @@ public class ModValues {
     // SPECIFIC
     public static final String SHINSO = "shinso";
 
+    public static final int MAX_DIFFICULTY_STARS = 15;
     public enum ELEMENT {
         NONE, DARK, FIRE, HEAL, LIGHTNING, LUNAR, NORMAL, POISON, WATER, WIND, SHINSO;
 

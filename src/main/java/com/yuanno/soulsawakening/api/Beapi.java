@@ -55,6 +55,10 @@ public class Beapi {
     {
         return new Random().nextInt(max + 1 - min) + min;
     }
+    public static String formatTimeMMSS(long time) {
+        return String.format("%02d:%02d", time / 60, time % 60);
+    }
+
 
     public static void spawnParticles(IParticleData data, ServerWorld world, double posX, double posY, double posZ)
     {

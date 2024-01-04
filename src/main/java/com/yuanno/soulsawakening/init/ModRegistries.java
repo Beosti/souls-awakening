@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.api.challenges.ChallengeCore;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -18,6 +19,7 @@ public class ModRegistries {
     }
 
     public static final IForgeRegistry<Ability<?>> ABILITIES = RegistryManager.ACTIVE.getRegistry(Ability.class);
+    public static final IForgeRegistry<ChallengeCore<?>> CHALLENGES = RegistryManager.ACTIVE.getRegistry(ChallengeCore.class);
 
 
     public static <T extends IForgeRegistryEntry<T>> void make(ResourceLocation name, Class<T> type)
