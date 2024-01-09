@@ -33,16 +33,22 @@ public class AlabastaBoxArena extends ChallengeArena {
 		final int bottomLayerOffset = (-ARENA_SIZE) + 1;
 
 		// Outer barrier
-		ArrayList<BlockPos> blocks = new ArrayList<>();
-		blocks.addAll(Beapi.createEmptyCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY(), challenge.getArenaPos().getZ(), ARENA_SIZE, ARENA_SIZE, ARENA_SIZE, Blocks.BARRIER, null));
-
+		ArrayList<BlockPos> blocks1 = new ArrayList<>(Beapi.createEmptyCube(challenge.getShard(),
+				challenge.getArenaPos().getX(), challenge.getArenaPos().getY(), challenge.getArenaPos().getZ(), ARENA_SIZE, ARENA_SIZE, ARENA_SIZE, Blocks.BARRIER, null));
+		for (BlockPos block : blocks1) {
+			challenge.getShard().setBlockAndUpdate(block, Blocks.BARRIER.defaultBlockState());
+		}
 		// Sand layers
+		/*
 		blocks.addAll(Beapi.createFilledCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY() + bottomLayerOffset + SAND_HEIGHT, challenge.getArenaPos().getZ(), ARENA_SIZE - 1, SAND_HEIGHT, ARENA_SIZE - 1, Blocks.SANDSTONE, null));
 		blocks.addAll(Beapi.createFilledCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY() - SAND_HEIGHT, challenge.getArenaPos().getZ(), ARENA_SIZE - 1, 1, ARENA_SIZE - 1, Blocks.SAND, null));
 		for (BlockPos block : blocks) {
 			challenge.getShard().setBlockAndUpdate(block, Blocks.SANDSTONE.defaultBlockState());
 		}
+
+		 */
 		// Bedrock layer at the very bottom
+		/*
 		for (int x = -ARENA_SIZE + 1; x < ARENA_SIZE; x++) {
 			for (int z = -ARENA_SIZE + 1; z < ARENA_SIZE; z++) {
 				BlockPos pos = challenge.getArenaPos().offset(x, bottomLayerOffset, z);
@@ -50,6 +56,8 @@ public class AlabastaBoxArena extends ChallengeArena {
 				//Beapi.placeBlockIfAllowed(challenge.getShard(), pos.getX(), pos.getY(), pos.getZ(), Blocks.BEDROCK, null);
 			}
 		}
+
+		 */
 	}
 
 	@Override
