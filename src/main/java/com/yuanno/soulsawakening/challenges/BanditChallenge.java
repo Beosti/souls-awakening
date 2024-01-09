@@ -1,4 +1,28 @@
 package com.yuanno.soulsawakening.challenges;
 
-public class BanditChallenge {
+import com.yuanno.soulsawakening.BeRegistry;
+import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.api.challenges.*;
+import com.yuanno.soulsawakening.init.ModChallenges;
+import com.yuanno.soulsawakening.init.ModEntities;
+
+public class BanditChallenge extends Challenge {
+    private static final String TITLE = BeRegistry.registerName("challenge." + Main.MODID + ".begin.bandit", "Bandit");
+    public static final String OBJECTIVE = BeRegistry.registerName("challenge." + Main.MODID + ".begin.bandit.objective", "Defeat bandit");
+
+
+
+
+    public static final ChallengeCore<BanditChallenge> INSTANCE = new ChallengeCore.Builder(TITLE, OBJECTIVE, "category", BanditChallenge::new)
+            .setDifficulty(ChallengeDifficulty.STANDARD)
+            .setDifficultyStars(4)
+            .addArena(ArenaStyle.BOX, AlabastaBoxArena.INSTANCE)
+            .setTargetShowcase(ModEntities.SHINIGAMI)
+            .setTimeLimit(10)
+            .setOrder(0)
+            //.setReward(new ChallengeReward().setDoriki(0))
+            .build();
+    public BanditChallenge(ChallengeCore core) {
+        super(core);
+    }
 }

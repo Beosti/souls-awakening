@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening;
 
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.api.challenges.ChallengeCore;
+import com.yuanno.soulsawakening.init.ModRegistries;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -25,7 +27,12 @@ public class BeRegistry {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Main.MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Main.MODID);
+    public static final DeferredRegister<ChallengeCore<?>> CHALLENGES = DeferredRegister.create(ModRegistries.CHALLENGES, Main.MODID);
 
+    public static String registerName(String key, String localizedName) {
+        BeRegistry.getLangMap().put(key, localizedName);
+        return key;
+    }
 
     public static <T extends Block> RegistryObject<T> registerBlock(String localizedName, Supplier<T> block)
     {

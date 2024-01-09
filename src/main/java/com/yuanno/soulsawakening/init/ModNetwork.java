@@ -28,6 +28,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(SSyncAbilityDataPacket.class, SSyncAbilityDataPacket::encode, SSyncAbilityDataPacket::decode, SSyncAbilityDataPacket::handle);
         PacketHandler.registerPacket(SSyncMiscDataPacket.class, SSyncMiscDataPacket::encode, SSyncMiscDataPacket::decode, SSyncMiscDataPacket::handle);
         PacketHandler.registerPacket(SSyncDynDimensionsPacket.class, SSyncDynDimensionsPacket::encode, SSyncDynDimensionsPacket::decode, SSyncDynDimensionsPacket::handle);
+        PacketHandler.registerPacket(SSyncChallengeDataPacket.class, SSyncChallengeDataPacket::encode, SSyncChallengeDataPacket::decode, SSyncChallengeDataPacket::handle);
 
     }
 }

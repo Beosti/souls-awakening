@@ -1,20 +1,26 @@
 package com.yuanno.soulsawakening.init;
 
+import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.api.challenges.Challenge;
 import com.yuanno.soulsawakening.api.challenges.ChallengeCore;
+import com.yuanno.soulsawakening.challenges.BanditChallenge;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.*;
 
-@Mod.EventBusSubscriber(modid = Main.MODID)
 public class ModChallenges {
 
-
-    public static final DeferredRegister<ChallengeCore<?>> CHALLENGES = DeferredRegister.create(ModRegistries.CHALLENGES, Main.MODID);
-
+    public static final RegistryObject<ChallengeCore<BanditChallenge>> BANDIT = registerChallenge(BanditChallenge.INSTANCE);
 
     public static void register(IEventBus bus) {
-        CHALLENGES.register(bus);
+        BeRegistry.CHALLENGES.register(bus);
     }
+    public static <T extends Challenge> RegistryObject<ChallengeCore<T>> registerChallenge(ChallengeCore<T> challenge) {
+        RegistryObject<ChallengeCore<T>> reg =  BeRegistry.CHALLENGES.register(challenge.getUnlocalizedTitle(), () -> challenge);
+        return reg;
+    }
+
+
 }
