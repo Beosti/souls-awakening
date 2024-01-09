@@ -28,6 +28,10 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.ChunkSection;
+import net.minecraft.world.chunk.IChunk;
+import net.minecraft.world.server.ChunkHolder;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.fml.RegistryObject;
@@ -46,11 +50,8 @@ public class Beapi {
     private static HashMap<String, String> langMap = new HashMap<String, String>();
 
 
-    /*
-    public static boolean placeBlockIfAllowed(World world, double posX, double posY, double posZ, Block toPlace, int flag, BlockProtectionRule rule)
-    {
-        return placeBlockIfAllowed(world, posX, posY, posZ, toPlace.defaultBlockState(), flag, rule);
-    }
+
+
     public static boolean placeBlockIfAllowed(World world, double posX, double posY, double posZ, BlockState toPlace, int flag, @Nullable BlockProtectionRule rule) {
         BlockPos pos = new BlockPos(posX, posY, posZ);
 
@@ -60,6 +61,7 @@ public class Beapi {
 
         BlockState currentBlockState = world.getBlockState(pos);
 
+        /*
         ProtectedAreasData worldData = ProtectedAreasData.get(world);
         ProtectedArea area = worldData.getProtectedArea((int) posX, (int) posY, (int) posZ);
 
@@ -90,15 +92,60 @@ public class Beapi {
             }
         }
 
-        if (canPlace) {
-            WyHelper.setBlockStateInChunk(world, pos, toPlace, flag);
+
+         */
+        if (true) {
+            Beapi.setBlockStateInChunk(world, pos, toPlace, flag);
             return true;
         }
 
         return false;
     }
 
-     */
+    public static boolean setBlockStateInChunk(World world, BlockPos pos, BlockState newState, int flags)
+    {
+        if (Beapi.isInChallengeDimension(world) && world.players().size() <= 0) {
+            Beapi.swapBlockData(world, pos, newState);
+            return false;
+        }
+        if (World.isOutsideBuildHeight(pos))
+            return false;
+        else if (!world.isClientSide && world.isDebug())
+            return false;
+        else
+        {
+            Chunk chunk = world.getChunkAt(pos);
+            pos = pos.immutable();
+
+            BlockState old = world.getBlockState(pos);
+            int oldLight = old.getLightValue(world, pos);
+            int oldOpacity = old.getLightBlock(world, pos);
+
+            BlockState blockstate = chunk.setBlockState(pos, newState, (flags & 64) != 0);
+            if (blockstate != null)
+            {
+                BlockState blockstate1 = world.getBlockState(pos);
+                if ((flags & 128) == 0 && blockstate1 != blockstate && (blockstate1.getLightBlock(world, pos) != oldOpacity || blockstate1.getLightValue(world, pos) != oldLight || blockstate1.useShapeForLightOcclusion() || blockstate.useShapeForLightOcclusion()))
+                    world.getChunkSource().getLightEngine().checkBlock(pos);
+
+                if((flags & 256) != 0)
+                    world.markAndNotifyBlock(pos, chunk, blockstate, newState, flags, 512);
+                else if ((flags & 2) != 0 && (!world.isClientSide || (flags & 4) == 0) && (world.isClientSide || chunk == null || chunk.getFullStatus() != null && chunk.getFullStatus().isOrAfter(ChunkHolder.LocationType.TICKING)))
+                    world.sendBlockUpdated(pos, blockstate, newState, flags);
+            }
+            return true;
+        }
+    }
+    public static BlockState swapBlockData(IWorld world, BlockPos pos, BlockState newState) {
+        IChunk chunk = world.getChunk(pos);
+        ChunkSection cs = chunk.getSections()[pos.getY() >> 4];
+        if (cs == Chunk.EMPTY_SECTION) {
+            cs = new ChunkSection(pos.getY() >> 4 << 4);
+            chunk.getSections()[pos.getY() >> 4] = cs;
+        }
+        BlockState state = cs.getStates().getAndSet(pos.getX() & 15, pos.getY() & 15, pos.getZ() & 15, newState);
+        return state;
+    }
     public static List<BlockPos> createFilledCube(World world, double posX, double posY, double posZ, int sizeX, int sizeY, int sizeZ, Block blockToPlace, BlockProtectionRule rule) {
         return createFilledCube(world, posX, posY, posZ, sizeX, sizeY, sizeZ, blockToPlace, 2, rule);
     }
@@ -345,5 +392,11 @@ public class Beapi {
             return blockResult;
         }
 
+    }
+
+
+    public static boolean placeBlockIfAllowed(World world, double posX, double posY, double posZ, Block toPlace, int flag, BlockProtectionRule rule)
+    {
+        return placeBlockIfAllowed(world, posX, posY, posZ, toPlace.defaultBlockState(), flag, rule);
     }
 }
