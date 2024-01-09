@@ -1,5 +1,7 @@
 package com.yuanno.soulsawakening.data.challenges;
 
+import com.yuanno.soulsawakening.api.challenges.Challenge;
+import com.yuanno.soulsawakening.api.challenges.ChallengeCore;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -12,8 +14,6 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import xyz.pixelatedw.mineminenomi.api.challenges.Challenge;
-import xyz.pixelatedw.mineminenomi.api.challenges.ChallengeCore;
 
 import javax.annotation.Nullable;
 

@@ -1,6 +1,9 @@
 package com.yuanno.soulsawakening.data.challenges;
 
 
+import com.yuanno.soulsawakening.api.challenges.Challenge;
+import com.yuanno.soulsawakening.api.challenges.ChallengeCore;
+
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;

@@ -45,6 +45,7 @@ public class Main
         ModBiomes.register(modEventBus);
         ModAdvancements.register(modEventBus);
         ModParticleTypes.PARTICLE_TYPES.register(modEventBus);
+        ModChallenges.register(modEventBus);
 
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);

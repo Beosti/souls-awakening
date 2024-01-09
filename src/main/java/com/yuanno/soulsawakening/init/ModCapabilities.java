@@ -3,6 +3,8 @@ package com.yuanno.soulsawakening.init;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.AbilityDataProvider;
+import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
+import com.yuanno.soulsawakening.data.challenges.ChallengesDataProvider;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.EntityStatsProvider;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
@@ -23,6 +25,8 @@ public class ModCapabilities {
         EntityStatsCapability.register();
         AbilityDataCapability.register();
         MiscDataCapability.register();
+        ChallengesDataCapability.register();
+
     }
 
     @SubscribeEvent
@@ -39,6 +43,7 @@ public class ModCapabilities {
         if (event.getObject() instanceof PlayerEntity)
         {
             event.addCapability(new ResourceLocation(Main.MODID, "ability_data"), new AbilityDataProvider());
+            event.addCapability(new ResourceLocation(Main.MODID, "challenges"), new ChallengesDataProvider());
         }
     }
 }

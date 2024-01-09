@@ -2,10 +2,7 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
-import com.yuanno.soulsawakening.networking.server.SOpenPlayerScreenPacket;
-import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
-import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
-import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
+import com.yuanno.soulsawakening.networking.server.*;
 
 public class ModNetwork {
 
@@ -30,6 +27,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(SSyncAbilityDataPacket.class, SSyncAbilityDataPacket::encode, SSyncAbilityDataPacket::decode, SSyncAbilityDataPacket::handle);
         PacketHandler.registerPacket(SSyncAbilityDataPacket.class, SSyncAbilityDataPacket::encode, SSyncAbilityDataPacket::decode, SSyncAbilityDataPacket::handle);
         PacketHandler.registerPacket(SSyncMiscDataPacket.class, SSyncMiscDataPacket::encode, SSyncMiscDataPacket::decode, SSyncMiscDataPacket::handle);
+        PacketHandler.registerPacket(SSyncDynDimensionsPacket.class, SSyncDynDimensionsPacket::encode, SSyncDynDimensionsPacket::decode, SSyncDynDimensionsPacket::handle);
 
     }
 }
