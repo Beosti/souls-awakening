@@ -5,6 +5,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.init.ModRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
@@ -27,6 +29,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
@@ -41,6 +44,106 @@ import java.util.function.Supplier;
 public class Beapi {
 
     private static HashMap<String, String> langMap = new HashMap<String, String>();
+
+
+    /*
+    public static boolean placeBlockIfAllowed(World world, double posX, double posY, double posZ, Block toPlace, int flag, BlockProtectionRule rule)
+    {
+        return placeBlockIfAllowed(world, posX, posY, posZ, toPlace.defaultBlockState(), flag, rule);
+    }
+    public static boolean placeBlockIfAllowed(World world, double posX, double posY, double posZ, BlockState toPlace, int flag, @Nullable BlockProtectionRule rule) {
+        BlockPos pos = new BlockPos(posX, posY, posZ);
+
+        if (World.isOutsideBuildHeight(pos)) {
+            return false;
+        }
+
+        BlockState currentBlockState = world.getBlockState(pos);
+
+        ProtectedAreasData worldData = ProtectedAreasData.get(world);
+        ProtectedArea area = worldData.getProtectedArea((int) posX, (int) posY, (int) posZ);
+
+        boolean isGriefDisabled = !CommonConfig.INSTANCE.isAbilityGriefingEnabled();
+        boolean isGriefBypass = false;
+        boolean canPlace = !RestrictedBlockProtectionRule.INSTANCE.check(world, pos, currentBlockState);
+        if (rule != null) {
+            isGriefBypass = rule.getBypassGriefRule();
+            canPlace = rule.check(world, pos, currentBlockState);
+        }
+
+        if (!isGriefBypass) {
+            if (isGriefDisabled) {
+                return false;
+            }
+
+            if (area != null) {
+                if (!area.canDestroyBlocks()) {
+                    return false;
+                } else if (area.canDestroyBlocks() && area.canRestoreBlocks()) {
+                    int hash = (int) ((posY * 31) + posZ + posX);
+
+                    BlockPlacingHelper.DistanceBlockPos pos2 = new BlockPlacingHelper.DistanceBlockPos(posX, posY, posZ, hash);
+                    BlockSnapshot snapshot = BlockSnapshot.create(world.dimension(), world, pos, 2);
+
+                    area.queueForRestoration(pos2, new RestorationEntry(world.getGameTime(), snapshot));
+                }
+            }
+        }
+
+        if (canPlace) {
+            WyHelper.setBlockStateInChunk(world, pos, toPlace, flag);
+            return true;
+        }
+
+        return false;
+    }
+
+     */
+    public static List<BlockPos> createFilledCube(World world, double posX, double posY, double posZ, int sizeX, int sizeY, int sizeZ, Block blockToPlace, BlockProtectionRule rule) {
+        return createFilledCube(world, posX, posY, posZ, sizeX, sizeY, sizeZ, blockToPlace, 2, rule);
+    }
+
+    public static List<BlockPos> createFilledCube(World world, double posX, double posY, double posZ, int sizeX, int sizeY, int sizeZ, Block blockToPlace, int flag, BlockProtectionRule rule) {
+        List<BlockPos> blockPositions = new ArrayList<BlockPos>();
+        for (int x = -sizeX; x <= sizeX; x++) {
+            for (int y = -sizeY; y <= sizeY; y++) {
+                for (int z = -sizeZ; z <= sizeZ; z++) {
+                    BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+                    if (true) {
+                        blockPositions.add(pos);
+                    }
+                }
+            }
+        }
+
+        return blockPositions;
+    }
+
+    public static List<BlockPos> createEmptyCube(World world, double posX, double posY, double posZ, int sizeX, int sizeY, int sizeZ, Block blockToPlace, BlockProtectionRule rule)
+    {
+        return createEmptyCube(world, posX, posY, posZ, sizeX, sizeY, sizeZ, 2, blockToPlace, rule);
+    }
+
+    public static List<BlockPos> createEmptyCube(World world, double posX, double posY, double posZ, int sizeX, int sizeY, int sizeZ, int flags, Block blockToPlace, BlockProtectionRule rule)
+    {
+        List<BlockPos> blockPositions = new ArrayList<BlockPos>();
+        for (int x = -sizeX; x <= sizeX; x++)
+        {
+            for (int y = -sizeY; y <= sizeY; y++)
+            {
+                for (int z = -sizeZ; z <= sizeZ; z++)
+                {
+                    if (x == -sizeX || x == sizeX || y == -sizeY || y == sizeY || z == -sizeZ || z == sizeZ)
+                    {
+                        BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+                        if (true)
+                            blockPositions.add(pos);
+                    }
+                }
+            }
+        }
+        return blockPositions;
+    }
 
     public static void sendApplyEffectToAllNearby(LivingEntity player, Vector3d pos, int distance, EffectInstance effect) {
         player.getServer().getPlayerList().broadcast(null, pos.x, pos.y, pos.z, distance, player.getCommandSenderWorld().dimension(), new SPlayEntityEffectPacket(player.getId(), effect));

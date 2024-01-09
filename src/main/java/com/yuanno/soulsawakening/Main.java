@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.client.ClientHandler;
 import com.yuanno.soulsawakening.client.overlay.StatsOverlay;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.init.world.ModBiomes;
+import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.util.ItemProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -60,9 +61,7 @@ public class Main
     {
         ModCapabilities.init();
         ModNetwork.init();
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        event.enqueueWork(ModDimensions::setupDimensionChallenges);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

@@ -19,6 +19,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(CSyncentityStatsHohoPacket.class, CSyncentityStatsHohoPacket::encode, CSyncentityStatsHohoPacket::decode, CSyncentityStatsHohoPacket::handle);
         PacketHandler.registerPacket(CSyncentityStatsHollowPacket.class, CSyncentityStatsHollowPacket::encode, CSyncentityStatsHollowPacket::decode, CSyncentityStatsHollowPacket::handle);
         PacketHandler.registerPacket(CHollowEvolutionPacket.class, CHollowEvolutionPacket::encode, CHollowEvolutionPacket::decode, CHollowEvolutionPacket::handle);
+        PacketHandler.registerPacket(CStartChallengePacket.class, CStartChallengePacket::encode, CStartChallengePacket::decode, CStartChallengePacket::handle);
 
 
 

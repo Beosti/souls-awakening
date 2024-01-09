@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.challenges;
 
+import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.challenges.ArenaStyle;
 import com.yuanno.soulsawakening.api.challenges.ChallengeArena;
 import com.yuanno.soulsawakening.api.challenges.InProgressChallenge;
@@ -11,6 +12,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class AlabastaBoxArena extends ChallengeArena {
@@ -29,12 +31,13 @@ public class AlabastaBoxArena extends ChallengeArena {
 		final int bottomLayerOffset = (-ARENA_SIZE) + 1;
 
 		// Outer barrier
-		//AbilityHelper.createEmptyCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY(), challenge.getArenaPos().getZ(), ARENA_SIZE, ARENA_SIZE, ARENA_SIZE, Blocks.BARRIER, null);
+
+		Beapi.createEmptyCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY(), challenge.getArenaPos().getZ(), ARENA_SIZE, ARENA_SIZE, ARENA_SIZE, Blocks.BARRIER, null);
 			
 		// Sand layers
-		//AbilityHelper.createFilledCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY() + bottomLayerOffset + SAND_HEIGHT, challenge.getArenaPos().getZ(), ARENA_SIZE - 1, SAND_HEIGHT, ARENA_SIZE - 1, Blocks.SANDSTONE, null);
-		//AbilityHelper.createFilledCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY() - SAND_HEIGHT, challenge.getArenaPos().getZ(), ARENA_SIZE - 1, 1, ARENA_SIZE - 1, Blocks.SAND, null);
-		
+		Beapi.createFilledCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY() + bottomLayerOffset + SAND_HEIGHT, challenge.getArenaPos().getZ(), ARENA_SIZE - 1, SAND_HEIGHT, ARENA_SIZE - 1, Blocks.SANDSTONE, null);
+		Beapi.createFilledCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY() - SAND_HEIGHT, challenge.getArenaPos().getZ(), ARENA_SIZE - 1, 1, ARENA_SIZE - 1, Blocks.SAND, null);
+
 		// Bedrock layer at the very bottom
 		for (int x = -ARENA_SIZE + 1; x < ARENA_SIZE; x++) {
 			for (int z = -ARENA_SIZE + 1; z < ARENA_SIZE; z++) {
@@ -43,7 +46,7 @@ public class AlabastaBoxArena extends ChallengeArena {
 			}
 		}
 	}
-	
+
 	@Override
 	public void spawnPlayers(InProgressChallenge challenge) {		
 		for (LivingEntity groupMember : challenge.getGroup()) {

@@ -36,7 +36,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 public class ChallengesWorldData extends WorldSavedData {
-	private static final String IDENTIFIER = "mineminenomi-challenges";
+	private static final String IDENTIFIER = "soulsawakening-challenges";
 	private static final TranslationTextComponent NOT_UNLOCKED = new TranslationTextComponent("Unlocked");
 
 	private Map<UUID, InProgressChallenge> inProgressChallenges = new HashMap<>();
@@ -65,7 +65,6 @@ public class ChallengesWorldData extends WorldSavedData {
 	}
 
 	public boolean startChallenge(ServerPlayerEntity player, List<LivingEntity> group, ChallengeCore core, boolean isFree) {
-
 		IChallengesData props = ChallengesDataCapability.get(player);
 		if (props != null) {
 			Challenge challenge = props.getChallenge(core);
@@ -73,7 +72,6 @@ public class ChallengesWorldData extends WorldSavedData {
 				player.sendMessage(NOT_UNLOCKED, Util.NIL_UUID);
 				return false;
 			}
-
 			ResourceLocation dimName = new ResourceLocation(Main.MODID, "challenges_" + player.getStringUUID());
 			RegistryKey<World> dimension = RegistryKey.create(Registry.DIMENSION_REGISTRY, dimName);
 			DynamicRegistries registryAccess = player.level.registryAccess();

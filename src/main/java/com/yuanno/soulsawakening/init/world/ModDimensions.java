@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening.init.world;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.world.ChallengesBiomeProvider;
+import com.yuanno.soulsawakening.world.ChallengesChunkGenerator;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -11,4 +13,9 @@ public class ModDimensions {
             new ResourceLocation(Main.MODID, "hueco_mundo"));
     public static RegistryKey<World> CHALLENGE = RegistryKey.create(Registry.DIMENSION_REGISTRY,
             new ResourceLocation(Main.MODID, "challenge"));
+
+    public static void setupDimensionChallenges() {
+        Registry.register(Registry.BIOME_SOURCE, new ResourceLocation(Main.MODID, "challenges_biome_provider"), ChallengesBiomeProvider.CODEC);
+        Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(Main.MODID, "challenges_chunk_generator"), ChallengesChunkGenerator.CODEC);
+    }
 }
