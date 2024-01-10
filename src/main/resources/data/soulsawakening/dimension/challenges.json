@@ -1,6 +1,6 @@
 {
   "type": "soulsawakening:challenges",
   "generator": {
-    "type": "mineminenomi:challenges_chunk_generator"
+    "type": "soulsawakening:challenges_chunk_generator"
   }
 }

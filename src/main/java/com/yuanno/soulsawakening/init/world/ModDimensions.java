@@ -11,8 +11,15 @@ import net.minecraft.world.World;
 public class ModDimensions {
     public static RegistryKey<World> HUECO_MUNDO = RegistryKey.create(Registry.DIMENSION_REGISTRY,
             new ResourceLocation(Main.MODID, "hueco_mundo"));
+    /*
+    public static RegistryKey<World> TEST = RegistryKey.create(Registry.DIMENSION_REGISTRY,
+            new ResourceLocation(Main.MODID, "test"));
+
+     */
     public static void setupDimensions() {
         Registry.register(Registry.BIOME_SOURCE, new ResourceLocation(Main.MODID, "challenges_biome_provider"), ChallengesBiomeProvider.CODEC);
         Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(Main.MODID, "challenges_chunk_generator"), ChallengesChunkGenerator.CODEC);
     }
+
+
 }
