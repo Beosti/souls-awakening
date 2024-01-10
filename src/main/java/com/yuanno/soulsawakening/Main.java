@@ -61,7 +61,7 @@ public class Main
     {
         ModCapabilities.init();
         ModNetwork.init();
-        event.enqueueWork(ModDimensions::setupDimensionChallenges);
+        event.enqueueWork(ModDimensions::setupDimensions);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
