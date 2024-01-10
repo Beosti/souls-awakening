@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Lifecycle;
+import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncDynDimensionsPacket;
 import net.minecraft.client.world.DimensionRenderInfo;
@@ -40,6 +41,8 @@ public class DynamicDimensionManager
 {
 	public static final ChallengeDimensionRenderInfo CHALLANGE_DIM_INFO = new ChallengeDimensionRenderInfo();
 	private static final Set<RegistryKey<World>> VANILLA_WORLDS = ImmutableSet.of(World.OVERWORLD, World.NETHER, World.END);
+	private static final Set<RegistryKey<World>> MODDED_WORLDS = ImmutableSet.of(ModDimensions.HUECO_MUNDO);
+
 	private static Set<RegistryKey<World>> pendingWorldsToUnregister = new HashSet<>();
 
 	/**
@@ -70,8 +73,6 @@ public class DynamicDimensionManager
 		// (we're doing the lookup this way because we'll need the map if we need to add a new World)
 		@SuppressWarnings("deprecation") // forgeGetWorldMap is deprecated because it's a forge-internal-use-only method
 		final Map<RegistryKey<World>, ServerWorld> map = server.forgeGetWorldMap();
-
-		// if the World already exists, return it
 		final ServerWorld existingWorld = map.get(worldKey);
 		if (existingWorld != null)
 		{
@@ -106,7 +107,7 @@ public class DynamicDimensionManager
 	 */
 	public static void markDimensionForUnregistration(final MinecraftServer server, final RegistryKey<World> WorldToRemove)
 	{
-		if (!VANILLA_WORLDS.contains(WorldToRemove))
+		if (!VANILLA_WORLDS.contains(WorldToRemove) && !MODDED_WORLDS.contains(WorldToRemove))
 		{
 			DynamicDimensionManager.pendingWorldsToUnregister.add(WorldToRemove);
 		}
