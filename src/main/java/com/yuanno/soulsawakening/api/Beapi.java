@@ -13,7 +13,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SRemoveEntityEffectPacket;
@@ -33,7 +32,6 @@ import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.server.ChunkHolder;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.fml.RegistryObject;
 
 import javax.annotation.Nullable;
@@ -163,6 +161,20 @@ public class Beapi {
             }
         }
 
+        return blockPositions;
+    }
+
+    public static List<BlockPos> createPlatform(World world, double posX, double posY, double posZ, int sizeX, int sizeY, int sizeZ, BlockProtectionRule rule)
+    {
+        List<BlockPos> blockPositions = new ArrayList<BlockPos>();
+        for (int x = -sizeX; x <= sizeX; x++)
+        {
+            for (int z = -sizeZ; z <= sizeZ; z++)
+                {
+                    BlockPos pos = new BlockPos(posX + x, posY, posZ + z);
+                    blockPositions.add(pos);
+                }
+        }
         return blockPositions;
     }
 

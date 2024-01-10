@@ -6,25 +6,26 @@ import com.yuanno.soulsawakening.api.challenges.ChallengeArena;
 import com.yuanno.soulsawakening.api.challenges.InProgressChallenge;
 import com.yuanno.soulsawakening.entity.ShinigamiEntity;
 import com.yuanno.soulsawakening.init.ModEntities;
-import net.minecraft.block.Block;
+import com.yuanno.soulsawakening.init.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class AlabastaBoxArena extends ChallengeArena {
+public class GlowstoneArena extends ChallengeArena {
 
-	public static final AlabastaBoxArena INSTANCE = new AlabastaBoxArena();
+	public static final GlowstoneArena INSTANCE = new GlowstoneArena();
 	
 	private static final int ARENA_SIZE = 25;
 	private static final int SAND_HEIGHT = ARENA_SIZE / 3;
 
-	private AlabastaBoxArena() {
+	private GlowstoneArena() {
 		super(ArenaStyle.BOX);
 	}
 	
@@ -38,6 +39,25 @@ public class AlabastaBoxArena extends ChallengeArena {
 		for (BlockPos block : blocks1) {
 			challenge.getShard().setBlockAndUpdate(block, Blocks.BARRIER.defaultBlockState());
 		}
+
+		ArrayList<BlockPos> blocks2 = new ArrayList<>(Beapi.createPlatform(challenge.getShard(),
+				challenge.getArenaPos().getX(), challenge.getArenaPos().getY() - 24, challenge.getArenaPos().getZ(), ARENA_SIZE, ARENA_SIZE, ARENA_SIZE, null));
+		for (BlockPos block : blocks2)
+		{
+			challenge.getShard().setBlockAndUpdate(block, Blocks.GLOWSTONE.defaultBlockState());
+		}
+		/*
+		for (int i = 0; i < ARENA_SIZE; i++)
+		{
+			for (int a = 0; i < ARENA_SIZE; a++)
+			{
+
+				challenge.getShard().setBlockAndUpdate(challenge.getArenaPos().offset(i, 1, a), Blocks.SANDSTONE.defaultBlockState());
+
+			}
+		}
+
+		 */
 		// Sand layers
 		/*
 		blocks.addAll(Beapi.createFilledCube(challenge.getShard(), challenge.getArenaPos().getX(), challenge.getArenaPos().getY() + bottomLayerOffset + SAND_HEIGHT, challenge.getArenaPos().getZ(), ARENA_SIZE - 1, SAND_HEIGHT, ARENA_SIZE - 1, Blocks.SANDSTONE, null));
@@ -65,7 +85,7 @@ public class AlabastaBoxArena extends ChallengeArena {
 		for (LivingEntity groupMember : challenge.getGroup()) {
 			if (groupMember instanceof ServerPlayerEntity) {
 				ServerPlayerEntity player = (ServerPlayerEntity) groupMember;
-				player.teleportTo(challenge.getShard(), challenge.getArenaPos().getX() + 15, challenge.getArenaPos().getY() - 5, challenge.getArenaPos().getZ() + 15, 135, 0);
+				player.teleportTo(challenge.getShard(), challenge.getArenaPos().getX() + 15, challenge.getArenaPos().getY() - 23, challenge.getArenaPos().getZ() + 15, 135, 0);
 			}
 		}
 	}
@@ -76,9 +96,13 @@ public class AlabastaBoxArena extends ChallengeArena {
 		Set<LivingEntity> set = new HashSet<>();
 		
 		ShinigamiEntity boss = new ShinigamiEntity(ModEntities.SHINIGAMI.get(), challenge.getShard());
+		ItemStack swordStack = new ItemStack(ModItems.ZANPAKUTO.get());
+		swordStack.getTag().putString("owner", boss.getDisplayName().getString());
+
+		boss.setItemSlot(EquipmentSlotType.MAINHAND, swordStack);
 		boss.forcedLoading = true;
 		challenge.getShard().addFreshEntity(boss);
-		boss.teleportTo(challenge.getArenaPos().getX() - 15, challenge.getArenaPos().getY() - 5, challenge.getArenaPos().getZ() - 15);
+		boss.teleportTo(challenge.getArenaPos().getX() - 15, challenge.getArenaPos().getY() - 23, challenge.getArenaPos().getZ() - 15);
 		boss.setYBodyRot(-45);
 		boss.setTarget(challenge.getOwner());
 		//GoalUtil.lookAtEntity(boss, challenge.getOwner());
