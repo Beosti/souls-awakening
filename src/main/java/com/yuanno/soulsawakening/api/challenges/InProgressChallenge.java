@@ -9,6 +9,7 @@ import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
 import com.yuanno.soulsawakening.data.challenges.IChallengesData;
 import com.yuanno.soulsawakening.init.ModEffects;
+import com.yuanno.soulsawakening.init.ModI18n;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -137,7 +138,7 @@ public class InProgressChallenge {
 			}			
 		}
 		else if(this.phase.equals(Phase.BUILD)) {
-			this.sendGroupTitle(new TranslationTextComponent("Started"), new TranslationTextComponent("Start"), 5, 90, 10);
+			this.sendGroupTitle(ModI18n.CHALLENGE_MESSAGE_START_TITLE, ModI18n.CHALLENGE_MESSAGE_START_SUBTITLE, 5, 90, 10);
 			long start = System.currentTimeMillis();
 			
 			this.arena.buildArena(this);
@@ -177,7 +178,7 @@ public class InProgressChallenge {
 				this.phase = Phase.RUN;	
 				this.group.forEach(entity -> entity.removeEffect(ModEffects.IN_EVENT.get()));
 				this.enemies.forEach(entity -> entity.removeEffect(ModEffects.IN_EVENT.get()));
-				this.sendGroupTitle(new TranslationTextComponent("Message start fight"), 2, 5, 2);
+				this.sendGroupTitle(ModI18n.CHALLENGE_MESSAGE_START_FIGHT, 2, 5, 2);
 				this.startTick = this.shard.getGameTime();
 			}
 		}
