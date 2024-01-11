@@ -37,7 +37,7 @@ import java.util.function.Supplier;
 
 public class ChallengesWorldData extends WorldSavedData {
 	private static final String IDENTIFIER = "soulsawakening-challenges";
-	private static final TranslationTextComponent NOT_UNLOCKED = new TranslationTextComponent("Unlocked");
+	private static final TranslationTextComponent NOT_UNLOCKED = new TranslationTextComponent("Not Unlocked");
 
 	private Map<UUID, InProgressChallenge> inProgressChallenges = new HashMap<>();
 

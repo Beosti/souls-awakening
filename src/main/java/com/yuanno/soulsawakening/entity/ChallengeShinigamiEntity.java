@@ -37,21 +37,16 @@ public class ChallengeShinigamiEntity extends CreatureEntity {
     protected void registerGoals() // TODO improve this for the challenge
     {
         super.registerGoals();
-        Predicate<Entity> factionScope = getEnemyFactions(this);
 
-        this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, HollowEntity.class, false));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, JetEntity.class, false));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, true, factionScope));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 
-        this.goalSelector.addGoal(4, new ImprovedMeleeAttackGoal(this, 1, true));
+        this.goalSelector.addGoal(7, new ImprovedMeleeAttackGoal(this, 1, true));
 
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 4));
-        this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+        //this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 4));
 
     }
 
@@ -100,7 +95,7 @@ public class ChallengeShinigamiEntity extends CreatureEntity {
         return MobEntity.createMobAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 7)
                 .add(Attributes.ARMOR, 20)
-                .add(Attributes.MAX_HEALTH, 30)
+                .add(Attributes.MAX_HEALTH, 20)
                 .add(Attributes.FOLLOW_RANGE, 100)
                 .add(Attributes.MOVEMENT_SPEED, 0.28)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);

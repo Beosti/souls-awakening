@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.challenges.ArenaStyle;
 import com.yuanno.soulsawakening.api.challenges.ChallengeArena;
 import com.yuanno.soulsawakening.api.challenges.InProgressChallenge;
+import com.yuanno.soulsawakening.entity.ChallengeShinigamiEntity;
 import com.yuanno.soulsawakening.entity.ShinigamiEntity;
 import com.yuanno.soulsawakening.init.ModEntities;
 import com.yuanno.soulsawakening.init.ModItems;
@@ -64,10 +65,11 @@ public class GlowstoneArenaSeatedOfficer20 extends ChallengeArena {
 		
 		Set<LivingEntity> set = new HashSet<>();
 		
-		ShinigamiEntity boss = new ShinigamiEntity(ModEntities.CHALLENGE_SHINIGAMI.get(), challenge.getShard());
+		ChallengeShinigamiEntity boss = new ChallengeShinigamiEntity(ModEntities.CHALLENGE_SHINIGAMI.get(), challenge.getShard());
 		ItemStack swordStack = new ItemStack(ModItems.ZANPAKUTO.get());
 		swordStack.getTag().putString("owner", boss.getDisplayName().getString());
-		boss.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8);
+		boss.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(10);
+		boss.getAttribute(Attributes.MAX_HEALTH).setBaseValue(24);
 		boss.setItemSlot(EquipmentSlotType.MAINHAND, swordStack);
 		boss.forcedLoading = true;
 		challenge.getShard().addFreshEntity(boss);

@@ -212,7 +212,6 @@ public class InProgressChallenge {
 					challenge.tryUpdateBestTime(time);
 					challenge.setComplete(true);
 				}
-				
 				StringTextComponent reportStr = new StringTextComponent(ModI18n.CHALLENGE_MESSAGE_COMPLETION_REPORT.getString() + "" + timeStr);
 				
 				player.sendMessage(this.core.getLocalizedTitle(), Util.NIL_UUID);

@@ -110,7 +110,7 @@ public class ShinigamiEntity extends CreatureEntity {
         return MobEntity.createMobAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 7)
                 .add(Attributes.ARMOR, 20)
-                .add(Attributes.MAX_HEALTH, 30)
+                .add(Attributes.MAX_HEALTH, 20)
                 .add(Attributes.FOLLOW_RANGE, 100)
                 .add(Attributes.MOVEMENT_SPEED, 0.28)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);

@@ -38,6 +38,7 @@ public class ChallengesScreen extends Screen {
     {
         int posX = ((this.width - 256) / 2);
         int posY = (this.height - 256) / 2;
+        System.out.println(challengesDataBase.getChallenges());
         this.addButton(new Button(posX - 65, posY + 20, 60, 20, new TranslationTextComponent("Shinigami"), b ->
         {
             PacketHandler.sendToServer(new CStartChallengePacket(ModChallenges.BASIC_SHINIGAMI.get().getRegistryName(), this.group, false));
@@ -55,7 +56,7 @@ public class ChallengesScreen extends Screen {
         {
             if (button.isHovered())
                 this.renderTooltip(matrixStack, new TranslationTextComponent("Challenge a seated officer rank 20 shinigami"), mouseX, mouseY);
-        })).active = challengesDataBase.hasChallenge(ModChallenges.BASIC_SHINIGAMI.get());
+        })).active = challengesDataBase.hasChallenge(ModChallenges.SEATED20_SHINIGAMI.get()) || challengesDataBase.isChallengeCompleted(ModChallenges.SEATED20_SHINIGAMI.get());
 
     }
 }

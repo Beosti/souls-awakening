@@ -52,12 +52,13 @@ public class StatsEvent {
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
+        IChallengesData challengesData = ChallengesDataCapability.get(player);
         if (!entityStats.hasRace())
             statsHandling(player);
 
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-
+        PacketHandler.sendTo(new SSyncChallengeDataPacket(player.getId(), challengesData), player);
     }
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event)
@@ -118,7 +119,7 @@ public class StatsEvent {
         entityStats.setRace(ModValues.HUMAN);
         miscData.setCanRenderOverlay(true);
         challengesData.addChallenge(ModChallenges.BASIC_SHINIGAMI.get());
-        challengesData.addChallenge(ModChallenges.SEATED20_SHINIGAMI.get());
+        //challengesData.addChallenge(ModChallenges.SEATED20_SHINIGAMI.get());
 
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
@@ -197,9 +198,11 @@ public class StatsEvent {
         IEntityStats stats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
+        IChallengesData challengesData = ChallengesDataCapability.get(player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncEntityStatsPacket(player.getId(), stats), player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncMiscDataPacket(player.getId(), miscData), player);
+        PacketHandler.sendToAllTrackingAndSelf(new SSyncChallengeDataPacket(player.getId(), challengesData), player);
         //MinecraftForge.EVENT_BUS.post(new EntityEvent.Size(player, player.getPose(), player.getDimensions(player.getPose()), player.getBbHeight()));
     }
 
