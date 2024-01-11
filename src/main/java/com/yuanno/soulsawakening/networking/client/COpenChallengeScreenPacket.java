@@ -12,22 +12,22 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class COpenPlayerScreenPacket
+public class COpenChallengeScreenPacket
 {
-	public COpenPlayerScreenPacket() {}
+	public COpenChallengeScreenPacket() {}
 
 	public void encode(PacketBuffer buffer)
 	{
 	}
 
-	public static COpenPlayerScreenPacket decode(PacketBuffer buffer)
+	public static COpenChallengeScreenPacket decode(PacketBuffer buffer)
 	{
-		COpenPlayerScreenPacket msg = new COpenPlayerScreenPacket();
+		COpenChallengeScreenPacket msg = new COpenChallengeScreenPacket();
 
 		return msg;
 	}
 	
-	public static void handle(COpenPlayerScreenPacket message, final Supplier<NetworkEvent.Context> ctx)
+	public static void handle(COpenChallengeScreenPacket message, final Supplier<NetworkEvent.Context> ctx)
 	{
 		if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_SERVER)
 		{
@@ -35,7 +35,7 @@ public class COpenPlayerScreenPacket
 			{
 				PlayerEntity player = ctx.get().getSender();
 
-				PacketHandler.sendTo(new SOpenPlayerScreenPacket(), player);
+				PacketHandler.sendTo(new SOpenChallengeScreenPacket(), player);
 			});
 		}
 		ctx.get().setPacketHandled(true);

@@ -1,17 +1,12 @@
 package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.abilities.hollow.CeroAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
-import com.yuanno.soulsawakening.events.hollow.HollowEvolutionEvent;
-import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
-import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
@@ -64,6 +59,7 @@ public class PlayerOverviewScreen extends Screen {
             statsAmount = 3;
         else if (entityStats.getRace().equals(ModValues.HOLLOW))
             statsAmount = 0;
+
         if (entityStats.getRace().equals(ModValues.HOLLOW)) {
             this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 57, 80, 16, new TranslationTextComponent("Evolution"), b -> {
                 if (entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE))) {
@@ -108,7 +104,11 @@ public class PlayerOverviewScreen extends Screen {
                     this.renderTooltip(matrixStack, new TranslationTextComponent("Increases damage with a sword"), mouseX, mouseY);
             })).active = classPoints > 0;
         }
-
+        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 252, posY + 120, 60, 20, new TranslationTextComponent("Challenges"), b ->
+        {
+            PacketHandler.sendToServer(new COpenChallengeScreenPacket());
+            this.onClose();
+        }));
     }
 
     private void handleStats(int integer, IEntityStats entityStats)

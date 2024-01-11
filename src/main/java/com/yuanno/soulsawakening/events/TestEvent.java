@@ -19,8 +19,8 @@ public class TestEvent {
     {
         if (event.getMessage().equals("test"))
         {
-            ChallengesDataCapability.get((ServerPlayerEntity) event.getPlayer()).addChallenge(ModChallenges.BANDIT.get());
-            ChallengesWorldData.get().startChallenge((ServerPlayerEntity) event.getPlayer(), new ArrayList<>(), ModChallenges.BANDIT.get(), false);
+            ChallengesDataCapability.get((ServerPlayerEntity) event.getPlayer()).addChallenge(ModChallenges.BASIC_SHINIGAMI.get());
+            ChallengesWorldData.get().startChallenge((ServerPlayerEntity) event.getPlayer(), new ArrayList<>(), ModChallenges.BASIC_SHINIGAMI.get(), false);
 
         }
     }
