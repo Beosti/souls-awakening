@@ -6,15 +6,19 @@ import com.yuanno.soulsawakening.abilities.hollow.BiteAbility;
 import com.yuanno.soulsawakening.abilities.hollow.SlashAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
+import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
+import com.yuanno.soulsawakening.data.challenges.IChallengesData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModAttributes;
+import com.yuanno.soulsawakening.init.ModChallenges;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncChallengeDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
 import com.yuanno.soulsawakening.world.ChallengesChunkGenerator;
@@ -106,14 +110,16 @@ public class StatsEvent {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
+        IChallengesData challengesData = ChallengesDataCapability.get(player);
         if (entityStats.hasRace())
             return;
         entityStats.setRace(ModValues.HUMAN);
         miscData.setCanRenderOverlay(true);
+        challengesData.addChallenge(ModChallenges.BASIC_SHINIGAMI.get());
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-
+        PacketHandler.sendTo(new SSyncChallengeDataPacket(player.getId(), challengesData), player);
     }
 
     @SubscribeEvent
