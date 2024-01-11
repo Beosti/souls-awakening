@@ -34,7 +34,7 @@ public class ChallengeShinigamiEntity extends CreatureEntity {
         this.constantSkin = "shinigami_normal";
     }
     @Override
-    protected void registerGoals()
+    protected void registerGoals() // TODO improve this for the challenge
     {
         super.registerGoals();
         Predicate<Entity> factionScope = getEnemyFactions(this);
