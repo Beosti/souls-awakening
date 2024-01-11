@@ -39,6 +39,9 @@ public class ShinigamiEntity extends CreatureEntity {
     public ShinigamiEntity(EntityType type, World world)
     {
         super(type, world);
+        Random random = new Random();
+        int randomIndex = random.nextInt(options.length);
+        this.constantSkin = options[randomIndex];
     }
     @Override
     protected void registerGoals()

@@ -31,6 +31,7 @@ public class ChallengeShinigamiEntity extends CreatureEntity {
     public ChallengeShinigamiEntity(EntityType type, World world)
     {
         super(type, world);
+        this.constantSkin = "shinigami_normal";
     }
     @Override
     protected void registerGoals()
