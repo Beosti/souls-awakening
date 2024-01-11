@@ -74,6 +74,10 @@ public class PlayerOverviewScreen extends Screen {
                 if (button.isHovered() && button.active) {
                     this.renderTooltip(matrixStack, new TranslationTextComponent("You can consume all your hollow points, evolving to the next stage"), mouseX, mouseY);
                 }
+                else if (button.isHovered() && entityStats.getRank().equals(ModValues.VASTO_LORDE))
+                {
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("WIP"), mouseX, mouseY);
+                }
                 else if (button.isHovered())
                 {
                     this.renderTooltip(matrixStack, new TranslationTextComponent("You need 50 hollow points to evolve"), mouseX, mouseY);
