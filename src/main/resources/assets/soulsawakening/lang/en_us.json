@@ -56,6 +56,14 @@
   "advancements.soulsawakening.race.vasto_lorde.title": "Vasto Lorde",
   "advancements.soulsawakening.race.vasto_lorde.description": "Is this the peak?",
 
-  "soulsawakening.attack_range": "Attack range"
+  "soulsawakening.attack_range": "Attack range",
+
+  "challenge.message.start_title": "Starting Challenge",
+  "challenge.message.start_subtitle": "Please wait",
+  "challenge.message.start_fight": "§a§oFIGHT!!!§r",
+  "challenge.message.completion_report": "Completion Time: ",
+
+  "challenge.soulsawakening.begin.shinigami": "Basic shinigami",
+  "challenge.soulsawakening.begin.objective.shinigami": "Defeat a basic shinigami"
 
 }

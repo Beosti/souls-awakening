@@ -213,7 +213,7 @@ public class InProgressChallenge {
 					challenge.setComplete(true);
 				}
 				
-				StringTextComponent reportStr = new StringTextComponent(new TranslationTextComponent("Mission report") + "" + timeStr);
+				StringTextComponent reportStr = new StringTextComponent(ModI18n.CHALLENGE_MESSAGE_COMPLETION_REPORT.getString() + "" + timeStr);
 				
 				player.sendMessage(this.core.getLocalizedTitle(), Util.NIL_UUID);
 				player.sendMessage(reportStr, Util.NIL_UUID);

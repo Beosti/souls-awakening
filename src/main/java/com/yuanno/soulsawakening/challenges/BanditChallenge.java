@@ -7,8 +7,8 @@ import com.yuanno.soulsawakening.init.ModEntities;
 import net.minecraftforge.fml.RegistryObject;
 
 public class BanditChallenge extends Challenge {
-    private static final String TITLE = BeRegistry.registerName("challenge." + Main.MODID + ".begin.bandit", "Bandit");
-    public static final String OBJECTIVE = BeRegistry.registerName("challenge." + Main.MODID + ".begin.bandit.objective", "Defeat bandit");
+    private static final String TITLE = BeRegistry.registerName("challenge." + Main.MODID + ".begin.shinigami", "Shinigami");
+    public static final String OBJECTIVE = BeRegistry.registerName("challenge." + Main.MODID + ".begin.objective.shinigami", "Defeat a basic  Shinigami");
 
 
 
