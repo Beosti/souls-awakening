@@ -24,7 +24,14 @@ public class BasicShinigamiChallenge extends Challenge {
             .setTargetShowcase(new RegistryObject[]{ModEntities.SHINIGAMI})
             .setTimeLimit(10)
             .setOrder(0)
-            //.setReward(new ChallengeReward().addItem(() -> new ItemStack(Items.DIAMOND)))
+            /*
+            .setReward(new ChallengeReward().addItem(() -> {
+                ItemStack test = new ItemStack(Items.DIAMOND);
+                test.grow(5);
+                return test;
+            }))
+
+             */
             .build();
     public BasicShinigamiChallenge(ChallengeCore core) {
         super(core);
