@@ -40,8 +40,12 @@ public class ChallengesScreen extends Screen {
         int posY = (this.height - 256) / 2;
         this.addButton(new Button(posX - 65, posY + 20, 60, 20, new TranslationTextComponent("Shinigami"), b ->
         {
-            PacketHandler.sendToServer(new CStartChallengePacket(BasicShinigamiChallenge.INSTANCE.getRegistryName(), this.group, true));
-            this.onClose();
+            PacketHandler.sendToServer(new CStartChallengePacket(ModChallenges.BASIC_SHINIGAMI.get().getRegistryName(), this.group, false));
+            this.minecraft.setScreen(null);
+        }, (button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("Challenge a basic shinigami"), mouseX, mouseY);
         })).active = challengesDataBase.hasChallenge(ModChallenges.BASIC_SHINIGAMI.get());
     }
 }

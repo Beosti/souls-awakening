@@ -83,7 +83,7 @@ public class CStartChallengePacket {
 				
 				System.out.println(list);
 				
-				ChallengesWorldData.get().startChallenge(player, list, core, message.isFree);
+				ChallengesWorldData.get().startChallenge((ServerPlayerEntity) player, new ArrayList<>(), core, message.isFree);
 			});
 		}
 		ctx.get().setPacketHandled(true);

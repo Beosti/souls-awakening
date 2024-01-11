@@ -64,6 +64,7 @@ public class GlowstoneArena extends ChallengeArena {
 		Set<LivingEntity> set = new HashSet<>();
 		
 		ShinigamiEntity boss = new ShinigamiEntity(ModEntities.SHINIGAMI.get(), challenge.getShard());
+		boss.constantSkin = "shinigami_normal";
 		ItemStack swordStack = new ItemStack(ModItems.ZANPAKUTO.get());
 		swordStack.getTag().putString("owner", boss.getDisplayName().getString());
 

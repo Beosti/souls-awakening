@@ -48,6 +48,8 @@ public class StatsEvent {
     public static void joinWorldEvent(PlayerEvent.PlayerLoggedInEvent event)
     {
         PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (!entityStats.hasRace())
@@ -110,7 +112,7 @@ public class StatsEvent {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
-        IChallengesData challengesData = ChallengesDataCapability.get(player);
+        IChallengesData challengesData = ChallengesDataCapability.get((ServerPlayerEntity) player);
         if (entityStats.hasRace())
             return;
         entityStats.setRace(ModValues.HUMAN);
