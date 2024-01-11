@@ -4,12 +4,12 @@ import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.challenges.ArenaStyle;
 import com.yuanno.soulsawakening.api.challenges.ChallengeArena;
 import com.yuanno.soulsawakening.api.challenges.InProgressChallenge;
-import com.yuanno.soulsawakening.entity.ChallengeShinigamiEntity;
 import com.yuanno.soulsawakening.entity.ShinigamiEntity;
 import com.yuanno.soulsawakening.init.ModEntities;
 import com.yuanno.soulsawakening.init.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -19,14 +19,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GlowstoneArena extends ChallengeArena {
+public class GlowstoneArenaSeatedOfficer20 extends ChallengeArena {
 
-	public static final GlowstoneArena INSTANCE = new GlowstoneArena();
-	
+	public static final GlowstoneArenaSeatedOfficer20 INSTANCE = new GlowstoneArenaSeatedOfficer20();
+
 	private static final int ARENA_SIZE = 25;
 	private static final int SAND_HEIGHT = ARENA_SIZE / 3;
 
-	private GlowstoneArena() {
+	private GlowstoneArenaSeatedOfficer20() {
 		super(ArenaStyle.BOX);
 	}
 	
@@ -64,10 +64,10 @@ public class GlowstoneArena extends ChallengeArena {
 		
 		Set<LivingEntity> set = new HashSet<>();
 		
-		ChallengeShinigamiEntity boss = new ChallengeShinigamiEntity(ModEntities.CHALLENGE_SHINIGAMI.get(), challenge.getShard());
+		ShinigamiEntity boss = new ShinigamiEntity(ModEntities.CHALLENGE_SHINIGAMI.get(), challenge.getShard());
 		ItemStack swordStack = new ItemStack(ModItems.ZANPAKUTO.get());
 		swordStack.getTag().putString("owner", boss.getDisplayName().getString());
-
+		boss.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(8);
 		boss.setItemSlot(EquipmentSlotType.MAINHAND, swordStack);
 		boss.forcedLoading = true;
 		challenge.getShard().addFreshEntity(boss);

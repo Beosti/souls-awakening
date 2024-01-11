@@ -64,6 +64,8 @@
   "challenge.message.completion_report": "Completion Time: ",
 
   "challenge.soulsawakening.begin.shinigami": "Basic shinigami",
-  "challenge.soulsawakening.begin.objective.shinigami": "Defeat a basic shinigami"
+  "challenge.soulsawakening.begin.objective.shinigami": "Defeat a basic shinigami",
+  "challenge.soulsawakening.begin.seated20shinigami": "Seated 20th shinigami",
+  "challenge.soulsawakening.begin.objective.seated20shinigami": "Seated 20th shinigami"
 
 }

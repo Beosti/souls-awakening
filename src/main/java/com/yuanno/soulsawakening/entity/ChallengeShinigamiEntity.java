@@ -8,9 +8,6 @@ import com.yuanno.soulsawakening.entity.hollow.JetEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
-import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
-import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -19,24 +16,19 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.EntityPredicates;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 import java.util.function.Predicate;
 
-public class ShinigamiEntity extends CreatureEntity {
+public class ChallengeShinigamiEntity extends CreatureEntity {
 
-    public String[] options = {"shinigami_pink", "shinigami_normal", "shinigami_yellow"};
+    public String[] options = {"shinigami_normal"};
     public String constantSkin;
-    public ShinigamiEntity(EntityType type, World world)
+    public ChallengeShinigamiEntity(EntityType type, World world)
     {
         super(type, world);
     }
@@ -122,10 +114,11 @@ public class ShinigamiEntity extends CreatureEntity {
 
         ItemStack swordStack = new ItemStack(ModItems.ZANPAKUTO.get());
         swordStack.getTag().putString("owner", this.getDisplayName().getString());
-        Random randomTest = new Random();
+
         this.setItemSlot(EquipmentSlotType.MAINHAND, swordStack);
-        int randomIndex = randomTest.nextInt(options.length);
+        int randomIndex = random.nextInt(options.length);
         this.constantSkin = options[randomIndex];
+
         return spawnData;
     }
 }

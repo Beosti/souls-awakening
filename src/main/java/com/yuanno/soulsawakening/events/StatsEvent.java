@@ -118,6 +118,8 @@ public class StatsEvent {
         entityStats.setRace(ModValues.HUMAN);
         miscData.setCanRenderOverlay(true);
         challengesData.addChallenge(ModChallenges.BASIC_SHINIGAMI.get());
+        challengesData.addChallenge(ModChallenges.SEATED20_SHINIGAMI.get());
+
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);

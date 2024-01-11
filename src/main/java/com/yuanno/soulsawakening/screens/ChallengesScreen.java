@@ -47,5 +47,15 @@ public class ChallengesScreen extends Screen {
             if (button.isHovered())
                 this.renderTooltip(matrixStack, new TranslationTextComponent("Challenge a basic shinigami"), mouseX, mouseY);
         })).active = challengesDataBase.hasChallenge(ModChallenges.BASIC_SHINIGAMI.get());
+        this.addButton(new Button(posX - 65, posY + 40, 60, 20, new TranslationTextComponent("Rank 20"), b ->
+        {
+            PacketHandler.sendToServer(new CStartChallengePacket(ModChallenges.SEATED20_SHINIGAMI.get().getRegistryName(), this.group, false));
+            this.minecraft.setScreen(null);
+        }, (button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("Challenge a seated officer rank 20 shinigami"), mouseX, mouseY);
+        })).active = challengesDataBase.hasChallenge(ModChallenges.BASIC_SHINIGAMI.get());
+
     }
 }

@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.client.renderers;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entity.ShinigamiEntity;
+import com.yuanno.soulsawakening.entity.ChallengeShinigamiEntity;
 import com.yuanno.soulsawakening.models.HumanoidModel;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -16,31 +16,29 @@ import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unchecked")
-public class ShinigamiRenderer extends MobRenderer<ShinigamiEntity, HumanoidModel<ShinigamiEntity>> {
+public class ChallengeShinigamiRenderer extends MobRenderer<ChallengeShinigamiEntity, HumanoidModel<ChallengeShinigamiEntity>> {
 
 
 
-    public ShinigamiRenderer(EntityRendererManager renderManager)
+    public ChallengeShinigamiRenderer(EntityRendererManager renderManager)
     {
         super(renderManager, new HumanoidModel<>(), 0.1F);
         this.addLayer(new HeldItemLayer<>(this));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ShinigamiEntity ShinigamiEntity) {
-        Random random = new Random();
-        int randomIndex = random.nextInt(ShinigamiEntity.options.length);
-        String finalTexture = ShinigamiEntity.constantSkin;
+    public ResourceLocation getTextureLocation(ChallengeShinigamiEntity ChallengeShinigamiEntity) {
+        String finalTexture = ChallengeShinigamiEntity.constantSkin;
         ResourceLocation FINAL_TEXTURE = new ResourceLocation(Main.MODID, "textures/entities/npc/" + finalTexture +  ".png");
 
         return FINAL_TEXTURE;
     }
 
-    public static class Factory implements IRenderFactory<ShinigamiEntity> {
+    public static class Factory implements IRenderFactory<ChallengeShinigamiEntity> {
 
         @Override
-        public EntityRenderer<? super ShinigamiEntity> createRenderFor(EntityRendererManager manager) {
-            return new ShinigamiRenderer(manager);
+        public EntityRenderer<? super ChallengeShinigamiEntity> createRenderFor(EntityRendererManager manager) {
+            return new ChallengeShinigamiRenderer(manager);
         }
     }
 }

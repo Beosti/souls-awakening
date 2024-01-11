@@ -56,6 +56,12 @@ public class ModEntities {
                             .sized(1f, 2f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "shinigami").toString()));
+    public static final RegistryObject<EntityType<ChallengeShinigamiEntity>> CHALLENGE_SHINIGAMI = ENTITIES
+            .register("challenge_shinigami",
+                    () -> EntityType.Builder.of(ChallengeShinigamiEntity::new, EntityClassification.CREATURE)
+                            .sized(1f, 2f)
+                            .setTrackingRange(5)
+                            .build(new ResourceLocation(Main.MODID, "challange_shinigami").toString()));
     public static final RegistryObject<EntityType<InnerShikaiEntity>> SHIKAI = ENTITIES
             .register("shikai",
                     () -> EntityType.Builder.of(InnerShikaiEntity::new, EntityClassification.CREATURE)
