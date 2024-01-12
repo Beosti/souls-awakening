@@ -68,6 +68,12 @@ public class ModEntities {
                             .sized(1f, 2f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "shikai").toString()));
+    public static final RegistryObject<EntityType<TraderEntity>> TRADER = ENTITIES
+            .register("trader",
+                    () -> EntityType.Builder.of(TraderEntity::new, EntityClassification.CREATURE)
+                            .sized(1f, 2f)
+                            .setTrackingRange(5)
+                            .build(new ResourceLocation(Main.MODID, "trader").toString()));
     public static void register(IEventBus eventBus) {
         ENTITIES.register(eventBus);
     }

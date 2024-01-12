@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.screens;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.challenges.BasicShinigamiChallenge;
 import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
 import com.yuanno.soulsawakening.data.challenges.IChallengesData;
@@ -12,6 +13,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,6 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class ChallengesScreen extends Screen {
     private final PlayerEntity player;
+
     private final LivingEntity[] group = new LivingEntity[1];
     private final IChallengesData challengesDataBase;
     protected ChallengesScreen() {
@@ -33,12 +36,13 @@ public class ChallengesScreen extends Screen {
         Minecraft.getInstance().setScreen(new ChallengesScreen());
     }
 
+
+
     @Override
     public void init()
     {
         int posX = ((this.width - 256) / 2);
         int posY = (this.height - 256) / 2;
-        System.out.println(challengesDataBase.getChallenges());
         this.addButton(new Button(posX - 65, posY + 20, 60, 20, new TranslationTextComponent("Shinigami"), b ->
         {
             PacketHandler.sendToServer(new CStartChallengePacket(ModChallenges.BASIC_SHINIGAMI.get().getRegistryName(), this.group, false));

@@ -1,6 +1,5 @@
 package com.yuanno.soulsawakening.screens;
 
-import com.google.common.collect.ImmutableSet;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
@@ -18,7 +17,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.gui.GuiUtils;
 
 import java.util.ArrayList;
 
@@ -94,7 +92,7 @@ public class TradingScreen extends Screen {
         int posY = this.height / 2;
        // Minecraft.getInstance().getTextureManager().bind(background);
         //GuiUtils.drawTexturedModalRect(posX - 90, posY - 75, 0, 0, 256, 256, 0);
-
+        miscDataRendering(matrixStack);
  
         
 
@@ -115,6 +113,17 @@ public class TradingScreen extends Screen {
         super.render(matrixStack, x, y, f);
     }
 
+    public void miscDataRendering(MatrixStack matrixStack)
+    {
+        int amountKan = miscData.getKan();
+        int posX = (this.width - 256) / 2;
+        int posY = (this.height - 256) / 2;
+        int leftShift = posX - 20;
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan, leftShift, posY + 160, -1);
+
+
+
+    }
     @Override
     public boolean isPauseScreen()
     {

@@ -1,9 +1,6 @@
 package com.yuanno.soulsawakening.client;
 
-import com.yuanno.soulsawakening.client.renderers.ChallengeShinigamiRenderer;
-import com.yuanno.soulsawakening.client.renderers.InnerShikaiRenderer;
-import com.yuanno.soulsawakening.client.renderers.PlusRenderer;
-import com.yuanno.soulsawakening.client.renderers.ShinigamiRenderer;
+import com.yuanno.soulsawakening.client.renderers.*;
 import com.yuanno.soulsawakening.client.renderers.hollow.*;
 import com.yuanno.soulsawakening.init.ModEntities;
 import net.minecraft.client.Minecraft;
@@ -34,6 +31,7 @@ public class ClientHandler {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.PLUS.get(), new PlusRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SHINIGAMI.get(), new ShinigamiRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CHALLENGE_SHINIGAMI.get(), new ChallengeShinigamiRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.TRADER.get(), new TraderRenderer.Factory());
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SHIKAI.get(), new InnerShikaiRenderer.Factory());
 
