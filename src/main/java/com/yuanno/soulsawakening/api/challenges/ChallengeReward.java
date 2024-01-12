@@ -1,5 +1,7 @@
 package com.yuanno.soulsawakening.api.challenges;
 
+import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
+import com.yuanno.soulsawakening.data.challenges.IChallengesData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,11 +17,17 @@ public class ChallengeReward {
 
 	private int bounty;
 	private List<Supplier<ItemStack>> items = new ArrayList<Supplier<ItemStack>>();
-
+	private List<Supplier<ChallengeCore>> challenges = new ArrayList<>();
 
 
 	public List<Supplier<ItemStack>> getItems() {
 		return this.items;
+	}
+
+	public ChallengeReward addChallenge(Supplier<ChallengeCore> challengeSupplier)
+	{
+		this.challenges.add(challengeSupplier);
+		return this;
 	}
 
 	public ChallengeReward addItem(Supplier<ItemStack> item) {
@@ -29,6 +37,7 @@ public class ChallengeReward {
 
 	public String giveRewards(PlayerEntity player) {
 		IEntityStats props = EntityStatsCapability.get(player);
+		IChallengesData challengesData = ChallengesDataCapability.get(player);
 		StringBuilder sb = new StringBuilder();
 
 		boolean hasAtLeastOneReward = false;
@@ -43,6 +52,12 @@ public class ChallengeReward {
 			sb.append("  " + stack.getDisplayName().getString() + (stack.getCount() > 1 ? " - " + stack.getCount() : "") + "\n");
 			player.addItem(stack);
 		}
+
+		for (Supplier<ChallengeCore> supplier : this.challenges) {
+			ChallengeCore challenge = supplier.get();
+			sb.append("  " + challenge.getLocalizedTitle().getString() + " " + "unlocked" + "\n");
+			challengesData.addChallenge(challenge);
+		}
 		
 		if(hasAtLeastOneReward) {
 			sb.append("\n");
@@ -50,4 +65,5 @@ public class ChallengeReward {
 
 		return sb.toString();
 	}
+
 }

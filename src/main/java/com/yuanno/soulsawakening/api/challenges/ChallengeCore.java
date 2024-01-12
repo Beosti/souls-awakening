@@ -24,6 +24,7 @@ public class ChallengeCore<T extends Challenge> extends ForgeRegistryEntry<Chall
 	private final String category;
 	private int timeLimit; // In minutes!
 	private ChallengeReward reward;
+	private ChallengeReward secondReward;
 	private ChallengeDifficulty difficulty;
 	private int difficultyStars;
 	private HashMultimap<ArenaStyle, ChallengeArena> arenas = HashMultimap.create();
@@ -71,6 +72,9 @@ public class ChallengeCore<T extends Challenge> extends ForgeRegistryEntry<Chall
 
 	private void setReward(ChallengeReward reward) {
 		this.reward = reward;
+	}
+	private void setSecondReward(ChallengeReward reward) {
+		this.secondReward = reward;
 	}
 
 	public void setBannedFactions(String... factions) {
@@ -177,6 +181,11 @@ public class ChallengeCore<T extends Challenge> extends ForgeRegistryEntry<Chall
 		return this.reward;
 	}
 
+	public ChallengeReward getSecondReward()
+	{
+		return this.secondReward;
+	}
+
 	public String[] getBannedFactions() {
 		return this.bannedFactions;
 	}
@@ -191,6 +200,7 @@ public class ChallengeCore<T extends Challenge> extends ForgeRegistryEntry<Chall
 		private String category = "No Category";
 		private int timeLimit = 10; // In minutes!
 		private ChallengeReward reward = ChallengeReward.EMPTY;
+		private ChallengeReward secondReward = ChallengeReward.EMPTY;
 		private ChallengeDifficulty difficulty = ChallengeDifficulty.STANDARD;
 		private int difficultyStars;
 		private HashMultimap<ArenaStyle, ChallengeArena> arenas = HashMultimap.create();
@@ -219,6 +229,11 @@ public class ChallengeCore<T extends Challenge> extends ForgeRegistryEntry<Chall
 
 		public Builder<T> setReward(ChallengeReward reward) {
 			this.reward = reward;
+			return this;
+		}
+
+		public Builder<T> setSecondReward(ChallengeReward reward) {
+			this.secondReward = reward;
 			return this;
 		}
 
@@ -256,6 +271,7 @@ public class ChallengeCore<T extends Challenge> extends ForgeRegistryEntry<Chall
 			ChallengeCore challenge = new ChallengeCore(this.unlocalizedTitle, this.unlocalizedObjective, this.category, this.factory);
 			challenge.setTimeLimit(this.timeLimit);
 			challenge.setReward(this.reward);
+			challenge.setSecondReward(this.secondReward);
 			challenge.setBannedFactions(this.bannedFactions);
 			challenge.setStartCheck(this.startCheck);
 			challenge.setDifficulty(this.difficulty);

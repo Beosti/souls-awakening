@@ -207,8 +207,14 @@ public class InProgressChallenge {
 
 				String timeStr = String.format("§2§l%02d:%02d§r%s", time / 60, time % 60, mode);
 				String rewards = "";
-				if (this.hasRewards()) {
+				if (this.hasRewards() && !challenge.isComplete()) {
 					rewards = challenge.getCore().getReward().giveRewards(player);
+					challenge.tryUpdateBestTime(time);
+					challenge.setComplete(true);
+				}
+				else if (this.hasRewards() && challenge.isComplete())
+				{
+					rewards = challenge.getCore().getSecondReward().giveRewards(player);
 					challenge.tryUpdateBestTime(time);
 					challenge.setComplete(true);
 				}

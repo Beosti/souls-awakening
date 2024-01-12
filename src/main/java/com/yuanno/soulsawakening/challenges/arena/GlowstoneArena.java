@@ -1,11 +1,10 @@
-package com.yuanno.soulsawakening.challenges;
+package com.yuanno.soulsawakening.challenges.arena;
 
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.challenges.ArenaStyle;
 import com.yuanno.soulsawakening.api.challenges.ChallengeArena;
 import com.yuanno.soulsawakening.api.challenges.InProgressChallenge;
 import com.yuanno.soulsawakening.entity.ChallengeShinigamiEntity;
-import com.yuanno.soulsawakening.entity.ShinigamiEntity;
 import com.yuanno.soulsawakening.init.ModEntities;
 import com.yuanno.soulsawakening.init.ModItems;
 import net.minecraft.block.Blocks;

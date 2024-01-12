@@ -2,11 +2,12 @@ package com.yuanno.soulsawakening.challenges;
 
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.api.challenges.ArenaStyle;
-import com.yuanno.soulsawakening.api.challenges.Challenge;
-import com.yuanno.soulsawakening.api.challenges.ChallengeCore;
-import com.yuanno.soulsawakening.api.challenges.ChallengeDifficulty;
+import com.yuanno.soulsawakening.api.challenges.*;
+import com.yuanno.soulsawakening.challenges.arena.GlowstoneArenaSeatedOfficer20;
+import com.yuanno.soulsawakening.init.ModChallenges;
 import com.yuanno.soulsawakening.init.ModEntities;
+import com.yuanno.soulsawakening.init.ModItems;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.RegistryObject;
 
 public class SeatedOfficer20Challenge extends Challenge {
@@ -23,14 +24,21 @@ public class SeatedOfficer20Challenge extends Challenge {
             .setTargetShowcase(new RegistryObject[]{ModEntities.SHINIGAMI})
             .setTimeLimit(10)
             .setOrder(0)
-            /*
-            .setReward(new ChallengeReward().addItem(() -> {
-                ItemStack test = new ItemStack(Items.DIAMOND);
-                test.grow(5);
+            .setReward(new ChallengeReward()
+                    .addChallenge(() -> {
+                        ChallengeCore challengeCore = ModChallenges.SEATED20_SHINIGAMI.get();
+                        return challengeCore;
+                    })
+                    .addItem(() -> {
+                        ItemStack test = new ItemStack(ModItems.REISHI.get());
+                        test.grow(5);
+                        return test;
+                    }))
+            .setSecondReward(new ChallengeReward().addItem(() -> {
+                ItemStack test = new ItemStack(ModItems.REISHI.get());
+                test.grow(3);
                 return test;
             }))
-
-             */
             .build();
     public SeatedOfficer20Challenge(ChallengeCore core) {
         super(core);
