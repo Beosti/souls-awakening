@@ -21,6 +21,8 @@ public class ModNetwork {
         PacketHandler.registerPacket(CHollowEvolutionPacket.class, CHollowEvolutionPacket::encode, CHollowEvolutionPacket::decode, CHollowEvolutionPacket::handle);
         PacketHandler.registerPacket(CStartChallengePacket.class, CStartChallengePacket::encode, CStartChallengePacket::decode, CStartChallengePacket::handle);
         PacketHandler.registerPacket(COpenChallengeScreenPacket.class, COpenChallengeScreenPacket::encode, COpenChallengeScreenPacket::decode, COpenChallengeScreenPacket::handle);
+        PacketHandler.registerPacket(CGiveItemStackPacket.class, CGiveItemStackPacket::encode, CGiveItemStackPacket::decode, CGiveItemStackPacket::handle);
+        PacketHandler.registerPacket(COpenTradingScreenPacket.class, COpenTradingScreenPacket::encode, COpenTradingScreenPacket::decode, COpenTradingScreenPacket::handle);
 
 
 
@@ -32,6 +34,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(SSyncDynDimensionsPacket.class, SSyncDynDimensionsPacket::encode, SSyncDynDimensionsPacket::decode, SSyncDynDimensionsPacket::handle);
         PacketHandler.registerPacket(SSyncChallengeDataPacket.class, SSyncChallengeDataPacket::encode, SSyncChallengeDataPacket::decode, SSyncChallengeDataPacket::handle);
         PacketHandler.registerPacket(SOpenChallengeScreenPacket.class, SOpenChallengeScreenPacket::encode, SOpenChallengeScreenPacket::decode, SOpenChallengeScreenPacket::handle);
+        PacketHandler.registerPacket(SOpenTradingScreenPacket.class, SOpenTradingScreenPacket::encode, SOpenTradingScreenPacket::decode, SOpenTradingScreenPacket::handle);
 
     }
 }
