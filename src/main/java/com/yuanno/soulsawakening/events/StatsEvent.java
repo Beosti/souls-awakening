@@ -53,12 +53,14 @@ public class StatsEvent {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IChallengesData challengesData = ChallengesDataCapability.get(player);
+        IMiscData miscData = MiscDataCapability.get(player);
         if (!entityStats.hasRace())
             statsHandling(player);
 
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         PacketHandler.sendTo(new SSyncChallengeDataPacket(player.getId(), challengesData), player);
+        PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
     }
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event)
@@ -118,6 +120,7 @@ public class StatsEvent {
             return;
         entityStats.setRace(ModValues.HUMAN);
         miscData.setCanRenderOverlay(true);
+        miscData.setKan(0);
         challengesData.addChallenge(ModChallenges.BASIC_SHINIGAMI.get());
         //challengesData.addChallenge(ModChallenges.SEATED20_SHINIGAMI.get());
 
@@ -176,6 +179,7 @@ public class StatsEvent {
         IAbilityData newAbilityData = AbilityDataCapability.get(player);
         AbilityDataCapability.INSTANCE.readNBT(newAbilityData, null, nbt);
 
+        // Keep the miscData
         IMiscData oldMiscData = MiscDataCapability.get(original);
         nbt = MiscDataCapability.INSTANCE.writeNBT(oldMiscData, null);
         IMiscData newMiscData = MiscDataCapability.get(player);

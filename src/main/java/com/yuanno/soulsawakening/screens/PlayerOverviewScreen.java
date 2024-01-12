@@ -150,7 +150,7 @@ public class PlayerOverviewScreen extends Screen {
         this.renderBackground(matrixStack);
         statsRendering(matrixStack);
         baseStatsRendering(matrixStack);
-
+        miscDataRendering(matrixStack);
         super.render(matrixStack, x, y, f);
     }
 
@@ -213,6 +213,18 @@ public class PlayerOverviewScreen extends Screen {
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Attack speed: " + TextFormatting.RESET + formattedAttackSpeed, leftShift, posY + 80, -1);
 
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Speed: " + TextFormatting.RESET + formattedSpeed, leftShift, posY + 100, -1);
+
+    }
+
+    public void miscDataRendering(MatrixStack matrixStack)
+    {
+        int amountKan = miscData.getKan();
+        int posX = (this.width - 256) / 2;
+        int posY = (this.height - 256) / 2;
+        int leftShift = posX + 180;
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan, leftShift, posY + 160, -1);
+
+
 
     }
     @Override

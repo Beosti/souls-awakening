@@ -30,16 +30,8 @@ public class BasicShinigamiChallenge extends Challenge {
                 ChallengeCore challengeCore = ModChallenges.SEATED20_SHINIGAMI.get();
                 return challengeCore;
             })
-                    .addItem(() -> {
-                        ItemStack test = new ItemStack(ModItems.REISHI.get());
-                        test.grow(4);
-                        return test;
-                    }))
-            .setSecondReward(new ChallengeReward().addItem(() -> {
-                ItemStack test = new ItemStack(ModItems.REISHI.get());
-                test.grow(1);
-                return test;
-            }))
+                    .setKan(10))
+            .setSecondReward(new ChallengeReward().setKan(4))
             .build();
     public BasicShinigamiChallenge(ChallengeCore core) {
         super(core);

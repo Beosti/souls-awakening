@@ -29,16 +29,8 @@ public class SeatedOfficer20Challenge extends Challenge {
                         ChallengeCore challengeCore = ModChallenges.SEATED20_SHINIGAMI.get();
                         return challengeCore;
                     })
-                    .addItem(() -> {
-                        ItemStack test = new ItemStack(ModItems.REISHI.get());
-                        test.grow(5);
-                        return test;
-                    }))
-            .setSecondReward(new ChallengeReward().addItem(() -> {
-                ItemStack test = new ItemStack(ModItems.REISHI.get());
-                test.grow(3);
-                return test;
-            }))
+                    .setKan(14))
+            .setSecondReward(new ChallengeReward().setKan(5))
             .build();
     public SeatedOfficer20Challenge(ChallengeCore core) {
         super(core);
