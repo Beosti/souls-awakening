@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.challenges;
+package com.yuanno.soulsawakening.challenges.shinigami;
 
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
@@ -6,8 +6,6 @@ import com.yuanno.soulsawakening.api.challenges.*;
 import com.yuanno.soulsawakening.challenges.arena.GlowstoneArenaSeatedOfficer20;
 import com.yuanno.soulsawakening.init.ModChallenges;
 import com.yuanno.soulsawakening.init.ModEntities;
-import com.yuanno.soulsawakening.init.ModItems;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.RegistryObject;
 
 public class SeatedOfficer20Challenge extends Challenge {
@@ -26,7 +24,7 @@ public class SeatedOfficer20Challenge extends Challenge {
             .setOrder(0)
             .setReward(new ChallengeReward()
                     .addChallenge(() -> {
-                        ChallengeCore challengeCore = ModChallenges.SEATED20_SHINIGAMI.get();
+                        ChallengeCore challengeCore = ModChallenges.SEATED19_SHINIGAMI.get();
                         return challengeCore;
                     })
                     .setKan(14))

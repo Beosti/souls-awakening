@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.challenges;
+package com.yuanno.soulsawakening.challenges.shinigami;
 
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
@@ -6,9 +6,6 @@ import com.yuanno.soulsawakening.api.challenges.*;
 import com.yuanno.soulsawakening.challenges.arena.GlowstoneArena;
 import com.yuanno.soulsawakening.init.ModChallenges;
 import com.yuanno.soulsawakening.init.ModEntities;
-import com.yuanno.soulsawakening.init.ModItems;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraftforge.fml.RegistryObject;
 
 public class BasicShinigamiChallenge extends Challenge {

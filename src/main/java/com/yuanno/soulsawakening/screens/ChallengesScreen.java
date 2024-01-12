@@ -1,7 +1,5 @@
 package com.yuanno.soulsawakening.screens;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.yuanno.soulsawakening.challenges.BasicShinigamiChallenge;
 import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
 import com.yuanno.soulsawakening.data.challenges.IChallengesData;
 import com.yuanno.soulsawakening.init.ModChallenges;
@@ -13,7 +11,6 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -61,6 +58,15 @@ public class ChallengesScreen extends Screen {
             if (button.isHovered())
                 this.renderTooltip(matrixStack, new TranslationTextComponent("Challenge a seated officer rank 20 shinigami"), mouseX, mouseY);
         })).active = challengesDataBase.hasChallenge(ModChallenges.SEATED20_SHINIGAMI.get()) || challengesDataBase.isChallengeCompleted(ModChallenges.SEATED20_SHINIGAMI.get());
+        this.addButton(new Button(posX - 65, posY + 40, 60, 20, new TranslationTextComponent("Rank 19"), b ->
+        {
+            PacketHandler.sendToServer(new CStartChallengePacket(ModChallenges.SEATED19_SHINIGAMI.get().getRegistryName(), this.group, false));
+            this.minecraft.setScreen(null);
+        }, (button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("Challenge a seated officer rank 19 shinigami"), mouseX, mouseY);
+        })).active = challengesDataBase.hasChallenge(ModChallenges.SEATED19_SHINIGAMI.get()) || challengesDataBase.isChallengeCompleted(ModChallenges.SEATED19_SHINIGAMI.get());
 
     }
 }

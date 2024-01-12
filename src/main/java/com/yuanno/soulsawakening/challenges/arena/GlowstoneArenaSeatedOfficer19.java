@@ -9,6 +9,7 @@ import com.yuanno.soulsawakening.init.ModEntities;
 import com.yuanno.soulsawakening.init.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -18,14 +19,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GlowstoneArena extends ChallengeArena {
+public class GlowstoneArenaSeatedOfficer19 extends ChallengeArena {
 
-	public static final GlowstoneArena INSTANCE = new GlowstoneArena();
-	
+	public static final GlowstoneArenaSeatedOfficer19 INSTANCE = new GlowstoneArenaSeatedOfficer19();
+
 	private static final int ARENA_SIZE = 25;
 	private static final int SAND_HEIGHT = ARENA_SIZE / 3;
 
-	public GlowstoneArena() {
+	private GlowstoneArenaSeatedOfficer19() {
 		super(ArenaStyle.BOX);
 	}
 	
@@ -66,7 +67,9 @@ public class GlowstoneArena extends ChallengeArena {
 		ChallengeShinigamiEntity boss = new ChallengeShinigamiEntity(ModEntities.CHALLENGE_SHINIGAMI.get(), challenge.getShard());
 		ItemStack swordStack = new ItemStack(ModItems.ZANPAKUTO.get());
 		swordStack.getTag().putString("owner", boss.getDisplayName().getString());
-
+		boss.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(12);
+		boss.getAttribute(Attributes.MAX_HEALTH).setBaseValue(28);
+		boss.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.29);
 		boss.setItemSlot(EquipmentSlotType.MAINHAND, swordStack);
 		boss.forcedLoading = true;
 		challenge.getShard().addFreshEntity(boss);
