@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GlowstoneArenaSeatedOfficer17 extends GlowstoneArena {
+    public static final GlowstoneArenaSeatedOfficer17 INSTANCE = new GlowstoneArenaSeatedOfficer17();
 
     public GlowstoneArenaSeatedOfficer17()
     {

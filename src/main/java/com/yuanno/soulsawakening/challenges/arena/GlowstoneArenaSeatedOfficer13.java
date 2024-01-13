@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class GlowstoneArenaSeatedOfficer13 extends GlowstoneArena {
+    public static final GlowstoneArenaSeatedOfficer13 INSTANCE = new GlowstoneArenaSeatedOfficer13();
 
     public GlowstoneArenaSeatedOfficer13()
     {
@@ -29,7 +30,7 @@ public class GlowstoneArenaSeatedOfficer13 extends GlowstoneArena {
         swordStack.getTag().putString("owner", boss.getDisplayName().getString());
         boss.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(20);
         boss.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40);
-        boss.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.297);
+        boss.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.2981);
 
         boss.setItemSlot(EquipmentSlotType.MAINHAND, swordStack);
         boss.forcedLoading = true;
