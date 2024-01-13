@@ -136,11 +136,13 @@ public class StatsEvent {
         IEntityStats statsProps = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
+        IChallengesData challengesData = ChallengesDataCapability.get(player);
         if (!statsProps.hasRace())
             statsHandling(player);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), statsProps), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
+        PacketHandler.sendTo(new SSyncChallengeDataPacket(player.getId(), challengesData), player);
     }
 
     @SubscribeEvent
@@ -159,6 +161,8 @@ public class StatsEvent {
             PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getPlayer().getId(), newEntityStats), event.getPlayer());
             IMiscData miscData = MiscDataCapability.get(event.getPlayer());
             PacketHandler.sendTo(new SSyncMiscDataPacket(event.getPlayer().getId(), miscData), event.getPlayer());
+            IChallengesData challengesData = ChallengesDataCapability.get(event.getPlayer());
+            PacketHandler.sendTo(new SSyncChallengeDataPacket(event.getPlayer().getId(), challengesData), event.getPlayer());
 
         } else
             StatsEvent.restoreFullData(event.getOriginal(), event.getPlayer());
@@ -185,6 +189,11 @@ public class StatsEvent {
         IMiscData newMiscData = MiscDataCapability.get(player);
         MiscDataCapability.INSTANCE.readNBT(newMiscData, null, nbt);
 
+        // Keep the challengeData
+        IChallengesData challengesData = ChallengesDataCapability.get(original);
+        nbt = ChallengesDataCapability.INSTANCE.writeNBT(challengesData, null);
+        IChallengesData newChallengeData = ChallengesDataCapability.get(player);
+        ChallengesDataCapability.INSTANCE.readNBT(newChallengeData, null, nbt);
 
         /*
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), newAbilityData), player);
