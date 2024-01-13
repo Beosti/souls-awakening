@@ -6,6 +6,7 @@ import com.yuanno.soulsawakening.api.Beapi;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.item.Item;
 import net.minecraft.util.text.ITextComponent;
 
 public class NoTextureButton extends Button
@@ -13,6 +14,7 @@ public class NoTextureButton extends Button
 	private boolean isSelected;
 	private boolean isFake;
 	public int number;
+	public Item item;
 
 	private String onHoverTextColor = "#00FFBB";
 	
