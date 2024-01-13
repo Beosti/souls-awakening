@@ -170,7 +170,7 @@ public class InProgressChallenge {
 			this.tickInterval.setInterval(20);
 		}
 		else if (this.phase.equals(Phase.READY)) {
-			if(this.readyInterval.getTick() <= 9) {
+			if(this.readyInterval.getTick() <= 6) {
 				ITextComponent countdownMessage = new StringTextComponent(TextFormatting.GOLD + "" + (this.readyInterval.getTick() - 1));
 				this.sendGroupTitle(countdownMessage, 5, 10, 5);
 			}
