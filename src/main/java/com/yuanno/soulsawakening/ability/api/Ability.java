@@ -7,6 +7,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private String name;
+    private String description;
     private double cooldown;
     private ActivationType activationType;
     private boolean isPassive = false;
@@ -88,6 +89,14 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     public void setName(String name)
     {
         this.name = name;
+    }
+    public String getDescription()
+    {
+        return description;
+    }
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
     public double getMaxCooldown()
     {

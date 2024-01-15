@@ -26,6 +26,7 @@ public class FireWaveAbility extends Ability implements IRightClickEmptyAbility 
     public FireWaveAbility()
     {
         this.setName("Fire Wave");
+        this.setDescription("Emit a wave of fire, damaging and putting enemies on fire");
         this.setCooldown(15);
         this.setMaxCooldown(15);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);

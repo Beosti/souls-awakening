@@ -54,14 +54,41 @@ public class AbilityListScreen extends Screen {
             String originalResourceLocation = abilities.get(i).getRegistryName().toString();
             String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
             ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
-            Beapi.drawIcon(resourceLocation, posX + 40, posY + 40 + (20 * i), 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
-            Entry entry = new Entry(abilities.get(i), posX + 40, posY + 40 + (20 * i));
+            Beapi.drawIcon(resourceLocation, posX + 40, posY + 40 + (28 * i), 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+            Entry entry = new Entry(abilities.get(i), posX + 40, posY + 40 + (28 * i));
             entries.add(i, entry);
         }
 
         if (isMouseOver(x, y))
         {
-            this.renderTooltip(matrixStack, new TranslationTextComponent(getHoveredEntry(x, y).ability.getName()), x, y);
+            Ability abilityHovering = getHoveredEntry(x, y).ability;
+            StringBuilder fullDescription = new StringBuilder(abilityHovering.getName() + "\n" + "Description: " + abilityHovering.getDescription() + "\n");
+            if (abilityHovering.getMaxCooldown() != 0)
+                fullDescription.append("Cooldown: " + abilityHovering.getMaxCooldown() + "\n");
+            String activation_type;
+            switch (abilityHovering.getActivationType())
+            {
+                case ATTACK:
+                    activation_type = "on-hit";
+                    break;
+                case RIGHT_CLICK_BLOCK:
+                    activation_type = "right click on block";
+                    break;
+                case RIGHT_CLICK_EMPTY:
+                    activation_type = "right click";
+                    break;
+                case SHIFT_RIGHT_CLICK:
+                    activation_type = "right click + shift";
+                    break;
+                case RIGHT_CLICK_ENTITY:
+                    activation_type = "right click on entity";
+                    break;
+                default:
+                    activation_type = "activation type not registered";
+                    break;
+            }
+            fullDescription.append("Activation type: " + activation_type);
+            this.renderTooltip(matrixStack, new TranslationTextComponent(String.valueOf(fullDescription)), x, y);
 
         }
         super.render(matrixStack, x, y, f);

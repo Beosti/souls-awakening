@@ -14,6 +14,7 @@ public class FireBallAbility extends Ability implements IRightClickEmptyAbility 
     public FireBallAbility()
     {
         this.setName("Fireball");
+        this.setDescription("Shoots a fireball");
         this.setCooldown(10);
         this.setMaxCooldown(10);
         this.setPassive(false);
