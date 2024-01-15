@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.data.ChallengesWorldData;
 import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
 import com.yuanno.soulsawakening.init.ModChallenges;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.client.COpenAbilityListScreenPacket;
 import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
 import com.yuanno.soulsawakening.networking.client.COpenTradingScreenPacket;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -21,9 +22,9 @@ public class TestEvent {
     @SubscribeEvent
     public static void chatEvent(ClientChatEvent event)
     {
-        if (event.getMessage().equals("trade"))
+        if (event.getMessage().equals("ability"))
         {
-            PacketHandler.sendToServer(new COpenTradingScreenPacket());
+            PacketHandler.sendToServer(new COpenAbilityListScreenPacket());
 
         }
     }
