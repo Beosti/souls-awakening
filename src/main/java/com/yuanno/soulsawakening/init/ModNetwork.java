@@ -23,6 +23,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(COpenChallengeScreenPacket.class, COpenChallengeScreenPacket::encode, COpenChallengeScreenPacket::decode, COpenChallengeScreenPacket::handle);
         PacketHandler.registerPacket(CGiveItemStackPacket.class, CGiveItemStackPacket::encode, CGiveItemStackPacket::decode, CGiveItemStackPacket::handle);
         PacketHandler.registerPacket(COpenTradingScreenPacket.class, COpenTradingScreenPacket::encode, COpenTradingScreenPacket::decode, COpenTradingScreenPacket::handle);
+        PacketHandler.registerPacket(CSyncentityStatsReiatsuPacket.class, CSyncentityStatsReiatsuPacket::encode, CSyncentityStatsReiatsuPacket::decode, CSyncentityStatsReiatsuPacket::handle);
 
 
 

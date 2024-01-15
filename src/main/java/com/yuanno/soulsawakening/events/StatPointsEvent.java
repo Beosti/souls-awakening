@@ -95,7 +95,7 @@ public class StatPointsEvent {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         if (!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER) && !entityStats.getRace().equals(ModValues.SPIRIT))
             return;
-        HohoGainEvent hohoGainEvent = new HohoGainEvent(player);
+        HohoGainEvent hohoGainEvent = new HohoGainEvent(player, 0.0001);
         MinecraftForge.EVENT_BUS.post(hohoGainEvent);
 
     }

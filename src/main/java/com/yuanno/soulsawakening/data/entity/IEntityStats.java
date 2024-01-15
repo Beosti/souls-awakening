@@ -40,6 +40,9 @@ public interface IEntityStats {
     void alterHohoPoints(double hohoPoints);
     double getHohoPoints();
 
+    void setReiatsuPoints(double reiatsuPoints);
+    void alterReiatsuPoints(double reiatsuPoints);
+    double getReiatsuPoints();
     void addAvailableStats(double stats);
     void removeAvailableStats(double stats);
     boolean hasAvailableStats(double stat);

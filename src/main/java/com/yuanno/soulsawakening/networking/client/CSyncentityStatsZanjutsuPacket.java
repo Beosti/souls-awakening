@@ -50,7 +50,7 @@ public class CSyncentityStatsZanjutsuPacket {
                 PlayerEntity player = ctx.get().getSender();
                 IEntityStats props = EntityStatsCapability.get(player);
                 EntityStatsCapability.INSTANCE.getStorage().readNBT(EntityStatsCapability.INSTANCE, props, null, message.data);
-                ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player);
+                ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player, 1, true);
                 if (props.getRace().equals(ModValues.FULLBRINGER) || props.getRace().equals(ModValues.SHINIGAMI))
                 {
                     MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent);

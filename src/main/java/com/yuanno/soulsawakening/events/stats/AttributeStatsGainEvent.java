@@ -65,18 +65,30 @@ public class AttributeStatsGainEvent {
             return;
 
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        double hohoPointsRaw = entityStats.getHohoPoints();
-        int hohoPointsStats = (int) Math.floor(hohoPointsRaw) + 1;
-        entityStats.alterHohoPoints(0.0001 * (hohoPointsStats * 0.73));
-        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-        AttributeModifier attributeModifierAttack = new AttributeModifier("Hoho Attack Speed Bonus", entityStats.getHohoPoints(), AttributeModifier.Operation.ADDITION);
 
+        if (event.getAmount() == 1)
+            entityStats.alterHohoPoints(event.getAmount()); // adds by 1 with the overview screen
+        else
+        {
+            double rawAmount = event.getAmount();
+            double currentHakuda = entityStats.getHohoPoints();
+            double amountToAdd = rawAmount * (Math.pow(0.80, currentHakuda / 100));
+            entityStats.alterHohoPoints(amountToAdd);
+        }
+
+        //entityStats.alterHohoPoints(0.0001 * (hohoPointsStats * 0.73));
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        double attackSpeedAddition = entityStats.getHohoPoints();
+        AttributeModifier attributeModifierAttack = new AttributeModifier("Hoho Attack Speed Bonus", attackSpeedAddition, AttributeModifier.Operation.ADDITION);
         if (player.getAttribute(Attributes.ATTACK_SPEED).hasModifier(attributeModifierAttack)) {
             player.getAttribute(Attributes.ATTACK_SPEED).removeModifier(attributeModifierAttack);
             player.getAttribute(Attributes.ATTACK_SPEED).addPermanentModifier(attributeModifierAttack);
         }
-        double hohoPoints = entityStats.getHohoPoints() / 10000;
-        AttributeModifier attributeModifier = new AttributeModifier("Hoho Speed Bonus", hohoPoints, AttributeModifier.Operation.ADDITION);
+        else
+            player.getAttribute(Attributes.ATTACK_SPEED).addPermanentModifier(attributeModifierAttack);
+
+        double speedAddition = entityStats.getHohoPoints() / 400;
+        AttributeModifier attributeModifier = new AttributeModifier("Hoho Speed Bonus", speedAddition, AttributeModifier.Operation.ADDITION);
         if (player.getAttribute(Attributes.MOVEMENT_SPEED).hasModifier(attributeModifier)) {
             player.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(attributeModifier);
             player.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(attributeModifier);
@@ -122,15 +134,34 @@ public class AttributeStatsGainEvent {
         {
             double rawAmount = event.getAmount();
             double currentZanjutsu = entityStats.getZanjutsuPoints();
-            amountToAdd = rawAmount * (Math.pow(0.95, currentZanjutsu / 10));
+            amountToAdd = rawAmount * (Math.pow(0.80, currentZanjutsu / 10));
         }
         else
             amountToAdd = event.getAmount();
         entityStats.alterZanjutsuPoints(amountToAdd);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-
-
     }
+    @SubscribeEvent
+    public static void reiatsuGainEvent(ReiatsuGainEvent event)
+    {
+        PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        double amountToAdd;
+        if (!event.isExactAmount())
+        {
+            double rawAmount = event.getAmount();
+            double currentReiatsu = entityStats.getReiatsuPoints();
+            amountToAdd = rawAmount * (Math.pow(0.95, currentReiatsu / 10));
+        }
+        else
+            amountToAdd = event.getAmount();
+        entityStats.alterReiatsuPoints(amountToAdd);
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+    }
+
+
 
     @SubscribeEvent
     public static void onAttributeItemChange(ItemAttributeModifierEvent event) {

@@ -2,10 +2,8 @@ package com.yuanno.soulsawakening.networking.client;
 
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
 import com.yuanno.soulsawakening.events.stats.HohoGainEvent;
-import com.yuanno.soulsawakening.events.stats.HollowGainEvent;
-import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
+import com.yuanno.soulsawakening.events.stats.ReiatsuGainEvent;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -17,13 +15,13 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class CSyncentityStatsHohoPacket {
+public class CSyncentityStatsReiatsuPacket {
 
     private INBT data;
 
-    public CSyncentityStatsHohoPacket() {}
+    public CSyncentityStatsReiatsuPacket() {}
 
-    public CSyncentityStatsHohoPacket(IEntityStats props)
+    public CSyncentityStatsReiatsuPacket(IEntityStats props)
     {
         this.data = new CompoundNBT();
         this.data = EntityStatsCapability.INSTANCE.getStorage().writeNBT(EntityStatsCapability.INSTANCE, props, null);
@@ -34,14 +32,14 @@ public class CSyncentityStatsHohoPacket {
         buffer.writeNbt((CompoundNBT) data);
     }
 
-    public static CSyncentityStatsHohoPacket decode(PacketBuffer buffer)
+    public static CSyncentityStatsReiatsuPacket decode(PacketBuffer buffer)
     {
-        CSyncentityStatsHohoPacket msg = new CSyncentityStatsHohoPacket();
+        CSyncentityStatsReiatsuPacket msg = new CSyncentityStatsReiatsuPacket();
         msg.data = buffer.readNbt();
         return msg;
     }
 
-    public static void handle(CSyncentityStatsHohoPacket message, final Supplier<NetworkEvent.Context> ctx)
+    public static void handle(CSyncentityStatsReiatsuPacket message, final Supplier<NetworkEvent.Context> ctx)
     {
         if(ctx.get().getDirection() == NetworkDirection.PLAY_TO_SERVER)
         {
@@ -52,8 +50,8 @@ public class CSyncentityStatsHohoPacket {
                 EntityStatsCapability.INSTANCE.getStorage().readNBT(EntityStatsCapability.INSTANCE, props, null, message.data);
                 if (props.getRace().equals(ModValues.FULLBRINGER) || props.getRace().equals(ModValues.SHINIGAMI))
                 {
-                    HohoGainEvent hohoGainEvent = new HohoGainEvent(player);
-                    MinecraftForge.EVENT_BUS.post(hohoGainEvent);
+                    ReiatsuGainEvent reiatsuGainEvent = new ReiatsuGainEvent(player, 1, true);
+                    MinecraftForge.EVENT_BUS.post(reiatsuGainEvent);
                 }
 
             });

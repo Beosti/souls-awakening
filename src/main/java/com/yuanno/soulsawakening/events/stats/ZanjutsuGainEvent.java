@@ -23,7 +23,7 @@ public class ZanjutsuGainEvent extends Event {
     {
         this.player = player;
         this.amount = amount;
-        this.exactAmount = false;
+        this.exactAmount = exactAmount;
     }
     public PlayerEntity getPlayer()
     {

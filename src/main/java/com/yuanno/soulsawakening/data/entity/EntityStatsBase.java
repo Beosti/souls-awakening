@@ -14,6 +14,7 @@ public class EntityStatsBase implements IEntityStats {
     private double zanjutsuPoints;
     private double hakudaPoints;
     private double hohoPoints;
+    private double reiatsuPoints;
     public List<Double> availableStats = new ArrayList<>();
 
     @Override
@@ -167,6 +168,24 @@ public class EntityStatsBase implements IEntityStats {
     @Override
     public double getHohoPoints() {
         return this.hohoPoints;
+    }
+
+    @Override
+    public void setReiatsuPoints(double reiatsuPoints)
+    {
+        this.reiatsuPoints = reiatsuPoints;
+    }
+
+    @Override
+    public void alterReiatsuPoints(double reiatsuPoints)
+    {
+        this.reiatsuPoints += reiatsuPoints;
+    }
+
+    @Override
+    public double getReiatsuPoints()
+    {
+        return this.reiatsuPoints;
     }
 
 

@@ -56,7 +56,7 @@ public class PlayerOverviewScreen extends Screen {
 
         int statsAmount = 0;
         if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI))
-            statsAmount = 3;
+            statsAmount = 4;
         else if (entityStats.getRace().equals(ModValues.HOLLOW))
             statsAmount = 0;
 
@@ -96,6 +96,8 @@ public class PlayerOverviewScreen extends Screen {
                 init();
             }, (button, matrixStack, mouseX, mouseY) ->
             {
+                if (button.isHovered() && finalI == 3)
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("Increases reiatsu, kid-type abilities deal more damage"), mouseX, mouseY);
                 if (button.isHovered() && finalI == 2)
                     this.renderTooltip(matrixStack, new TranslationTextComponent("Increases speed and attack speed"), mouseX, mouseY);
                 if (button.isHovered() && finalI == 1)
@@ -116,18 +118,19 @@ public class PlayerOverviewScreen extends Screen {
 
         if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER))
         {
+            if (integer == 3) {
+                PacketHandler.sendToServer(new CSyncentityStatsReiatsuPacket(entityStats));
+
+            }
             if (integer == 2) {
-                entityStats.alterHohoPoints(1);
                 PacketHandler.sendToServer(new CSyncentityStatsHohoPacket(entityStats));
 
             }
             else if (integer == 1) {
-                entityStats.alterHakudaPoints(1);
                 PacketHandler.sendToServer(new CSyncentityStatsHakudaPacket(entityStats));
 
             }
             else if (integer == 0) {
-                entityStats.alterZanjutsuPoints(1);
                 PacketHandler.sendToServer(new CSyncentityStatsZanjutsuPacket(entityStats));
             }
         }
@@ -164,6 +167,8 @@ public class PlayerOverviewScreen extends Screen {
         int zanjutsuPoints = (int) Math.floor(entityStats.getZanjutsuPoints());
         int hakuPoints = (int) Math.floor(entityStats.getHakudaPoints());
         int hohoPoints = (int) Math.floor(entityStats.getHohoPoints());
+        int reiatsuPoints = (int) Math.floor(entityStats.getReiatsuPoints());
+
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
 
@@ -181,7 +186,8 @@ public class PlayerOverviewScreen extends Screen {
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Zanju points: " + TextFormatting.RESET + zanjutsuPoints, leftShift, posY + 60, -1);
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Haku points: " + TextFormatting.RESET + hakuPoints, leftShift, posY + 75, -1);
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Hoho points: " + TextFormatting.RESET + hohoPoints, leftShift, posY + 90, -1);
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 105, -1);
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 120, -1);
         }
     }
 

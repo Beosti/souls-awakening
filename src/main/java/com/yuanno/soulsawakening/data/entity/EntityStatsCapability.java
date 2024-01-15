@@ -34,7 +34,7 @@ public class EntityStatsCapability {
                 props.putInt("classlevel", instance.getClassLevel());
                 props.putInt("classpoints", instance.getClassPoints());
                 props.putInt("classexperience", instance.getClassExperience());
-
+                props.putDouble("reiatsupoints", instance.getReiatsuPoints());
                 CompoundNBT listNBT = new CompoundNBT();
                 List<Double> availableStats = instance.getAvailableStats();
                 ListNBT listTag = new ListNBT();
@@ -60,6 +60,7 @@ public class EntityStatsCapability {
                 instance.setClassLevel(props.getInt("classlevel"));
                 instance.setClassPoints(props.getInt("classpoints"));
                 instance.setClassExperience(props.getInt("classexperience"));
+                instance.setReiatsuPoints(props.getDouble("reiatsupoints"));
 
                 CompoundNBT listNBT = props.getCompound("availableStats");
                 ListNBT listTag = listNBT.getList("availabeStatsData", Constants.NBT.TAG_DOUBLE);

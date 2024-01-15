@@ -50,10 +50,9 @@ public class CSyncentityStatsHakudaPacket {
                 PlayerEntity player = ctx.get().getSender();
                 IEntityStats props = EntityStatsCapability.get(player);
                 EntityStatsCapability.INSTANCE.getStorage().readNBT(EntityStatsCapability.INSTANCE, props, null, message.data);
-                ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player);
                 if (props.getRace().equals(ModValues.FULLBRINGER) || props.getRace().equals(ModValues.SHINIGAMI))
                 {
-                    HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player);
+                    HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player, 1, true);
                     MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
                 }
             });
