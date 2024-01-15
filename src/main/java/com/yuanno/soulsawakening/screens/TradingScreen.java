@@ -30,7 +30,7 @@ import java.util.Map;
 public class TradingScreen extends Screen {
     private PlayerEntity player;
     private IMiscData miscData;
-    //private final ResourceLocation background = new ResourceLocation(Main.MODID, "textures/gui/img.png");
+    //private final ResourceLocation background = new ResourceLocation(Main.MODID, "textures/gui/widget_contour_cooldown.png");
 
     ArrayList<NoTextureButton> buttons = new ArrayList<>();
 
