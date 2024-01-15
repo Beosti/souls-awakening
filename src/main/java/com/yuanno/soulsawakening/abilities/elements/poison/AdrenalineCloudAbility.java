@@ -3,6 +3,8 @@ package com.yuanno.soulsawakening.abilities.elements.poison;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,13 +30,15 @@ public class AdrenalineCloudAbility extends Ability implements IRightClickEmptyA
     @Override
     public void onRightClick(PlayerEntity player)
     {
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+
         List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
         targets.add(player);
         for (LivingEntity livingEntity : targets)
         {
             if (!livingEntity.hasEffect(Effects.MOVEMENT_SPEED))
-                livingEntity.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 240, 1));
+                livingEntity.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 240, (int) (1 + Math.floor(entityStats.getReiatsuPoints()/4))));
             if (!livingEntity.hasEffect(Effects.DAMAGE_BOOST))
-                livingEntity.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, 240, 1));
+                livingEntity.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, 240, (int) (1 + Math.floor(entityStats.getReiatsuPoints()/4))));
         }
     }}

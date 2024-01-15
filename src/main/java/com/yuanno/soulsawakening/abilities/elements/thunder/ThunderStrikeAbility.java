@@ -5,6 +5,8 @@ import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.EntityType;
@@ -35,6 +37,7 @@ public class ThunderStrikeAbility extends Ability implements IRightClickEmptyAbi
     @Override
     public void onShiftRightClick(PlayerEntity player)
     {
+        IEntityStats entityStats = EntityStatsCapability.get(player);
         RayTraceResult rayTraceResult = Beapi.rayTraceBlocksAndEntities(player, 20);
         BlockPos blockPos = null;
         if (rayTraceResult instanceof EntityRayTraceResult)
@@ -55,7 +58,7 @@ public class ThunderStrikeAbility extends Ability implements IRightClickEmptyAbi
         for (LivingEntity livingEntity : entities)
         {
             livingEntity.setSecondsOnFire(5);
-            livingEntity.hurt(LIGHTNING_DAMAGE, 7);
+            livingEntity.hurt(LIGHTNING_DAMAGE, 7 + (float) entityStats.getReiatsuPoints());
         }
     }
 }

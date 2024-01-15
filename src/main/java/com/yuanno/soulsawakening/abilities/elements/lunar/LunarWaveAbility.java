@@ -3,6 +3,8 @@ package com.yuanno.soulsawakening.abilities.elements.lunar;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
@@ -32,8 +34,9 @@ public class LunarWaveAbility extends Ability implements IRightClickEmptyAbility
     @Override
     public void onShiftRightClick(PlayerEntity player)
     {
+        IEntityStats entityStats = EntityStatsCapability.get(player);
         PARTICLES_WAVE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.LUNAR.get());
-        List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
+        List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10 + entityStats.getReiatsuPoints(), null, LivingEntity.class);
         targets.remove(player);
         for (LivingEntity livingEntity : targets)
         {

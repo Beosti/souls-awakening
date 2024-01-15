@@ -5,6 +5,8 @@ import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -34,12 +36,13 @@ public class FireWaveAbility extends Ability implements IRightClickEmptyAbility 
     @Override
     public void onShiftRightClick(PlayerEntity player)
     {
-        List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10 + entityStats.getReiatsuPoints()/2, null, LivingEntity.class);
         targets.remove(player);
         for (LivingEntity livingEntity : targets)
         {
             livingEntity.setSecondsOnFire(5);
-            livingEntity.hurt(FIRE_DAMAGE, 5);
+            livingEntity.hurt(FIRE_DAMAGE, (float) (5+ entityStats.getReiatsuPoints()/3));
         }
 
         PARTICLES_FIRE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.FIRE.get());

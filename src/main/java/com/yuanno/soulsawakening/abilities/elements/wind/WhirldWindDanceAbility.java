@@ -5,6 +5,8 @@ import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
@@ -34,6 +36,7 @@ public class WhirldWindDanceAbility extends Ability implements IRightClickEmptyA
     @Override
     public void onShiftRightClick(PlayerEntity player)
     {
+        IEntityStats entityStats = EntityStatsCapability.get(player);
         List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
         targets.remove(player);
 
@@ -45,7 +48,7 @@ public class WhirldWindDanceAbility extends Ability implements IRightClickEmptyA
             entityi.hasImpulse = true;
 
 
-            entityi.hurt(WIND_DAMAGE, 5);
+            entityi.hurt(WIND_DAMAGE, 5 + (float) entityStats.getReiatsuPoints());
         });
         ((ServerWorld) player.level).sendParticles(ParticleTypes.SPIT, player.getX(), player.getY(), player.getZ(), (int) 100, 3, 2, 3, 1);
 

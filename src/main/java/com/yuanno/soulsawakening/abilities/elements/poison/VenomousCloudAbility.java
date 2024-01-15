@@ -5,6 +5,8 @@ import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -38,13 +40,15 @@ public class VenomousCloudAbility extends Ability implements IRightClickEmptyAbi
     @Override
     public void onShiftRightClick(PlayerEntity player)
     {
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+
         PARTICLES_POISON.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.POISON.get());
         List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
         targets.remove(player);
         for (LivingEntity livingEntity : targets)
         {
             if (!livingEntity.hasEffect(Effects.POISON))
-                livingEntity.addEffect(new EffectInstance(Effects.POISON, 120, 1));
+                livingEntity.addEffect(new EffectInstance(Effects.POISON, 120, (int) (1 + Math.floor(entityStats.getReiatsuPoints()/4))));
             livingEntity.hurt(POISON_DAMAGE, 5);
         }
     }}

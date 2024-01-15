@@ -3,6 +3,8 @@ package com.yuanno.soulsawakening.abilities.elements.thunder;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
@@ -28,8 +30,9 @@ public class ThunderStepAbility extends Ability implements IRightClickEmptyAbili
     @Override
     public void onRightClick(PlayerEntity player)
     {
+        IEntityStats entityStats = EntityStatsCapability.get(player);
         PARTICLES_HOVER.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.THUNDER.get());
-        RayTraceResult rayTraceResult = Beapi.rayTraceBlocksAndEntities(player, 32);
+        RayTraceResult rayTraceResult = Beapi.rayTraceBlocksAndEntities(player, 32 + entityStats.getHohoPoints()/2);
         BlockPos blockPos = new BlockPos(rayTraceResult.getLocation());
         player.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
         PARTICLES_HOVER.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.THUNDER.get());

@@ -5,6 +5,8 @@ import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,6 +41,7 @@ public class GaleForceAbility extends Ability implements IRightClickEmptyAbility
     @Override
     public void onCooldown(PlayerEntity user)
     {
+        IEntityStats entityStats = EntityStatsCapability.get(user);
         if (this.canDealDamage())
         {
             List<LivingEntity> targets = Beapi.getNearbyEntities(user.blockPosition(), user.level, 5, null, LivingEntity.class);
@@ -47,7 +50,7 @@ public class GaleForceAbility extends Ability implements IRightClickEmptyAbility
             targets.forEach(entity ->
             {
                 if(user.canSee(entity))
-                    entity.hurt(AbilityDamageSource.causeAbilityDamage(user, this), 10);
+                    entity.hurt(AbilityDamageSource.causeAbilityDamage(user, this), 8 + (float) entityStats.getZanjutsuPoints()/2);
             });
         }    }
 

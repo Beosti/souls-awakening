@@ -30,10 +30,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -99,6 +101,14 @@ public class StatPointsEvent {
         MinecraftForge.EVENT_BUS.post(hohoGainEvent);
 
     }
+
+    /* TODO cancel crits and make it rely on hoho
+    @SubscribeEvent
+    public static void onAttackCrit(LivingDamageEvent event)
+    {
+
+    }
+     */
 
     @SubscribeEvent
     public static void onHurtEvent(LivingHurtEvent event)

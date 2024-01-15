@@ -2,6 +2,8 @@ package com.yuanno.soulsawakening.abilities.shinso;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.entities.projectiles.shinso.BladeProjectile;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +24,9 @@ public class ShootAbility extends Ability implements IRightClickEmptyAbility {
     @Override
     public void onRightClick(PlayerEntity user)
     {
+        IEntityStats entityStats = EntityStatsCapability.get(user);
         BladeProjectile bladeProjectile = new BladeProjectile(user.level, user);
+        bladeProjectile.alterDamage((float) entityStats.getZanjutsuPoints());
         user.level.addFreshEntity(bladeProjectile);
         bladeProjectile.shootFromRotation(user, user.xRot, user.yRot, 0, 5f, 1);
     }

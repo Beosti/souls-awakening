@@ -3,6 +3,8 @@ package com.yuanno.soulsawakening.abilities.elements.heal;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
@@ -31,12 +33,13 @@ public class RevitilazingAuraAbility extends Ability implements IRightClickEmpty
     @Override
     public void onShiftRightClick(PlayerEntity user)
     {
+        IEntityStats entityStats = EntityStatsCapability.get(user);
         PARTICLES_WAVE.spawn(user.level, user.getX(), user.getY(), user.getZ(), 0, 0, 0, ModParticleTypes.HEALING.get());
         List<LivingEntity> targets = Beapi.getNearbyEntities(user.blockPosition(), user.level, 10, null, LivingEntity.class);
         for (LivingEntity livingEntity : targets)
         {
             if (!livingEntity.hasEffect(Effects.REGENERATION))
-                livingEntity.addEffect(new EffectInstance(Effects.REGENERATION, 240, 2));
+                livingEntity.addEffect(new EffectInstance(Effects.REGENERATION, 240, 2+(int) (1 + Math.floor(entityStats.getReiatsuPoints()/4))));
 
         }
 
