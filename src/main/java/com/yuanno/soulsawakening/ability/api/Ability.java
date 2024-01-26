@@ -189,18 +189,23 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     public enum Category {
         ZANPAKUTO,
         HOLLOW,
-        HADO,
+        KIDO,
         QUINCY;
     }
 
     public enum SubCategory {
+        // HOLLOW
         BASE(Category.HOLLOW),
         GILLIAN(Category.HOLLOW),
         ADJUCHA(Category.HOLLOW),
         VASTO_LORDE(Category.HOLLOW),
 
+        // ZANPAKUTO
         SHIKAI(Category.ZANPAKUTO),
-        BANKAI(Category.ZANPAKUTO);
+        BANKAI(Category.ZANPAKUTO),
+        BAKUDO(Category.KIDO),
+        HADO(Category.KIDO),
+        KAIDO(Category.KIDO);
         private Category category;
         SubCategory(Category category)
         {

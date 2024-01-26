@@ -106,9 +106,14 @@ public class PlayerOverviewScreen extends Screen {
                     this.renderTooltip(matrixStack, new TranslationTextComponent("Increases damage with a sword"), mouseX, mouseY);
             })).active = classPoints > 0;
         }
-        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 252, posY + 120, 60, 20, new TranslationTextComponent("Challenges"), b ->
+        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 252, posY + 117, 60, 20, new TranslationTextComponent("Challenges"), b ->
         {
             PacketHandler.sendToServer(new COpenChallengeScreenPacket());
+            this.onClose();
+        }));
+        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 252, posY + 140, 60, 20, new TranslationTextComponent("Abilities"), b ->
+        {
+            PacketHandler.sendToServer(new COpenAbilityListScreenPacket());
             this.onClose();
         }));
     }
@@ -228,7 +233,7 @@ public class PlayerOverviewScreen extends Screen {
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
         int leftShift = posX + 180;
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan, leftShift, posY + 160, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan, leftShift, posY + 170, -1);
 
 
 
