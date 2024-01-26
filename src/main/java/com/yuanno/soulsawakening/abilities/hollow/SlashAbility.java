@@ -7,6 +7,7 @@ import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModDamageSource;
+import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleTypes;
@@ -21,7 +22,10 @@ public class SlashAbility extends Ability implements IAttackAbility {
     public SlashAbility()
     {
         this.setName("Slash");
+        this.setDescription("Slash your enemies dealing bonus damage based on the amount of hollow points");
         this.setActivationType(ActivationType.ATTACK);
+        this.setSubCategory(SubCategory.BASE);
+
     }
 
     @Override

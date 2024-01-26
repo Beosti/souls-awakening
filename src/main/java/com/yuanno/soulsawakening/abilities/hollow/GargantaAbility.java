@@ -7,6 +7,7 @@ import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModResources;
+import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.util.GargantaTeleporter;
 import net.minecraft.entity.LivingEntity;
@@ -23,10 +24,12 @@ public class GargantaAbility extends Ability implements IRightClickEmptyAbility 
     public GargantaAbility()
     {
         this.setName("Garganta");
+        this.setDescription("Teleports to and from Hueco Mundo");
         this.setCooldown(240);
         this.setMaxCooldown(240);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setPassive(false);
+        this.setSubCategory(SubCategory.ADJUCHA);
     }
 
     @Override

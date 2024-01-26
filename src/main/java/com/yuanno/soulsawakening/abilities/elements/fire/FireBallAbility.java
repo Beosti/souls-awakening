@@ -20,6 +20,7 @@ public class FireBallAbility extends Ability implements IRightClickEmptyAbility 
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override

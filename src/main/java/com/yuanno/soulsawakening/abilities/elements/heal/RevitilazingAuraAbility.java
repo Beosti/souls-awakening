@@ -28,6 +28,7 @@ public class RevitilazingAuraAbility extends Ability implements IRightClickEmpty
         this.setPassive(false);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setCategory(Category.ZANPAKUTO);
     }
 
     @Override

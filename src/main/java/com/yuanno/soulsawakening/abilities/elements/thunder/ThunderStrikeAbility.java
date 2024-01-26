@@ -32,6 +32,7 @@ public class ThunderStrikeAbility extends Ability implements IRightClickEmptyAbi
         this.setPassive(false);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setCategory(Category.ZANPAKUTO);
     }
 
     @Override

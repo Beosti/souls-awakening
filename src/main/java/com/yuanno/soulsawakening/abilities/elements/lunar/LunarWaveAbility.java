@@ -29,6 +29,7 @@ public class LunarWaveAbility extends Ability implements IRightClickEmptyAbility
         this.setState(STATE.READY);
         this.setPassive(false);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setCategory(Category.ZANPAKUTO);
     }
 
     @Override

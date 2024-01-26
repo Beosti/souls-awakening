@@ -32,6 +32,7 @@ public class FireWaveAbility extends Ability implements IRightClickEmptyAbility 
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setPassive(false);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override

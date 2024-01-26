@@ -18,6 +18,7 @@ public class WideShootAbility extends Ability implements IRightClickEmptyAbility
         this.setMaxCooldown(20);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setCategory(Category.ZANPAKUTO);
     }
 
     @Override

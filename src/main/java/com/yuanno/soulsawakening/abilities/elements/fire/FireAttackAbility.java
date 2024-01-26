@@ -15,6 +15,7 @@ public class FireAttackAbility extends Ability implements IAttackAbility {
         this.setDescription("Hitting an enemy puts them on fire");
         this.setActivationType(ActivationType.ATTACK);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override

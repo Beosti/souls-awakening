@@ -31,6 +31,7 @@ public class WhirldWindDanceAbility extends Ability implements IRightClickEmptyA
         this.setPassive(false);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setCategory(Category.ZANPAKUTO);
     }
 
     @Override

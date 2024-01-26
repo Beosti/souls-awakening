@@ -15,6 +15,7 @@ public class PoisonAttackAbility extends Ability implements IAttackAbility {
         this.setName("Poison Attack");
         this.setActivationType(ActivationType.ATTACK);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setCategory(Category.ZANPAKUTO);
     }
 
     @Override

@@ -18,6 +18,7 @@ public class NormalBuffAbility extends Ability implements IRightClickEmptyAbilit
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setCategory(Category.ZANPAKUTO);
     }
 
     @Override

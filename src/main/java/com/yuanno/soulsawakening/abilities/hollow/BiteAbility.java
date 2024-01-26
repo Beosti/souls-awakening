@@ -9,6 +9,7 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModDamageSource;
+import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
@@ -25,11 +26,13 @@ public class BiteAbility extends Ability implements IRightClickEntityAbility {
     public BiteAbility()
     {
         this.setName("Bite");
+        this.setDescription("Bites the enemy\n if you kill the enemy with this ability, you gain a hollow point");
         this.setCooldown(5);
         this.setMaxCooldown(5);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
         this.setState(STATE.READY);
         this.setPassive(false);
+        this.setSubCategory(SubCategory.BASE);
     }
 
     @Override

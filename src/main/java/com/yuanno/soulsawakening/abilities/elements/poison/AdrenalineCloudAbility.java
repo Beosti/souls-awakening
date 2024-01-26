@@ -25,6 +25,7 @@ public class AdrenalineCloudAbility extends Ability implements IRightClickEmptyA
         this.setState(STATE.READY);
         this.setPassive(false);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setCategory(Category.ZANPAKUTO);
     }
 
     @Override

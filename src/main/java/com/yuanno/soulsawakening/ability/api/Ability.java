@@ -15,6 +15,8 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private double maxCooldown;
     private STATE state;
     private ModValues.STATE zanpakutoState;
+    private Category category = null;
+    private SubCategory subCategory = null;
     private boolean isShown = true;
 
     public Ability(String name, int cooldown, int maxCooldown, ActivationType activationType) {
@@ -184,4 +186,49 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         // You can add more information or methods to the enum values if needed
     }
 
+    public enum Category {
+        ZANPAKUTO,
+        HOLLOW,
+        HADO,
+        QUINCY;
+    }
+
+    public enum SubCategory {
+        BASE(Category.HOLLOW),
+        GILLIAN(Category.HOLLOW),
+        ADJUCHA(Category.HOLLOW),
+        VASTO_LORDE(Category.HOLLOW),
+
+        SHIKAI(Category.ZANPAKUTO),
+        BANKAI(Category.ZANPAKUTO);
+        private Category category;
+        SubCategory(Category category)
+        {
+            this.category = category;
+        }
+
+        Category getCategory()
+        {
+            return this.category;
+        }
+    }
+
+
+
+    public SubCategory getSubCategory()
+    {
+        return this.subCategory;
+    }
+    public void setSubCategory(SubCategory category)
+    {
+        this.subCategory = category;
+    }
+    public Category setCategory(Category category)
+    {
+        return this.category = category;
+    }
+    public Category getCategory()
+    {
+        return this.subCategory.getCategory();
+    }
 }

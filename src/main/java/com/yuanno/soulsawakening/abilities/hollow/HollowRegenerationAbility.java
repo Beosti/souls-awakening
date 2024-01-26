@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IContinuousAbility;
+import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.hollow.HollowRegenerationParticleEffect;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,8 +15,10 @@ public class HollowRegenerationAbility extends Ability implements IContinuousAbi
     public HollowRegenerationAbility()
     {
         this.setName("Hollow Regeneration");
+        this.setDescription("Passively regenerate health as a hollow");
         this.setPassive(true);
         this.setShown(false);
+        this.setSubCategory(SubCategory.BASE);
     }
 
     /*

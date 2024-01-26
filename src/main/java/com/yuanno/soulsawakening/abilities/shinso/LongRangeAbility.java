@@ -22,6 +22,7 @@ public class LongRangeAbility extends Ability implements IPunchAbility {
         this.setPassive(false);
         this.setActivationType(ActivationType.ATTACK);
         this.setZanpakutoState(ModValues.STATE.SHIKAI);
+        this.setCategory(Category.ZANPAKUTO);
     }
 
     public void startContinuity(PlayerEntity player) {
