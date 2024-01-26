@@ -14,7 +14,8 @@ public class AbilityDataBase implements IAbilityData {
     private List<Ability> unlockedAbilities = new ArrayList<Ability>();
 
     private Ability previouslyUsedAbility;
-
+    private int selectedAbilityInteger;
+    private ArrayList<Ability> abilitiesInBar = new ArrayList<>();
     @Override
     public boolean loadUnlockedAbility(Ability abl)
     {
@@ -59,5 +60,55 @@ public class AbilityDataBase implements IAbilityData {
         List removed = (List) this.unlockedAbilities;
         this.unlockedAbilities.clear();
         return removed;
+    }
+
+    @Override
+    public void setSelectedAbility(int selection)
+    {
+        if (this.selectedAbilityInteger < this.abilitiesInBar.size())
+            this.selectedAbilityInteger = selection;
+    }
+
+    @Override
+    public int getSelectionAbility()
+    {
+        return this.selectedAbilityInteger;
+    }
+
+    @Override
+    public void addAbilityToBar(Ability ability)
+    {
+        this.abilitiesInBar.add(ability);
+    }
+
+    @Override
+    public void removeAbilityFromBar(Ability ability)
+    {
+        this.abilitiesInBar.remove(ability);
+    }
+
+    @Override
+    public ArrayList<Ability> getAbilitiesInBar()
+    {
+        return this.abilitiesInBar;
+    }
+
+    @Override
+    public <T extends Ability> T getAbilityInbar(T abl)
+    {
+        this.abilitiesInBar.removeIf(ability -> ability == null);
+        return (T) this.abilitiesInBar.stream().filter(ability -> ability.equals(abl)).findFirst().orElse(null);
+    }
+
+    @Override
+    public boolean loadAbilityInBar(Ability abl)
+    {
+        Ability ogAbl = this.getAbilityInbar(abl);
+        if (ogAbl == null)
+        {
+            this.abilitiesInBar.add(abl);
+            return true;
+        }
+        return false;
     }
 }

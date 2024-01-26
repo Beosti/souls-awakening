@@ -46,6 +46,8 @@ public class StatsOverlay extends AbstractGui {
 
             for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
             {
+                if (abilityData.getUnlockedAbilities().get(i).getActivationType().equals(Ability.ActivationType.SCROLL))
+                    continue;
                 Color iconColor = Beapi.hexToRGB("#FFFFFF");
                 Ability abilityToDraw = abilityData.getUnlockedAbilities().get(i);
                 String originalResourceLocation = abilityToDraw.getRegistryName().toString();

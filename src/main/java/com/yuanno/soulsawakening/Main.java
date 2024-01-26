@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening;
 
 import com.yuanno.soulsawakening.client.ClientHandler;
 import com.yuanno.soulsawakening.client.overlay.StatsOverlay;
+import com.yuanno.soulsawakening.events.kido.KidoClientEvents;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.init.world.ModBiomes;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
@@ -71,6 +72,8 @@ public class Main
         ModKeyBinds.init();
         ItemProperties.register();
         MinecraftForge.EVENT_BUS.register(new StatsOverlay());
+        MinecraftForge.EVENT_BUS.register(new KidoClientEvents());
+
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

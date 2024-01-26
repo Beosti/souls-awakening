@@ -181,9 +181,8 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         ATTACK,
         RIGHT_CLICK_BLOCK,
         SHIFT_RIGHT_CLICK,
-        RIGHT_CLICK_ENTITY;  // Add more activation types as needed
-
-        // You can add more information or methods to the enum values if needed
+        RIGHT_CLICK_ENTITY,
+        SCROLL;
     }
 
     public enum Category {

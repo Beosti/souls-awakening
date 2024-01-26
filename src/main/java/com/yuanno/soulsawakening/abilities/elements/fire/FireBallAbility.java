@@ -30,7 +30,7 @@ public class FireBallAbility extends Ability implements IRightClickEmptyAbility 
         IEntityStats entityStats = EntityStatsCapability.get(user);
         projectile.alterDamage((float) (entityStats.getReiatsuPoints()/2));
         user.level.addFreshEntity(projectile);
-        projectile.shootFromRotation(user, user.xRot, user.yRot, 0, 0.5f, 1);
+        projectile.shootFromRotation(user, user.xRot, user.yRot, 0, 1f, 1);
 
     }
 }

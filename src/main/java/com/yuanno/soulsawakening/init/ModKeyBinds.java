@@ -1,14 +1,21 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.data.ability.AbilityDataBase;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.events.zanpakuto.ZanpakutoChangeEvent;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CChangeZanpakutoStatePacket;
 import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
+import com.yuanno.soulsawakening.networking.client.CSyncAbilityDataPacket;
+import com.yuanno.soulsawakening.networking.client.CUseSpellPacket;
 import com.yuanno.soulsawakening.screens.PlayerOverviewScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
@@ -25,12 +32,16 @@ public class ModKeyBinds {
 
     public static KeyBinding infoCard;
     public static KeyBinding zanpakutoStateNext;
+    public static KeyBinding useSpell;
     public static void init()
     {
-        infoCard = new KeyBinding("keys.soulsawakening.info_card", 40, "keys.soulsawakening.gui");
+        infoCard = new KeyBinding("keys.soulsawakening.info_card", GLFW.GLFW_KEY_T, "keys.soulsawakening.gui");
         ClientRegistry.registerKeyBinding(infoCard);
-        zanpakutoStateNext = new KeyBinding("keys.soalsawakening.zanpakuto_state", 41, "keys.soulsawakening.zanpakuto");
+        zanpakutoStateNext = new KeyBinding("keys.soalsawakening.zanpakuto_state", GLFW.GLFW_KEY_V, "keys.soulsawakening.zanpakuto");
         ClientRegistry.registerKeyBinding(zanpakutoStateNext);
+        useSpell = new KeyBinding("keys.soulsawakening.use_spell", GLFW.GLFW_KEY_R, "keys.soulsawakening.spells");
+        ClientRegistry.registerKeyBinding(useSpell);
+
     }
 
     @SubscribeEvent
@@ -70,5 +81,44 @@ public class ModKeyBinds {
             }
 
         }
+        if (useSpell.consumeClick())
+        {
+            IAbilityData abilityData = AbilityDataCapability.get(player);
+            if (!abilityData.getAbilitiesInBar().isEmpty())
+                PacketHandler.sendToServer(new CUseSpellPacket(abilityData.getSelectionAbility()));
+        }
+    }
+
+    @SubscribeEvent
+    public static void onMouseScroll(InputEvent.MouseScrollEvent event)
+    {
+        Minecraft minecraft = Minecraft.getInstance();
+        PlayerEntity player = minecraft.player;
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        if (abilityData.getAbilitiesInBar().isEmpty())
+            return;
+        if (InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_CONTROL) || InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_RIGHT_CONTROL)) {
+            event.setCanceled(true);
+            ModKeyBinds.checkKeybindingsScrollingKido(player, event.getScrollDelta());
+        }
+    }
+
+    private static void checkKeybindingsScrollingKido(PlayerEntity player, double deltaScrolling)
+    {
+        IAbilityData abilityDataProps = AbilityDataCapability.get(player);
+        int newSelected = (int) (abilityDataProps.getSelectionAbility() + deltaScrolling);
+        if (deltaScrolling == 1 && newSelected >= abilityDataProps.getAbilitiesInBar().size()) {
+            System.out.println("UP");
+            newSelected = 0;
+        }
+        else if (deltaScrolling == -1 && newSelected < 0)
+        {
+            System.out.println("DOWN");
+
+            newSelected = abilityDataProps.getAbilitiesInBar().size() - 1;
+        }
+        abilityDataProps.setSelectedAbility(newSelected);
+        PacketHandler.sendToServer(new CSyncAbilityDataPacket(abilityDataProps));
+
     }
 }

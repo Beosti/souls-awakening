@@ -25,6 +25,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(COpenTradingScreenPacket.class, COpenTradingScreenPacket::encode, COpenTradingScreenPacket::decode, COpenTradingScreenPacket::handle);
         PacketHandler.registerPacket(CSyncentityStatsReiatsuPacket.class, CSyncentityStatsReiatsuPacket::encode, CSyncentityStatsReiatsuPacket::decode, CSyncentityStatsReiatsuPacket::handle);
         PacketHandler.registerPacket(COpenAbilityListScreenPacket.class, COpenAbilityListScreenPacket::encode, COpenAbilityListScreenPacket::decode, COpenAbilityListScreenPacket::handle);
+        PacketHandler.registerPacket(CUseSpellPacket.class, CUseSpellPacket::encode, CUseSpellPacket::decode, CUseSpellPacket::handle);
 
 
 

@@ -27,6 +27,8 @@ public class AbilityDataCapability {
             @Override
             public INBT writeNBT(Capability<IAbilityData> capability, IAbilityData instance, Direction side) {
                 CompoundNBT props = new CompoundNBT();
+                props.putInt("selected_integer", instance.getSelectionAbility());
+
                 try {
                     ListNBT unlockedAbilities = new ListNBT();
                     for (int i = 0; i < instance.getUnlockedAbilities().size(); i++)
@@ -36,6 +38,14 @@ public class AbilityDataCapability {
                         unlockedAbilities.add(nbtAbility);
                     }
                     props.put("unlocked_abilities", unlockedAbilities);
+                    ListNBT abilitiesInBar = new ListNBT();
+                    for (int i = 0; i < instance.getAbilitiesInBar().size(); i++)
+                    {
+                        Ability ability = instance.getAbilitiesInBar().get(i);
+                        CompoundNBT nbtAbility = ability.save();
+                        abilitiesInBar.add(nbtAbility);
+                    }
+                    props.put("abilities_bar", abilitiesInBar);
                 }
                 catch (Exception exception)
                 {
@@ -47,7 +57,7 @@ public class AbilityDataCapability {
             @Override
             public void readNBT(Capability<IAbilityData> capability, IAbilityData instance, Direction side, INBT nbt) {
                 CompoundNBT compoundNBT = (CompoundNBT) nbt;
-
+                instance.setSelectedAbility(compoundNBT.getInt("selected_integer"));
                 try {
                     instance.clearUnlockedAbilities();
 
@@ -63,6 +73,25 @@ public class AbilityDataCapability {
                                 continue;
                             ability.load(nbtAbility);
                             instance.loadUnlockedAbility(ability);
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    ListNBT abilitiesInBar = compoundNBT.getList("abilities_bar", Constants.NBT.TAG_COMPOUND);
+                    for (int i = 0; i < abilitiesInBar.size(); i++)
+                    {
+                        CompoundNBT nbtAbility = abilitiesInBar.getCompound(i);
+
+                        try
+                        {
+                            Ability ability = (Ability) GameRegistry.findRegistry(Ability.class).getValue(new ResourceLocation(nbtAbility.getString("id")));
+                            if (ability == null)
+                                continue;
+                            ability.load(nbtAbility);
+                            instance.loadAbilityInBar(ability);
                         }
                         catch (Exception e)
                         {
