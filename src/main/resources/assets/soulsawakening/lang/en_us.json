@@ -84,6 +84,8 @@
   "challenge.soulsawakening.begin.seated12shinigami": "Seated 12th shinigami",
   "challenge.soulsawakening.begin.objective.seated12shinigami": "Seated 12th shinigami",
   "challenge.soulsawakening.begin.seated11shinigami": "Seated 11th shinigami",
-  "challenge.soulsawakening.begin.objective.seated11shinigami": "Seated 11th shinigami"
+  "challenge.soulsawakening.begin.objective.seated11shinigami": "Seated 11th shinigami",
+  "ability.message.no_target": "No target found",
+  "ability.message.reiatsu_target": "The target has too much reiatsu presssure to be affected!"
 
 }

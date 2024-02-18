@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.kido.bakudo.SaiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ByakuraiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShakkahoAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShoAbility;
@@ -44,7 +45,8 @@ public class TestEvent {
             abilityData.addAbilityToBar(ByakuraiAbility.INSTANCE);
             abilityData.addUnlockedAbility(ShakkahoAbility.INSTANCE);
             abilityData.addAbilityToBar(ShakkahoAbility.INSTANCE);
-
+            abilityData.addUnlockedAbility(SaiAbility.INSTANCE);
+            abilityData.addAbilityToBar(SaiAbility.INSTANCE);
             abilityData.setSelectedAbility(0);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         }
