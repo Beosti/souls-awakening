@@ -46,33 +46,23 @@ public class StatsOverlay extends AbstractGui {
 
             for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
             {
-                if (abilityData.getUnlockedAbilities().get(i).getActivationType().equals(Ability.ActivationType.SCROLL))
-                    continue;
-                Color iconColor = Beapi.hexToRGB("#FFFFFF");
-                Ability abilityToDraw = abilityData.getUnlockedAbilities().get(i);
-                String originalResourceLocation = abilityToDraw.getRegistryName().toString();
-                String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
-                ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
-                Beapi.drawIcon(resourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
-                ResourceLocation widgetResourceLocation = new ResourceLocation(Main.MODID, "textures/widget/widget_contour.png");
-                ResourceLocation widgetResourceLocationCooldown = new ResourceLocation(Main.MODID, "textures/widget/widget_contour_cooldown.png");
+                if (abilityData.getUnlockedAbilities().get(i).getActivationType() != null && !abilityData.getUnlockedAbilities().get(i).getActivationType().equals(Ability.ActivationType.SCROLL))
+                {
+                    Color iconColor = Beapi.hexToRGB("#FFFFFF");
+                    Ability abilityToDraw = abilityData.getUnlockedAbilities().get(i);
+                    String originalResourceLocation = abilityToDraw.getRegistryName().toString();
+                    String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
+                    ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
+                    Beapi.drawIcon(resourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                    ResourceLocation widgetResourceLocation = new ResourceLocation(Main.MODID, "textures/widget/widget_contour.png");
+                    ResourceLocation widgetResourceLocationCooldown = new ResourceLocation(Main.MODID, "textures/widget/widget_contour_cooldown.png");
 
-                if (abilityToDraw.getCooldown() != 0 && abilityToDraw.getCooldown() != abilityToDraw.getMaxCooldown())
-                    Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 1.0f, 0, 0);
-                else {
-                    Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                    if (abilityToDraw.getCooldown() != 0 && abilityToDraw.getCooldown() != abilityToDraw.getMaxCooldown())
+                        Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 1.0f, 0, 0);
+                    else {
+                        Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                    }
                 }
-                /*
-                if (!abilityData.getUnlockedAbilities().get(i).getPassive()) {
-                    drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "Ability: " + TextFormatting.RESET + abilityData.getUnlockedAbilities().get(i).getName(), 20, 20 + i * 15, -1);
-
-                    drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "Cooldown: " + TextFormatting.RESET + (int) abilityData.getUnlockedAbilities().get(i).getCooldown(), 130, 20 + i * 15, -1);
-                }
-                else if (abilityData.getUnlockedAbilities().get(i).getPassive() && abilityData.getUnlockedAbilities().get(i).getShown())
-                    drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "Ability: " + TextFormatting.RESET + abilityData.getUnlockedAbilities().get(i).getName(), 20, 20 + i * 15, -1);
-
-
-                 */
             }
         }
     }

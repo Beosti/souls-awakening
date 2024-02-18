@@ -81,8 +81,7 @@ public class CStartChallengePacket {
 				
 				// Lots of checks here just in case
 				
-				System.out.println(list);
-				
+
 				ChallengesWorldData.get().startChallenge((ServerPlayerEntity) player, new ArrayList<>(), core, message.isFree);
 			});
 		}

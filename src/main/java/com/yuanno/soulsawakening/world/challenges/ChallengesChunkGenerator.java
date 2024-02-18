@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.world;
+package com.yuanno.soulsawakening.world.challenges;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;

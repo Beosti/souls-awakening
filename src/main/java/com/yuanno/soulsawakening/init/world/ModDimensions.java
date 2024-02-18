@@ -1,8 +1,8 @@
 package com.yuanno.soulsawakening.init.world;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.world.ChallengesBiomeProvider;
-import com.yuanno.soulsawakening.world.ChallengesChunkGenerator;
+import com.yuanno.soulsawakening.world.challenges.ChallengesBiomeProvider;
+import com.yuanno.soulsawakening.world.challenges.ChallengesChunkGenerator;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;

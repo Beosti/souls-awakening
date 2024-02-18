@@ -1,6 +1,5 @@
-package com.yuanno.soulsawakening.world.gen;
+package com.yuanno.soulsawakening.world.gen.ore;
 
-import com.yuanno.soulsawakening.world.OreType;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.GenerationStage;

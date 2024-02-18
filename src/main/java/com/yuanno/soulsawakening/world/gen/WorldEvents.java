@@ -2,8 +2,7 @@ package com.yuanno.soulsawakening.world.gen;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.data.ChallengesWorldData;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
+import com.yuanno.soulsawakening.world.gen.ore.OreGeneration;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;

@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.world;
+package com.yuanno.soulsawakening.world.challenges;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -37,6 +37,11 @@ import java.util.Map.Entry;
 import java.util.concurrent.Executor;
 import java.util.function.BiFunction;
 
+/**
+ * This whole class manages the dimensions
+ *
+ * Taken from Wynd -> Mine Mine no Mi mod
+ */
 public class DynamicDimensionManager
 {
 	public static final ChallengeDimensionRenderInfo CHALLANGE_DIM_INFO = new ChallengeDimensionRenderInfo();

@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.world;
+package com.yuanno.soulsawakening.world.challenges;
 
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;

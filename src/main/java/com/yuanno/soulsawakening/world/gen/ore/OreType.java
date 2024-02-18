@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.world;
+package com.yuanno.soulsawakening.world.gen.ore;
 
 import com.yuanno.soulsawakening.init.ModBlocks;
 import net.minecraft.block.Block;
