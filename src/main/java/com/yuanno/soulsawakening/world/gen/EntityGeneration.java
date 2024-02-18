@@ -25,10 +25,10 @@ public class EntityGeneration {
 
         Set types = BiomeDictionary.getTypes(key);
         ResourceLocation biomeName = event.getName();
-        if (!types.contains(BiomeDictionary.Type.WET)
+        if ((!types.contains(BiomeDictionary.Type.WET)
                 && !types.contains(BiomeDictionary.Type.OCEAN)
                 && !types.contains(BiomeDictionary.Type.RIVER)
-                && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(BiomeDictionary.Type.VOID))
+                && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(BiomeDictionary.Type.VOID)) || biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BEAST.get(), 1, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CLAW.get(), 1, 1, 1));
@@ -40,7 +40,7 @@ public class EntityGeneration {
         if (!types.contains(BiomeDictionary.Type.WET)
                 && !types.contains(BiomeDictionary.Type.OCEAN)
                 && !types.contains(BiomeDictionary.Type.RIVER)
-                && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(BiomeDictionary.Type.VOID))
+                && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(BiomeDictionary.Type.VOID) && !biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.PLUS.get(), 20, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.SHINIGAMI.get(), 20, 1, 1));

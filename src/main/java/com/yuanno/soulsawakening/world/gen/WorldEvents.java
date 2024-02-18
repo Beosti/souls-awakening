@@ -17,6 +17,7 @@ public class WorldEvents {
     {
         OreGeneration.generateOres(event);
         EntityGeneration.onEntitySpawn(event);
+        StructureGeneration.generateStructures(event);
     }
 
     @SubscribeEvent

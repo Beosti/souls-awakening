@@ -1,11 +1,11 @@
 {
-  "name": "block_clover:small_ruin",
+  "name": "soulsawakening:small_ruin",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "block_clover:small_ruin1",
+        "location": "soulsawakening:small_ruin1",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
@@ -14,7 +14,7 @@
     {
       "weight": 1,
       "element": {
-        "location": "block_clover:small_ruin2",
+        "location": "soulsawakening:small_ruin2",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
@@ -23,7 +23,7 @@
     {
       "weight": 1,
       "element": {
-        "location": "block_clover:small_ruin3",
+        "location": "soulsawakening:small_ruin3",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
