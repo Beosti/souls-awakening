@@ -26,7 +26,7 @@ public class BiteAbility extends Ability implements IRightClickEntityAbility {
     public BiteAbility()
     {
         this.setName("Bite");
-        this.setDescription("Bites the enemy\n if you kill the enemy with this ability, you gain a hollow point");
+        this.setDescription("Bites the enemy, if you kill the enemy with this ability, you gain a hollow point");
         this.setCooldown(5);
         this.setMaxCooldown(5);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);

@@ -21,7 +21,7 @@ public class SlashAbility extends Ability implements IAttackAbility {
 
     public SlashAbility()
     {
-        this.setName("Slash");
+        this.setName("Slashing");
         this.setDescription("Slash your enemies dealing bonus damage based on the amount of hollow points");
         this.setActivationType(ActivationType.ATTACK);
         this.setSubCategory(SubCategory.BASE);

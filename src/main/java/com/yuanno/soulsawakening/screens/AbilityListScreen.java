@@ -17,12 +17,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -180,58 +182,17 @@ public class AbilityListScreen extends Screen {
                 Entry entry = new Entry(vastolordeAbilities.get(i), posX + 40 + (35 * i), posY + 107);
                 entries.add(i, entry);
             }
-
-                /*
-                if (abilities.get(i).getCategory().equals(Ability.Category.HOLLOW))
-                {
-                    if (abilities.get(i).getSubCategory().equals(Ability.SubCategory.BASE))
-                    {
-                        String originalResourceLocation = abilities.get(i).getRegistryName().toString();
-                        String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
-                        ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
-                        Beapi.drawIcon(resourceLocation, posX + 40 + (35 * i), posY + 60, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
-                        Entry entry = new Entry(abilities.get(i), posX + 40 + (35 * i), posY + 60);
-                        entries.add(i, entry);
-                    }
-                    if (abilities.get(i).getSubCategory().equals(Ability.SubCategory.GILLIAN))
-                    {
-                        String originalResourceLocation = abilities.get(i).getRegistryName().toString();
-                        String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
-                        ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
-                        Beapi.drawIcon(resourceLocation, posX + 40 + (35 * i), posY + 107, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
-                        Entry entry = new Entry(abilities.get(i), posX + 40 + (35 * i), posY + 107);
-                        entries.add(i, entry);
-                    }
-                    if (abilities.get(i).getSubCategory().equals(Ability.SubCategory.ADJUCHA))
-                    {
-                        String originalResourceLocation = abilities.get(i).getRegistryName().toString();
-                        String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
-                        ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
-                        Beapi.drawIcon(resourceLocation, posX + 40 + (35 * i), posY + 144, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
-                        Entry entry = new Entry(abilities.get(i), posX + 40 + (35 * i), posY + 144);
-                        entries.add(i, entry);
-                    }
-                    if (abilities.get(i).getSubCategory().equals(Ability.SubCategory.VASTO_LORDE))
-                    {
-                        String originalResourceLocation = abilities.get(i).getRegistryName().toString();
-                        String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
-                        ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
-                        Beapi.drawIcon(resourceLocation, posX + 40 + (35 * i), posY + 181, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
-                        Entry entry = new Entry(abilities.get(i), posX + 40 + (35 * i), posY + 181);
-                        entries.add(i, entry);
-                    }
-                }
-
-                 */
-
         }
 
         if (isMouseOver(x, y))
         {
             Ability abilityHovering = getHoveredEntry(x, y).ability;
-            StringBuilder fullDescription = new StringBuilder(abilityHovering.getName() + "\n" + "Description: " + abilityHovering.getDescription() + "\n");
+            String name = abilityHovering.getName();
+            StringBuilder fullDescription = new StringBuilder(name + "\n" + "§lDescription§r: " + abilityHovering.getDescription() + "\n");
+            StringBuilder extraInfo = new StringBuilder(name + "\n" + "press §lSHIFT§r for description and attack type");
+            //extraInfo.append("\n" + "press §lSHIFT§r for more information");
             if (abilityHovering.getMaxCooldown() != 0)
-                fullDescription.append("Cooldown: " + abilityHovering.getMaxCooldown() + "\n");
+                fullDescription.append("§lCooldown§r: " + abilityHovering.getMaxCooldown() + "\n");
             String activation_type = "";
             if (abilityHovering.getPassive())
                 activation_type = "passive";
@@ -258,9 +219,11 @@ public class AbilityListScreen extends Screen {
                         break;
                 }
             }
-            fullDescription.append("Activation type: " + activation_type);
-            this.renderTooltip(matrixStack, new TranslationTextComponent(String.valueOf(fullDescription)), x, y);
-
+            fullDescription.append("§lActivation type§r: " + activation_type);
+            if (InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT))
+                this.renderTooltip(matrixStack, new TranslationTextComponent(String.valueOf(fullDescription)), x, y);
+            else
+                this.renderTooltip(matrixStack, new TranslationTextComponent(String.valueOf(extraInfo)), x, y);
         }
         super.render(matrixStack, x, y, f);
     }
