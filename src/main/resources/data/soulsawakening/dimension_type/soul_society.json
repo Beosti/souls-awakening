@@ -1,0 +1,17 @@
+{
+  "name": "soulsawakening:soul_society",
+  "ultrawarm": false,
+  "natural": false,
+  "coordinate_scale": 1,
+  "has_skylight": false,
+  "has_ceiling": false,
+  "ambient_light": 15,
+  "fixed_time": 15000,
+  "piglin_safe": false,
+  "bed_works": false,
+  "respawn_anchor_works": false,
+  "has_raids": false,
+  "logical_height": 256,
+  "infiniburn": "minecraft:infiniburn_overworld",
+  "effects": "minecraft:overworld"
+}

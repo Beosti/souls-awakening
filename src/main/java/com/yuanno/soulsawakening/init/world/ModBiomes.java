@@ -16,6 +16,7 @@ public class ModBiomes {
 
     public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, Main.MODID);
     public static final RegistryObject<Biome> HUECO_MUNDO = BIOMES.register("hueco_mundo", () -> makeHuecoMundoBiome(() -> ModConfiguredSurfaceBuilders.HUECO_MUNDO, 0.18f, 0.15f));
+    public static final RegistryObject<Biome> SOUL_SOCIETY = BIOMES.register("soul_society", () -> makeSoulSocietyBiome(() -> ModConfiguredSurfaceBuilders.SOUL_SOCIETY, -0.105f, -0.105f));
 
     public static Biome makeHuecoMundoBiome(final Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
         MobSpawnInfo.Builder mobspawninfo$builder = new MobSpawnInfo.Builder();
@@ -29,6 +30,23 @@ public class ModBiomes {
                 .skyColor(calculateSkyColor())
                 .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS)
                 .build())
+                .mobSpawnSettings(mobspawninfo$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
+
+
+    }
+
+    public static Biome makeSoulSocietyBiome(final Supplier<ConfiguredSurfaceBuilder<?>> surfaceBuilder, float depth, float scale) {
+        MobSpawnInfo.Builder mobspawninfo$builder = new MobSpawnInfo.Builder();
+        DefaultBiomeFeatures.desertSpawns(mobspawninfo$builder);
+        BiomeGenerationSettings.Builder biomegenerationsettings$builder = (new BiomeGenerationSettings.Builder().surfaceBuilder(surfaceBuilder));
+
+
+        return (new Biome.Builder()).precipitation(Biome.RainType.NONE).biomeCategory(Biome.Category.NONE).depth(depth).scale(scale).temperature(2.0F).downfall(0.0F).specialEffects((new BiomeAmbience.Builder()).waterColor(4159204)
+                        .waterFogColor(329011)
+                        .fogColor(12638463)
+                        .skyColor(calculateSkyColor())
+                        .ambientMoodSound(MoodSoundAmbience.LEGACY_CAVE_SETTINGS)
+                        .build())
                 .mobSpawnSettings(mobspawninfo$builder.build()).generationSettings(biomegenerationsettings$builder.build()).build();
 
 

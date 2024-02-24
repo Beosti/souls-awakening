@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.world.structures.BigRuinStructure;
+import com.yuanno.soulsawakening.world.structures.RoadStructure;
 import com.yuanno.soulsawakening.world.structures.SmallRuinStructure;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -24,12 +25,17 @@ public class ModStructures {
 
     public static final RegistryObject<Structure<NoFeatureConfig>> BIG_RUIN = DEFERRED_REGISTRY_STRUCTURE.register("big_ruin", BigRuinStructure::new);
     public static final RegistryObject<Structure<NoFeatureConfig>> SMALL_RUIN = DEFERRED_REGISTRY_STRUCTURE.register("small_ruin", SmallRuinStructure::new);
+    public static final RegistryObject<Structure<NoFeatureConfig>> ROADS = DEFERRED_REGISTRY_STRUCTURE.register("roads", RoadStructure::new);
 
     public static void setupStructures()
     {
         // structure, seperation (average distance in chunks from other structure, minimum, seed large and different), transform surrounding land or not
         setupMapSpacingAndLand(BIG_RUIN.get(), new StructureSeparationSettings(15, 10, 1234534561), false);
         setupMapSpacingAndLand(SMALL_RUIN.get(), new StructureSeparationSettings(10, 5, 721689745), false);
+        setupMapSpacingAndLand(ROADS.get(), new StructureSeparationSettings(12, 7, 643921737), false);
+
+        //setupMapSpacingAndLand(ROADS.get(), new StructureSeparationSettings(10, 5, 721689745), false);
+
     }
 
     public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings, boolean transformSurroundingLand)

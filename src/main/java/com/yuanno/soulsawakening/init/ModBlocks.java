@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.init;
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.blocks.HollowSandBlock;
+import com.yuanno.soulsawakening.blocks.ReishiBricksBlock;
 import com.yuanno.soulsawakening.blocks.ReishiOreBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -23,6 +24,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> REISHI_ORE = registerBlock("reishi_ore", ReishiOreBlock::new);
     public static final RegistryObject<Block> HOLLOW_SAND = registerBlock("hollow_sand", HollowSandBlock::new);
+    public static final RegistryObject<Block> REISHI_BRICKS = registerBlock("reishi_bricks", ReishiBricksBlock::new);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

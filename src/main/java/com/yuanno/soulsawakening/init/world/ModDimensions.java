@@ -11,6 +11,8 @@ import net.minecraft.world.World;
 public class ModDimensions {
     public static RegistryKey<World> HUECO_MUNDO = RegistryKey.create(Registry.DIMENSION_REGISTRY,
             new ResourceLocation(Main.MODID, "hueco_mundo"));
+    public static RegistryKey<World> SOUL_SOCIETY = RegistryKey.create(Registry.DIMENSION_REGISTRY,
+            new ResourceLocation(Main.MODID, "soul_society"));
     /*
     public static RegistryKey<World> TEST = RegistryKey.create(Registry.DIMENSION_REGISTRY,
             new ResourceLocation(Main.MODID, "test"));

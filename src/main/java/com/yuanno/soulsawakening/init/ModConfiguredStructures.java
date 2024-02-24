@@ -12,14 +12,18 @@ public class ModConfiguredStructures {
 
     public static StructureFeature<?, ?> CONFIGURED_BIG_RUIN = ModStructures.BIG_RUIN.get().configured(IFeatureConfig.NONE);
     public static StructureFeature<?, ?> CONFIGURED_SMALL_RUIN = ModStructures.SMALL_RUIN.get().configured(IFeatureConfig.NONE);
+    public static StructureFeature<?, ?> CONFIGURED_ROADS = ModStructures.ROADS.get().configured(IFeatureConfig.NONE);
 
     public static void registerConfiguredStructures()
     {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
         Registry.register(registry, new ResourceLocation(Main.MODID, "big_ruin"), CONFIGURED_BIG_RUIN);
         Registry.register(registry, new ResourceLocation(Main.MODID, "small_ruin"), CONFIGURED_SMALL_RUIN);
+        Registry.register(registry, new ResourceLocation(Main.MODID, "roads"), CONFIGURED_ROADS);
 
         FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.BIG_RUIN.get(), CONFIGURED_BIG_RUIN);
         FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SMALL_RUIN.get(), CONFIGURED_SMALL_RUIN);
+        FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.ROADS.get(), CONFIGURED_ROADS);
+
     }
 }

@@ -33,6 +33,9 @@ public class BigRuinStructure extends Structure<NoFeatureConfig> {
 
     @Override
     protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, net.minecraft.world.biome.provider.BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
+
+
+
         BlockPos centerOfChunk = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
         int landHeight = chunkGenerator.getFirstOccupiedHeight(centerOfChunk.getX(), centerOfChunk.getZ(),
                 Heightmap.Type.WORLD_SURFACE_WG);
@@ -72,7 +75,7 @@ public class BigRuinStructure extends Structure<NoFeatureConfig> {
 
             JigsawManager.addPieces(dynamicRegistryManager,
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(Main.MODID, "big_ruin")),
+                            .get(new ResourceLocation(Main.MODID, "ruins/big_ruin")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     blockpos, this.pieces, this.random,false,true);
 

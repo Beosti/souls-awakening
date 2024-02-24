@@ -22,5 +22,9 @@ public class StructureGeneration {
             event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_BIG_RUIN);
             event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SMALL_RUIN);
         }
+        if (biomeName.toString().equals("soulsawakening:soul_society"))
+        {
+            event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_ROADS);
+        }
     }
 }

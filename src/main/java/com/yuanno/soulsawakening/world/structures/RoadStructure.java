@@ -24,15 +24,17 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 
-public class SmallRuinStructure extends Structure<NoFeatureConfig> {
+public class RoadStructure extends Structure<NoFeatureConfig> {
 
-    public SmallRuinStructure()
+    public RoadStructure()
     {
         super(NoFeatureConfig.CODEC);
     }
 
     @Override
     protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, net.minecraft.world.biome.provider.BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
+
+
         BlockPos centerOfChunk = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
         int landHeight = chunkGenerator.getFirstOccupiedHeight(centerOfChunk.getX(), centerOfChunk.getZ(),
                 Heightmap.Type.WORLD_SURFACE_WG);
@@ -72,7 +74,7 @@ public class SmallRuinStructure extends Structure<NoFeatureConfig> {
 
             JigsawManager.addPieces(dynamicRegistryManager,
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
-                            .get(new ResourceLocation(Main.MODID, "ruins/small_ruin")),
+                            .get(new ResourceLocation(Main.MODID, "soul_society/roads/roads")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     blockpos, this.pieces, this.random,false,true);
 
@@ -82,7 +84,7 @@ public class SmallRuinStructure extends Structure<NoFeatureConfig> {
 
             this.calculateBoundingBox();
 
-            LogManager.getLogger().log(Level.DEBUG, "Small ruin at " +
+            LogManager.getLogger().log(Level.DEBUG, "Road at " +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
                     this.pieces.get(0).getBoundingBox().z0);

@@ -46,7 +46,7 @@ public class DynamicDimensionManager
 {
 	public static final ChallengeDimensionRenderInfo CHALLANGE_DIM_INFO = new ChallengeDimensionRenderInfo();
 	private static final Set<RegistryKey<World>> VANILLA_WORLDS = ImmutableSet.of(World.OVERWORLD, World.NETHER, World.END);
-	private static final Set<RegistryKey<World>> MODDED_WORLDS = ImmutableSet.of(ModDimensions.HUECO_MUNDO);
+	private static final Set<RegistryKey<World>> MODDED_WORLDS = ImmutableSet.of(ModDimensions.HUECO_MUNDO, ModDimensions.SOUL_SOCIETY);
 
 	private static Set<RegistryKey<World>> pendingWorldsToUnregister = new HashSet<>();
 
