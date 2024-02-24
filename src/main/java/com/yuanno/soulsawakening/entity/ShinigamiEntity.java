@@ -3,14 +3,14 @@ package com.yuanno.soulsawakening.entity;
 import com.google.common.base.Predicates;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
+import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackShinigamiGoal;
 import com.yuanno.soulsawakening.entity.hollow.HollowEntity;
 import com.yuanno.soulsawakening.entity.hollow.JetEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
-import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
-import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.init.world.ModDimensions;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -19,14 +19,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EntityPredicates;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -54,7 +52,7 @@ public class ShinigamiEntity extends CreatureEntity {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, JetEntity.class, false));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, true, factionScope));
 
-        this.goalSelector.addGoal(4, new ImprovedMeleeAttackGoal(this, 1, true));
+        this.goalSelector.addGoal(4, new ImprovedMeleeAttackShinigamiGoal(this, 1, true));
 
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -85,20 +83,18 @@ public class ShinigamiEntity extends CreatureEntity {
                 return false;
             }
 
-            /*
-            if(isTamedBy(entity).test(target)) {
-                return false;
-            }
-
-             */
-
             boolean isSpectating = !EntityPredicates.NO_SPECTATORS.test(target);
             if (isSpectating) {
                 return false;
             }
 
             IEntityStats entityStats = EntityStatsCapability.get((LivingEntity) target);
+            World world = ((LivingEntity) target).level;
+            MinecraftServer minecraftServer = world.getServer();
+            ServerWorld soulSociety = minecraftServer.getLevel(ModDimensions.SOUL_SOCIETY);
             if (entityStats.getRace().equals(ModValues.HOLLOW))
+                return true;
+            else if (entityStats.getRace().equals(ModValues.SPIRIT) && world.dimension() != ModDimensions.SOUL_SOCIETY)
                 return true;
             else
                 return false;

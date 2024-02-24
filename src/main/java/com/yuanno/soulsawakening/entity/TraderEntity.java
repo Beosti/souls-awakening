@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.entity;
 
+import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SOpenTradingScreenPacket;

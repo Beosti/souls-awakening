@@ -28,7 +28,7 @@ public class EntityGeneration {
         if ((!types.contains(BiomeDictionary.Type.WET)
                 && !types.contains(BiomeDictionary.Type.OCEAN)
                 && !types.contains(BiomeDictionary.Type.RIVER)
-                && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(BiomeDictionary.Type.VOID)) || biomeName.toString().equals("soulsawakening:hueco_mundo"))
+                && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(BiomeDictionary.Type.VOID) && !biomeName.toString().equals("soulsawakening:soul_society")) || biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BEAST.get(), 1, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CLAW.get(), 1, 1, 1));

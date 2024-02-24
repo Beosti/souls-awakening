@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.entity;
+package com.yuanno.soulsawakening.entity.goal;
 
 import com.yuanno.soulsawakening.init.ModAttributes;
 import net.minecraft.entity.CreatureEntity;

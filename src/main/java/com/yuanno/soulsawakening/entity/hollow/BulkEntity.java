@@ -1,6 +1,6 @@
 package com.yuanno.soulsawakening.entity.hollow;
 
-import com.yuanno.soulsawakening.entity.ImprovedMeleeAttackGoal;
+import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModEffects;

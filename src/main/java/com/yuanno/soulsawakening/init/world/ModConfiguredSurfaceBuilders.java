@@ -16,7 +16,7 @@ public class ModConfiguredSurfaceBuilders {
             ModBlocks.HOLLOW_SAND.get().defaultBlockState(), ModBlocks.HOLLOW_SAND.get().defaultBlockState(), ModBlocks.HOLLOW_SAND.get().defaultBlockState()
     )));
     public static ConfiguredSurfaceBuilder<?> SOUL_SOCIETY = register("soul_society", SurfaceBuilder.DEFAULT.configured(new SurfaceBuilderConfig(
-            ModBlocks.REISHI_BRICKS.get().defaultBlockState(), ModBlocks.REISHI_BRICKS.get().defaultBlockState(), ModBlocks.REISHI_BRICKS.get().defaultBlockState()
+            Blocks.STONE_BRICKS.defaultBlockState(), Blocks.STONE_BRICKS.defaultBlockState(), Blocks.STONE_BRICKS.defaultBlockState()
     )));
 
     public static <SC extends ISurfaceBuilderConfig>ConfiguredSurfaceBuilder<SC> register(String name, ConfiguredSurfaceBuilder<SC> csb)
