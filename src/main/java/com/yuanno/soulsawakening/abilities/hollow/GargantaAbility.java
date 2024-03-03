@@ -1,23 +1,13 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
-import com.yuanno.soulsawakening.api.Beapi;
-import com.yuanno.soulsawakening.api.SourceElement;
-import com.yuanno.soulsawakening.api.SourceType;
-import com.yuanno.soulsawakening.init.ModDamageSource;
-import com.yuanno.soulsawakening.init.ModResources;
-import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.util.GargantaTeleporter;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-
-import java.util.List;
 
 public class GargantaAbility extends Ability implements IRightClickEmptyAbility {
     public static final GargantaAbility INSTANCE = new GargantaAbility();

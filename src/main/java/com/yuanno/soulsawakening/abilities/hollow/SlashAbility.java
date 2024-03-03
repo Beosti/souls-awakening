@@ -1,13 +1,12 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IAttackAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IAttackAbility;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModDamageSource;
-import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleTypes;

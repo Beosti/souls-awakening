@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.api;
+package com.yuanno.soulsawakening.ability.api.interfaces;
 
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -10,4 +10,8 @@ public interface IRightClickEmptyAbility {
 
     default void onRightClick(PlayerEntity user) {}
     default void onShiftRightClick(PlayerEntity player) {}
+
+    default boolean getShift() {
+        return false;
+    }
 }

@@ -1,9 +1,8 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.entities.projectiles.hollow.CeroProjectile;
-import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class CeroAbility extends Ability implements IRightClickEmptyAbility {

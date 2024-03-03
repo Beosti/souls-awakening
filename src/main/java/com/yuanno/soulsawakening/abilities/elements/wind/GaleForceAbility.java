@@ -2,12 +2,11 @@ package com.yuanno.soulsawakening.abilities.elements.wind;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.play.server.SAnimateHandPacket;
@@ -26,7 +25,6 @@ public class GaleForceAbility extends Ability implements IRightClickEmptyAbility
         this.setMaxCooldown(4);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setCategory(Category.ZANPAKUTO);
     }
 

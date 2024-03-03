@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.fire;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
@@ -9,7 +9,6 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModDamageSource;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
-import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.LivingEntity;
@@ -29,9 +28,7 @@ public class FireWaveAbility extends Ability implements IRightClickEmptyAbility 
         this.setDescription("Emit a wave of fire, damaging and putting enemies on fire");
         this.setCooldown(15);
         this.setMaxCooldown(15);
-        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setPassive(false);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 
@@ -48,5 +45,11 @@ public class FireWaveAbility extends Ability implements IRightClickEmptyAbility 
         }
 
         PARTICLES_FIRE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.FIRE.get());
+    }
+
+    @Override
+    public boolean getShift()
+    {
+        return true;
     }
 }

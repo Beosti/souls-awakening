@@ -1,11 +1,10 @@
 package com.yuanno.soulsawakening.abilities.elements.fire;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
-import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class FireBallAbility extends Ability implements IRightClickEmptyAbility {
@@ -18,8 +17,6 @@ public class FireBallAbility extends Ability implements IRightClickEmptyAbility 
         this.setCooldown(10);
         this.setMaxCooldown(10);
         this.setPassive(false);
-        this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 
@@ -32,5 +29,11 @@ public class FireBallAbility extends Ability implements IRightClickEmptyAbility 
         user.level.addFreshEntity(projectile);
         projectile.shootFromRotation(user, user.xRot, user.yRot, 0, 1f, 1);
 
+    }
+
+    @Override
+    public boolean getShift()
+    {
+        return false;
     }
 }

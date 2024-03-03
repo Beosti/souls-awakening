@@ -1,8 +1,8 @@
-package com.yuanno.soulsawakening.ability.api;
+package com.yuanno.soulsawakening.ability.api.interfaces;
 
 import net.minecraft.entity.player.PlayerEntity;
 
-public interface IContinuousAbility {
+public interface IPassiveAbility {
 
     default void onStartAbility(PlayerEntity user) {};
     default void onContinuousAbility(PlayerEntity user) {};

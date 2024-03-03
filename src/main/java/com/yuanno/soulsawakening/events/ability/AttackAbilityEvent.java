@@ -2,19 +2,14 @@ package com.yuanno.soulsawakening.events.ability;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IAttackAbility;
-import com.yuanno.soulsawakening.ability.api.IPunchAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IAttackAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
-import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModValues;
-import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -27,14 +22,36 @@ public class AttackAbilityEvent {
     {
         PlayerEntity player = event.getPlayer();
         Entity target = event.getTarget();
-        IEntityStats entityStats = EntityStatsCapability.get(player);
         if (event.getPlayer().level.isClientSide)
             return;
         if (target instanceof LivingEntity)
         {
             LivingEntity livingEntityTarget = (LivingEntity) target;
             IAbilityData abilityData = AbilityDataCapability.get(player);
+            for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
+            {
+                Ability ability = abilityData.getUnlockedAbilities().get(i);
+                if (!(ability.getState().equals(Ability.STATE.READY))) // check if the ability is read
+                    return;
+                if (!(ability instanceof IAttackAbility)) // check if the ability is an attack ability
+                    return;
+                if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
+                {
+                    ItemStack zanpakutoItem = player.getMainHandItem();
+                    String state = zanpakutoItem.getTag().getString("zanpakutoState");
+                    if (state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
+                        continue;
+                    else // if not return
+                        return;
+                }
+                IAttackAbility attackAbility = (IAttackAbility) abilityData.getUnlockedAbilities().get(i);
+                attackAbility.activate(livingEntityTarget, player);
+                ability.setState(Ability.STATE.COOLDOWN);
+                ability.setCooldown(ability.getMaxCooldown() / 20);
+
+            }
             // when a player is a shinigami check the zanpakuto
+            /*
             if ((entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER)) && (player.getMainHandItem().getItem() instanceof ZanpakutoItem))
             {
 
@@ -59,6 +76,8 @@ public class AttackAbilityEvent {
                     }
             }
 
+
+
             // when a player is a hollow
             else if (entityStats.getRace().equals(ModValues.HOLLOW))
             {
@@ -71,6 +90,8 @@ public class AttackAbilityEvent {
                     }
                 }
             }
+
+             */
         }
     }
 }

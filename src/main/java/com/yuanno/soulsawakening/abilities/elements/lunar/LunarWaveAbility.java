@@ -1,12 +1,11 @@
 package com.yuanno.soulsawakening.abilities.elements.lunar;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
-import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.LivingEntity;
@@ -28,7 +27,6 @@ public class LunarWaveAbility extends Ability implements IRightClickEmptyAbility
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setState(STATE.READY);
         this.setPassive(false);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setCategory(Category.ZANPAKUTO);
     }
 

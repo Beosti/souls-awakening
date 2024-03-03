@@ -1,8 +1,7 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
-import com.yuanno.soulsawakening.api.ModEffect;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEntityAbility;
 import com.yuanno.soulsawakening.init.ModEffects;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

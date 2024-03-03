@@ -2,7 +2,8 @@ package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.*;
+import com.yuanno.soulsawakening.ability.api.interfaces.*;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
@@ -10,13 +11,10 @@ import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.helpers.SoulsHelper;
 import com.yuanno.soulsawakening.init.ModResources;
-import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CSyncMiscDataPacket;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -127,16 +125,20 @@ public class AbilityListScreen extends Screen {
         {
             Beapi.drawStringWithBorder(this.font, matrixStack, "Zanpakuto: ", posX + 40, posY + 40, -1);
             Beapi.drawStringWithBorder(this.font, matrixStack, "Bankai: ", posX + 40, posY + 87, -1);
-            for (int i = 0; i < abilities.size(); i++) {
-                if (abilities.get(i).getCategory().equals(Ability.Category.ZANPAKUTO))
-                {
-                    String originalResourceLocation = abilities.get(i).getRegistryName().toString();
-                    String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
-                    ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
-                    Beapi.drawIcon(resourceLocation, posX + 40 + (35 * i), posY + 60, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
-                    Entry entry = new Entry(abilities.get(i), posX + 40 + (35 * i), posY + 60);
-                    entries.add(i, entry);
+            ArrayList<Ability> zanpakutoAbilities = new ArrayList<>();
+            for (Ability ability : abilities) {
+                if (ability.getCategory().equals(Ability.Category.ZANPAKUTO)) {
+                    zanpakutoAbilities.add(ability);
                 }
+            }
+            for (int i = 0; i < zanpakutoAbilities.size(); i++)
+            {
+                String originalResourceLocation = zanpakutoAbilities.get(i).getRegistryName().toString();
+                String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
+                ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
+                Beapi.drawIcon(resourceLocation, posX + 40 + (35 * i), posY + 60, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                Entry entry = new Entry(zanpakutoAbilities.get(i), posX + 40 + (35 * i), posY + 60);
+                entries.add(i, entry);
             }
         }
         if (page == 2)
@@ -194,6 +196,17 @@ public class AbilityListScreen extends Screen {
             if (abilityHovering.getMaxCooldown() != 0)
                 fullDescription.append("§lCooldown§r: " + abilityHovering.getMaxCooldown() + "\n");
             String activation_type = "";
+            if (abilityHovering instanceof IAttackAbility)
+                activation_type = "on-hit";
+            if (abilityHovering instanceof IKidoAbility)
+                activation_type = "spell";
+            if (abilityHovering instanceof IPassiveAbility)
+                activation_type = "passive";
+            if (abilityHovering instanceof IRightClickEmptyAbility)
+                activation_type = "right click";
+            if (abilityHovering instanceof IRightClickEntityAbility)
+                activation_type = "right click on entity";
+            /*
             if (abilityHovering.getPassive())
                 activation_type = "passive";
             if (activation_type.isEmpty())
@@ -219,6 +232,8 @@ public class AbilityListScreen extends Screen {
                         break;
                 }
             }
+
+             */
             fullDescription.append("§lActivation type§r: " + activation_type);
             if (InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT))
                 this.renderTooltip(matrixStack, new TranslationTextComponent(String.valueOf(fullDescription)), x, y);

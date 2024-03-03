@@ -1,9 +1,8 @@
 package com.yuanno.soulsawakening.abilities.elements.shadow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.init.ModEffects;
-import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 
@@ -17,7 +16,6 @@ public class UmbralCloakAbility extends Ability implements IRightClickEmptyAbili
         this.setMaxCooldown(16);
         this.setPassive(false);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setCategory(Category.ZANPAKUTO);
     }
 

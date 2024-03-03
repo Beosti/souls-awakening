@@ -1,8 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.water;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
-import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEntityAbility;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,7 +16,6 @@ public class WaterPrisonAbility extends Ability implements IRightClickEntityAbil
         this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setCategory(Category.ZANPAKUTO);
     }
 

@@ -1,11 +1,10 @@
 package com.yuanno.soulsawakening.abilities.shinso;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.entities.projectiles.shinso.WideBladeProjectile;
-import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class WideShootAbility extends Ability implements IRightClickEmptyAbility {
@@ -17,7 +16,6 @@ public class WideShootAbility extends Ability implements IRightClickEmptyAbility
         this.setCooldown(20);
         this.setMaxCooldown(20);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setCategory(Category.ZANPAKUTO);
     }
 

@@ -1,9 +1,8 @@
 package com.yuanno.soulsawakening.abilities.elements.wind;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IAttackAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IAttackAbility;
 import com.yuanno.soulsawakening.api.Beapi;
-import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.vector.Vector3d;
@@ -15,7 +14,6 @@ public class WindAttackAbility extends Ability implements IAttackAbility {
     public WindAttackAbility() {
         this.setName("Wind Attack");
         this.setActivationType(ActivationType.ATTACK);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setCategory(Category.ZANPAKUTO);
     }
 

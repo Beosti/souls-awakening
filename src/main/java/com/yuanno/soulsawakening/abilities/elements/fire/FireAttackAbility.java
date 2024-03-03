@@ -1,8 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.fire;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IAttackAbility;
-import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.ability.api.interfaces.IAttackAbility;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -14,7 +13,6 @@ public class FireAttackAbility extends Ability implements IAttackAbility {
         this.setName("Fire Attack");
         this.setDescription("Hitting an enemy puts them on fire");
         this.setActivationType(ActivationType.ATTACK);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

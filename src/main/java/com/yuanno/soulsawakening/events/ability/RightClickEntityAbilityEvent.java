@@ -2,14 +2,13 @@ package com.yuanno.soulsawakening.events.ability;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
-import com.yuanno.soulsawakening.ability.api.IRightClickEntityAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEntityAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModValues;
-import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CRightClickEmptyPacket;
 import net.minecraft.entity.LivingEntity;
@@ -31,62 +30,28 @@ public class RightClickEntityAbilityEvent {
         if (player.level.isClientSide)
             return;
         LivingEntity target = (LivingEntity) event.getTarget();
-        IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
-
-        // do something when the player is a shinigami and has shikai in hand
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER) && player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem)
+        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
         {
-            ItemStack zanpakutoItem = player.getMainHandItem();
-            String stateName = zanpakutoItem.getTag().getString("zanpakutoState");
-
-            if (stateName.equals(ModValues.STATE.SHIKAI.name())) // do stuff while in shikai state and right click
-            {
-                for (int i = 0; i < abilityData.getActiveAbilities().size(); i++)
-                {
-                    Ability ability = abilityData.getActiveAbilities().get(i);
-                    if (!(ability instanceof IRightClickEntityAbility))
-                        continue;
-                    if (!ability.getZanpakutoState().equals(ModValues.STATE.SHIKAI))
-                        continue;
-                    if (!ability.getState().equals(Ability.STATE.READY))
-                        continue;
-
-
-                    ((IRightClickEntityAbility) ability).onRightClickEntity(target, player);
-                    ability.setState(Ability.STATE.COOLDOWN);
-                    ability.setCooldown(ability.getMaxCooldown() / 20);
-                    entityInteractFired = true;
-                    return;
-                }
-            }
-            else if (stateName.equals(ModValues.STATE.BANKAI.name())) // do stuff while in bankai state and right click
-            {
-                for (Ability ability : abilityData.getActiveAbilities())
-                {
-                    if (!(ability instanceof IRightClickEntityAbility) || !ability.getZanpakutoState().equals(ModValues.STATE.BANKAI) || !ability.getState().equals(Ability.STATE.READY))
-                        return;
-                    ((IRightClickEntityAbility) ability).onRightClickEntity(target, player);
-                    ability.setState(Ability.STATE.COOLDOWN);
-                    ability.setCooldown(ability.getMaxCooldown() / 20);
-                }
-            }
-        }
-        // do something when the player is a hollow
-        else if (entityStats.getRace().equals(ModValues.HOLLOW))
-        {
-            for (Ability ability : abilityData.getActiveAbilities())
-            {
-                if (!(ability instanceof IRightClickEntityAbility))
-                    continue;
-                if (!ability.getState().equals(Ability.STATE.READY) && !(ability.getPassive()))
-                    continue;
-                ((IRightClickEntityAbility) ability).onRightClickEntity(target, player);
-                ability.setState(Ability.STATE.COOLDOWN);
-                ability.setCooldown(ability.getMaxCooldown() / 20);
-                entityInteractFired = true;
+            Ability ability = abilityData.getUnlockedAbilities().get(i);
+            if (!(ability.getState().equals(Ability.STATE.READY))) // check if the ability is read
                 return;
+            if (!(ability instanceof IRightClickEntityAbility)) // check if the ability is an attack ability
+                return;
+            if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
+            {
+                ItemStack zanpakutoItem = player.getMainHandItem();
+                String state = zanpakutoItem.getTag().getString("zanpakutoState");
+                if (state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
+                    continue;
+                else // if not return
+                    return;
             }
+            IRightClickEntityAbility rightClickEntityAbility = (IRightClickEntityAbility) abilityData.getUnlockedAbilities().get(i);
+            rightClickEntityAbility.onRightClickEntity(target, player);
+            ability.setState(Ability.STATE.COOLDOWN);
+            ability.setCooldown(ability.getMaxCooldown() / 20);
+
         }
     }
 
@@ -102,73 +67,38 @@ public class RightClickEntityAbilityEvent {
             entityInteractFired = false;
             return;
         }
-        IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        //if (event instanceof PlayerInteractEvent.RightClickItem.EntityInteract)
-       // {
-            //
-       // }
-        // do something when the player is a shinigami and has shikai in hand
-
-        if ((entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER)) && player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem)
+        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
         {
-            ItemStack zanpakutoItem = player.getMainHandItem();
-            String state = zanpakutoItem.getTag().getString("zanpakutoState"); // specifically get the stack tag to avoid bugs
-            if (state.equals(ModValues.STATE.SHIKAI.name())) // do stuff while in shikai state and right click
+            Ability ability = abilityData.getUnlockedAbilities().get(i);
+            if (!(ability.getState().equals(Ability.STATE.READY))) // check if the ability is read
+                continue;
+            if (!(ability instanceof IRightClickEmptyAbility)) // check if the ability is a right click ability
+                continue;
+            if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
             {
-                for (int i = 0; i < abilityData.getActiveAbilities().size(); i++)
-                {
-                    Ability ability = abilityData.getActiveAbilities().get(i);
-                    if (!ability.getZanpakutoState().equals(ModValues.STATE.SHIKAI))
-                        continue;
-                    if (!ability.getState().equals(Ability.STATE.READY))
-                        continue;
-                    if (!(ability instanceof IRightClickEmptyAbility))
-                        continue;
-                    Ability.ActivationType activationType = ability.getActivationType();
-                    if (activationType.equals(Ability.ActivationType.SHIFT_RIGHT_CLICK) && player.isCrouching())
-                        ((IRightClickEmptyAbility) ability).onShiftRightClick(player);
-                    else if (activationType.equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && !player.isCrouching())
-                        ((IRightClickEmptyAbility) ability).onRightClick(player);
-                    else
-                        continue;
-
-
-
-                    ability.setState(Ability.STATE.COOLDOWN);
-                    ability.setCooldown(ability.getMaxCooldown() / 20);
+                ItemStack zanpakutoItem = player.getMainHandItem();
+                String state = zanpakutoItem.getTag().getString("zanpakutoState");
+                if (!state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
                     return;
-                }
             }
-            else if (state.equals(ModValues.STATE.BANKAI.name())) // do stuff while in bankai state and right click
+            IRightClickEmptyAbility rightClickEmptyAbility = (IRightClickEmptyAbility) abilityData.getUnlockedAbilities().get(i);
+            if (!player.isCrouching() && !rightClickEmptyAbility.getShift())
             {
-                for (Ability ability : abilityData.getActiveAbilities())
-                {
-                    if (!ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) || !ability.getZanpakutoState().equals(ModValues.STATE.BANKAI) || !ability.getState().equals(Ability.STATE.READY))
-                        return;
-                    ((IRightClickEmptyAbility) ability).onRightClick(player);
-                    ability.setState(Ability.STATE.COOLDOWN);
-                    ability.setCooldown(ability.getMaxCooldown() / 20);
-                }
-            }
-        }
-        /*
-        else if (entityStats.getRace().equals(ModValues.HOLLOW))
-        {
-            for (Ability ability : abilityData.getActiveAbilities())
-            {
-                if (!(ability instanceof IRightClickEmptyAbility))
-                    continue;
-                if (!ability.getState().equals(Ability.STATE.READY) && !(ability.getPassive()))
-                    continue;
-                ((IRightClickEmptyAbility) ability).onRightClick(player);
+                rightClickEmptyAbility.onRightClick(player);
                 ability.setState(Ability.STATE.COOLDOWN);
                 ability.setCooldown(ability.getMaxCooldown() / 20);
-
+                return;
             }
+            else if (player.isCrouching() && rightClickEmptyAbility.getShift())
+            {
+                rightClickEmptyAbility.onShiftRightClick(player);
+                ability.setState(Ability.STATE.COOLDOWN);
+                ability.setCooldown(ability.getMaxCooldown() / 20);
+                return;
+            } else
+                continue;
         }
-
-         */
     }
 
     /**
@@ -199,6 +129,20 @@ public class RightClickEntityAbilityEvent {
         }
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
+        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
+        {
+            Ability ability = abilityData.getUnlockedAbilities().get(i);
+            if (!(ability.getState().equals(Ability.STATE.READY))) // check if the ability is read
+                return;
+            if (!(ability instanceof IRightClickEmptyAbility)) // check if the ability is an attack ability
+                return;
+            IRightClickEmptyAbility rightClickEmptyAbility = (IRightClickEmptyAbility) abilityData.getUnlockedAbilities().get(i);
+            rightClickEmptyAbility.onRightClick(player);
+            ability.setState(Ability.STATE.COOLDOWN);
+            ability.setCooldown(ability.getMaxCooldown() / 20);
+        }
+
+        /*
         if (entityStats.getRace().equals(ModValues.HOLLOW))
         {
             for (Ability ability : abilityData.getActiveAbilities())
@@ -223,5 +167,6 @@ public class RightClickEntityAbilityEvent {
                 return;
             }
         }
+         */
     }
 }

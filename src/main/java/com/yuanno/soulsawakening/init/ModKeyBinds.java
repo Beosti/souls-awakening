@@ -108,12 +108,10 @@ public class ModKeyBinds {
         IAbilityData abilityDataProps = AbilityDataCapability.get(player);
         int newSelected = (int) (abilityDataProps.getSelectionAbility() + deltaScrolling);
         if (deltaScrolling == 1 && newSelected >= abilityDataProps.getAbilitiesInBar().size()) {
-            System.out.println("UP");
             newSelected = 0;
         }
         else if (deltaScrolling == -1 && newSelected < 0)
         {
-            System.out.println("DOWN");
 
             newSelected = abilityDataProps.getAbilitiesInBar().size() - 1;
         }

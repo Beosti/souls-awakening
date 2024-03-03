@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.networking.client;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IShootAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.networking.PacketHandler;

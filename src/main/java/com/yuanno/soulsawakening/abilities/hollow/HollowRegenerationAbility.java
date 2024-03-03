@@ -1,13 +1,12 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IContinuousAbility;
-import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.ability.api.interfaces.IPassiveAbility;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.hollow.HollowRegenerationParticleEffect;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class HollowRegenerationAbility extends Ability implements IContinuousAbility {
+public class HollowRegenerationAbility extends Ability implements IPassiveAbility {
 
     public static final HollowRegenerationAbility INSTANCE = new HollowRegenerationAbility();
     private static final ParticleEffect PARTICLES = new HollowRegenerationParticleEffect();

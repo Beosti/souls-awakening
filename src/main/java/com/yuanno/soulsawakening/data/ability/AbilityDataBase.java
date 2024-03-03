@@ -56,7 +56,7 @@ public class AbilityDataBase implements IAbilityData {
     }
 
     @Override
-    public <T extends Ability<T>> List<T> clearUnlockedAbilities() {
+    public <T extends Ability> List<T> clearUnlockedAbilities() {
         List removed = (List) this.unlockedAbilities;
         this.unlockedAbilities.clear();
         return removed;

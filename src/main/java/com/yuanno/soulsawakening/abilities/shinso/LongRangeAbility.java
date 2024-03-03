@@ -21,7 +21,6 @@ public class LongRangeAbility extends Ability implements IPunchAbility {
         this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.ATTACK);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setCategory(Category.ZANPAKUTO);
     }
 

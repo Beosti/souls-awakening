@@ -1,7 +1,8 @@
 package com.yuanno.soulsawakening.abilities.kido.bakudo;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IShootAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IKidoAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.init.ModEffects;
@@ -12,10 +13,9 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TranslationTextComponent;
 
 // Seals an entity, the entity can break through easily
-public class SaiAbility extends Ability implements IShootAbility {
+public class SaiAbility extends Ability implements IShootAbility, IKidoAbility {
     public static final SaiAbility INSTANCE = new SaiAbility();
 
     public SaiAbility()

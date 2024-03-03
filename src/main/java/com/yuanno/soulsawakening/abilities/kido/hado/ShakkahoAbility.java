@@ -1,15 +1,15 @@
 package com.yuanno.soulsawakening.abilities.kido.hado;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IShootAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IKidoAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.entities.projectiles.kido.ByakuraiProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.kido.ShakkahoProjectile;
 import net.minecraft.entity.player.PlayerEntity;
 
 // blasts the entity a few meters away
-public class ShakkahoAbility extends Ability implements IShootAbility {
+public class ShakkahoAbility extends Ability implements IShootAbility, IKidoAbility {
     public static final ShakkahoAbility INSTANCE = new ShakkahoAbility();
 
     public ShakkahoAbility()

@@ -48,7 +48,7 @@ import java.util.Objects;
 public class ModAbilities {
 
 
-    public static final DeferredRegister<Ability<?>> ABILITIES= DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
+    public static final DeferredRegister<Ability> ABILITIES= DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
     public static final Ability[] DARK_ZANPAKUTO = new Ability[] {DarkStepAbility.INSTANCE, ShadowAttackAbility.INSTANCE, UmbralCloakAbility.INSTANCE};
     public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
     public static final Ability[] HEAL_ZANPAKUTO = new Ability[] {HealingTouchingAbility.INSTANCE, RevitilazingAuraAbility.INSTANCE, SelfHealingAbility.INSTANCE};
@@ -87,13 +87,13 @@ public class ModAbilities {
 
     }
 
-    public static <T extends Ability> Ability<T> registerAbility(Ability<T> ability)
+    public static <T extends Ability> Ability registerAbility(Ability ability)
     {
         String resourceName = Beapi.getResourceName(ability.getName());
         BeRegistry.getLangMap().put("ability." + Main.MODID + "." + resourceName, ability.getName());
 
         final ResourceLocation key = new ResourceLocation(Main.MODID, resourceName);
-        RegistryObject<Ability<?>> ret = RegistryObject.of(key, ModRegistries.ABILITIES);
+        RegistryObject<Ability> ret = RegistryObject.of(key, ModRegistries.ABILITIES);
         if(!ABILITIES.getEntries().contains(ret))
         {
             ABILITIES.register(resourceName, () -> ability);

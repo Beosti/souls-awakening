@@ -2,7 +2,7 @@ package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IContinuousAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IPassiveAbility;
 import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
@@ -39,7 +39,7 @@ public class TickAbilityEvent {
             else if (ability.getPassive())
             {
                 if (player.tickCount % 20 == 0 && !player.level.isClientSide)
-                    ((IContinuousAbility) ability).onContinuousAbility(player);
+                    ((IPassiveAbility) ability).onContinuousAbility(player);
             }
         }
     }

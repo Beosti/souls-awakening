@@ -5,7 +5,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
+/**
+ * Base class for all abilities, same for all (kido) spells
+ *
+ */
+public class Ability extends ForgeRegistryEntry<Ability> {
     private String name;
     private String description;
     private double cooldown;
@@ -14,7 +18,6 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
     private boolean isReady = true;
     private double maxCooldown;
     private STATE state;
-    private ModValues.STATE zanpakutoState;
     private Category category = null;
     private SubCategory subCategory = null;
     private boolean isShown = true;
@@ -43,17 +46,6 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
 
     public Ability() {
         this.setState(STATE.READY);
-    }
-
-
-    public void setZanpakutoState(ModValues.STATE state)
-    {
-        this.zanpakutoState = state;
-    }
-
-    public ModValues.STATE getZanpakutoState()
-    {
-        return this.zanpakutoState;
     }
 
     public void duringCooldown(PlayerEntity player)
@@ -120,9 +112,6 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         this.cooldown = cooldown * 20;
     }
 
-    public ActivationType getActivationType() {
-        return activationType;
-    }
     public void setActivationType(ActivationType activationType)
     {
         this.activationType = activationType;
@@ -157,8 +146,7 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         compoundNBT.putString("displayname", this.getName());
         compoundNBT.putDouble("cooldown", this.getCooldown());
         compoundNBT.putDouble("maxcooldown", this.getMaxCooldown());
-        if (!(this instanceof IContinuousAbility))
-            compoundNBT.putString("type", this.getActivationType().toString());
+
         compoundNBT.putString("state", this.getState().toString());
 
         return compoundNBT;
@@ -171,8 +159,6 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         this.setCooldown(cooldown);
         int maxCooldown = (int) (compoundNBT.getDouble("maxcooldown") / 20);
         this.setMaxCooldown(maxCooldown);
-        if (!(this instanceof IContinuousAbility))
-            this.setActivationType(Ability.ActivationType.valueOf(compoundNBT.getString("type")));
         this.setState(Ability.STATE.valueOf(compoundNBT.getString("state")));
     }
 
@@ -200,6 +186,7 @@ public class Ability<T> extends ForgeRegistryEntry<Ability<?>> {
         VASTO_LORDE(Category.HOLLOW),
 
         // ZANPAKUTO
+        SEALED(Category.ZANPAKUTO),
         SHIKAI(Category.ZANPAKUTO),
         BANKAI(Category.ZANPAKUTO),
         BAKUDO(Category.KIDO),

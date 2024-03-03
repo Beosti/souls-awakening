@@ -1,11 +1,10 @@
 package com.yuanno.soulsawakening.abilities.elements.heal;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
-import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.HoveringParticleEffect;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +22,6 @@ public class SelfHealingAbility extends Ability implements IRightClickEmptyAbili
         this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
-        this.setZanpakutoState(ModValues.STATE.SHIKAI);
         this.setCategory(Category.ZANPAKUTO);
     }
 

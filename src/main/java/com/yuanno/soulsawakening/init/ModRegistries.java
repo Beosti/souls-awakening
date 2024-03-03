@@ -18,7 +18,7 @@ public class ModRegistries {
         make(new ResourceLocation(Main.MODID, "challenges"), ChallengeCore.class);
     }
 
-    public static final IForgeRegistry<Ability<?>> ABILITIES = RegistryManager.ACTIVE.getRegistry(Ability.class);
+    public static final IForgeRegistry<Ability> ABILITIES = RegistryManager.ACTIVE.getRegistry(Ability.class);
     public static final IForgeRegistry<ChallengeCore<?>> CHALLENGES = RegistryManager.ACTIVE.getRegistry(ChallengeCore.class);
 
 

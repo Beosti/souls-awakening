@@ -19,12 +19,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import sun.security.rsa.RSAUtil;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class TradingScreen extends Screen {

@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.client.overlay;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IKidoAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
@@ -15,7 +16,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -46,7 +46,7 @@ public class StatsOverlay extends AbstractGui {
 
             for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
             {
-                if (abilityData.getUnlockedAbilities().get(i).getActivationType() != null && !abilityData.getUnlockedAbilities().get(i).getActivationType().equals(Ability.ActivationType.SCROLL))
+                if (!(abilityData.getUnlockedAbilities().get(i) instanceof IKidoAbility))
                 {
                     Color iconColor = Beapi.hexToRGB("#FFFFFF");
                     Ability abilityToDraw = abilityData.getUnlockedAbilities().get(i);
