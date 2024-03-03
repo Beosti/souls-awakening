@@ -17,7 +17,7 @@ public class AcidicTouchAbility extends Ability implements IRightClickEntityAbil
         //this.setMaxCooldown(8);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
-        this.setCategory(Category.HOLLOW);
+        this.setSubCategory(SubCategory.BASE);
     }
 
     @Override

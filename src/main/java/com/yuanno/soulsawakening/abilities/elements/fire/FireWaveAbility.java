@@ -1,7 +1,9 @@
 package com.yuanno.soulsawakening.abilities.elements.fire;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IWaveAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
@@ -13,11 +15,12 @@ import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.util.DamageSource;
 
 import java.util.List;
 
-public class FireWaveAbility extends Ability implements IRightClickEmptyAbility {
+public class FireWaveAbility extends Ability implements IRightClickAbility, IWaveAbility, IParticleEffect {
     public static final FireWaveAbility INSTANCE = new FireWaveAbility();
     private final static DamageSource FIRE_DAMAGE = new ModDamageSource("fire_wave").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.FIRE);
     public static final ParticleEffect PARTICLES_FIRE = new WaveParticleEffect(1.6);
@@ -33,18 +36,34 @@ public class FireWaveAbility extends Ability implements IRightClickEmptyAbility 
     }
 
     @Override
-    public void onShiftRightClick(PlayerEntity player)
+    public int getRadius()
     {
-        IEntityStats entityStats = EntityStatsCapability.get(player);
-        List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10 + entityStats.getReiatsuPoints()/2, null, LivingEntity.class);
-        targets.remove(player);
-        for (LivingEntity livingEntity : targets)
-        {
-            livingEntity.setSecondsOnFire(5);
-            livingEntity.hurt(FIRE_DAMAGE, (float) (5+ entityStats.getReiatsuPoints()/3));
-        }
-
-        PARTICLES_FIRE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.FIRE.get());
+        return 10;
+    }
+    @Override
+    public int putOnFire()
+    {
+        return 3;
+    }
+    @Override
+    public DamageSource getDamageSource()
+    {
+        return FIRE_DAMAGE;
+    }
+    @Override
+    public float getDamage()
+    {
+        return 5;
+    }
+    @Override
+    public ParticleEffect getSpawnParticles()
+    {
+        return PARTICLES_FIRE;
+    }
+    @Override
+    public ParticleType getParticleType()
+    {
+        return ModParticleTypes.FIRE.get();
     }
 
     @Override

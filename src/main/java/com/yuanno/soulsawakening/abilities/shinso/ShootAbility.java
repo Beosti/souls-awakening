@@ -1,13 +1,16 @@
 package com.yuanno.soulsawakening.abilities.shinso;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.entities.projectiles.shinso.BladeProjectile;
+import com.yuanno.soulsawakening.entities.projectiles.water.TidalWaveProjectile;
+import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class ShootAbility extends Ability implements IRightClickEmptyAbility {
+public class ShootAbility extends Ability implements IRightClickAbility, IShootAbility {
     public static final ShootAbility INSTANCE = new ShootAbility();
 
     public ShootAbility()
@@ -21,12 +24,14 @@ public class ShootAbility extends Ability implements IRightClickEmptyAbility {
     }
 
     @Override
-    public void onRightClick(PlayerEntity user)
+    public AbilityProjectileEntity getProjectile(PlayerEntity player) {
+        return new BladeProjectile(player.level, player);
+    }
+
+
+    @Override
+    public boolean getShift()
     {
-        IEntityStats entityStats = EntityStatsCapability.get(user);
-        BladeProjectile bladeProjectile = new BladeProjectile(user.level, user);
-        bladeProjectile.alterDamage((float) entityStats.getZanjutsuPoints());
-        user.level.addFreshEntity(bladeProjectile);
-        bladeProjectile.shootFromRotation(user, user.xRot, user.yRot, 0, 5f, 1);
+        return false;
     }
 }

@@ -202,7 +202,7 @@ public class AbilityListScreen extends Screen {
                 activation_type = "spell";
             if (abilityHovering instanceof IPassiveAbility)
                 activation_type = "passive";
-            if (abilityHovering instanceof IRightClickEmptyAbility)
+            if (abilityHovering instanceof IRightClickAbility)
                 activation_type = "right click";
             if (abilityHovering instanceof IRightClickEntityAbility)
                 activation_type = "right click on entity";

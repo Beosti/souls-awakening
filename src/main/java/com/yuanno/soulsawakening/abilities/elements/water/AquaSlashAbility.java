@@ -1,13 +1,16 @@
 package com.yuanno.soulsawakening.abilities.elements.water;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.water.WaterSlashProjectile;
+import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class AquaSlashAbility extends Ability implements IRightClickEmptyAbility {
+public class AquaSlashAbility extends Ability implements IRightClickAbility, IShootAbility {
     public static final AquaSlashAbility INSTANCE = new AquaSlashAbility();
 
     public AquaSlashAbility()
@@ -17,17 +20,18 @@ public class AquaSlashAbility extends Ability implements IRightClickEmptyAbility
         this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
-    public void onRightClick(PlayerEntity user)
-    {
-        IEntityStats entityStats = EntityStatsCapability.get(user);
-        WaterSlashProjectile projectile = new WaterSlashProjectile(user.level, user);
-        projectile.alterDamage((float) (entityStats.getReiatsuPoints()/2));
-        user.level.addFreshEntity(projectile);
-        projectile.shootFromRotation(user, user.xRot, user.yRot, 0, 0.5f, 1);
+    public AbilityProjectileEntity getProjectile(PlayerEntity player) {
+        return new WaterSlashProjectile(player.level, player);
+    }
 
+
+    @Override
+    public boolean getShift()
+    {
+        return false;
     }
 }

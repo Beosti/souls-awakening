@@ -1,15 +1,19 @@
 package com.yuanno.soulsawakening.abilities.elements.wind;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IWaveAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModDamageSource;
+import com.yuanno.soulsawakening.particles.ParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.vector.Vector3d;
@@ -17,7 +21,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.List;
 
-public class WhirldWindDanceAbility extends Ability implements IRightClickEmptyAbility {
+public class WhirldWindDanceAbility extends Ability implements IRightClickAbility, IWaveAbility {
     public static final WhirldWindDanceAbility INSTANCE = new WhirldWindDanceAbility();
     private final static DamageSource WIND_DAMAGE = new ModDamageSource("wind_wave").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.WIND);
     int propulsion = 5;
@@ -33,23 +37,30 @@ public class WhirldWindDanceAbility extends Ability implements IRightClickEmptyA
     }
 
     @Override
-    public void onShiftRightClick(PlayerEntity player)
+    public int getRadius()
     {
-        IEntityStats entityStats = EntityStatsCapability.get(player);
-        List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
-        targets.remove(player);
+        return 10;
+    }
 
-        targets.forEach(entityi ->
-        {
-            Vector3d speed = Beapi.propulsion(player, propulsion, propulsion, propulsion);
-            entityi.setDeltaMovement(speed.x, speed.y, speed.z);
-            entityi.hurtMarked = true;
-            entityi.hasImpulse = true;
+    @Override
+    public DamageSource getDamageSource()
+    {
+        return WIND_DAMAGE;
+    }
+    @Override
+    public float getDamage()
+    {
+        return 5;
+    }
+    @Override
+    public void applyEffect(LivingEntity target) {
 
+        target.knockback(2, 2, 2);
+    };
 
-            entityi.hurt(WIND_DAMAGE, 5 + (float) entityStats.getReiatsuPoints());
-        });
-        ((ServerWorld) player.level).sendParticles(ParticleTypes.SPIT, player.getX(), player.getY(), player.getZ(), (int) 100, 3, 2, 3, 1);
-
+    @Override
+    public boolean getShift()
+    {
+        return true;
     }
 }

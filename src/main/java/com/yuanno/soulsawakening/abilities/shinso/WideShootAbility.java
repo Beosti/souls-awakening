@@ -1,13 +1,16 @@
 package com.yuanno.soulsawakening.abilities.shinso;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entities.projectiles.lunar.LunarCrescentProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.shinso.WideBladeProjectile;
+import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class WideShootAbility extends Ability implements IRightClickEmptyAbility {
+public class WideShootAbility extends Ability implements IRightClickAbility, IShootAbility {
     public static final WideShootAbility INSTANCE = new WideShootAbility();
 
     public WideShootAbility()
@@ -20,12 +23,14 @@ public class WideShootAbility extends Ability implements IRightClickEmptyAbility
     }
 
     @Override
-    public void onShiftRightClick(PlayerEntity user)
+    public AbilityProjectileEntity getProjectile(PlayerEntity player) {
+        return new WideBladeProjectile(player.level, player);
+    }
+
+
+    @Override
+    public boolean getShift()
     {
-        IEntityStats entityStats = EntityStatsCapability.get(user);
-        WideBladeProjectile wideBladeProjectile = new WideBladeProjectile(user.level, user);
-        wideBladeProjectile.alterDamage((float) (entityStats.getZanjutsuPoints()/2));
-        user.level.addFreshEntity(wideBladeProjectile);
-        wideBladeProjectile.shootFromRotation(user, user.xRot, user.yRot, 0, 5f, 1);
+        return false;
     }
 }

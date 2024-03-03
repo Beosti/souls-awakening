@@ -1,7 +1,8 @@
 package com.yuanno.soulsawakening.abilities.elements.thunder;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IBlockRayTrace;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
@@ -19,7 +20,7 @@ import net.minecraft.util.math.RayTraceResult;
 
 import java.util.List;
 
-public class ThunderStrikeAbility extends Ability implements IRightClickEmptyAbility {
+public class ThunderStrikeAbility extends Ability implements IRightClickAbility, IBlockRayTrace {
     public static final ThunderStrikeAbility INSTANCE = new ThunderStrikeAbility();
     private final static DamageSource LIGHTNING_DAMAGE = new ModDamageSource("lightning_wave").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.LIGHTNING);
 
@@ -30,34 +31,33 @@ public class ThunderStrikeAbility extends Ability implements IRightClickEmptyAbi
         this.setMaxCooldown(16);
         this.setPassive(false);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
-    public void onShiftRightClick(PlayerEntity player)
+    public int getDistance()
     {
-        IEntityStats entityStats = EntityStatsCapability.get(player);
-        RayTraceResult rayTraceResult = Beapi.rayTraceBlocksAndEntities(player, 20);
-        BlockPos blockPos = null;
-        if (rayTraceResult instanceof EntityRayTraceResult)
-        {
-            EntityRayTraceResult entityRayTraceResult = (EntityRayTraceResult) rayTraceResult;
-            if (entityRayTraceResult.getEntity() instanceof LivingEntity)
-            {
-                LivingEntity livingEntity = (LivingEntity) entityRayTraceResult.getEntity();
-                blockPos = new BlockPos(livingEntity.blockPosition());
-            }
-        }
-        else
-            blockPos = new BlockPos(rayTraceResult.getLocation());
+        return 20;
+    }
+
+    @Override
+    public void somethingAtDistance(PlayerEntity player, BlockPos blockPos)
+    {
         LightningBoltEntity lightningBoltEntity = EntityType.LIGHTNING_BOLT.create(player.level);
         lightningBoltEntity.moveTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-        player.level.addFreshEntity(lightningBoltEntity);
-        List<LivingEntity> entities = Beapi.getNearbyEntities(player.blockPosition(), player.level, 3, null, LivingEntity.class);
+        List<LivingEntity> entities = Beapi.getNearbyEntities(blockPos, player.level, 3, null, LivingEntity.class);
         for (LivingEntity livingEntity : entities)
         {
             livingEntity.setSecondsOnFire(5);
-            livingEntity.hurt(LIGHTNING_DAMAGE, 7 + (float) entityStats.getReiatsuPoints());
+            livingEntity.hurt(LIGHTNING_DAMAGE, 7);
         }
+        player.level.addFreshEntity(lightningBoltEntity);
     }
+
+    @Override
+    public boolean getShift()
+    {
+        return true;
+    }
+
 }

@@ -1,7 +1,8 @@
 package com.yuanno.soulsawakening.abilities.elements.poison;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IWaveAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
@@ -12,7 +13,7 @@ import net.minecraft.potion.Effects;
 
 import java.util.List;
 
-public class AdrenalineCloudAbility extends Ability implements IRightClickEmptyAbility {
+public class AdrenalineCloudAbility extends Ability implements IRightClickAbility, IWaveAbility {
 
     public static final AdrenalineCloudAbility INSTANCE = new AdrenalineCloudAbility();
     public AdrenalineCloudAbility()
@@ -23,21 +24,24 @@ public class AdrenalineCloudAbility extends Ability implements IRightClickEmptyA
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setState(STATE.READY);
         this.setPassive(false);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
-    public void onRightClick(PlayerEntity player)
+    public int getRadius()
     {
-        IEntityStats entityStats = EntityStatsCapability.get(player);
+        return 10;
+    }
+    @Override
+    public void applyEffect(LivingEntity target)
+    {
+        target.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 240, 1));
+        target.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, 240, 1));
+    }
+    @Override
+    public boolean getShift()
+    {
+        return true;
+    }
 
-        List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10, null, LivingEntity.class);
-        targets.add(player);
-        for (LivingEntity livingEntity : targets)
-        {
-            if (!livingEntity.hasEffect(Effects.MOVEMENT_SPEED))
-                livingEntity.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 240, (int) (1 + Math.floor(entityStats.getReiatsuPoints()/4))));
-            if (!livingEntity.hasEffect(Effects.DAMAGE_BOOST))
-                livingEntity.addEffect(new EffectInstance(Effects.DAMAGE_BOOST, 240, (int) (1 + Math.floor(entityStats.getReiatsuPoints()/4))));
-        }
-    }}
+}

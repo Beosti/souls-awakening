@@ -1,13 +1,16 @@
 package com.yuanno.soulsawakening.abilities.elements.water;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.water.TidalWaveProjectile;
+import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class TidalWaveAbility extends Ability implements IRightClickEmptyAbility {
+public class TidalWaveAbility extends Ability implements IRightClickAbility, IShootAbility {
     public static final TidalWaveAbility INSTANCE = new TidalWaveAbility();
 
     public TidalWaveAbility()
@@ -17,17 +20,18 @@ public class TidalWaveAbility extends Ability implements IRightClickEmptyAbility
         this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
-    public void onShiftRightClick(PlayerEntity user)
-    {
-        IEntityStats entityStats = EntityStatsCapability.get(user);
-        TidalWaveProjectile projectile = new TidalWaveProjectile(user.level, user);
-        projectile.alterDamage((float) entityStats.getReiatsuPoints());
-        user.level.addFreshEntity(projectile);
-        projectile.shootFromRotation(user, user.xRot, user.yRot, 0, 0.5f, 1);
+    public AbilityProjectileEntity getProjectile(PlayerEntity player) {
+        return new TidalWaveProjectile(player.level, player);
+    }
 
+
+    @Override
+    public boolean getShift()
+    {
+        return true;
     }
 }

@@ -1,7 +1,9 @@
 package com.yuanno.soulsawakening.abilities.elements.lunar;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IWaveAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
@@ -10,12 +12,14 @@ import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 
 import java.util.List;
 
-public class LunarWaveAbility extends Ability implements IRightClickEmptyAbility {
+public class LunarWaveAbility extends Ability implements IRightClickAbility, IWaveAbility, IParticleEffect {
     public static final LunarWaveAbility INSTANCE = new LunarWaveAbility();
     public static final ParticleEffect PARTICLES_WAVE = new WaveParticleEffect(1.4);
 
@@ -27,19 +31,34 @@ public class LunarWaveAbility extends Ability implements IRightClickEmptyAbility
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setState(STATE.READY);
         this.setPassive(false);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
-    public void onShiftRightClick(PlayerEntity player)
+    public int getRadius()
     {
-        IEntityStats entityStats = EntityStatsCapability.get(player);
-        PARTICLES_WAVE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.LUNAR.get());
-        List<LivingEntity> targets = Beapi.getNearbyEntities(player.blockPosition(), player.level, 10 + entityStats.getReiatsuPoints(), null, LivingEntity.class);
-        targets.remove(player);
-        for (LivingEntity livingEntity : targets)
-        {
-            livingEntity.addEffect(new EffectInstance(Effects.BLINDNESS, 120, 0));
-        }
+        return 10;
+    }
+    @Override
+    public ParticleEffect getSpawnParticles()
+    {
+        return PARTICLES_WAVE;
+    }
+    @Override
+    public ParticleType getParticleType()
+    {
+        return ModParticleTypes.LUNAR.get();
+    }
+
+    @Override
+    public void applyEffect(LivingEntity target)
+    {
+        target.addEffect(new EffectInstance(Effects.BLINDNESS, 120, 0));
+    }
+
+    @Override
+    public boolean getShift()
+    {
+        return true;
     }
 }

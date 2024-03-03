@@ -2,7 +2,8 @@ package com.yuanno.soulsawakening.abilities.elements.wind;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
 import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -15,7 +16,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.List;
 
-public class GaleForceAbility extends Ability implements IRightClickEmptyAbility, IDuringCooldownAbility {
+public class GaleForceAbility extends Ability implements IRightClickAbility, IDuringCooldownAbility, ISelfEffect {
     public static final GaleForceAbility INSTANCE = new GaleForceAbility();
 
     public GaleForceAbility()
@@ -25,11 +26,11 @@ public class GaleForceAbility extends Ability implements IRightClickEmptyAbility
         this.setMaxCooldown(4);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
-    public void onRightClick(PlayerEntity player)
+    public void otherEffects(PlayerEntity player)
     {
         Vector3d speed = Beapi.propulsion(player, 3, 3);
         player.setDeltaMovement(speed.x, 0.3, speed.z);

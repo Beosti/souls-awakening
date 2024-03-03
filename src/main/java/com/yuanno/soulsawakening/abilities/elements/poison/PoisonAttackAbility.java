@@ -13,7 +13,7 @@ public class PoisonAttackAbility extends Ability implements IAttackAbility {
     {
         this.setName("Poison Attack");
         this.setActivationType(ActivationType.ATTACK);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override

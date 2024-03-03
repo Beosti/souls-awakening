@@ -1,12 +1,13 @@
 package com.yuanno.soulsawakening.abilities.elements.shadow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
 import com.yuanno.soulsawakening.init.ModEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 
-public class UmbralCloakAbility extends Ability implements IRightClickEmptyAbility {
+public class UmbralCloakAbility extends Ability implements IRightClickAbility, ISelfEffect {
     public static final UmbralCloakAbility INSTANCE = new UmbralCloakAbility();
 
     public UmbralCloakAbility()
@@ -16,13 +17,17 @@ public class UmbralCloakAbility extends Ability implements IRightClickEmptyAbili
         this.setMaxCooldown(16);
         this.setPassive(false);
         this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
-    public void onShiftRightClick(PlayerEntity player)
+    public EffectInstance getEffectInstance()
     {
-        if (!player.hasEffect(ModEffects.VANISH_INVISIBILITY.get()))
-            player.addEffect(new EffectInstance(ModEffects.VANISH_INVISIBILITY.get(), 160, 2, false, false));
+        return new EffectInstance(ModEffects.VANISH_INVISIBILITY.get(), 200, 2, false, false);
+    }
+    @Override
+    public boolean getShift()
+    {
+        return true;
     }
 }

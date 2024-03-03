@@ -19,7 +19,7 @@ public class LunarBlessingAbility extends Ability implements IRightClickEntityAb
         this.setMaxCooldown(20);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override

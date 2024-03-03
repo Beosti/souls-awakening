@@ -1,17 +1,20 @@
 package com.yuanno.soulsawakening.abilities.elements.heal;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.HoveringParticleEffect;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
-public class SelfHealingAbility extends Ability implements IRightClickEmptyAbility {
+public class SelfHealingAbility extends Ability implements IRightClickAbility, ISelfEffect, IParticleEffect {
     public static final SelfHealingAbility INSTANCE = new SelfHealingAbility();
     public static final ParticleEffect PARTICLES_HOVER = new HoveringParticleEffect(3, 4);
 
@@ -22,24 +25,33 @@ public class SelfHealingAbility extends Ability implements IRightClickEmptyAbili
         this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
-    public void onRightClick(PlayerEntity user)
+    public EffectInstance getEffectInstance()
     {
-        IEntityStats entityStats = EntityStatsCapability.get(user);
-
-        PARTICLES_HOVER.spawn(user.level, user.getX(), user.getY(), user.getZ(), 0, 0, 0, ModParticleTypes.HEALING.get());
-        if (user.hasEffect(Effects.ABSORPTION))
-        {
-            user.removeEffect(Effects.ABSORPTION);
-            user.addEffect(new EffectInstance(Effects.ABSORPTION, 120, +(int) (1 + Math.floor(entityStats.getReiatsuPoints()/4))));
-        }
-        else
-            user.addEffect(new EffectInstance(Effects.ABSORPTION, 120, 1+(int) (1 + Math.floor(entityStats.getReiatsuPoints()/4))));
-        float missingHealth = user.getMaxHealth() - user.getHealth();
-        user.heal(missingHealth / 2 + 4 + (float) entityStats.getReiatsuPoints()/4);
-
+        return new EffectInstance(Effects.ABSORPTION, 120, 1);
     }
+
+    @Override
+    public ParticleEffect getSpawnParticles()
+    {
+        return PARTICLES_HOVER;
+    }
+
+    @Override
+    public ParticleType getParticleType()
+    {
+        return ModParticleTypes.HEALING.get();
+    }
+
+    @Override
+    public void otherEffects(PlayerEntity player)
+    {
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        float missingHealth = player.getMaxHealth() - player.getHealth();
+        player.heal(missingHealth / 2 + 4 + (float) entityStats.getReiatsuPoints()/4);
+    }
+
 }

@@ -16,7 +16,7 @@ public class WaterPrisonAbility extends Ability implements IRightClickEntityAbil
         this.setMaxCooldown(10);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override

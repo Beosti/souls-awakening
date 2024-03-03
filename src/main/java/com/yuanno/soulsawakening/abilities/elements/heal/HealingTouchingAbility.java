@@ -19,7 +19,7 @@ public class HealingTouchingAbility extends Ability implements IRightClickEntity
         this.setMaxCooldown(20);
         this.setPassive(false);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
     @Override
     public void onRightClickEntity(LivingEntity entity, PlayerEntity user)

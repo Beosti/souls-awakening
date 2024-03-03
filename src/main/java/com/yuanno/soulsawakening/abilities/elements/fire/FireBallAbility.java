@@ -1,13 +1,13 @@
 package com.yuanno.soulsawakening.abilities.elements.fire;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
-import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
+import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class FireBallAbility extends Ability implements IRightClickEmptyAbility {
+public class FireBallAbility extends Ability implements IRightClickAbility, IShootAbility {
     public static final FireBallAbility INSTANCE = new FireBallAbility();
 
     public FireBallAbility()
@@ -21,15 +21,10 @@ public class FireBallAbility extends Ability implements IRightClickEmptyAbility 
     }
 
     @Override
-    public void onRightClick(PlayerEntity user)
-    {
-        FireBallProjectile projectile = new FireBallProjectile(user.level, user);
-        IEntityStats entityStats = EntityStatsCapability.get(user);
-        projectile.alterDamage((float) (entityStats.getReiatsuPoints()/2));
-        user.level.addFreshEntity(projectile);
-        projectile.shootFromRotation(user, user.xRot, user.yRot, 0, 1f, 1);
-
+    public AbilityProjectileEntity getProjectile(PlayerEntity player) {
+        return new FireBallProjectile(player.level, player);
     }
+
 
     @Override
     public boolean getShift()

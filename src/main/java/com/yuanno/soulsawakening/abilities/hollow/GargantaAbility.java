@@ -1,7 +1,8 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEmptyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.util.GargantaTeleporter;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,7 +10,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class GargantaAbility extends Ability implements IRightClickEmptyAbility {
+public class GargantaAbility extends Ability implements IRightClickAbility, ISelfEffect {
     public static final GargantaAbility INSTANCE = new GargantaAbility();
     public GargantaAbility()
     {
@@ -23,7 +24,8 @@ public class GargantaAbility extends Ability implements IRightClickEmptyAbility 
     }
 
     @Override
-    public void onShiftRightClick(PlayerEntity player) {
+    public void otherEffects(PlayerEntity player)
+    {
         World world = player.level;
         MinecraftServer minecraftServer = world.getServer();
         if (minecraftServer == null)
@@ -43,4 +45,11 @@ public class GargantaAbility extends Ability implements IRightClickEmptyAbility 
             }
         }
     }
+
+    @Override
+    public boolean getShift()
+    {
+        return true;
+    }
+
 }
