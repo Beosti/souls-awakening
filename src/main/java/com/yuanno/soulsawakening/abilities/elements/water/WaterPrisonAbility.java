@@ -1,12 +1,13 @@
 package com.yuanno.soulsawakening.abilities.elements.water;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEntityAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IEntityRayTrace;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class WaterPrisonAbility extends Ability implements IRightClickEntityAbility {
+public class WaterPrisonAbility extends Ability implements IEntityRayTrace, IRightClickAbility {
     public static final WaterPrisonAbility INSTANCE = new WaterPrisonAbility();
 
     public WaterPrisonAbility()
@@ -20,7 +21,13 @@ public class WaterPrisonAbility extends Ability implements IRightClickEntityAbil
     }
 
     @Override
-    public void onRightClickEntity(LivingEntity target, PlayerEntity user)
+    public int getDistance()
+    {
+        return 2;
+    }
+
+    @Override
+    public void somethingAtEntity(PlayerEntity player, LivingEntity target)
     {
         target.level.setBlockAndUpdate(target.blockPosition(), Blocks.WATER.defaultBlockState());
         target.level.setBlockAndUpdate(target.blockPosition().above(), Blocks.WATER.defaultBlockState());

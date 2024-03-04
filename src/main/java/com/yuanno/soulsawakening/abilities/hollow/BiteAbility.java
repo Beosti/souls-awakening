@@ -1,7 +1,8 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEntityAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IEntityRayTrace;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
@@ -11,7 +12,7 @@ import com.yuanno.soulsawakening.particles.hollow.BiteParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class BiteAbility extends Ability implements IRightClickEntityAbility {
+public class BiteAbility extends Ability implements IEntityRayTrace, IRightClickAbility {
     public static final BiteAbility INSTANCE = new BiteAbility();
     private static final ParticleEffect PARTICLES = new BiteParticleEffect();
 
@@ -28,13 +29,19 @@ public class BiteAbility extends Ability implements IRightClickEntityAbility {
     }
 
     @Override
-    public void onRightClickEntity(LivingEntity target, PlayerEntity player)
+    public int getDistance()
     {
-        if (target instanceof PlusEntity)
+        return 2;
+    }
+
+    @Override
+    public void somethingAtEntity(PlayerEntity player, LivingEntity entity)
+    {
+        if (entity instanceof PlusEntity)
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         double biteDamage = (6 + entityStats.getHollowPoints()/5);
-        target.hurt(AbilityDamageSource.causeAbilityDamage(player, this), (float) biteDamage);
-        PARTICLES.spawn(target.level, target.getX(), target.getY(), target.getZ(), 0, 0, 0);
+        entity.hurt(AbilityDamageSource.causeAbilityDamage(player, this), (float) biteDamage);
+        PARTICLES.spawn(entity.level, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
     }
 }

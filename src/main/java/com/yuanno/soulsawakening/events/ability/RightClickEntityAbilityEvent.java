@@ -18,42 +18,11 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.ArrayList;
+
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class RightClickEntityAbilityEvent {
-    private static boolean entityInteractFired = false;
-    @SubscribeEvent
-    public static void onRightClickEntity(PlayerInteractEvent.RightClickItem.EntityInteract event)
-    {
-        PlayerEntity player = event.getPlayer();
-        if (!(event.getTarget() instanceof  LivingEntity))
-            return;
-        if (player.level.isClientSide)
-            return;
-        LivingEntity target = (LivingEntity) event.getTarget();
-        IAbilityData abilityData = AbilityDataCapability.get(player);
-        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
-        {
-            Ability ability = abilityData.getUnlockedAbilities().get(i);
-            if (!(ability.getState().equals(Ability.STATE.READY))) // check if the ability is read
-                return;
-            if (!(ability instanceof IRightClickEntityAbility)) // check if the ability is an attack ability
-                return;
-            if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
-            {
-                ItemStack zanpakutoItem = player.getMainHandItem();
-                String state = zanpakutoItem.getTag().getString("zanpakutoState");
-                if (state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
-                    continue;
-                else // if not return
-                    return;
-            }
-            IRightClickEntityAbility rightClickEntityAbility = (IRightClickEntityAbility) abilityData.getUnlockedAbilities().get(i);
-            rightClickEntityAbility.onRightClickEntity(target, player);
-            ability.setState(Ability.STATE.COOLDOWN);
-            ability.setCooldown(ability.getMaxCooldown() / 20);
 
-        }
-    }
 
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event)
@@ -61,14 +30,20 @@ public class RightClickEntityAbilityEvent {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
-
-        if (entityInteractFired)
-        {
-            entityInteractFired = false;
-            return;
-        }
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
+        ArrayList <Ability> unlockedAbilities = (ArrayList<Ability>) abilityData.getUnlockedAbilities();
+        unlockedAbilities.sort((ability1, ability2) -> {
+            if (ability1 instanceof IEntityRayTrace && ability2 instanceof IEntityRayTrace) {
+                return 0;
+            } else if (ability1 instanceof IEntityRayTrace) {
+                return -1;
+            } else if (ability2 instanceof IEntityRayTrace) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        for (int i = 0; i < unlockedAbilities.size(); i++)
         {
             Ability ability = abilityData.getUnlockedAbilities().get(i);
             if (!(ability.getState().equals(Ability.STATE.READY))) // check if the ability is read
@@ -85,7 +60,11 @@ public class RightClickEntityAbilityEvent {
             IRightClickAbility rightClickEmptyAbility = (IRightClickAbility) abilityData.getUnlockedAbilities().get(i);
             if (player.isCrouching() ^ rightClickEmptyAbility.getShift())
                 continue;
+            if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
+                continue;
             System.out.println(ability.getName());
+            if (ability instanceof IEntityRayTrace && ((IEntityRayTrace) ability).gotTarget(player))
+                ((IEntityRayTrace) ability).onEntityRayTrace(player);
             if (ability instanceof IShootAbility)
                 ((IShootAbility) ability).onUse(player);
             if (ability instanceof IWaveAbility)
@@ -124,11 +103,6 @@ public class RightClickEntityAbilityEvent {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
-        if (entityInteractFired)
-        {
-            entityInteractFired = false;
-            return;
-        }
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
@@ -143,32 +117,5 @@ public class RightClickEntityAbilityEvent {
             ability.setState(Ability.STATE.COOLDOWN);
             ability.setCooldown(ability.getMaxCooldown() / 20);
         }
-
-        /*
-        if (entityStats.getRace().equals(ModValues.HOLLOW))
-        {
-            for (Ability ability : abilityData.getActiveAbilities())
-            {
-                if (!(ability instanceof IRightClickEmptyAbility))
-                    continue;
-                if (!ability.getState().equals(Ability.STATE.READY) && !(ability.getPassive()))
-                    continue;
-                if (ability.getActivationType().equals(Ability.ActivationType.SHIFT_RIGHT_CLICK) && player.isCrouching()) {
-                    ability.setState(Ability.STATE.COOLDOWN);
-                    ability.setCooldown(ability.getMaxCooldown() / 20);
-                    ((IRightClickEmptyAbility) ability).onShiftRightClick(player);
-                }
-                else if (ability.getActivationType().equals(Ability.ActivationType.RIGHT_CLICK_EMPTY) && !player.isCrouching()) {
-                    ability.setState(Ability.STATE.COOLDOWN);
-                    ability.setCooldown(ability.getMaxCooldown() / 20);
-                    ((IRightClickEmptyAbility) ability).onRightClick(player);
-                }
-                else
-                    continue;
-
-                return;
-            }
-        }
-         */
     }
 }

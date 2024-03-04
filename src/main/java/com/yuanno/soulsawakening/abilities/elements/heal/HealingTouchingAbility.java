@@ -1,7 +1,8 @@
 package com.yuanno.soulsawakening.abilities.elements.heal;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickEntityAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IEntityRayTrace;
+import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import net.minecraft.entity.LivingEntity;
@@ -9,7 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
-public class HealingTouchingAbility extends Ability implements IRightClickEntityAbility {
+public class HealingTouchingAbility extends Ability implements IEntityRayTrace, IRightClickAbility {
     public static final HealingTouchingAbility INSTANCE = new HealingTouchingAbility();
 
     public HealingTouchingAbility()
@@ -21,8 +22,15 @@ public class HealingTouchingAbility extends Ability implements IRightClickEntity
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
         this.setSubCategory(SubCategory.SHIKAI);
     }
+
     @Override
-    public void onRightClickEntity(LivingEntity entity, PlayerEntity user)
+    public int getDistance()
+    {
+        return 2;
+    }
+
+    @Override
+    public void somethingAtEntity(PlayerEntity user, LivingEntity entity)
     {
         IEntityStats entityStats = EntityStatsCapability.get(user);
 
