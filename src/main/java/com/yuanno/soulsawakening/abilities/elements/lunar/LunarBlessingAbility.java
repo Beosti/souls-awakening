@@ -16,6 +16,7 @@ public class LunarBlessingAbility extends Ability implements IEntityRayTrace, IR
     public LunarBlessingAbility()
     {
         this.setName("Lunar Curse");
+        this.setDescription("Sucks life energy from the target, granting you buffs and the target debuffs");
         this.setCooldown(20);
         this.setMaxCooldown(20);
         this.setPassive(false);

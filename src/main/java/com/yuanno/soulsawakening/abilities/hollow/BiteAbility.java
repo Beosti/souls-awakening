@@ -23,7 +23,6 @@ public class BiteAbility extends Ability implements IEntityRayTrace, IRightClick
         this.setCooldown(5);
         this.setMaxCooldown(5);
         this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
-        this.setState(STATE.READY);
         this.setPassive(false);
         this.setSubCategory(SubCategory.BASE);
     }

@@ -45,7 +45,7 @@ public class RightClickEntityAbilityEvent {
         });
         for (int i = 0; i < unlockedAbilities.size(); i++)
         {
-            Ability ability = abilityData.getUnlockedAbilities().get(i);
+            Ability ability = unlockedAbilities.get(i);
             if (!(ability.getState().equals(Ability.STATE.READY))) // check if the ability is read
                 continue;
             if (!(ability instanceof IRightClickAbility)) // check if the ability is a right click ability
@@ -103,19 +103,53 @@ public class RightClickEntityAbilityEvent {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
-        IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
+        ArrayList <Ability> unlockedAbilities = (ArrayList<Ability>) abilityData.getUnlockedAbilities();
+        unlockedAbilities.sort((ability1, ability2) -> {
+            if (ability1 instanceof IEntityRayTrace && ability2 instanceof IEntityRayTrace) {
+                return 0;
+            } else if (ability1 instanceof IEntityRayTrace) {
+                return -1;
+            } else if (ability2 instanceof IEntityRayTrace) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        for (int i = 0; i < unlockedAbilities.size(); i++)
         {
-            Ability ability = abilityData.getUnlockedAbilities().get(i);
+            Ability ability = unlockedAbilities.get(i);
             if (!(ability.getState().equals(Ability.STATE.READY))) // check if the ability is read
-                return;
-            if (!(ability instanceof IRightClickAbility)) // check if the ability is an attack ability
-                return;
+                continue;
+            if (!(ability instanceof IRightClickAbility)) // check if the ability is a right click ability
+                continue;
+            if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
+                continue;
             IRightClickAbility rightClickEmptyAbility = (IRightClickAbility) abilityData.getUnlockedAbilities().get(i);
-            //rightClickEmptyAbility.onRightClick(player);
+            if (player.isCrouching() ^ rightClickEmptyAbility.getShift())
+                continue;
+            System.out.println(ability.getName());
+            // TODO some very weird bug involving the bite ability
+            if (ability instanceof IEntityRayTrace && ((IEntityRayTrace) ability).gotTarget(player))
+                System.out.println("CALLED");
+            if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
+                continue;
+            if (ability instanceof IEntityRayTrace && ((IEntityRayTrace) ability).gotTarget(player))
+                ((IEntityRayTrace) ability).onEntityRayTrace(player);
+            if (ability instanceof IShootAbility)
+                ((IShootAbility) ability).onUse(player);
+            if (ability instanceof IWaveAbility)
+                ((IWaveAbility) ability).onWave(player);
+            if (ability instanceof IBlockRayTrace)
+                ((IBlockRayTrace) ability).onBlockRayTrace(player);
+            if (ability instanceof IParticleEffect)
+                ((IParticleEffect) ability).spawnParticles(player);
+            if (ability instanceof ISelfEffect)
+                ((ISelfEffect) ability).applyEffect(player);
             ability.setState(Ability.STATE.COOLDOWN);
             ability.setCooldown(ability.getMaxCooldown() / 20);
+            PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+            return;
         }
     }
 }
