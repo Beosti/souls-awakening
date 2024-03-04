@@ -95,6 +95,6 @@ More short form comments can always be handy but are not needed if explained wel
 #### Bugfixes
 Feel free to bugfix at your hearts content and make a pull request. Preferably with the code being streamlined and what bug you fixed.
 #### Additions
-Do not use if statements and their 
+Feel free to make additions but be sure you have properly read the code style part of the text.
 #### Changes in api
 If you want to change something in the [API](src/main/java/com/yuanno/soulsawakening/ability/api), because you are not able to make something you want with what there is now. Preferably add unto the interface you can use and if not add your own interface and if needed be your own logic. 
