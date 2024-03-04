@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.networking.client;
 
+import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
 import com.yuanno.soulsawakening.events.ability.RightClickEmptyEvent;
 import com.yuanno.soulsawakening.events.zanpakuto.ZanpakutoChangeEvent;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,8 +40,8 @@ public class CRightClickEmptyPacket {
             contextSupplier.get().enqueueWork(() ->
             {
                 PlayerEntity player = contextSupplier.get().getSender();
-                Event rightClickEmptyEvent = new RightClickEmptyEvent(player);
-                MinecraftForge.EVENT_BUS.post(rightClickEmptyEvent);
+                Event customInteractionEvent = new CustomInteractionEvent(player);
+                MinecraftForge.EVENT_BUS.post(customInteractionEvent);
             });
         }
         contextSupplier.get().setPacketHandled(true);

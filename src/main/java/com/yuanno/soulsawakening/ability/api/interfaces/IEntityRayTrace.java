@@ -25,7 +25,6 @@ public interface IEntityRayTrace {
     default boolean gotTarget(PlayerEntity player)
     {
         RayTraceResult rayTraceResult = Beapi.rayTraceBlocksAndEntities(player, getDistance());
-        System.out.println(rayTraceResult);
         if (!(rayTraceResult instanceof EntityRayTraceResult))
             return false;
         return ((EntityRayTraceResult) rayTraceResult).getEntity() instanceof LivingEntity;
