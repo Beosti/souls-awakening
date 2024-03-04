@@ -19,11 +19,8 @@ public class AdrenalineCloudAbility extends Ability implements IRightClickAbilit
     public AdrenalineCloudAbility()
     {
         this.setName("Adrenaline Cloud");
-        this.setCooldown(17);
         this.setMaxCooldown(17);
-        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setState(STATE.READY);
-        this.setPassive(false);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

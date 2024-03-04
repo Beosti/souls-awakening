@@ -16,10 +16,7 @@ public class GargantaAbility extends Ability implements IRightClickAbility, ISel
     {
         this.setName("Garganta");
         this.setDescription("Teleports to and from Hueco Mundo");
-        this.setCooldown(240);
         this.setMaxCooldown(240);
-        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
-        this.setPassive(false);
         this.setSubCategory(SubCategory.ADJUCHA);
     }
 

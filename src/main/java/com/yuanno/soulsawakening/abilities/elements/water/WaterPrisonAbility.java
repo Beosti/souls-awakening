@@ -13,10 +13,7 @@ public class WaterPrisonAbility extends Ability implements IEntityRayTrace, IRig
     public WaterPrisonAbility()
     {
         this.setName("Water Prison");
-        this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

@@ -24,15 +24,11 @@ import java.util.List;
 public class WhirldWindDanceAbility extends Ability implements IRightClickAbility, IWaveAbility {
     public static final WhirldWindDanceAbility INSTANCE = new WhirldWindDanceAbility();
     private final static DamageSource WIND_DAMAGE = new ModDamageSource("wind_wave").setSourceTypes(SourceType.SHOCKWAVE).setSourceElement(SourceElement.WIND);
-    int propulsion = 5;
 
     public WhirldWindDanceAbility()
     {
         this.setName("Whirld Wind Dance");
-        this.setCooldown(8);
         this.setMaxCooldown(8);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setCategory(Category.ZANPAKUTO);
     }
 

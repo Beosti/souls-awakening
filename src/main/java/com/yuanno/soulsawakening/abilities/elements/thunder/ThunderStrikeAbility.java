@@ -27,10 +27,7 @@ public class ThunderStrikeAbility extends Ability implements IRightClickAbility,
     public ThunderStrikeAbility()
     {
         this.setName("Thunder Strike");
-        this.setCooldown(16);
         this.setMaxCooldown(16);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

@@ -12,7 +12,6 @@ public class PoisonAttackAbility extends Ability implements IAttackAbility {
     public PoisonAttackAbility()
     {
         this.setName("Poison Attack");
-        this.setActivationType(ActivationType.ATTACK);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

@@ -25,10 +25,9 @@ public class TickAbilityEvent {
 
 
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        IEntityStats entityStats = EntityStatsCapability.get(player);
         for (Ability ability : abilityData.getUnlockedAbilities())
         {
-            if (!ability.getPassive())
+            if (!(ability instanceof IPassiveAbility))
             {
                 if (ability.getState().equals(Ability.STATE.READY))
                     continue;
@@ -36,7 +35,7 @@ public class TickAbilityEvent {
                     ((IDuringCooldownAbility) ability).onCooldown(player);
                 ability.duringCooldown(player);
             }
-            else if (ability.getPassive())
+            else if (ability instanceof IPassiveAbility)
             {
                 if (player.tickCount % 20 == 0 && !player.level.isClientSide)
                     ((IPassiveAbility) ability).onContinuousAbility(player);

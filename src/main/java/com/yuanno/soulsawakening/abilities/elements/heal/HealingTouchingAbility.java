@@ -16,10 +16,7 @@ public class HealingTouchingAbility extends Ability implements IEntityRayTrace, 
     public HealingTouchingAbility()
     {
         this.setName("Healing Touch");
-        this.setCooldown(20);
         this.setMaxCooldown(20);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

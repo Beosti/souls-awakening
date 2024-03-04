@@ -22,7 +22,6 @@ public class ShadowAttackAbility extends Ability implements IAttackAbility {
 
     public ShadowAttackAbility() {
         this.setName("Shadow Attack");
-        this.setActivationType(Ability.ActivationType.ATTACK);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

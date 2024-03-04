@@ -21,10 +21,7 @@ public class SelfHealingAbility extends Ability implements IRightClickAbility, I
     public SelfHealingAbility()
     {
         this.setName("Self Healing");
-        this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

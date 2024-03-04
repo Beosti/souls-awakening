@@ -26,11 +26,8 @@ public class LunarWaveAbility extends Ability implements IRightClickAbility, IWa
     public LunarWaveAbility()
     {
         this.setName("Lunar Wave");
-        this.setCooldown(15);
         this.setMaxCooldown(15);
-        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setState(STATE.READY);
-        this.setPassive(false);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

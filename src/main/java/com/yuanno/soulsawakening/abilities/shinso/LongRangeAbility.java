@@ -19,8 +19,6 @@ public class LongRangeAbility extends Ability implements IPunchAbility {
         this.setName("Long Range");
         this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.ATTACK);
         this.setCategory(Category.ZANPAKUTO);
     }
 

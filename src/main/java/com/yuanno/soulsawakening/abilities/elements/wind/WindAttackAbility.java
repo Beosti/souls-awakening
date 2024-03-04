@@ -13,7 +13,6 @@ public class WindAttackAbility extends Ability implements IAttackAbility {
 
     public WindAttackAbility() {
         this.setName("Wind Attack");
-        this.setActivationType(ActivationType.ATTACK);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

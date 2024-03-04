@@ -16,10 +16,7 @@ public class ShakkahoAbility extends Ability implements IShootAbility, IKidoAbil
     {
         this.setName("Shakkaho");
         this.setDescription("Generates and fires an orb of crimson energy");
-        this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.SCROLL);
         this.setSubCategory(SubCategory.HADO);
     }
 

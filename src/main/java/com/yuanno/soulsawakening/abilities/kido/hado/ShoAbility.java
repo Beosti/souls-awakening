@@ -16,10 +16,7 @@ public class ShoAbility extends Ability implements IShootAbility, IKidoAbility {
     {
         this.setName("Sho");
         this.setDescription("Shoots a projectile pushing away entities");
-        this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.SCROLL);
         this.setSubCategory(SubCategory.HADO);
     }
 

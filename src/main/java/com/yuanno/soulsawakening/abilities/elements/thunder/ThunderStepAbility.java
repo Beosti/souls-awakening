@@ -22,10 +22,7 @@ public class ThunderStepAbility extends Ability implements IRightClickAbility, I
     public ThunderStepAbility()
     {
         this.setName("Lightning Step");
-        this.setCooldown(12);
         this.setMaxCooldown(12);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

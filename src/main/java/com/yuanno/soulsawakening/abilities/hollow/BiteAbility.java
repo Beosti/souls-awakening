@@ -20,10 +20,7 @@ public class BiteAbility extends Ability implements IEntityRayTrace, IRightClick
     {
         this.setName("Bite");
         this.setDescription("Bites the enemy, if you kill the enemy with this ability, you gain a hollow point");
-        this.setCooldown(5);
         this.setMaxCooldown(5);
-        this.setActivationType(ActivationType.RIGHT_CLICK_ENTITY);
-        this.setPassive(false);
         this.setSubCategory(SubCategory.BASE);
     }
 

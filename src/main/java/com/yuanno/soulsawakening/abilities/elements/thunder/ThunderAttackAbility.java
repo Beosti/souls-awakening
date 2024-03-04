@@ -17,7 +17,6 @@ public class ThunderAttackAbility extends Ability implements IAttackAbility {
 
     public ThunderAttackAbility() {
         this.setName("Thunder Attack");
-        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

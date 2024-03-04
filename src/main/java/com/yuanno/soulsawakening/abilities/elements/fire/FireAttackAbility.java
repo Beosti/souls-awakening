@@ -12,7 +12,6 @@ public class FireAttackAbility extends Ability implements IAttackAbility {
     public FireAttackAbility() {
         this.setName("Fire Attack");
         this.setDescription("Hitting an enemy puts them on fire");
-        this.setActivationType(ActivationType.ATTACK);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

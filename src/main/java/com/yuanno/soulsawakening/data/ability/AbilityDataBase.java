@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.data.ability;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IPassiveAbility;
 import net.minecraft.entity.LivingEntity;
 
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ public class AbilityDataBase implements IAbilityData {
     @Override
     public List<Ability> getActiveAbilities() {
         return this.unlockedAbilities.stream()
-                .filter(ability -> !ability.getPassive())
+                .filter(ability -> !(ability instanceof IPassiveAbility))
                 .collect(Collectors.toList());
     }
 

@@ -16,10 +16,7 @@ public class TidalWaveAbility extends Ability implements IRightClickAbility, ISh
     public TidalWaveAbility()
     {
         this.setName("Tidal Wave");
-        this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

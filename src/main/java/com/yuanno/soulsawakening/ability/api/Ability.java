@@ -69,14 +69,6 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     {
         this.isReady = isReady;
     }
-    public boolean getPassive()
-    {
-        return this.isPassive;
-    }
-    public void setPassive(boolean passive)
-    {
-        this.isPassive = passive;
-    }
     public String getName() {
         return name;
     }
@@ -99,6 +91,8 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     public void setMaxCooldown(double maxCooldown)
     {
         this.maxCooldown = maxCooldown * 20;
+        this.cooldown = maxCooldown * 20;
+
     }
     public double getCooldown() {
         return cooldown;
@@ -109,12 +103,7 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     }
     public void setCooldown(double cooldown)
     {
-        this.cooldown = cooldown * 20;
-    }
-
-    public void setActivationType(ActivationType activationType)
-    {
-        this.activationType = activationType;
+        this.cooldown = cooldown;
     }
 
     public STATE getState()

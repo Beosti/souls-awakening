@@ -22,10 +22,7 @@ public class SaiAbility extends Ability implements IShootAbility, IKidoAbility {
     {
         this.setName("Sai");
         this.setDescription("Restraints the entities arms");
-        this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.SCROLL);
         this.setSubCategory(SubCategory.BAKUDO);
     }
 

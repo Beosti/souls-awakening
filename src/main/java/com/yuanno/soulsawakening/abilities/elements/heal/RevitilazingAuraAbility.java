@@ -25,10 +25,7 @@ public class RevitilazingAuraAbility extends Ability implements IRightClickAbili
     public RevitilazingAuraAbility()
     {
         this.setName("Revitilazing Aura");
-        this.setCooldown(20);
         this.setMaxCooldown(20);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.SHIFT_RIGHT_CLICK);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

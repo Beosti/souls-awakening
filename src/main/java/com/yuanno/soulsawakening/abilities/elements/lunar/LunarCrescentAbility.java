@@ -16,10 +16,7 @@ public class LunarCrescentAbility extends Ability implements IRightClickAbility,
     public LunarCrescentAbility()
     {
         this.setName("Lunar Crescent");
-        this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

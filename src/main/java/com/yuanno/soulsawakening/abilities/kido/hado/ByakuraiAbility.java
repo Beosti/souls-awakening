@@ -16,10 +16,7 @@ public class ByakuraiAbility extends Ability implements IShootAbility, IKidoAbil
     {
         this.setName("Byakurai");
         this.setDescription("Shoots a focuses reishi energy beam");
-        this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.SCROLL);
         this.setSubCategory(SubCategory.HADO);
     }
 

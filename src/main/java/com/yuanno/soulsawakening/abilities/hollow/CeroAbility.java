@@ -15,10 +15,7 @@ public class CeroAbility extends Ability implements IRightClickAbility, IShootAb
     {
         this.setName("Cero");
         this.setDescription("Unleashes an energy blast dealing damage");
-        this.setCooldown(45);
         this.setMaxCooldown(45);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setSubCategory(SubCategory.GILLIAN);
     }
 

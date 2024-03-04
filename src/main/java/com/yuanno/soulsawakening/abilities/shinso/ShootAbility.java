@@ -18,8 +18,6 @@ public class ShootAbility extends Ability implements IRightClickAbility, IShootA
         this.setName("Shoot");
         this.setCooldown(4);
         this.setMaxCooldown(4);
-        this.setPassive(false);
-        this.setActivationType(Ability.ActivationType.RIGHT_CLICK_EMPTY);
         this.setCategory(Category.ZANPAKUTO);
     }
 

@@ -15,19 +15,10 @@ public class HollowRegenerationAbility extends Ability implements IPassiveAbilit
     {
         this.setName("Hollow Regeneration");
         this.setDescription("Passively regenerate health as a hollow");
-        this.setPassive(true);
         this.setShown(false);
         this.setSubCategory(SubCategory.BASE);
     }
 
-    /*
-    @Override
-    public void onStartAbility(PlayerEntity user)
-    {
-        System.out.println("STARTED");
-    }
-
-     */
     @Override
     public void onContinuousAbility(PlayerEntity user)
     {
@@ -36,13 +27,4 @@ public class HollowRegenerationAbility extends Ability implements IPassiveAbilit
             PARTICLES.spawn(user.level, user.getX(), user.getY(), user.getZ(), 0, 0, 0);
         }
     }
-    /*
-
-    @Override
-    public void onEndContinuousAbility(PlayerEntity user)
-    {
-        System.out.println("ENDING");
-    }
-
-     */
 }

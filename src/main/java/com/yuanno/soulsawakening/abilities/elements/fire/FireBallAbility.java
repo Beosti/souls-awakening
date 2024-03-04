@@ -14,9 +14,7 @@ public class FireBallAbility extends Ability implements IRightClickAbility, ISho
     {
         this.setName("Fireball");
         this.setDescription("Shoots a fireball");
-        this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setPassive(false);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

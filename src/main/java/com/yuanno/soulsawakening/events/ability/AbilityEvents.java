@@ -16,8 +16,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -25,7 +25,12 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.ArrayList;
 
 /**
- * Here all the right click abilities {@link IRightClickAbility} handled.
+ * Here all the event abilities handled.
+ * For the abilities that are on-hit {@link IAttackAbility}
+ * Everything happens in the {@link #onAttackEvent(AttackEntityEvent)}, when the player attacks the entity and it has {@link IAttackAbility} it does what it has to do
+ * Possibly could add cooldown and other stuff to those type of abilities
+ *
+ * For the abilities with right-clicking {@link IRightClickAbility}
  * They first get funneled through vanilla events to a custom event and there all the logic is handled.
  * The interaction is there because if not there to check, it'll fire multiple events at the same time and we don't want that tl;dr makes it harder and more complicated
  *
@@ -35,8 +40,37 @@ import java.util.ArrayList;
  * {@link #onRightClickEmpty(PlayerInteractEvent.RightClickEmpty)} -> {@link #customRightClickLogic(CustomInteractionEvent)}
  */
 @Mod.EventBusSubscriber(modid = Main.MODID)
-public class RightClickEntityAbilityEvent {
-    private static boolean interacted = false;
+public class AbilityEvents {
+    @SubscribeEvent
+    public static void onAttackEvent(AttackEntityEvent event)
+    {
+        PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
+        {
+            Ability ability = abilityData.getUnlockedAbilities().get(i);
+            if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
+            {
+                ItemStack zanpakutoItem = player.getMainHandItem();
+                if (!zanpakutoItem.getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
+                    return;
+                String state = zanpakutoItem.getTag().getString("zanpakutoState");
+                if (!state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
+                    return;
+            }
+            if (!(ability instanceof IAttackAbility)) // check if the ability is a right click ability
+                continue;
+            System.out.println(ability.getName());
+            Entity entity = event.getTarget();
+            if (!(entity instanceof LivingEntity))
+                return;
+            ((IAttackAbility) ability).activate(((LivingEntity) entity), player);
+            PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+            return;
+        }
+    }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onRightClickInteraction(PlayerInteractEvent.EntityInteract event)
@@ -59,7 +93,6 @@ public class RightClickEntityAbilityEvent {
     public static void onRightClickEmpty(PlayerInteractEvent.RightClickEmpty event)
     {
         PacketHandler.sendToServer(new CRightClickEmptyPacket());
-        System.out.println("CALLED");
     }
 
 

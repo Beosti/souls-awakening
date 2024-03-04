@@ -8,5 +8,5 @@ import net.minecraft.entity.player.PlayerEntity;
  */
 public interface IAttackAbility {
 
-    public void activate(LivingEntity entityTarget, PlayerEntity player);
+    default void activate(LivingEntity entityTarget, PlayerEntity player) {};
 }

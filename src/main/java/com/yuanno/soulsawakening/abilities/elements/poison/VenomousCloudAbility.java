@@ -31,11 +31,8 @@ public class VenomousCloudAbility extends Ability implements IRightClickAbility,
     public VenomousCloudAbility()
     {
         this.setName("Venomous Cloud");
-        this.setCooldown(15);
         this.setMaxCooldown(15);
-        this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setState(STATE.READY);
-        this.setPassive(false);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

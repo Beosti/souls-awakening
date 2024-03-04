@@ -13,10 +13,7 @@ public class NormalBuffAbility extends Ability implements IRightClickAbility, IS
     public NormalBuffAbility()
     {
         this.setName("Normal Buff");
-        this.setCooldown(20);
         this.setMaxCooldown(20);
-        this.setPassive(false);
-        this.setActivationType(ActivationType.RIGHT_CLICK_EMPTY);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 
