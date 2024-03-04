@@ -204,36 +204,10 @@ public class AbilityListScreen extends Screen {
                 activation_type = "passive";
             if (abilityHovering instanceof IRightClickAbility)
                 activation_type = "right click";
-            if (abilityHovering instanceof IRightClickEntityAbility)
-                activation_type = "right click on entity";
-            /*
-            if (abilityHovering.getPassive())
-                activation_type = "passive";
-            if (activation_type.isEmpty())
-            {
-                switch (abilityHovering.getActivationType()) {
-                    case ATTACK:
-                        activation_type = "on-hit";
-                        break;
-                    case RIGHT_CLICK_BLOCK:
-                        activation_type = "right click on block";
-                        break;
-                    case RIGHT_CLICK_EMPTY:
-                        activation_type = "right click";
-                        break;
-                    case SHIFT_RIGHT_CLICK:
-                        activation_type = "right click + shift";
-                        break;
-                    case RIGHT_CLICK_ENTITY:
-                        activation_type = "right click on entity";
-                        break;
-                    default:
-                        activation_type = "activation type not registered";
-                        break;
-                }
-            }
-
-             */
+            if (abilityHovering instanceof IEntityRayTrace)
+                activation_type = "right click an entity, in range of  " + ((IEntityRayTrace) abilityHovering).getDistance() + " blocks away";
+            if (abilityHovering instanceof IBlockRayTrace)
+                activation_type = "right click a block of entity, in range of " + ((IBlockRayTrace) abilityHovering).getDistance() + " blocks away";
             fullDescription.append("§lActivation type§r: " + activation_type);
             if (InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT))
                 this.renderTooltip(matrixStack, new TranslationTextComponent(String.valueOf(fullDescription)), x, y);

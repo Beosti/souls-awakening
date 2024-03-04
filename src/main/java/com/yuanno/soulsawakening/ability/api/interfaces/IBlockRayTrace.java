@@ -5,6 +5,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 
+/**
+ * Handles interaction with blocks
+ */
 public interface IBlockRayTrace {
 
     default void onBlockRayTrace(PlayerEntity player) {

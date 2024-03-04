@@ -30,7 +30,7 @@ public class BiteAbility extends Ability implements IEntityRayTrace, IRightClick
     @Override
     public int getDistance()
     {
-        return 2;
+        return 3;
     }
 
     @Override
