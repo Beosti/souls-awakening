@@ -97,4 +97,4 @@ Feel free to bugfix at your hearts content and make a pull request. Preferably w
 #### Additions
 Do not use if statements and their 
 #### Changes in api
-If you want to change something in the [API](souls-awakening/src/main/java/com/yuanno/soulsawakening/ability/api), because you are not able to make something you want with what there is now. Preferably add unto the interface you can use and if not add your own interface and if needed be your own logic. 
+If you want to change something in the [API](src/main/java/com/yuanno/soulsawakening/ability/api), because you are not able to make something you want with what there is now. Preferably add unto the interface you can use and if not add your own interface and if needed be your own logic. 
