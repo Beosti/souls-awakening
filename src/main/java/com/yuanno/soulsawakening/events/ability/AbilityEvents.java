@@ -67,6 +67,7 @@ public class AbilityEvents {
             if (!(entity instanceof LivingEntity))
                 return;
             ((IAttackAbility) ability).activate(((LivingEntity) entity), player);
+            ((IParticleEffect) ability).spawnParticles(((LivingEntity) entity));
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             return;
         }
@@ -146,17 +147,17 @@ public class AbilityEvents {
             if ((ability instanceof IEntityRayTrace) && event.getDistance() > (((IEntityRayTrace) ability).getDistance()))
                 continue;
             if (ability instanceof IEntityRayTrace && ((IEntityRayTrace) ability).gotTarget(player))
-                ((IEntityRayTrace) ability).onEntityRayTrace(player);
+                ((IEntityRayTrace) ability).onEntityRayTrace(player, ability);
             if (ability instanceof IShootAbility)
-                ((IShootAbility) ability).onUse(player);
+                ((IShootAbility) ability).onUse(player, ability);
             if (ability instanceof IWaveAbility)
-                ((IWaveAbility) ability).onWave(player);
+                ((IWaveAbility) ability).onWave(player, ability);
             if (ability instanceof IBlockRayTrace)
-                ((IBlockRayTrace) ability).onBlockRayTrace(player);
+                ((IBlockRayTrace) ability).onBlockRayTrace(player, ability);
             if (ability instanceof IParticleEffect)
                 ((IParticleEffect) ability).spawnParticles(player);
             if (ability instanceof ISelfEffect)
-                ((ISelfEffect) ability).applyEffect(player);
+                ((ISelfEffect) ability).applyEffect(player, ability);
             ability.setState(Ability.STATE.COOLDOWN);
             ability.setCooldown(ability.getMaxCooldown() / 20);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);

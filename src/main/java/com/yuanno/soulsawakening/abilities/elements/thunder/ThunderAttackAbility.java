@@ -2,15 +2,17 @@ package com.yuanno.soulsawakening.abilities.elements.thunder;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IAttackAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
 import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.HoveringParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.EffectInstance;
 
-public class ThunderAttackAbility extends Ability implements IAttackAbility {
+public class ThunderAttackAbility extends Ability implements IAttackAbility, IParticleEffect {
     public static final ThunderAttackAbility INSTANCE = new ThunderAttackAbility();
     public static final ParticleEffect PARTICLES_HOVER = new HoveringParticleEffect(1, 3);
 
@@ -20,11 +22,14 @@ public class ThunderAttackAbility extends Ability implements IAttackAbility {
         this.setSubCategory(SubCategory.SHIKAI);
     }
 
-    @Override
-    public void activate(LivingEntity livingEntityTarget, PlayerEntity player)
+    public ParticleEffect getSpawnParticles() {
+        return PARTICLES_HOVER;
+    };
+    public ParticleType getParticleType() {
+        return ModParticleTypes.THUNDER.get();
+    }
+    public EffectInstance addedEffect()
     {
-        PARTICLES_HOVER.spawn(livingEntityTarget.level, livingEntityTarget.getX(), livingEntityTarget.getY(), livingEntityTarget.getZ(), 0, 0, 0, ModParticleTypes.THUNDER.get());
-        if (!livingEntityTarget.hasEffect(ModEffects.ELECTROCUTED.get()))
-            livingEntityTarget.addEffect(new EffectInstance(ModEffects.ELECTROCUTED.get(), 40, 0));
+        return new EffectInstance(ModEffects.ELECTROCUTED.get(), 40, 0);
     }
 }

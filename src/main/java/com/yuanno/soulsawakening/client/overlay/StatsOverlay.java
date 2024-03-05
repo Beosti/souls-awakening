@@ -2,7 +2,6 @@ package com.yuanno.soulsawakening.client.overlay;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IKidoAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
@@ -46,7 +45,7 @@ public class StatsOverlay extends AbstractGui {
 
             for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
             {
-                if (!(abilityData.getUnlockedAbilities().get(i) instanceof IKidoAbility))
+                if (!abilityData.getUnlockedAbilities().get(i).getCategory().equals(Ability.Category.KIDO))
                 {
                     Color iconColor = Beapi.hexToRGB("#FFFFFF");
                     Ability abilityToDraw = abilityData.getUnlockedAbilities().get(i);

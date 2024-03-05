@@ -530,6 +530,12 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		this.maxLife = life;
 		this.life = this.maxLife;
 	}
+
+	public void alterMaxLife(int life)
+	{
+		this.maxLife += life;
+		this.life = maxLife;
+	}
 	
 	public void setLife(int life)
 	{

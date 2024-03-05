@@ -1,16 +1,15 @@
 package com.yuanno.soulsawakening.abilities.elements.lunar;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.lunar.LunarCrescentProjectile;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class LunarCrescentAbility extends Ability implements IRightClickAbility, IShootAbility {
+public class LunarCrescentAbility extends Ability implements IRightClickAbility, IShootAbility, IReiatsuAbility {
     public static final LunarCrescentAbility INSTANCE = new LunarCrescentAbility();
 
     public LunarCrescentAbility()
@@ -30,5 +29,10 @@ public class LunarCrescentAbility extends Ability implements IRightClickAbility,
     public boolean getShift()
     {
         return false;
+    }
+
+    @Override
+    public float addedVariable(PlayerEntity player) {
+        return (float) EntityStatsCapability.get(player).getReiatsuPoints()/2;
     }
 }

@@ -15,6 +15,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
@@ -44,15 +45,10 @@ public class WhirldWindDanceAbility extends Ability implements IRightClickAbilit
         return WIND_DAMAGE;
     }
     @Override
-    public float getDamage()
+    public float getBaseDamage()
     {
         return 5;
     }
-    @Override
-    public void applyEffect(LivingEntity target) {
-
-        target.knockback(2, 2, 2);
-    };
 
     @Override
     public boolean getShift()

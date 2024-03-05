@@ -1,24 +1,20 @@
 package com.yuanno.soulsawakening.abilities.elements.heal;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IWaveAbility;
-import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
-import java.util.List;
-
-public class RevitilazingAuraAbility extends Ability implements IRightClickAbility, IWaveAbility, IParticleEffect {
+public class RevitilazingAuraAbility extends Ability implements IRightClickAbility, IWaveAbility, IParticleEffect, IReiatsuAbility {
     public static final RevitilazingAuraAbility INSTANCE = new RevitilazingAuraAbility();
     public static final ParticleEffect PARTICLES_WAVE = new WaveParticleEffect(1.4);
 
@@ -30,13 +26,22 @@ public class RevitilazingAuraAbility extends Ability implements IRightClickAbili
     }
 
     @Override
+    public float healAmount() {
+        return 4;
+    }
+
+    @Override
+    public float addedVariable(PlayerEntity player) {
+        return (float) EntityStatsCapability.get(player).getReiatsuPoints()/4;
+    }
+
+    @Override
     public int getRadius() {
         return 10;
     }
     @Override
-    public void applyEffect(LivingEntity target) {
-        if (!target.hasEffect(Effects.REGENERATION))
-            target.addEffect(new EffectInstance(Effects.REGENERATION, 240, 2));
+    public EffectInstance applyEffect() {
+        return new EffectInstance(Effects.REGENERATION, 240, 0);
     }
     @Override
     public ParticleEffect getSpawnParticles() {

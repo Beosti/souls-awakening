@@ -1,16 +1,15 @@
 package com.yuanno.soulsawakening.abilities.elements.water;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.water.TidalWaveProjectile;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class TidalWaveAbility extends Ability implements IRightClickAbility, IShootAbility {
+public class TidalWaveAbility extends Ability implements IRightClickAbility, IShootAbility, IReiatsuAbility {
     public static final TidalWaveAbility INSTANCE = new TidalWaveAbility();
 
     public TidalWaveAbility()
@@ -24,11 +23,13 @@ public class TidalWaveAbility extends Ability implements IRightClickAbility, ISh
     public AbilityProjectileEntity getProjectile(PlayerEntity player) {
         return new TidalWaveProjectile(player.level, player);
     }
-
-
     @Override
     public boolean getShift()
     {
         return true;
+    }
+    @Override
+    public float addedVariable(PlayerEntity player) {
+        return (float) EntityStatsCapability.get(player).getReiatsuPoints()/2;
     }
 }

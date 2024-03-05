@@ -53,7 +53,7 @@ public class CUseSpellPacket {
                     return;
                 if (abilityInUse instanceof IShootAbility)
                 {
-                    ((IShootAbility) abilityInUse).onUse(player);
+                    ((IShootAbility) abilityInUse).onUse(player, abilityInUse);
                     abilityInUse.setState(Ability.STATE.COOLDOWN);
                     abilityInUse.setCooldown(abilityInUse.getMaxCooldown() / 20);
                     PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);

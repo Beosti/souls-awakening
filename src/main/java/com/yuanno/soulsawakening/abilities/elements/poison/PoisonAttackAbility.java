@@ -16,8 +16,8 @@ public class PoisonAttackAbility extends Ability implements IAttackAbility {
     }
 
     @Override
-    public void activate(LivingEntity livingEntityTarget, PlayerEntity player)
+    public EffectInstance addedEffect()
     {
-        livingEntityTarget.addEffect(new EffectInstance(Effects.POISON, 100, 0));
+        return new EffectInstance(Effects.POISON, 100, 0);
     }
 }

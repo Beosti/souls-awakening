@@ -1,11 +1,11 @@
 package com.yuanno.soulsawakening.abilities.elements.heal;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.HoveringParticleEffect;
@@ -14,7 +14,7 @@ import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
-public class SelfHealingAbility extends Ability implements IRightClickAbility, ISelfEffect, IParticleEffect {
+public class SelfHealingAbility extends Ability implements IRightClickAbility, ISelfEffect, IParticleEffect, IReiatsuAbility {
     public static final SelfHealingAbility INSTANCE = new SelfHealingAbility();
     public static final ParticleEffect PARTICLES_HOVER = new HoveringParticleEffect(3, 4);
 
@@ -25,6 +25,14 @@ public class SelfHealingAbility extends Ability implements IRightClickAbility, I
         this.setSubCategory(SubCategory.SHIKAI);
     }
 
+    @Override
+    public float addedVariable(PlayerEntity player) {
+        return (float) EntityStatsCapability.get(player).getReiatsuPoints()/4;
+    }
+    @Override
+    public float healAmount() {
+        return 4;
+    }
     @Override
     public EffectInstance getEffectInstance()
     {
@@ -42,13 +50,4 @@ public class SelfHealingAbility extends Ability implements IRightClickAbility, I
     {
         return ModParticleTypes.HEALING.get();
     }
-
-    @Override
-    public void otherEffects(PlayerEntity player)
-    {
-        IEntityStats entityStats = EntityStatsCapability.get(player);
-        float missingHealth = player.getMaxHealth() - player.getHealth();
-        player.heal(missingHealth / 2 + 4 + (float) entityStats.getReiatsuPoints()/4);
-    }
-
 }

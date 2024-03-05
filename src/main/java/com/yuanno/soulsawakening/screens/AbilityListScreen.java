@@ -51,25 +51,6 @@ public class AbilityListScreen extends Screen {
         page = 0;
     }
 
-    /*
-    @Override
-    public void init()
-    {
-        Minecraft mc = Minecraft.getInstance();
-        PlayerEntity playerEntity = mc.player;
-        int posX = ((this.width - 256) / 2);
-        int posY = (this.height - 256) / 2;
-        //this.buttons.clear();
-
-
-        this.addButton(new Button(posX, posY + 80, 32, 32, new TranslationTextComponent("a"), button ->
-        {
-            //this.page = 1;
-        }));
-    }
-
-     */
-
     @Override
     public void init()
     {
@@ -198,7 +179,7 @@ public class AbilityListScreen extends Screen {
             String activation_type = "";
             if (abilityHovering instanceof IAttackAbility)
                 activation_type = "on-hit";
-            if (abilityHovering instanceof IKidoAbility)
+            if (abilityHovering instanceof IReiatsuAbility)
                 activation_type = "spell";
             if (abilityHovering instanceof IPassiveAbility)
                 activation_type = "passive";
@@ -208,7 +189,20 @@ public class AbilityListScreen extends Screen {
                 activation_type = "right click an entity, in range of  " + ((IEntityRayTrace) abilityHovering).getDistance() + " blocks away";
             if (abilityHovering instanceof IBlockRayTrace)
                 activation_type = "right click a block of entity, in range of " + ((IBlockRayTrace) abilityHovering).getDistance() + " blocks away";
-            fullDescription.append("§lActivation type§r: " + activation_type);
+            fullDescription.append("§lActivation type§r: " + activation_type + "\n");
+            if (abilityHovering instanceof IReiatsuAbility && ((IReiatsuAbility) abilityHovering).addedVariable(player) > 0) {
+                String extra = "";
+                if (abilityHovering instanceof IBlockRayTrace)
+                    extra = "§lExtra range§r: " + ((IReiatsuAbility) abilityHovering).addedVariable(player) + " (reiatsu)";
+                if (abilityHovering instanceof IWaveAbility)
+                    extra = "§lExtra damage§r: " + ((IReiatsuAbility) abilityHovering).addedVariable(player) + " (reiatsu)";
+                if (abilityHovering instanceof ISelfEffect && ((ISelfEffect) abilityHovering).healAmount() > 0)
+                    extra = "§lExtra healing§r: " + ((IReiatsuAbility) abilityHovering).addedVariable(player) + " (reiatsu)";
+                if (abilityHovering instanceof IShootAbility)
+                    extra = "§lExtra damage§r: " + ((IReiatsuAbility) abilityHovering).addedVariable(player) + " (reiatsu)";
+                if (!extra.isEmpty())
+                    fullDescription.append(extra + "\n");
+            }
             if (InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT))
                 this.renderTooltip(matrixStack, new TranslationTextComponent(String.valueOf(fullDescription)), x, y);
             else

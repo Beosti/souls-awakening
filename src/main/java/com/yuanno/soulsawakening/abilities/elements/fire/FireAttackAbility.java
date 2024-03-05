@@ -16,8 +16,8 @@ public class FireAttackAbility extends Ability implements IAttackAbility {
     }
 
     @Override
-    public void activate(LivingEntity livingEntityTarget, PlayerEntity player)
+    public int secondsOnFire()
     {
-        livingEntityTarget.setSecondsOnFire(5);
+        return 5;
     }
 }

@@ -49,15 +49,15 @@ public class VenomousCloudAbility extends Ability implements IRightClickAbility,
     }
 
     @Override
-    public float getDamage()
+    public float getBaseDamage()
     {
         return 5;
     }
 
     @Override
-    public void applyEffect(LivingEntity target)
+    public EffectInstance applyEffect()
     {
-        target.addEffect(new EffectInstance(Effects.POISON, 120, 0));
+        return new EffectInstance(Effects.POISON, 120, 0);
     }
 
     @Override
