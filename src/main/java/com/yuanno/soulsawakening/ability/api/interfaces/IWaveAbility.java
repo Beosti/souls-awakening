@@ -65,7 +65,7 @@ public interface IWaveAbility {
     };
     default ArrayList<EffectInstance> getEffectInstances()
     {
-        return null;
+        return new ArrayList<>();
     }
     default float healAmount()
     {
