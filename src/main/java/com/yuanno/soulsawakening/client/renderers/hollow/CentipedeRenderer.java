@@ -2,7 +2,7 @@ package com.yuanno.soulsawakening.client.renderers.hollow;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entity.hollow.CentipedeEntity;
+import com.yuanno.soulsawakening.entities.hollow.CentipedeEntity;
 import com.yuanno.soulsawakening.models.hollow.CentipedeModel;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;

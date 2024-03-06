@@ -39,6 +39,7 @@ public class Main
         ModRegistry.ENTITY_TYPES.register(modEventBus);
         ModAbilities.ABILITIES.register(modEventBus);
         ModAbilities.register(modEventBus);
+        ModQuests.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModAttributes.ATTRIBUTES.register(modEventBus);

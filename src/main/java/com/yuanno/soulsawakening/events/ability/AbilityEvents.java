@@ -10,6 +10,8 @@ import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CRightClickEmptyPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +23,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 
@@ -140,12 +143,16 @@ public class AbilityEvents {
                     return;
             }
             IRightClickAbility rightClickEmptyAbility = (IRightClickAbility) abilityData.getUnlockedAbilities().get(i);
+            if (rightClickEmptyAbility.getAlt() && !InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_ALT))
+                continue;
             if (player.isCrouching() ^ rightClickEmptyAbility.getShift())
                 continue;
             if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
                 continue;
             if ((ability instanceof IEntityRayTrace) && event.getDistance() > (((IEntityRayTrace) ability).getDistance()))
                 continue;
+            if ((ability instanceof IDimensionTeleportAbility))
+                ((IDimensionTeleportAbility) ability).teleport(player);
             if (ability instanceof IEntityRayTrace && ((IEntityRayTrace) ability).gotTarget(player))
                 ((IEntityRayTrace) ability).onEntityRayTrace(player, ability);
             if (ability instanceof IShootAbility)

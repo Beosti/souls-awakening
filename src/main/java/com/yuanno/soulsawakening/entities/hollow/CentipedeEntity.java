@@ -1,9 +1,8 @@
-package com.yuanno.soulsawakening.entity.hollow;
+package com.yuanno.soulsawakening.entities.hollow;
 
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -14,17 +13,18 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BulkEntity extends HollowEntity {
+public class CentipedeEntity extends HollowEntity {
 
-    public BulkEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
+    public CentipedeEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = ModValues.NORMAL;
+        this.element = ModValues.DARK;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class BulkEntity extends HollowEntity {
         boolean flag = super.doHurtTarget(p_70652_1_);
         if (flag && this.getMainHandItem().isEmpty() && p_70652_1_ instanceof LivingEntity) {
             float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(ModEffects.HOLLOW_ACID.get(), 140 * (int)f));
+            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(Effects.POISON, 140 * (int)f));
         }
 
         return flag;
@@ -85,6 +85,8 @@ public class BulkEntity extends HollowEntity {
         return false;
     }
 
+
+
     @Override
     @Nullable
     public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataTag)
@@ -93,5 +95,6 @@ public class BulkEntity extends HollowEntity {
         return spawnData;
 
     }
+
 
 }

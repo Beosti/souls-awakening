@@ -5,7 +5,7 @@ package com.yuanno.soulsawakening.models.hollow;// Made with Blockbench 4.2.4
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.yuanno.soulsawakening.entity.hollow.BeastEntity;
+import com.yuanno.soulsawakening.entities.hollow.BeastEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 

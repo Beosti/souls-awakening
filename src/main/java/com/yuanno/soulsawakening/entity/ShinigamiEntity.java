@@ -3,10 +3,9 @@ package com.yuanno.soulsawakening.entity;
 import com.google.common.base.Predicates;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackShinigamiGoal;
-import com.yuanno.soulsawakening.entity.hollow.HollowEntity;
-import com.yuanno.soulsawakening.entity.hollow.JetEntity;
+import com.yuanno.soulsawakening.entities.hollow.HollowEntity;
+import com.yuanno.soulsawakening.entities.hollow.JetEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -33,13 +32,20 @@ import java.util.function.Predicate;
 public class ShinigamiEntity extends CreatureEntity {
 
     public String[] options = {"shinigami_pink", "shinigami_normal", "shinigami_yellow"};
-    public String constantSkin;
+    public String constantSkin = "";
     public ShinigamiEntity(EntityType type, World world)
     {
         super(type, world);
+    }
+
+    public String getSkin()
+    {
+        if (!constantSkin.isEmpty())
+            return constantSkin;
         Random random = new Random();
         int randomIndex = random.nextInt(options.length);
         this.constantSkin = options[randomIndex];
+        return this.constantSkin;
     }
     @Override
     protected void registerGoals()
@@ -60,7 +66,6 @@ public class ShinigamiEntity extends CreatureEntity {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 4));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
-
     }
 
     public static Predicate<Entity> getEnemyFactions(LivingEntity entity)

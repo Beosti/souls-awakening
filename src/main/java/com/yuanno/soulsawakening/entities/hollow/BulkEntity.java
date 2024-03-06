@@ -1,27 +1,30 @@
-package com.yuanno.soulsawakening.entity.hollow;
+package com.yuanno.soulsawakening.entities.hollow;
 
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
+import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BeastEntity extends HollowEntity {
-    private static final float SCALE_FACTOR = 1.5f; // Adjust this value based on your scaling factor
-    public BeastEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
+public class BulkEntity extends HollowEntity {
+
+    public BulkEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = ModValues.FIRE;
+        this.element = ModValues.NORMAL;
     }
 
     @Override
@@ -33,14 +36,24 @@ public class BeastEntity extends HollowEntity {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PlusEntity.class, false));
-
         this.goalSelector.addGoal(4, new ImprovedMeleeAttackGoal(this, 1, true));
-
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 4));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
 
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity p_70652_1_) {
+        boolean flag = super.doHurtTarget(p_70652_1_);
+        if (flag && this.getMainHandItem().isEmpty() && p_70652_1_ instanceof LivingEntity) {
+            float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(ModEffects.HOLLOW_ACID.get(), 140 * (int)f));
+        }
+
+        return flag;
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes()
@@ -80,4 +93,5 @@ public class BeastEntity extends HollowEntity {
         return spawnData;
 
     }
+
 }

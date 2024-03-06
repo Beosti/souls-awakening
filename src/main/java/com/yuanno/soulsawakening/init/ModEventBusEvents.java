@@ -1,7 +1,8 @@
 package com.yuanno.soulsawakening.init;
 
+import com.yuanno.soulsawakening.entities.hollow.*;
+import com.yuanno.soulsawakening.entities.npc.TraderEntity;
 import com.yuanno.soulsawakening.entity.*;
-import com.yuanno.soulsawakening.entity.hollow.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

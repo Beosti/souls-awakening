@@ -1,8 +1,9 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.entities.hollow.*;
+import com.yuanno.soulsawakening.entities.npc.TraderEntity;
 import com.yuanno.soulsawakening.entity.*;
-import com.yuanno.soulsawakening.entity.hollow.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;

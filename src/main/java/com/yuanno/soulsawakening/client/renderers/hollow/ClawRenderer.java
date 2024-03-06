@@ -2,7 +2,7 @@ package com.yuanno.soulsawakening.client.renderers.hollow;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entity.hollow.ClawEntity;
+import com.yuanno.soulsawakening.entities.hollow.ClawEntity;
 import com.yuanno.soulsawakening.models.hollow.ClawModel;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;

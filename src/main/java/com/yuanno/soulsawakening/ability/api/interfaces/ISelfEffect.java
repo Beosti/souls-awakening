@@ -44,7 +44,7 @@ public interface ISelfEffect {
     }
     default ArrayList<EffectInstance> getEffectInstances()
     {
-        return null;
+        return new ArrayList<>();
     }
 
     default void otherEffects(PlayerEntity player) {};

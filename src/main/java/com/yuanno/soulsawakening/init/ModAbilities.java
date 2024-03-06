@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.SoulSocietyKeyAbility;
 import com.yuanno.soulsawakening.abilities.elements.heal.HealingTouchingAbility;
 import com.yuanno.soulsawakening.abilities.elements.heal.RevitilazingAuraAbility;
 import com.yuanno.soulsawakening.abilities.elements.heal.SelfHealingAbility;
@@ -60,7 +61,7 @@ public class ModAbilities {
     public static final Ability[] WIND_ZANPAKUTO = new Ability[] {GaleForceAbility.INSTANCE, WhirldWindDanceAbility.INSTANCE, WindAttackAbility.INSTANCE};
     public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE, CeroAbility.INSTANCE, HollowRegenerationAbility.INSTANCE, GargantaAbility.INSTANCE};
     public static final Ability[] SHINSO = new Ability[] {LongRangeAbility.INSTANCE, ShootAbility.INSTANCE, WideShootAbility.INSTANCE};
-
+    public static final Ability[] SHINIGAMI = new Ability[] {SoulSocietyKeyAbility.INSTANCE};
     public static final Ability[] HADO = new Ability[] {ShoAbility.INSTANCE, ByakuraiAbility.INSTANCE, ShakkahoAbility.INSTANCE};
     public static final Ability[] BAKUDO = new Ability[] {SaiAbility.INSTANCE};
 
@@ -79,6 +80,7 @@ public class ModAbilities {
         registerAbilities(SHINSO);
         registerAbilities(HADO);
         registerAbilities(BAKUDO);
+        registerAbilities(SHINIGAMI);
     }
 
     private static void registerAbilities(Ability[] abilities)

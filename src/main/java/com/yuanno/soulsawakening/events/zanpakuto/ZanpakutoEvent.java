@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.events.zanpakuto;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.SoulSocietyKeyAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
@@ -216,7 +217,7 @@ public class ZanpakutoEvent {
                     abilityData.addUnlockedAbility(LongRangeAbility.INSTANCE);
 
             }
-
+            abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(event.getPlayer().getId(), abilityData), event.getPlayer());
 
         }

@@ -15,4 +15,8 @@ public interface IRightClickAbility {
     default boolean getShift() {
         return false;
     }
+    default boolean getAlt()
+    {
+        return false;
+    }
 }

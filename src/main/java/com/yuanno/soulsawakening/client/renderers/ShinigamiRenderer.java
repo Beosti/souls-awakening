@@ -18,8 +18,6 @@ import java.util.Random;
 @SuppressWarnings("unchecked")
 public class ShinigamiRenderer extends MobRenderer<ShinigamiEntity, HumanoidModel<ShinigamiEntity>> {
 
-
-
     public ShinigamiRenderer(EntityRendererManager renderManager)
     {
         super(renderManager, new HumanoidModel<>(), 0.1F);
@@ -28,12 +26,9 @@ public class ShinigamiRenderer extends MobRenderer<ShinigamiEntity, HumanoidMode
 
     @Override
     public ResourceLocation getTextureLocation(ShinigamiEntity ShinigamiEntity) {
-        Random random = new Random();
-        int randomIndex = random.nextInt(ShinigamiEntity.options.length);
-        String finalTexture = ShinigamiEntity.constantSkin;
-        ResourceLocation FINAL_TEXTURE = new ResourceLocation(Main.MODID, "textures/entities/npc/" + finalTexture +  ".png");
+        String finalTexture = ShinigamiEntity.getSkin();
 
-        return FINAL_TEXTURE;
+        return new ResourceLocation(Main.MODID, "textures/entities/npc/" + finalTexture +  ".png");
     }
 
     public static class Factory implements IRenderFactory<ShinigamiEntity> {

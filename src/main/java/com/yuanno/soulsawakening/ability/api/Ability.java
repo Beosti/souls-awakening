@@ -13,7 +13,6 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     private String name;
     private String description;
     private double cooldown;
-    private ActivationType activationType;
     private boolean isPassive = false;
     private boolean isReady = true;
     private double maxCooldown;
@@ -22,24 +21,21 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     private SubCategory subCategory = null;
     private boolean isShown = true;
 
-    public Ability(String name, int cooldown, int maxCooldown, ActivationType activationType) {
+    public Ability(String name, int cooldown, int maxCooldown) {
         this.name = name;
         this.cooldown = cooldown;
         this.maxCooldown = maxCooldown;
-        this.activationType = activationType;
     }
-    public Ability(String name, int cooldown, int maxCooldown, ActivationType activationType, boolean isPassive) {
+    public Ability(String name, int cooldown, int maxCooldown, boolean isPassive) {
         this.name = name;
         this.cooldown = cooldown;
         this.maxCooldown = maxCooldown;
-        this.activationType = activationType;
         this.isPassive = isPassive;
     }
-    public Ability(String name, int cooldown, int maxCooldown, ActivationType activationType, boolean isPassive, boolean isShown) {
+    public Ability(String name, int cooldown, int maxCooldown, boolean isPassive, boolean isShown) {
         this.name = name;
         this.cooldown = cooldown;
         this.maxCooldown = maxCooldown;
-        this.activationType = activationType;
         this.isPassive = isPassive;
         this.isShown = isShown;
     }

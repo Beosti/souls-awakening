@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.entity;
+package com.yuanno.soulsawakening.entities.npc;
 
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.init.ModAttributes;

@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.client.renderers;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entity.TraderEntity;
+import com.yuanno.soulsawakening.entities.npc.TraderEntity;
 import com.yuanno.soulsawakening.models.HumanoidModel;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -11,8 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unchecked")

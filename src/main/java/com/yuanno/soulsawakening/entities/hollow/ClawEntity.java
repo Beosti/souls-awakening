@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.entity.hollow;
+package com.yuanno.soulsawakening.entities.hollow;
 
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.PlusEntity;
