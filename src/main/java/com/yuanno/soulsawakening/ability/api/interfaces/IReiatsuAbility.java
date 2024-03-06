@@ -1,7 +1,14 @@
 package com.yuanno.soulsawakening.ability.api.interfaces;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 
+/**
+ * Used for abilities that use reiatsu and thus can be scalable, it doesn't handle any logics but gives variables
+ * It is used in other interfaces to change variables around {@link IBlockRayTrace}, {@link IEntityRayTrace}, {@link ISelfEffect}, {@link IShootAbility}, {@link IWaveAbility}
+ * Also displays the modified variables
+ * @see com.yuanno.soulsawakening.screens.AbilityListScreen#render(MatrixStack, int, int, float)
+ */
 public interface IReiatsuAbility {
 
     default float addedVariable(PlayerEntity player)

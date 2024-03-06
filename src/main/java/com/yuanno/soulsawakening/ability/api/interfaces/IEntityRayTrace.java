@@ -2,12 +2,23 @@ package com.yuanno.soulsawakening.ability.api.interfaces;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 
+/**
+ * Used for abilities that target specifically an entity, it doesn't do anything with the block position for that: {@link IBlockRayTrace}
+ * Handled in {@link #onEntityRayTrace(PlayerEntity, Ability)}, triggered here:
+ * @see com.yuanno.soulsawakening.events.ability.AbilityEvents#customRightClickLogic(CustomInteractionEvent)
+ * {@link #getDistance()} max distance entity targeted
+ * {@link #gotTarget(PlayerEntity)} check if it actually got a target, can be used but mostly used for {@link com.yuanno.soulsawakening.events.ability.AbilityEvents}
+ * {@link #healAmount()} for healing abilities, heals the entity targeted
+ * {@link #addEffect()} add an effect instance to the entity targeted
+ * {@link #somethingAtEntity(PlayerEntity, LivingEntity)} for every specific case for the use of this interface
+ */
 public interface IEntityRayTrace {
 
     default void onEntityRayTrace(PlayerEntity player, Ability ability) {
@@ -29,11 +40,6 @@ public interface IEntityRayTrace {
             ((LivingEntity) ((EntityRayTraceResult) rayTraceResult).getEntity()).addEffect(addEffect());
         }
     }
-    default int getDistance()
-    {
-        return 0;
-    }
-
     default boolean gotTarget(PlayerEntity player)
     {
         RayTraceResult rayTraceResult = Beapi.rayTraceBlocksAndEntities(player, getDistance());
@@ -41,12 +47,14 @@ public interface IEntityRayTrace {
             return false;
         return ((EntityRayTraceResult) rayTraceResult).getEntity() instanceof LivingEntity;
     }
-
+    default int getDistance()
+    {
+        return 0;
+    }
     default float healAmount()
     {
         return 0;
     }
-
     default EffectInstance addEffect()
     {
         return null;

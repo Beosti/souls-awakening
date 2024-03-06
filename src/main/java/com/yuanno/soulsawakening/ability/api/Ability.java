@@ -1,6 +1,6 @@
 package com.yuanno.soulsawakening.ability.api;
 
-import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.ability.api.interfaces.IPunchAbility;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;

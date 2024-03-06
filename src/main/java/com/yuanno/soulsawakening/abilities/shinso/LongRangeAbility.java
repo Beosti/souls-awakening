@@ -1,9 +1,8 @@
 package com.yuanno.soulsawakening.abilities.shinso;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IPunchAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IPunchAbility;
 import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;

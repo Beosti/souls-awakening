@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.ability.api.interfaces;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -10,6 +11,18 @@ import net.minecraft.util.DamageSource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Used for abilities that have an effect on entities in a radius.
+ * Logic handled in {@link #onWave(PlayerEntity, Ability)}, triggered here:
+ * @see com.yuanno.soulsawakening.events.ability.AbilityEvents#customRightClickLogic(CustomInteractionEvent)
+ * {@link #getRadius()} gets the radius of the entities around the player, defaults 0
+ * {@link #putOnFire()} gets amount of seconds put on fire, defaults 0
+ * {@link #getDamageSource()} sets the damage source if there's damage, defaults null
+ * {@link #getBaseDamage()} sets the damage for the ability, defaults 0
+ * {@link #applyEffect()} puts one effect on the entities in radius, defaults null
+ * {@link #getEffectInstances()} puts multiple effects to entities in radius, defaults empty
+ * {@link #healAmount()} heal amount of the entities in radius, default 0
+ */
 public interface IWaveAbility {
 
     default void onWave(PlayerEntity player, Ability ability)
