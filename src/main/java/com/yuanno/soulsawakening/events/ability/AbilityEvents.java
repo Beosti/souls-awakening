@@ -38,9 +38,9 @@ import java.util.ArrayList;
  * The interaction is there because if not there to check, it'll fire multiple events at the same time and we don't want that tl;dr makes it harder and more complicated
  *
  * An empty right click is only client side that's why you funnel it a server side custom event that then goes back to where the logic is handled
- * {@link #onRightClickEmpty(PlayerInteractEvent.RightClickEmpty)} -> {@link CRightClickEmptyPacket} -> check if not interacting with an entity -> {@link CustomInteractionEvent} -> {@link #customRightClickLogic(CustomInteractionEvent)}
+ * {@link #onRightClickItem(PlayerInteractEvent.RightClickItem)} -> {@link CRightClickEmptyPacket} -> check if not interacting with an entity -> {@link CustomInteractionEvent} -> {@link #customRightClickLogic(CustomInteractionEvent)}
  * For the right click with items just standard server side check and funnels to the custom event, so all the logic can be handled at one place
- * {@link #onRightClickEmpty(PlayerInteractEvent.RightClickEmpty)} -> {@link #customRightClickLogic(CustomInteractionEvent)}
+ * {@link #onRightClickItem(PlayerInteractEvent.RightClickItem)} -> {@link #customRightClickLogic(CustomInteractionEvent)}
  */
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class AbilityEvents {
@@ -76,7 +76,7 @@ public class AbilityEvents {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
+    @SubscribeEvent
     public static void onRightClickInteraction(PlayerInteractEvent.EntityInteract event)
     {
         if (event.getPlayer().level.isClientSide)
@@ -94,10 +94,26 @@ public class AbilityEvents {
     }
 
     @SubscribeEvent
+    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event)
+    {
+        if (event.getPlayer().level.isClientSide)
+            return;
+        PlayerEntity player = event.getPlayer();
+        if (!event.getHand().equals(Hand.MAIN_HAND))
+            return;
+        CustomInteractionEvent customInteractionEvent = new CustomInteractionEvent(player);
+        MinecraftForge.EVENT_BUS.post(customInteractionEvent);
+    }
+
+    /*
+    @SubscribeEvent
     public static void onRightClickEmpty(PlayerInteractEvent.RightClickEmpty event)
     {
+        System.out.println(event.getHand());
         PacketHandler.sendToServer(new CRightClickEmptyPacket());
     }
+
+     */
 
 
 
@@ -143,7 +159,7 @@ public class AbilityEvents {
                     return;
             }
             IRightClickAbility rightClickEmptyAbility = (IRightClickAbility) abilityData.getUnlockedAbilities().get(i);
-            if (rightClickEmptyAbility.getAlt() && !InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_ALT))
+            if (rightClickEmptyAbility.getAlt() ^ InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_ALT))
                 continue;
             if (player.isCrouching() ^ rightClickEmptyAbility.getShift())
                 continue;

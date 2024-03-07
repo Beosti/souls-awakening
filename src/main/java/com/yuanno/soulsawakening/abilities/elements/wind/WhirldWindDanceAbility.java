@@ -30,7 +30,7 @@ public class WhirldWindDanceAbility extends Ability implements IRightClickAbilit
     {
         this.setName("Whirld Wind Dance");
         this.setMaxCooldown(8);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
