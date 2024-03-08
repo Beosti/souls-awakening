@@ -9,6 +9,16 @@ public class QuestDataBase implements IQuestData{
     private ArrayList<Quest> quests = new ArrayList<>();
 
     @Override
+    public ArrayList<Quest> getQuests() {
+        return quests;
+    }
+
+    @Override
+    public void clearQuests() {
+        this.quests.clear();
+    }
+
+    @Override
     public void addInProgressQuest(Quest quest) {
         quest.setInProgress(true);
         quests.add(quest);
@@ -31,16 +41,22 @@ public class QuestDataBase implements IQuestData{
 
     @Override
     public void addFinishedQuest(Quest quest) {
-
+        quest.setInProgress(true);
+        quests.add(quest);
     }
 
     @Override
     public void removeFinishedQuest(Quest quest) {
-
+        quest.setInProgress(false);
+        quests.remove(quest);
     }
 
     @Override
     public boolean hasFinishedQuest(Quest quest) {
+        for (Quest value : quests) {
+            if (value.getTitle().equals(quest.getTitle()) && !value.getIsInProgress())
+                return true;
+        }
         return false;
     }
 }

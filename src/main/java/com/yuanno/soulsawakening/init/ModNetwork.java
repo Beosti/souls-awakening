@@ -26,6 +26,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(CSyncentityStatsReiatsuPacket.class, CSyncentityStatsReiatsuPacket::encode, CSyncentityStatsReiatsuPacket::decode, CSyncentityStatsReiatsuPacket::handle);
         PacketHandler.registerPacket(COpenAbilityListScreenPacket.class, COpenAbilityListScreenPacket::encode, COpenAbilityListScreenPacket::decode, COpenAbilityListScreenPacket::handle);
         PacketHandler.registerPacket(CUseSpellPacket.class, CUseSpellPacket::encode, CUseSpellPacket::decode, CUseSpellPacket::handle);
+        PacketHandler.registerPacket(CSyncQuestDataPacket.class, CSyncQuestDataPacket::encode, CSyncQuestDataPacket::decode, CSyncQuestDataPacket::handle);
 
 
 
@@ -39,6 +40,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(SOpenChallengeScreenPacket.class, SOpenChallengeScreenPacket::encode, SOpenChallengeScreenPacket::decode, SOpenChallengeScreenPacket::handle);
         PacketHandler.registerPacket(SOpenTradingScreenPacket.class, SOpenTradingScreenPacket::encode, SOpenTradingScreenPacket::decode, SOpenTradingScreenPacket::handle);
         PacketHandler.registerPacket(SOpenAbilityScreenPacket.class, SOpenAbilityScreenPacket::encode, SOpenAbilityScreenPacket::decode, SOpenAbilityScreenPacket::handle);
+        PacketHandler.registerPacket(SSyncQuestDataPacket.class, SSyncQuestDataPacket::encode, SSyncQuestDataPacket::decode, SSyncQuestDataPacket::handle);
 
     }
 }

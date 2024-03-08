@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class HollowEntity extends CreatureEntity {
     String element;
-    protected HollowEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
+    public HollowEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
     }
 

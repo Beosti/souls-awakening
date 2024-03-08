@@ -12,14 +12,18 @@ import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.quest.IQuestData;
+import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.entities.projectiles.kido.ShakkahoIncantationProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.kido.ShakkahoProjectile;
 import com.yuanno.soulsawakening.init.ModChallenges;
+import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.COpenAbilityListScreenPacket;
 import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
 import com.yuanno.soulsawakening.networking.client.COpenTradingScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncQuestDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.client.event.ClientChatEvent;
@@ -49,6 +53,20 @@ public class TestEvent {
             abilityData.addAbilityToBar(SaiAbility.INSTANCE);
             abilityData.setSelectedAbility(0);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+        }
+
+        if (event.getMessage().equals("give"))
+        {
+            PlayerEntity player = event.getPlayer();
+            IQuestData questData = QuestDataCapability.get(player);
+            questData.addInProgressQuest(ModQuests.KILLHOLLOW);
+            PacketHandler.sendTo(new SSyncQuestDataPacket(player.getId(), questData), player);
+        }
+
+        if (event.getMessage().equals("check"))
+        {
+            PlayerEntity player = event.getPlayer();
+            System.out.println(QuestDataCapability.get(player).getQuests());
         }
 
         if (event.getMessage().equals("Ye lord! Mask of blood and flesh, all creation, flutter of wings, ye who bears the name of Man! Inferno and pandemonium, the sea barrier surges, march on to the south!"))
