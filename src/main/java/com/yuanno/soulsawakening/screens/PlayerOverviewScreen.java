@@ -116,6 +116,11 @@ public class PlayerOverviewScreen extends Screen {
             PacketHandler.sendToServer(new COpenAbilityListScreenPacket());
             this.onClose();
         }));
+        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 61 +  252, posY + 117, 60, 20, new TranslationTextComponent("Quests"), b ->
+        {
+            PacketHandler.sendToServer(new COpenQuestScreenPacket());
+            this.onClose();
+        }));
     }
 
     private void handleStats(int integer, IEntityStats entityStats)
@@ -234,9 +239,6 @@ public class PlayerOverviewScreen extends Screen {
         int posY = (this.height - 256) / 2;
         int leftShift = posX + 180;
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan, leftShift, posY + 170, -1);
-
-
-
     }
     @Override
     public boolean isPauseScreen()

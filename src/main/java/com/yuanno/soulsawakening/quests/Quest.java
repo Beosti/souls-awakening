@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.quests;
 
+import com.yuanno.soulsawakening.api.challenges.ChallengeReward;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;
@@ -16,6 +17,8 @@ public abstract class Quest extends ForgeRegistryEntry<Quest> {
     private String description = "";
     private String rank = "";
     private boolean inProgress = false;
+    private QuestReward questReward;
+
 
     public void addObjectives(Objective... objectives)
     {
@@ -68,6 +71,14 @@ public abstract class Quest extends ForgeRegistryEntry<Quest> {
     public boolean getIsInProgress()
     {
         return this.inProgress;
+    }
+    public void setQuestReward(QuestReward questReward)
+    {
+        this.questReward = questReward;
+    }
+    public QuestReward getQuestReward()
+    {
+        return this.questReward;
     }
 
     public CompoundNBT save()

@@ -52,8 +52,8 @@ public class QuestDataCapability {
                         Quest quest = GameRegistry.findRegistry(Quest.class).getValue(new ResourceLocation(nbtQuest.getString("id")));
                         if (quest == null)
                             continue;
-                        Quest questRegistration = quest;
-                        questRegistration.load(nbtQuest);
+                        quest.load(nbtQuest);
+                        instance.addQuest(quest);
                     } catch (Exception e)
                     {
                         continue;

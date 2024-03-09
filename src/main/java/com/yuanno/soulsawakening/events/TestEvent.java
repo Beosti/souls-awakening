@@ -24,6 +24,8 @@ import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
 import com.yuanno.soulsawakening.networking.client.COpenTradingScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncQuestDataPacket;
+import com.yuanno.soulsawakening.quests.KillHollowQuest;
+import com.yuanno.soulsawakening.quests.Quest;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.client.event.ClientChatEvent;
@@ -68,7 +70,20 @@ public class TestEvent {
             PlayerEntity player = event.getPlayer();
             System.out.println(QuestDataCapability.get(player).getQuests());
         }
-
+        if (event.getMessage().equals("finished"))
+        {
+            PlayerEntity player = event.getPlayer();
+            IQuestData questData = QuestDataCapability.get(player);
+            Quest quest = new KillHollowQuest();
+            for (int i = 0; i < questData.getQuests().size(); i++)
+            {
+                if (questData.getQuests().get(i).getTitle().equals(quest.getTitle()) && questData.isQuestComplete(questData.getQuests().get(i))) {
+                    questData.getQuests().get(i).getQuestReward().giveReward(player);
+                    questData.getQuests().get(i).setInProgress(false);
+                    PacketHandler.sendTo(new SSyncQuestDataPacket(player.getId(), questData), player);
+                }
+            }
+        }
         if (event.getMessage().equals("Ye lord! Mask of blood and flesh, all creation, flutter of wings, ye who bears the name of Man! Inferno and pandemonium, the sea barrier surges, march on to the south!"))
         {
             PlayerEntity player = event.getPlayer();

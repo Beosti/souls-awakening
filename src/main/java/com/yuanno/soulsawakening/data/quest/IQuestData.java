@@ -9,6 +9,7 @@ public interface IQuestData {
 
     ArrayList<Quest> getQuests();
     void clearQuests();
+    void addQuest(Quest quest);
 
     void addInProgressQuest(Quest quest);
     void removeInProgressQuest(Quest quest);
@@ -17,4 +18,6 @@ public interface IQuestData {
     void addFinishedQuest(Quest quest);
     void removeFinishedQuest(Quest quest);
     boolean hasFinishedQuest(Quest quest);
+
+    boolean isQuestComplete(Quest quest);
 }

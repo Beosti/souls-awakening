@@ -10,7 +10,22 @@ public abstract class Objective {
     public int progress = 0;
     public int maxProgress;
 
-
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+    public String getTitle()
+    {
+        return this.title;
+    }
+    public void setDescription(String description)
+    {
+        this.description = description;
+    }
+    public String getDescription()
+    {
+        return this.description;
+    }
     public void setProgress(int progress)
     {
         this.progress = progress;

@@ -82,20 +82,9 @@ public class TradingScreen extends Screen {
         this.renderBackground(matrixStack);
         int posX = this.width / 2;
         int posY = this.height / 2;
-       // Minecraft.getInstance().getTextureManager().bind(background);
-        //GuiUtils.drawTexturedModalRect(posX - 90, posY - 75, 0, 0, 256, 256, 0);
         miscDataRendering(matrixStack);
- 
-        
 
         // TODO add more stuff to trade for
-        /*
-        this.renderItem(new ItemStack(Items.DIAMOND.asItem()), posX - 90, posY - 75);
-        this.renderItem(new ItemStack(Items.IRON_INGOT.asItem()), posX - 90, posY - 57);
-        this.renderItem(new ItemStack(Items.COAL.asItem()), posX - 90, posY - 39);
-
-         */
-        //Beapi.drawStringWithBorder(this.font, matrixStack, "Price: 150", posX - 70, posY - 70, -1);
 
         for (int i = 0; i < buttons.size(); i++)
         {
@@ -109,35 +98,6 @@ public class TradingScreen extends Screen {
                 button.active = true;
             }
         }
-        /*
-        for (int i = 0; i < items.size(); i++)
-        {
-            Item item = items.get(i);
-            this.renderItem(new ItemStack(item.asItem()), posX - 90, posY - 75 + (i * 18));
-
-        }
-
-         */
-        /*
-        for (Map.Entry<NoTextureButton, Item> entry : buttons.entrySet()) {
-            NoTextureButton key = entry.getKey();
-            Item button = entry.getValue();
-
-            // Render a string for each button
-            Beapi.drawStringWithBorder(this.font, matrixStack, "Price: " + key.number, posX - 70, posY - 70 + (index * 18), -1);
-            this.renderItem(new ItemStack(button.asItem()), posX - 90, posY - 75 + (index * 18));
-            // Check a condition and update the 'active' property of the button
-            if (key.number > miscData.getKan()) {
-                key.active = false;
-            } else {
-                key.active = true;
-            }
-            index++;
-        }
-
-         */
-
-
         super.render(matrixStack, x, y, f);
     }
 

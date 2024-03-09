@@ -1,31 +1,29 @@
 package com.yuanno.soulsawakening.quests;
 
-import com.yuanno.soulsawakening.entities.hollow.BeastEntity;
 import com.yuanno.soulsawakening.entities.hollow.HollowEntity;
-import com.yuanno.soulsawakening.init.ModEntities;
-import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
-import java.util.function.Supplier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class KillHollowQuest extends Quest {
+    List<ItemStack> itemRewards = new ArrayList<>(Arrays.asList(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE)));
 
-    Supplier<EntityType> entityTypeSupplier = () -> {
-        EntityType<BeastEntity> entityType = ModEntities.BEAST.get();
-
-      return entityType;
-    };
-
+    QuestReward questReward = QuestReward.builder().itemReward(itemRewards).build();
     public static final KillObjective.ICheckKill HOLLOW_CHECK = ((player, target, source) ->
     {
        return target instanceof HollowEntity;
     });
 
-    private Objective objective = new KillObjective("Kill Hollow", "Kill one hollow", 1, HOLLOW_CHECK);
+    private Objective objective = new KillObjective("Kill a hollow", "Kill one hollow", 1, HOLLOW_CHECK);
 
     public KillHollowQuest()
     {
-        this.setTitle("Kill a hollow");
+        this.setTitle("Proving yourself");
         this.setDescription("You have been tasked to kill your first hollow");
         this.addObjective(objective);
+        this.setQuestReward(questReward);
     }
 }

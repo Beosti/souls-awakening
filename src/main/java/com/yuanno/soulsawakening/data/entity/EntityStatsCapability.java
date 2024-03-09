@@ -73,7 +73,7 @@ public class EntityStatsCapability {
                 }
 
             }
-        }, () -> new EntityStatsBase());
+        }, EntityStatsBase::new);
 
     }
     public static IEntityStats get(final LivingEntity entity)
