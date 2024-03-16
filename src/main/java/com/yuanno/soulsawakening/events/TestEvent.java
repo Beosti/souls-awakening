@@ -22,6 +22,7 @@ import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.COpenAbilityListScreenPacket;
 import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
 import com.yuanno.soulsawakening.networking.client.COpenTradingScreenPacket;
+import com.yuanno.soulsawakening.networking.server.SOpenChatPromptScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncQuestDataPacket;
 import com.yuanno.soulsawakening.quests.KillHollowQuest;
@@ -83,6 +84,11 @@ public class TestEvent {
                     PacketHandler.sendTo(new SSyncQuestDataPacket(player.getId(), questData), player);
                 }
             }
+        }
+        if (event.getMessage().equals("quest"))
+        {
+            PlayerEntity player = event.getPlayer();
+            PacketHandler.sendTo(new SOpenChatPromptScreenPacket(), player);
         }
         if (event.getMessage().equals("Ye lord! Mask of blood and flesh, all creation, flutter of wings, ye who bears the name of Man! Inferno and pandemonium, the sea barrier surges, march on to the south!"))
         {
