@@ -6,12 +6,12 @@ import net.minecraft.item.Items;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class KillHollowQuest extends Quest {
-    List<ItemStack> itemRewards = new ArrayList<>(Arrays.asList(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE)));
 
-    QuestReward questReward = QuestReward.builder().itemReward(itemRewards).build();
+    QuestReward questReward = QuestReward.builder()
+            .itemReward(new ArrayList<>(Arrays.asList(new ItemStack(Items.ENCHANTED_GOLDEN_APPLE))))
+            .build();
     public static final KillObjective.ICheckKill HOLLOW_CHECK = ((player, target, source) ->
     {
        return target instanceof HollowEntity;

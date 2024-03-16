@@ -12,6 +12,8 @@ import net.minecraft.entity.player.PlayerEntity;
  * {@link #getProjectile(PlayerEntity)} get the projectile to shoot
  * {@link #getVelocity()} velocity set for the projectile, default 1
  * {@link #getInaccuracy()} innacuracy set for the projectile, default 1
+ *
+ * @author Beosti
  */
 public interface IShootAbility {
 
