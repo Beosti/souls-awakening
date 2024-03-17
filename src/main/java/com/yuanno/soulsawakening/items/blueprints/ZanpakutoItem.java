@@ -28,19 +28,15 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ZanpakutoItem extends SwordItem {
-    private ModValues.ELEMENT zanpakutoElement = ModValues.ELEMENT.NONE;
-    private ModValues.STATE zanpakutoState = ModValues.STATE.SEALED;
+    private final ModValues.ELEMENT zanpakutoElement = ModValues.ELEMENT.NONE;
     private ModValues.TYPE zanpakutoType;
-    private ItemStack stack;
 
     public ZanpakutoItem() {
         super(ModTiers.WEAPON, 5, -2.55f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
-        this.zanpakutoState = ModValues.STATE.SEALED;
     }
 
     public ZanpakutoItem(int i, float v) {
         super(ModTiers.WEAPON, i, v, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
-        this.zanpakutoState = ModValues.STATE.SEALED;
     }
 
     @Override
@@ -89,12 +85,6 @@ public class ZanpakutoItem extends SwordItem {
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
 
-    @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int itemSlot, boolean isSelected) {
-        // Store the item stack
-        this.stack = stack;
-
-    }
 
     @Override
     public boolean hurtEnemy(ItemStack itemStack, LivingEntity target, LivingEntity owner) {
