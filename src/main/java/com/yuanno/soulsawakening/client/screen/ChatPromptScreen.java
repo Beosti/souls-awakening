@@ -9,6 +9,7 @@ import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModQuests;
+import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CGiveItemStackPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncQuestDataPacket;
@@ -66,14 +67,16 @@ public class ChatPromptScreen extends Screen {
             return;
         if (this.page == -1)
             text = "Never mind then.";
-        if (this.page == 0)
+        if (this.page == 0 && !EntityStatsCapability.get(player).getRace().equals(ModValues.SHINIGAMI))
             text = "So you want to become an official shinigami huh?";
+        else if (this.page == 0 && EntityStatsCapability.get(player).getRace().equals(ModValues.SHINIGAMI))
+            text = "I teach the absolute beginners how to become shinigami, you got other teachers to talk to. Scram!";
         if (this.page == 1) {
-            text = "Here's a blade without a spirit, beat this hollow and we'll infuse it with a spirit.";
+            text = "Here's a blade called a 'zanpakuto', right now it's just an asauchi due to you not being aware of the spirit inside. Kill a hollow and I'll teach you the ways of a shinigami.";
             IQuestData questData = QuestDataCapability.get(player);
             questData.addInProgressQuest(ModQuests.KILLHOLLOW);
             PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
-            Item item = ModItems.ASAUCHI.get();
+            Item item = ModItems.ZANPAKUTO.get();
             PacketHandler.sendToServer(new CGiveItemStackPacket(new ItemStack(item)));
         }
         this.message = new SequencedString(text, 245, this.font.width(text) / 2, 800);

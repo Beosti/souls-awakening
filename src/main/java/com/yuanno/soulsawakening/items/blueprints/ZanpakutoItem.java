@@ -28,8 +28,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ZanpakutoItem extends SwordItem {
-    private final ModValues.ELEMENT zanpakutoElement = ModValues.ELEMENT.NONE;
-    private ModValues.TYPE zanpakutoType;
 
     public ZanpakutoItem() {
         super(ModTiers.WEAPON, 5, -2.55f, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
@@ -41,11 +39,28 @@ public class ZanpakutoItem extends SwordItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        if (Screen.hasShiftDown()) {
-            tooltip.add(new TranslationTextComponent("§6A rare sword linked by the soul with the owner of it"));
-        } else {
+        if (Screen.hasShiftDown() && stack.getTag().getString("spirit").isEmpty())
+        {
+            tooltip.add(new TranslationTextComponent("§6A blade made out of spiritual material"));
+        }
+        else if (!Screen.hasShiftDown() && stack.getTag().getString("spirit").isEmpty())
+        {
             tooltip.add(new TranslationTextComponent("§6Hold " + "§eSHIFT " + "§6" + "for more Information!"));
         }
+
+        if (stack.getTag().getString("spirit").isEmpty())
+        {
+            super.appendHoverText(stack, world, tooltip, flagIn);
+            return;
+        }
+        if (Screen.hasShiftDown() && !stack.getTag().getString("spirit").isEmpty()) {
+            tooltip.add(new TranslationTextComponent("§6A rare sword linked by the spirit with the owner of it"));
+        }
+        else if (!Screen.hasShiftDown() && !stack.getTag().getString("spirit").isEmpty()){
+            tooltip.add(new TranslationTextComponent("§6Hold " + "§eSHIFT " + "§6" + "for more Information!"));
+        }
+
+
         if (stack.getTag().getString("owner").isEmpty()) {
             super.appendHoverText(stack, world, tooltip, flagIn);
             return;
@@ -82,6 +97,8 @@ public class ZanpakutoItem extends SwordItem {
             tooltip.add(new TranslationTextComponent("§6Hold " + "§fALT " +"§6" + "for information about elemental points!"));
 
         }
+
+
         super.appendHoverText(stack, world, tooltip, flagIn);
     }
 
@@ -92,7 +109,6 @@ public class ZanpakutoItem extends SwordItem {
         if (currentOwner.isEmpty())
             return false;
         else {
-            //((LivingEntity)target).knockback((float)0.65 * 0.5F, (double) MathHelper.sin(owner.yRot * ((float)Math.PI / 180F)), (double)(-MathHelper.cos(owner.yRot * ((float)Math.PI / 180F))));
             itemStack.hurtAndBreak(0, target, (p_220045_0_) -> {
                 p_220045_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
             });
@@ -116,13 +132,11 @@ public class ZanpakutoItem extends SwordItem {
                 || entityStats.getRace().equals(ModValues.HOLLOW))
             return ActionResult.fail(itemStack);
         if (currentOwner.isEmpty() && !player.level.isClientSide) {
-            ModValues.ELEMENT element = ModValues.ELEMENT.getRandomElement();
-            //ELEMENT element = ELEMENT.LIGHTNING;
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
-            //itemStack.getTag().putString("zanpakutoElement", element.name());
             itemStack.getTag().putString("zanpakutoType", ModValues.TYPE.getRandomType().name());
             itemStack.getTag().putString("zanpakutoState", ModValues.STATE.SEALED.name());
+            /*
             if (entityStats.getRace().equals(ModValues.SPIRIT)) {
                 entityStats.setRace(ModValues.SHINIGAMI);
                 ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
@@ -134,6 +148,8 @@ public class ZanpakutoItem extends SwordItem {
                 ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
                 ModAdvancements.FULLBRINGER.trigger((ServerPlayerEntity) player);
             }
+
+             */
             if (entityStats.getHohoPoints() <= 0)
                 entityStats.setHohoPoints(0);
             if (entityStats.getHakudaPoints() <= 0)
