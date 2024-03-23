@@ -18,6 +18,7 @@ public abstract class Quest extends ForgeRegistryEntry<Quest> {
     private String rank = "";
     private boolean inProgress = false;
     private QuestReward questReward;
+    private QuestStart questStart;
 
 
     public void addObjectives(Objective... objectives)
@@ -79,6 +80,14 @@ public abstract class Quest extends ForgeRegistryEntry<Quest> {
     public QuestReward getQuestReward()
     {
         return this.questReward;
+    }
+    public void setQuestStart(QuestStart questStart)
+    {
+        this.questStart = questStart;
+    }
+    public QuestStart getQuestStart()
+    {
+        return this.questStart;
     }
 
     public CompoundNBT save()

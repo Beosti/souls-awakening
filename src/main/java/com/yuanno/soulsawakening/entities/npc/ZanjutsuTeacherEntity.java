@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.entities.npc;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SOpenChatPromptScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SOpenTradingScreenPacket;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -31,7 +32,7 @@ public class ZanjutsuTeacherEntity extends CreatureEntity {
             return ActionResultType.PASS;
         if (!player.level.isClientSide) {
             this.lookAt(player, 1, 1);
-            PacketHandler.sendTo(new SOpenTradingScreenPacket(), player);
+            PacketHandler.sendTo(new SOpenChatPromptScreenPacket(), player);
         }
         return ActionResultType.PASS;
     }

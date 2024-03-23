@@ -7,20 +7,16 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
-import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.client.CGiveItemStackPacket;
+import com.yuanno.soulsawakening.networking.client.CSyncGiveQuestRewardPacket;
+import com.yuanno.soulsawakening.networking.client.CSyncGiveQuestStartPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncQuestDataPacket;
-import com.yuanno.soulsawakening.screens.ChallengesScreen;
 import com.yuanno.soulsawakening.screens.TexturedIconButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -37,15 +33,17 @@ public class ChatPromptScreen extends Screen {
 
     private PlayerEntity player;
     private IEntityStats entityStats;
+    private IQuestData questData;
     private SequencedString message = new SequencedString("", 0, 0);
     private int page = 0;
-
+    private String text = "";
     public ChatPromptScreen()
     {
         super(new StringTextComponent(""));
         this.minecraft = Minecraft.getInstance();
         this.player = minecraft.player;
         this.entityStats = EntityStatsCapability.get(player);
+        this.questData = QuestDataCapability.get(player);
     }
 
     @Override
@@ -55,42 +53,33 @@ public class ChatPromptScreen extends Screen {
         this.children.clear();
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
-        String text = "";
-        boolean hasQuest = QuestDataCapability.get(player).hasInProgressQuest(ModQuests.KILLHOLLOW);
+        text = "So you want to become a shinigami huh?";
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI))
+            text = "You're already a shinigami. Scram!";
         if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.KILLHOLLOW))
+            text = "You find hollows a bit everywhere in the overworld and a ton in hueco mundo. Go kill one!";
+        if (QuestDataCapability.get(player).isQuestComplete(ModQuests.KILLHOLLOW))
         {
-            text = "Are you done with your task?";
-            this.message = new SequencedString(text, 245, this.font.width(text) / 2, 800);
-            return;
+            text = "Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Feel free to walk around and learn new stuff";
         }
-        if (hasQuest)
-            return;
         if (this.page == -1)
-            text = "Never mind then.";
-        if (this.page == 0 && !EntityStatsCapability.get(player).getRace().equals(ModValues.SHINIGAMI))
-            text = "So you want to become an official shinigami huh?";
-        else if (this.page == 0 && EntityStatsCapability.get(player).getRace().equals(ModValues.SHINIGAMI))
-            text = "I teach the absolute beginners how to become shinigami, you got other teachers to talk to. Scram!";
-        if (this.page == 1) {
-            text = "Here's a blade called a 'zanpakuto', right now it's just an asauchi due to you not being aware of the spirit inside. Kill a hollow and I'll teach you the ways of a shinigami.";
-            IQuestData questData = QuestDataCapability.get(player);
-            questData.addInProgressQuest(ModQuests.KILLHOLLOW);
-            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
-            Item item = ModItems.ZANPAKUTO.get();
-            PacketHandler.sendToServer(new CGiveItemStackPacket(new ItemStack(item)));
+            text = "I guess not everyone is cut out for this job";
+        if (this.page == 1)
+        {
+            text = "Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. Kill a hollow and I'll make you a shinigami.";
         }
-        this.message = new SequencedString(text, 245, this.font.width(text) / 2, 800);
-        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 57, 32, 32, new TranslationTextComponent(""), b ->
+        this.message = new SequencedString(text, 325, this.font.width(text) / 2, 800);
+        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
         {
             this.page = 1;
             init();
         });
-        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 120, posY + 57, 32, 32, new TranslationTextComponent(""), b ->
+        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
         {
             this.page = -1;
             init();
         });
-        if (this.page == 0) {
+        if (text.equals("So you want to become a shinigami huh?")) {
             this.addButton(acceptanceButton);
             this.addButton(declineButton);
         }
@@ -107,12 +96,29 @@ public class ChatPromptScreen extends Screen {
         this.minecraft.textureManager.bind(chatPrompt);
         //GuiUtils.drawTexturedModalRect(posX - 128,  posY + 38, 0, 0, 256, 256, 0);
         this.blit(matrixStack, posX + 4, posY + 8, 0, 0, 256, 256);
-        this.message.render(matrixStack, posX + 12, posY + 223);
+        matrixStack.pushPose();
+        matrixStack.scale(0.7f, 0.7f, 0.7f);
+        this.message.render(matrixStack, (int) ((posX + 12) / 0.7), (int) ((posY + 223) / 0.7));
+        matrixStack.popPose();
         super.render(matrixStack, x, y, f);
     }
 
     public static void open()
     {
         Minecraft.getInstance().setScreen(new ChatPromptScreen());
+    }
+
+    public void onClose()
+    {
+        super.onClose();
+        if (this.text.equals("Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Feel free to walk around and learn new stuff")) {
+            questData.getQuest(ModQuests.KILLHOLLOW).setInProgress(false);
+            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KILLHOLLOW));
+        }
+        if (this.text.equals("Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. Kill a hollow and I'll make you a shinigami.")) {
+            this.questData.addInProgressQuest(ModQuests.KILLHOLLOW);
+            PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KILLHOLLOW));
+            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
+        }
     }
 }

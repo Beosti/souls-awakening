@@ -1,6 +1,5 @@
 package com.yuanno.soulsawakening.quests;
 
-import com.yuanno.soulsawakening.api.challenges.ChallengeReward;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
@@ -10,23 +9,23 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Way easier to handle all quest rewards in one class instead of doing it separately and other ways
+ * Way easier to handle all quest starts in one class instead of doing it separately and other ways
  *
  * Idea taken from Block Clover that I took and modified from Mine Mine no Mi
  */
-public class QuestReward {
+public class QuestStart {
 
 
     private List<ItemStack> itemRewards = new ArrayList<>();
     private List<Supplier<String>> itemChanges = new ArrayList<>();
     protected IComplete onCompleteEvent = (player) -> {return true;};
-    private QuestReward(Builder builder)
+    private QuestStart(Builder builder)
     {
         this.itemRewards = builder.itemRewards;
         this.onCompleteEvent = builder.onCompleteEvent;
     }
 
-    public void giveReward(PlayerEntity player)
+    public void giveStart(PlayerEntity player)
     {
         if (player.level.isClientSide)
             return;
@@ -50,16 +49,16 @@ public class QuestReward {
             return this;
         }
 
-        public Builder otherReward(IComplete complete)
+        public Builder otherStart(IComplete complete)
         {
             this.onCompleteEvent = complete;
             return this;
         }
 
 
-        public QuestReward build()
+        public QuestStart build()
         {
-            return new QuestReward(this);
+            return new QuestStart(this);
         }
     }
 

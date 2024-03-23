@@ -29,6 +29,8 @@ public class ModNetwork {
         PacketHandler.registerPacket(CSyncQuestDataPacket.class, CSyncQuestDataPacket::encode, CSyncQuestDataPacket::decode, CSyncQuestDataPacket::handle);
         PacketHandler.registerPacket(COpenQuestScreenPacket.class, COpenQuestScreenPacket::encode, COpenQuestScreenPacket::decode, COpenQuestScreenPacket::handle);
         PacketHandler.registerPacket(COpenChatPromptScreenPacket.class, COpenChatPromptScreenPacket::encode, COpenChatPromptScreenPacket::decode, COpenChatPromptScreenPacket::handle);
+        PacketHandler.registerPacket(CSyncGiveQuestStartPacket.class, CSyncGiveQuestStartPacket::encode, CSyncGiveQuestStartPacket::decode, CSyncGiveQuestStartPacket::handle);
+        PacketHandler.registerPacket(CSyncGiveQuestRewardPacket.class, CSyncGiveQuestRewardPacket::encode, CSyncGiveQuestRewardPacket::decode, CSyncGiveQuestRewardPacket::handle);
 
 
 

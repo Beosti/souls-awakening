@@ -20,4 +20,6 @@ public interface IQuestData {
     boolean hasFinishedQuest(Quest quest);
 
     boolean isQuestComplete(Quest quest);
+
+    Quest getQuest(Quest quest);
 }

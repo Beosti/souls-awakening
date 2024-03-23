@@ -55,7 +55,7 @@ public class ModValues {
     }
 
     public enum STATE {
-        SEALED, SHIKAI, BANKAI;
+        ASAUCHI, SEALED, SHIKAI, BANKAI;
         public static STATE getRandomState()
         {
             Random random = new Random();

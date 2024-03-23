@@ -19,8 +19,6 @@ public class CHollowEvolutionPacket {
 
     }
 
-
-
     public void encode(PacketBuffer packetBuffer)
     {
     }

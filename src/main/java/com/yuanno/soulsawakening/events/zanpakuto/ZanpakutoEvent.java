@@ -120,7 +120,11 @@ public class ZanpakutoEvent {
             return;
         IEntityStats entityStats = EntityStatsCapability.get(event.getPlayer());
         ItemStack zanpakutoItem = event.getZanpakutoItem();
-
+        if (zanpakutoItem.getTag().getString("zanpakutoState").equals(ModValues.STATE.ASAUCHI.name()))
+        {
+            event.getPlayer().sendMessage(new StringTextComponent("Cannot reach shikai in this state!"), Util.NIL_UUID);
+            return;
+        }
 
         if (entityStats.getZanjutsuPoints() < 20) {
             event.getPlayer().sendMessage(new StringTextComponent("Need to have at least 20 Zanjutsu points!"), Util.NIL_UUID);

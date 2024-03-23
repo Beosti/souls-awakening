@@ -78,4 +78,15 @@ public class QuestDataBase implements IQuestData {
         }
         return true;
     }
+
+    @Override
+    public Quest getQuest(Quest quest)
+    {
+        for (int i = 0; i < this.quests.size(); i++)
+        {
+            if (quests.get(i).equals(quest))
+                return quest;
+        }
+        return null;
+    }
 }

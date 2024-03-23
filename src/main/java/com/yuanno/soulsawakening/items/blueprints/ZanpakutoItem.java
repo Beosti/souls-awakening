@@ -35,6 +35,7 @@ public class ZanpakutoItem extends SwordItem {
 
     public ZanpakutoItem(int i, float v) {
         super(ModTiers.WEAPON, i, v, new Item.Properties().rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
+
     }
 
     @Override
@@ -47,6 +48,8 @@ public class ZanpakutoItem extends SwordItem {
         {
             tooltip.add(new TranslationTextComponent("§6Hold " + "§eSHIFT " + "§6" + "for more Information!"));
         }
+        String state = stack.getTag().getString("zanpakutoState");
+        tooltip.add(new TranslationTextComponent("§l§4STATE: " + "§r" + state));
 
         if (stack.getTag().getString("spirit").isEmpty())
         {
@@ -116,6 +119,7 @@ public class ZanpakutoItem extends SwordItem {
         }
     }
 
+    /*
     @Override
     public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
     {
@@ -135,76 +139,13 @@ public class ZanpakutoItem extends SwordItem {
             IAbilityData abilityData = AbilityDataCapability.get(player);
             itemStack.getTag().putString("owner", player.getDisplayName().getString());
             itemStack.getTag().putString("zanpakutoType", ModValues.TYPE.getRandomType().name());
-            itemStack.getTag().putString("zanpakutoState", ModValues.STATE.SEALED.name());
-            /*
-            if (entityStats.getRace().equals(ModValues.SPIRIT)) {
-                entityStats.setRace(ModValues.SHINIGAMI);
-                ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
-                ModAdvancements.SHINIGAMI.trigger((ServerPlayerEntity) player);
-            }
-            else if (entityStats.getRace().equals(ModValues.HUMAN))
-            {
-                entityStats.setRace(ModValues.FULLBRINGER);
-                ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
-                ModAdvancements.FULLBRINGER.trigger((ServerPlayerEntity) player);
-            }
-
-             */
+            //itemStack.getTag().putString("zanpakutoState", ModValues.STATE.SEALED.name());
             if (entityStats.getHohoPoints() <= 0)
                 entityStats.setHohoPoints(0);
             if (entityStats.getHakudaPoints() <= 0)
                 entityStats.setHakudaPoints(0);
             if (entityStats.getZanjutsuPoints() <= 0)
                 entityStats.setZanjutsuPoints(0);
-            /* -> will be added for the random config
-            switch (element)
-            {
-                case DARK:
-                    abilityData.addUnlockedAbility(DarkStepAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(ShadowAttackAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(UmbralCloakAbility.INSTANCE);
-                    break;
-                case FIRE:
-                    abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(FireBallAbility.INSTANCE);
-                    break;
-                case HEAL:
-                    abilityData.addUnlockedAbility(HealingTouchingAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(RevitilazingAuraAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(SelfHealingAbility.INSTANCE);
-                    break;
-                case LIGHTNING:
-                    abilityData.addUnlockedAbility(LightningStepAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(ThunderAttackAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(ThunderStrikeAbility.INSTANCE);
-                    break;
-                case LUNAR:
-                    abilityData.addUnlockedAbility(LunarBlessingAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(LunarCrescentAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(LunarWaveAbility.INSTANCE);
-                    break;
-                case NORMAL:
-                    abilityData.addUnlockedAbility(NormalBuffAbility.INSTANCE);
-                    break;
-                case POISON:
-                    abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(VenomousCloudAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(AdrenalineCloudAbility.INSTANCE);
-                    break;
-                case WATER:
-                    abilityData.addUnlockedAbility(AquaSlashAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(TidalWaveAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(WaterPrisonAbility.INSTANCE);
-                    break;
-                case WIND:
-                    abilityData.addUnlockedAbility(GaleForceAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(WhirldWindDanceAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
-                    break;
-            }
-
-             */
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             return ActionResult.success(itemStack);
@@ -215,6 +156,8 @@ public class ZanpakutoItem extends SwordItem {
         return ActionResult.success(itemStack);
 
     }
+
+     */
 
     public void setOwner(PlayerEntity player, ItemStack itemStack)
     {
