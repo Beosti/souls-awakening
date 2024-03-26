@@ -110,6 +110,11 @@ public class TestEvent {
         {
             PlayerEntity player = event.getPlayer();
             ITeleports teleports = TeleportCapability.get(player);
+            if (teleports.getTeleportPositions().get(0).getDimension() != player.level.dimension())
+            {
+                System.out.println("NOT IN RIGHT DIMENSION");
+                return;
+            }
             System.out.println("teleports are: " + teleports.getTeleportPositions());
             System.out.println("teleport to: " + teleports.getTeleportPositions().get(0));
             player.teleportTo(teleports.getTeleportPositions().get(0).getBlockPos().getX(), teleports.getTeleportPositions().get(0).getBlockPos().getY(), teleports.getTeleportPositions().get(0).getBlockPos().getZ());
