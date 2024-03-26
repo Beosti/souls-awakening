@@ -101,7 +101,7 @@ public class TestEvent {
             TeleportPosition teleportPosition = new TeleportPosition();
             teleportPosition.setBlockPos(player.blockPosition());
             teleportPosition.setName("test");
-            teleportPosition.setDimension(player.level.dimension());
+            teleportPosition.setDimension(player.level.dimension().toString());
             teleportData.addTeleportsPosition(teleportPosition);
             System.out.println("teleport position set: " + teleportPosition.getName());
             PacketHandler.sendTo(new SSyncTeleportPacket(player.getId(), teleportData), player);
@@ -110,7 +110,7 @@ public class TestEvent {
         {
             PlayerEntity player = event.getPlayer();
             ITeleports teleports = TeleportCapability.get(player);
-            if (teleports.getTeleportPositions().get(0).getDimension() != player.level.dimension())
+            if (!teleports.getTeleportPositions().get(0).getDimension().equals(player.level.dimension().toString()))
             {
                 System.out.println("NOT IN RIGHT DIMENSION");
                 return;
@@ -118,6 +118,12 @@ public class TestEvent {
             System.out.println("teleports are: " + teleports.getTeleportPositions());
             System.out.println("teleport to: " + teleports.getTeleportPositions().get(0));
             player.teleportTo(teleports.getTeleportPositions().get(0).getBlockPos().getX(), teleports.getTeleportPositions().get(0).getBlockPos().getY(), teleports.getTeleportPositions().get(0).getBlockPos().getZ());
+        }
+        if (event.getMessage().equals("testing tps"))
+        {
+            PlayerEntity player = event.getPlayer();
+            ITeleports teleports = TeleportCapability.get(player);
+            System.out.println(teleports.getTeleportPositions());
         }
         if (event.getMessage().equals("Ye lord! Mask of blood and flesh, all creation, flutter of wings, ye who bears the name of Man! Inferno and pandemonium, the sea barrier surges, march on to the south!"))
         {

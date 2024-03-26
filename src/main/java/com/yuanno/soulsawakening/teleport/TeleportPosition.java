@@ -19,9 +19,19 @@ import static net.minecraft.util.registry.Registry.REGISTRY;
 public class TeleportPosition {
 
     private BlockPos blockPos;
-    private RegistryKey<World> dimension;
+    private String dimension;
     private String name;
 
+    public TeleportPosition()
+    {
+
+    }
+    public TeleportPosition(String name, BlockPos blockPos, String dimension)
+    {
+        this.name = name;
+        this.blockPos = blockPos;
+        this.dimension = dimension;
+    }
     public BlockPos getBlockPos()
     {
         return this.blockPos;
@@ -30,11 +40,11 @@ public class TeleportPosition {
     {
         this.blockPos = blockPos;
     }
-    public RegistryKey<World> getDimension()
+    public String getDimension()
     {
         return this.dimension;
     }
-    public void setDimension(RegistryKey<World> serverWorld)
+    public void setDimension(String serverWorld)
     {
         this.dimension = serverWorld;
     }
@@ -53,7 +63,8 @@ public class TeleportPosition {
         nbt.putInt("xCoordinate", blockPos.getX());
         nbt.putInt("yCoordinate", blockPos.getY());
         nbt.putInt("zCoordinate", blockPos.getZ());
-        nbt.putString("dimension", dimension.getRegistryName().toString());
+        System.out.println(dimension.toString());
+        nbt.putString("dimension", dimension.toString());
         nbt.putString("name", name.toLowerCase(Locale.ROOT));
         return nbt;
     }
@@ -64,8 +75,8 @@ public class TeleportPosition {
         int y = nbt.getInt("yCoordinate");
         int z = nbt.getInt("zCoordinate");
         this.blockPos = new BlockPos(x, y, z);
-        ResourceLocation resourceLocation = new ResourceLocation(nbt.getString("dimension"));
-        this.dimension = RegistryKey.create(DIMENSION_REGISTRY, resourceLocation);
+
+        this.dimension = nbt.getString("dimension");
         this.name = nbt.getString("name");
     }
 }

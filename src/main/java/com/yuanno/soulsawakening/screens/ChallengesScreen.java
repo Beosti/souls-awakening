@@ -55,38 +55,6 @@ public class ChallengesScreen extends Screen {
         addChallengeButton(posX - 65, posY + 180, ModChallenges.SEATED13_SHINIGAMI.get(), "Rank 13", "Challenge a seated officer rank 13 shinigami", true);
         addChallengeButton(posX - 65, posY + 200, ModChallenges.SEATED12_SHINIGAMI.get(), "Rank 12", "Challenge a seated officer rank 12 shinigami", true);
         addChallengeButton(posX - 65, posY + 220, ModChallenges.SEATED11_SHINIGAMI.get(), "Rank 11", "Challenge a seated officer rank 11 shinigami", true);
-
-        /*
-        this.addButton(new Button(posX - 65, posY + 20, 60, 20, new TranslationTextComponent("Shinigami"), b ->
-        {
-            PacketHandler.sendToServer(new CStartChallengePacket(ModChallenges.BASIC_SHINIGAMI.get().getRegistryName(), this.group, false));
-            this.minecraft.setScreen(null);
-        }, (button, matrixStack, mouseX, mouseY) ->
-        {
-            if (button.isHovered())
-                this.renderTooltip(matrixStack, new TranslationTextComponent("Challenge a basic shinigami"), mouseX, mouseY);
-        })).active = challengesDataBase.hasChallenge(ModChallenges.BASIC_SHINIGAMI.get());
-        this.addButton(new Button(posX - 65, posY + 40, 60, 20, new TranslationTextComponent("Rank 20"), b ->
-        {
-            PacketHandler.sendToServer(new CStartChallengePacket(ModChallenges.SEATED20_SHINIGAMI.get().getRegistryName(), this.group, false));
-            this.minecraft.setScreen(null);
-        }, (button, matrixStack, mouseX, mouseY) ->
-        {
-            if (button.isHovered())
-                this.renderTooltip(matrixStack, new TranslationTextComponent("Challenge a seated officer rank 20 shinigami"), mouseX, mouseY);
-        })).active = challengesDataBase.hasChallenge(ModChallenges.SEATED20_SHINIGAMI.get()) || challengesDataBase.isChallengeCompleted(ModChallenges.SEATED20_SHINIGAMI.get());
-        this.addButton(new Button(posX - 65, posY + 40, 60, 20, new TranslationTextComponent("Rank 19"), b ->
-        {
-            PacketHandler.sendToServer(new CStartChallengePacket(ModChallenges.SEATED19_SHINIGAMI.get().getRegistryName(), this.group, false));
-            this.minecraft.setScreen(null);
-        }, (button, matrixStack, mouseX, mouseY) ->
-        {
-            if (button.isHovered())
-                this.renderTooltip(matrixStack, new TranslationTextComponent("Challenge a seated officer rank 19 shinigami"), mouseX, mouseY);
-        })).active = challengesDataBase.hasChallenge(ModChallenges.SEATED19_SHINIGAMI.get()) || challengesDataBase.isChallengeCompleted(ModChallenges.SEATED19_SHINIGAMI.get());
-
-
-         */
     }
 
     private void addChallengeButton(int x, int y, ChallengeCore challenge, String buttonText, String tooltipText) {

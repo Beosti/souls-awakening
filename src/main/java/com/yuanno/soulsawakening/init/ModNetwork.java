@@ -32,6 +32,8 @@ public class ModNetwork {
         PacketHandler.registerPacket(CSyncGiveQuestStartPacket.class, CSyncGiveQuestStartPacket::encode, CSyncGiveQuestStartPacket::decode, CSyncGiveQuestStartPacket::handle);
         PacketHandler.registerPacket(CSyncGiveQuestRewardPacket.class, CSyncGiveQuestRewardPacket::encode, CSyncGiveQuestRewardPacket::decode, CSyncGiveQuestRewardPacket::handle);
         PacketHandler.registerPacket(CSyncTeleportPacket.class, CSyncTeleportPacket::encode, CSyncTeleportPacket::decode, CSyncTeleportPacket::handle);
+        PacketHandler.registerPacket(COpenTeleportScreenPacket.class, COpenTeleportScreenPacket::encode, COpenTeleportScreenPacket::decode, COpenTeleportScreenPacket::handle);
+        PacketHandler.registerPacket(CTeleportPacket.class, CTeleportPacket::encode, CTeleportPacket::decode, CTeleportPacket::handle);
 
 
 
@@ -49,6 +51,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(SOpenQuestScreenPacket.class, SOpenQuestScreenPacket::encode, SOpenQuestScreenPacket::decode, SOpenQuestScreenPacket::handle);
         PacketHandler.registerPacket(SOpenChatPromptScreenPacket.class, SOpenChatPromptScreenPacket::encode, SOpenChatPromptScreenPacket::decode, SOpenChatPromptScreenPacket::handle);
         PacketHandler.registerPacket(SSyncTeleportPacket.class, SSyncTeleportPacket::encode, SSyncTeleportPacket::decode, SSyncTeleportPacket::handle);
+        PacketHandler.registerPacket(SOpenTeleportScreenPacket.class, SOpenTeleportScreenPacket::encode, SOpenTeleportScreenPacket::decode, SOpenTeleportScreenPacket::handle);
 
     }
 }

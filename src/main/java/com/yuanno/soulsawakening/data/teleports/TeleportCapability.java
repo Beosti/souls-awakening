@@ -51,6 +51,7 @@ public class TeleportCapability {
                         instance.addTeleportsPosition(teleportPosition);
                     } catch (Exception e)
                     {
+                        System.out.println("something went wrong with the loading phase of teleportation capability");
                         continue;
                     }
                 }

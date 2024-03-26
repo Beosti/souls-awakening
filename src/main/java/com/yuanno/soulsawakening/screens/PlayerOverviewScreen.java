@@ -7,6 +7,7 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
+import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
@@ -121,6 +122,10 @@ public class PlayerOverviewScreen extends Screen {
             PacketHandler.sendToServer(new COpenQuestScreenPacket());
             this.onClose();
         }));
+        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 61 + 252, posY + 140, 60, 20, new TranslationTextComponent("Teleports"), b -> {
+            PacketHandler.sendToServer(new COpenTeleportScreenPacket());
+            this.onClose();
+        })).active = !TeleportCapability.get(playerEntity).getTeleportPositions().isEmpty();
     }
 
     private void handleStats(int integer, IEntityStats entityStats)
