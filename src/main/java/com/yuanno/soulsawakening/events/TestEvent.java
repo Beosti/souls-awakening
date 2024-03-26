@@ -14,6 +14,8 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
+import com.yuanno.soulsawakening.data.teleports.ITeleports;
+import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.entities.projectiles.kido.ShakkahoIncantationProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.kido.ShakkahoProjectile;
 import com.yuanno.soulsawakening.init.ModChallenges;
@@ -25,8 +27,10 @@ import com.yuanno.soulsawakening.networking.client.COpenTradingScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SOpenChatPromptScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncQuestDataPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncTeleportPacket;
 import com.yuanno.soulsawakening.quests.KillHollowQuest;
 import com.yuanno.soulsawakening.quests.Quest;
+import com.yuanno.soulsawakening.teleport.TeleportPosition;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.client.event.ClientChatEvent;
@@ -89,6 +93,26 @@ public class TestEvent {
         {
             PlayerEntity player = event.getPlayer();
             PacketHandler.sendTo(new SOpenChatPromptScreenPacket(), player);
+        }
+        if (event.getMessage().equals("teleport set"))
+        {
+            PlayerEntity player = event.getPlayer();
+            ITeleports teleportData = TeleportCapability.get(player);
+            TeleportPosition teleportPosition = new TeleportPosition();
+            teleportPosition.setBlockPos(player.blockPosition());
+            teleportPosition.setName("test");
+            teleportPosition.setDimension(player.level.dimension());
+            teleportData.addTeleportsPosition(teleportPosition);
+            System.out.println("teleport position set: " + teleportPosition.getName());
+            PacketHandler.sendTo(new SSyncTeleportPacket(player.getId(), teleportData), player);
+        }
+        if (event.getMessage().equals("go teleport"))
+        {
+            PlayerEntity player = event.getPlayer();
+            ITeleports teleports = TeleportCapability.get(player);
+            System.out.println("teleports are: " + teleports.getTeleportPositions());
+            System.out.println("teleport to: " + teleports.getTeleportPositions().get(0));
+            player.teleportTo(teleports.getTeleportPositions().get(0).getBlockPos().getX(), teleports.getTeleportPositions().get(0).getBlockPos().getY(), teleports.getTeleportPositions().get(0).getBlockPos().getZ());
         }
         if (event.getMessage().equals("Ye lord! Mask of blood and flesh, all creation, flutter of wings, ye who bears the name of Man! Inferno and pandemonium, the sea barrier surges, march on to the south!"))
         {

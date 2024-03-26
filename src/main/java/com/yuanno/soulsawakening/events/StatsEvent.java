@@ -12,14 +12,15 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
+import com.yuanno.soulsawakening.data.quest.IQuestData;
+import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
+import com.yuanno.soulsawakening.data.teleports.ITeleports;
+import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModChallenges;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
-import com.yuanno.soulsawakening.networking.server.SSyncChallengeDataPacket;
-import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
-import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
+import com.yuanno.soulsawakening.networking.server.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -47,6 +48,8 @@ public class StatsEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IChallengesData challengesData = ChallengesDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
+        IQuestData questData = QuestDataCapability.get(player);
+        ITeleports teleports = TeleportCapability.get(player);
         if (!entityStats.hasRace())
             statsHandling(player);
 
@@ -54,6 +57,8 @@ public class StatsEvent {
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         PacketHandler.sendTo(new SSyncChallengeDataPacket(player.getId(), challengesData), player);
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
+        PacketHandler.sendTo(new SSyncQuestDataPacket(player.getId(), questData), player);
+        PacketHandler.sendTo(new SSyncTeleportPacket(player.getId(), teleports), player);
     }
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event)
@@ -130,12 +135,17 @@ public class StatsEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
         IChallengesData challengesData = ChallengesDataCapability.get(player);
+        IQuestData questData = QuestDataCapability.get(player);
+        ITeleports teleports = TeleportCapability.get(player);
+
         if (!statsProps.hasRace())
             statsHandling(player);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), statsProps), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
         PacketHandler.sendTo(new SSyncChallengeDataPacket(player.getId(), challengesData), player);
+        PacketHandler.sendTo(new SSyncQuestDataPacket(player.getId(), questData), player);
+        PacketHandler.sendTo(new SSyncTeleportPacket(player.getId(), teleports), player);
     }
 
     @SubscribeEvent
@@ -156,6 +166,10 @@ public class StatsEvent {
             PacketHandler.sendTo(new SSyncMiscDataPacket(event.getPlayer().getId(), miscData), event.getPlayer());
             IChallengesData challengesData = ChallengesDataCapability.get(event.getPlayer());
             PacketHandler.sendTo(new SSyncChallengeDataPacket(event.getPlayer().getId(), challengesData), event.getPlayer());
+            IQuestData questData = QuestDataCapability.get(event.getPlayer());
+            PacketHandler.sendTo(new SSyncQuestDataPacket(event.getPlayer().getId(), questData), event.getPlayer());
+            ITeleports teleportData = TeleportCapability.get(event.getPlayer());
+            PacketHandler.sendTo(new SSyncTeleportPacket(event.getPlayer().getId(), teleportData), event.getPlayer());
 
         } else
             StatsEvent.restoreFullData(event.getOriginal(), event.getPlayer());
@@ -188,13 +202,15 @@ public class StatsEvent {
         IChallengesData newChallengeData = ChallengesDataCapability.get(player);
         ChallengesDataCapability.INSTANCE.readNBT(newChallengeData, null, nbt);
 
-        /*
-        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), newAbilityData), player);
-        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), newEntityStats), player);
+        IQuestData questData = QuestDataCapability.get(original);
+        nbt = QuestDataCapability.INSTANCE.writeNBT(questData, null);
+        IQuestData newQuestData = QuestDataCapability.get(player);
+        QuestDataCapability.INSTANCE.readNBT(newQuestData, null, nbt);
 
-         */
-
-
+        ITeleports teleportsData = TeleportCapability.get(original);
+        nbt = TeleportCapability.INSTANCE.writeNBT(teleportsData, null);
+        ITeleports newTeleportsData = TeleportCapability.get(player);
+        TeleportCapability.INSTANCE.readNBT(newTeleportsData, null, nbt);
     }
 
     @SubscribeEvent
@@ -205,11 +221,15 @@ public class StatsEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
         IChallengesData challengesData = ChallengesDataCapability.get(player);
+        IQuestData questData = QuestDataCapability.get(player);
+        ITeleports teleports = TeleportCapability.get(player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncEntityStatsPacket(player.getId(), stats), player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncMiscDataPacket(player.getId(), miscData), player);
         PacketHandler.sendToAllTrackingAndSelf(new SSyncChallengeDataPacket(player.getId(), challengesData), player);
-        //MinecraftForge.EVENT_BUS.post(new EntityEvent.Size(player, player.getPose(), player.getDimensions(player.getPose()), player.getBbHeight()));
+        PacketHandler.sendToAllTrackingAndSelf(new SSyncQuestDataPacket(player.getId(), questData), player);
+        PacketHandler.sendToAllTrackingAndSelf(new SSyncTeleportPacket(player.getId(), teleports), player);
+
     }
 
     @SubscribeEvent

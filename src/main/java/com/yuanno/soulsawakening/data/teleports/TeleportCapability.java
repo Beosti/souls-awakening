@@ -41,7 +41,7 @@ public class TeleportCapability {
                 CompoundNBT compoundNBT = (CompoundNBT) nbt;
                 instance.clearTeleportPositions();
 
-                ListNBT teleportsPositions = compoundNBT.getList("teleportspositions", Constants.NBT.TAG_COMPOUND);
+                ListNBT teleportsPositions = compoundNBT.getList("teleports", Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < teleportsPositions.size(); i++)
                 {
                     try {
