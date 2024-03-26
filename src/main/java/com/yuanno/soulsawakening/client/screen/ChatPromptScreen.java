@@ -2,14 +2,20 @@ package com.yuanno.soulsawakening.client.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.SoulSocietyKeyAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IAttackAbility;
 import com.yuanno.soulsawakening.api.SequencedString;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
+import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.client.CSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncGiveQuestRewardPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncGiveQuestStartPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncQuestDataPacket;
@@ -18,6 +24,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -66,9 +73,11 @@ public class ChatPromptScreen extends Screen {
             text = "I guess not everyone is cut out for this job";
         if (this.page == 1)
         {
-            text = "Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. Kill a hollow and I'll make you a shinigami.";
+            text = "Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. You can press alt+right click with zanpakuto to go and back to the human world. Kill a hollow and I'll make you a shinigami.";
         }
-        this.message = new SequencedString(text, 325, this.font.width(text) / 2, 800);
+        if (!entityStats.getRace().equals(ModValues.SPIRIT))
+            text = "How did a non-spirit come here, you should be brought wherever you came from!";
+        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
         TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
         {
             this.page = 1;
@@ -94,7 +103,6 @@ public class ChatPromptScreen extends Screen {
         int posY = (this.height - 256) / 2;
 
         this.minecraft.textureManager.bind(chatPrompt);
-        //GuiUtils.drawTexturedModalRect(posX - 128,  posY + 38, 0, 0, 256, 256, 0);
         this.blit(matrixStack, posX + 4, posY + 8, 0, 0, 256, 256);
         matrixStack.pushPose();
         matrixStack.scale(0.7f, 0.7f, 0.7f);
@@ -115,10 +123,14 @@ public class ChatPromptScreen extends Screen {
             questData.getQuest(ModQuests.KILLHOLLOW).setInProgress(false);
             PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KILLHOLLOW));
         }
-        if (this.text.equals("Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. Kill a hollow and I'll make you a shinigami.")) {
+        if (this.text.equals("Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. You can press alt+right click with zanpakuto to go and back to the human world. Kill a hollow and I'll make you a shinigami.")) {
             this.questData.addInProgressQuest(ModQuests.KILLHOLLOW);
+            IAbilityData abilityData = AbilityDataCapability.get(player);
+            abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);
             PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KILLHOLLOW));
             PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
+            PacketHandler.sendToServer(new CSyncAbilityDataPacket(abilityData));
+            player.sendMessage(new TranslationTextComponent("This entity is now a teleport point, you can teleport back to it in your teleports menu"), Util.NIL_UUID);
         }
     }
 }

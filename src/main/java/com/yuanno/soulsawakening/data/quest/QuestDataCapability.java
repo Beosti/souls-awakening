@@ -49,7 +49,7 @@ public class QuestDataCapability {
                 {
                     try {
                         CompoundNBT nbtQuest = quests.getCompound(i);
-                        Quest quest = GameRegistry.findRegistry(Quest.class).getValue(new ResourceLocation(nbtQuest.getString("id")));
+                        Quest quest = GameRegistry.findRegistry(Quest.class).getValue(new ResourceLocation(nbtQuest.getString("id"))); // could do it without passing through the registry
                         if (quest == null)
                             continue;
                         quest.load(nbtQuest);

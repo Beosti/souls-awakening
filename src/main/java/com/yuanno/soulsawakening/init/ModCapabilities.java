@@ -11,6 +11,8 @@ import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.data.misc.MiscDataProvider;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.data.quest.QuestDataProvider;
+import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
+import com.yuanno.soulsawakening.data.teleports.TeleportProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,6 +31,7 @@ public class ModCapabilities {
         MiscDataCapability.register();
         ChallengesDataCapability.register();
         QuestDataCapability.register();
+        TeleportCapability.register();
     }
 
     @SubscribeEvent
@@ -47,6 +50,7 @@ public class ModCapabilities {
             event.addCapability(new ResourceLocation(Main.MODID, "ability_data"), new AbilityDataProvider());
             event.addCapability(new ResourceLocation(Main.MODID, "challenges"), new ChallengesDataProvider());
             event.addCapability(new ResourceLocation(Main.MODID, "quest"), new QuestDataProvider());
+            event.addCapability(new ResourceLocation(Main.MODID, "teleports"), new TeleportProvider());
         }
     }
 }

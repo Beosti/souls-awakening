@@ -69,8 +69,8 @@ public class AbilityEvents {
             Entity entity = event.getTarget();
             if (!(entity instanceof LivingEntity))
                 return;
-            ((IAttackAbility) ability).activate(((LivingEntity) entity), player);
-            ((IParticleEffect) ability).spawnParticles(((LivingEntity) entity));
+            if (ability instanceof IParticleEffect)
+                ((IParticleEffect) ability).spawnParticles(((LivingEntity) entity));
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             return;
         }
@@ -105,18 +105,6 @@ public class AbilityEvents {
         MinecraftForge.EVENT_BUS.post(customInteractionEvent);
     }
 
-    /*
-    @SubscribeEvent
-    public static void onRightClickEmpty(PlayerInteractEvent.RightClickEmpty event)
-    {
-        System.out.println(event.getHand());
-        PacketHandler.sendToServer(new CRightClickEmptyPacket());
-    }
-
-     */
-
-
-
     /**
      * method that handles the right click abilities {@link IRightClickAbility}
      * 1. Sorts and give priority for the entity interacting stuff {@link IEntityRayTrace}
@@ -149,6 +137,7 @@ public class AbilityEvents {
                 continue;
             if (!(ability instanceof IRightClickAbility)) // check if the ability is a right click ability
                 continue;
+            System.out.println("TEST");
             if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
             {
                 ItemStack zanpakutoItem = player.getMainHandItem();

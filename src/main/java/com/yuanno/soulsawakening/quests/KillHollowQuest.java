@@ -11,7 +11,6 @@ import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.eventbus.api.IEventBus;
 
 public class KillHollowQuest extends Quest {
 

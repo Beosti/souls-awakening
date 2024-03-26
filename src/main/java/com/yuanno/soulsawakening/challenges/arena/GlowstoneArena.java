@@ -23,7 +23,6 @@ public class GlowstoneArena extends ChallengeArena {
 	public static final GlowstoneArena INSTANCE = new GlowstoneArena();
 	
 	private static final int ARENA_SIZE = 25;
-	private static final int SAND_HEIGHT = ARENA_SIZE / 3;
 
 	public GlowstoneArena() {
 		super(ArenaStyle.BOX);
@@ -31,8 +30,6 @@ public class GlowstoneArena extends ChallengeArena {
 	
 	@Override
 	public void buildArena(InProgressChallenge challenge) {
-		final int bottomLayerOffset = (-ARENA_SIZE) + 1;
-
 		// Outer barrier
 		ArrayList<BlockPos> blocks1 = new ArrayList<>(Beapi.createEmptyCube(challenge.getShard(),
 				challenge.getArenaPos().getX(), challenge.getArenaPos().getY(), challenge.getArenaPos().getZ(), ARENA_SIZE, ARENA_SIZE, ARENA_SIZE, Blocks.BARRIER, null));
