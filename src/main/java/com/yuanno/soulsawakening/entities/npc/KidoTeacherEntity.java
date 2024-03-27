@@ -4,7 +4,7 @@ import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;
 
-public class KidoTeacherEntity extends CreatureEntity {
+public class KidoTeacherEntity extends SoulSocietyTeacherEntity {
 
     public KidoTeacherEntity(EntityType type, World world)
     {

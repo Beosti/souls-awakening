@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.entities.hollow.*;
+import com.yuanno.soulsawakening.entities.npc.KidoTeacherEntity;
 import com.yuanno.soulsawakening.entities.npc.TraderEntity;
 import com.yuanno.soulsawakening.entities.npc.ShinigamiTeacherEntity;
 import com.yuanno.soulsawakening.entity.*;
@@ -82,6 +83,12 @@ public class ModEntities {
                             .sized(1f, 2f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "shinigami_teacher").toString()));
+    public static final RegistryObject<EntityType<KidoTeacherEntity>> KIDO_TEACHER = ENTITIES
+            .register("kido_teacher",
+                    () -> EntityType.Builder.of(KidoTeacherEntity::new, EntityClassification.CREATURE)
+                            .sized(1f, 2f)
+                            .setTrackingRange(5)
+                            .build(new ResourceLocation(Main.MODID, "kido_teacher").toString()));
     public static void register(IEventBus eventBus) {
         ENTITIES.register(eventBus);
     }
