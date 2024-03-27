@@ -140,7 +140,7 @@ public class ChatPromptScreen extends Screen {
     }
     void kidoTeacher(int posX, int posY)
     {
-        text = "I'm the kido teacher. What's kido you ask? It's a form of shinigami combat based on advanced spells. These spells are produced with Reiryoku. If you're a student at the academy I can teach you some!";
+        text = "I'm the kido teacher. What's kido you ask? It's a form of shinigami combat based on advanced spells. These spells are produced with Reiryoku. If you're a student at the academy I can teach you the basics and the first spell and the other teachers will get it from there!";
         if (!entityStats.getRace().equals(ModValues.SHINIGAMI))
             text = "I only teach shinigami's! Why are you even here? You should be brought back!";
     }
