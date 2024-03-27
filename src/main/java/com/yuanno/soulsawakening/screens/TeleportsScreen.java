@@ -39,14 +39,20 @@ public class TeleportsScreen extends Screen {
         super.init();
         int posX = this.width / 2;
         int posY = this.height / 2;
-
-        for (int i = 0; i < teleportData.getTeleportPositions().size(); i++)
-        {
+        int a = 0;
+        int shiftAmount = 0; // Initialize the shift amount
+        for (int i = 0; i < teleportData.getTeleportPositions().size(); i++) {
             TeleportPosition teleportPosition = teleportData.getTeleportPositions().get(i);
-            this.addButton(new Button(posX, posY + (i * 20), 100, 20, new TranslationTextComponent(teleportData.getTeleportPositions().get(i).getName()), b -> {
+            int currentPosX = posX + shiftAmount; // Update posX based on shiftAmount
+            this.addButton(new Button(currentPosX - 195, posY -ma 80 + (i * 20), 100, 20, new TranslationTextComponent(teleportData.getTeleportPositions().get(i).getName()), b -> {
                 PacketHandler.sendToServer(new CTeleportPacket(teleportPosition));
                 this.onClose();
             }));
+            a++;
+            if (a >= 4) { // If 4 iterations are complete, shift by 40 units
+                a = 0; // Reset a for the next set of iterations
+                shiftAmount += 40; // Update shiftAmount
+            }
         }
     }
 
