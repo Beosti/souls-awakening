@@ -2,7 +2,7 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.entities.hollow.*;
 import com.yuanno.soulsawakening.entities.npc.TraderEntity;
-import com.yuanno.soulsawakening.entities.npc.ZanjutsuTeacherEntity;
+import com.yuanno.soulsawakening.entities.npc.ShinigamiTeacherEntity;
 import com.yuanno.soulsawakening.entity.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,7 +23,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.PLUS.get(), PlusEntity.setCustomAttributes().build());
         event.put(ModEntities.SHINIGAMI.get(), ShinigamiEntity.setCustomAttributes().build());
         event.put(ModEntities.TRADER.get(), TraderEntity.setCustomAttributes().build());
-        event.put(ModEntities.ZANJUTSU_TEACHER.get(), ZanjutsuTeacherEntity.setCustomAttributes().build());
+        event.put(ModEntities.SHINIGAMI_TEACHER.get(), ShinigamiTeacherEntity.setCustomAttributes().build());
         event.put(ModEntities.CHALLENGE_SHINIGAMI.get(), ChallengeShinigamiEntity.setCustomAttributes().build());
         event.put(ModEntities.SHIKAI.get(), InnerShikaiEntity.setCustomAttributes().build());
 

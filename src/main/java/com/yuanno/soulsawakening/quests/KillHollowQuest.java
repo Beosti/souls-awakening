@@ -1,14 +1,24 @@
 package com.yuanno.soulsawakening.quests;
 
+import com.yuanno.soulsawakening.abilities.SoulSocietyKeyAbility;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.teleports.ITeleports;
+import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.entities.hollow.HollowEntity;
+import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.client.CGiveItemStackPacket;
+import com.yuanno.soulsawakening.networking.client.*;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.teleport.TeleportPosition;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -28,6 +38,7 @@ public class KillHollowQuest extends Quest {
         }
         IEntityStats entityStats = EntityStatsCapability.get(player);
         entityStats.setRace(ModValues.SHINIGAMI);
+        ModAdvancements.SHINIGAMI.trigger((ServerPlayerEntity) player);
         entityStats.setHakudaPoints(0);
         entityStats.setHohoPoints(0);
         entityStats.setZanjutsuPoints(0);
@@ -50,6 +61,18 @@ public class KillHollowQuest extends Quest {
         itemStack.getTag().putString("zanpakutoType", ModValues.TYPE.getRandomType().name());
         itemStack.getTag().putString("zanpakutoState", ModValues.STATE.ASAUCHI.name());
         PacketHandler.sendToServer(new CGiveItemStackPacket(itemStack));
+
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        ITeleports teleports = TeleportCapability.get(player);
+        TeleportPosition teleportPosition = new TeleportPosition();
+        teleportPosition.setName("Shinigami Teacher");
+        teleportPosition.setBlockPos(player.blockPosition());
+        teleportPosition.setDimension(Minecraft.getInstance().level.dimension().toString());
+        teleports.addTeleportsPosition(teleportPosition);
+        PacketHandler.sendToServer(new CSyncTeleportPacket(teleports));
+        abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);
+        PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KILLHOLLOW));
+        PacketHandler.sendToServer(new CSyncAbilityDataPacket(abilityData));
         return true;
     }
 

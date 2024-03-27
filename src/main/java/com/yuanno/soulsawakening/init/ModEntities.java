@@ -3,7 +3,7 @@ package com.yuanno.soulsawakening.init;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.entities.hollow.*;
 import com.yuanno.soulsawakening.entities.npc.TraderEntity;
-import com.yuanno.soulsawakening.entities.npc.ZanjutsuTeacherEntity;
+import com.yuanno.soulsawakening.entities.npc.ShinigamiTeacherEntity;
 import com.yuanno.soulsawakening.entity.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -76,12 +76,12 @@ public class ModEntities {
                             .sized(1f, 2f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "trader").toString()));
-    public static final RegistryObject<EntityType<ZanjutsuTeacherEntity>> ZANJUTSU_TEACHER = ENTITIES
-            .register("zanjutsu_teacher",
-                    () -> EntityType.Builder.of(ZanjutsuTeacherEntity::new, EntityClassification.CREATURE)
+    public static final RegistryObject<EntityType<ShinigamiTeacherEntity>> SHINIGAMI_TEACHER = ENTITIES
+            .register("shinigami_teacher",
+                    () -> EntityType.Builder.of(ShinigamiTeacherEntity::new, EntityClassification.CREATURE)
                             .sized(1f, 2f)
                             .setTrackingRange(5)
-                            .build(new ResourceLocation(Main.MODID, "zanjutsu_teacher").toString()));
+                            .build(new ResourceLocation(Main.MODID, "shinigami_teacher").toString()));
     public static void register(IEventBus eventBus) {
         ENTITIES.register(eventBus);
     }

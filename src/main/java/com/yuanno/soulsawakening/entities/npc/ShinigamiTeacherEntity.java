@@ -4,7 +4,6 @@ import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SOpenChatPromptScreenPacket;
-import com.yuanno.soulsawakening.networking.server.SOpenTradingScreenPacket;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -18,9 +17,9 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class ZanjutsuTeacherEntity extends CreatureEntity {
+public class ShinigamiTeacherEntity extends CreatureEntity {
 
-    public ZanjutsuTeacherEntity(EntityType type, World world)
+    public ShinigamiTeacherEntity(EntityType type, World world)
     {
         super(type, world);
     }

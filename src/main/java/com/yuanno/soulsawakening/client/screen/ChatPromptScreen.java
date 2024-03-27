@@ -125,18 +125,7 @@ public class ChatPromptScreen extends Screen {
         }
         if (this.text.equals("Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. You can press alt+right click with zanpakuto to go and back to the human world. Kill a hollow and I'll make you a shinigami.")) {
             this.questData.addInProgressQuest(ModQuests.KILLHOLLOW);
-            IAbilityData abilityData = AbilityDataCapability.get(player);
-            ITeleports teleports = TeleportCapability.get(player);
-            TeleportPosition teleportPosition = new TeleportPosition();
-            teleportPosition.setName("Fist Teacher");
-            teleportPosition.setBlockPos(player.blockPosition());
-            teleportPosition.setDimension(Minecraft.getInstance().level.dimension().toString());
-            teleports.addTeleportsPosition(teleportPosition);
-            PacketHandler.sendToServer(new CSyncTeleportPacket(teleports));
-            abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);
-            PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KILLHOLLOW));
             PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
-            PacketHandler.sendToServer(new CSyncAbilityDataPacket(abilityData));
             player.sendMessage(new TranslationTextComponent("This entity is now a teleport point, you can teleport back to it in your teleports menu. You need to be in the same dimension to teleport."), Util.NIL_UUID);
         }
     }
