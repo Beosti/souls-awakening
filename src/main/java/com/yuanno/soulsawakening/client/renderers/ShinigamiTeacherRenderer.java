@@ -14,9 +14,9 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unchecked")
-public class ZanjutsuRenderer extends MobRenderer<ShinigamiTeacherEntity, HumanoidModel<ShinigamiTeacherEntity>> {
+public class ShinigamiTeacherRenderer extends MobRenderer<ShinigamiTeacherEntity, HumanoidModel<ShinigamiTeacherEntity>> {
 
-    public ZanjutsuRenderer(EntityRendererManager renderManager)
+    public ShinigamiTeacherRenderer(EntityRendererManager renderManager)
     {
         super(renderManager, new HumanoidModel<>(), 0.1F);
         this.addLayer(new HeldItemLayer<>(this));
@@ -24,14 +24,14 @@ public class ZanjutsuRenderer extends MobRenderer<ShinigamiTeacherEntity, Humano
 
     @Override
     public ResourceLocation getTextureLocation(ShinigamiTeacherEntity shinigamiTeacherEntity) {
-        return new ResourceLocation(Main.MODID, "textures/entities/npc/zanjutsu.png");
+        return new ResourceLocation(Main.MODID, "textures/entities/npc/shinigami_teacher.png");
     }
 
     public static class Factory implements IRenderFactory<ShinigamiTeacherEntity> {
 
         @Override
         public EntityRenderer<? super ShinigamiTeacherEntity> createRenderFor(EntityRendererManager manager) {
-            return new ZanjutsuRenderer(manager);
+            return new ShinigamiTeacherRenderer(manager);
         }
     }
 }

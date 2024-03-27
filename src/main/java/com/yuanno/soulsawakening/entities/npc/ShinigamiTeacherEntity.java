@@ -31,7 +31,7 @@ public class ShinigamiTeacherEntity extends CreatureEntity {
             return ActionResultType.PASS;
         if (!player.level.isClientSide) {
             this.lookAt(player, 1, 1);
-            PacketHandler.sendTo(new SOpenChatPromptScreenPacket(), player);
+            PacketHandler.sendTo(new SOpenChatPromptScreenPacket(this.getId()), player);
         }
         return ActionResultType.PASS;
     }
