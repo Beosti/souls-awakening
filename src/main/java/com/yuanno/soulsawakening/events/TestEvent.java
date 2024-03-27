@@ -134,7 +134,6 @@ public class TestEvent {
             shakkahoProjectile.setMaxLife(64 + (int) entityStats.getReiatsuPoints()/2);
             player.level.addFreshEntity(shakkahoProjectile);
             shakkahoProjectile.shootFromRotation(player, player.xRot, player.yRot, 0, 1f ,1);
-
         }
     }
 

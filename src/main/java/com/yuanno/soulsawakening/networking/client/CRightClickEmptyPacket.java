@@ -1,11 +1,8 @@
 package com.yuanno.soulsawakening.networking.client;
 
 import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
-import com.yuanno.soulsawakening.events.ability.RightClickEmptyEvent;
-import com.yuanno.soulsawakening.events.zanpakuto.ZanpakutoChangeEvent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.Hand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.network.NetworkDirection;
