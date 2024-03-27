@@ -44,7 +44,7 @@ public class TeleportsScreen extends Screen {
         for (int i = 0; i < teleportData.getTeleportPositions().size(); i++) {
             TeleportPosition teleportPosition = teleportData.getTeleportPositions().get(i);
             int currentPosX = posX + shiftAmount; // Update posX based on shiftAmount
-            this.addButton(new Button(currentPosX - 195, posY -ma 80 + (i * 20), 100, 20, new TranslationTextComponent(teleportData.getTeleportPositions().get(i).getName()), b -> {
+            this.addButton(new Button(currentPosX - 195, posY + 80 + (i * 20), 100, 20, new TranslationTextComponent(teleportData.getTeleportPositions().get(i).getName()), b -> {
                 PacketHandler.sendToServer(new CTeleportPacket(teleportPosition));
                 this.onClose();
             }));
