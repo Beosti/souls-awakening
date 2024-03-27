@@ -125,11 +125,13 @@ public class ChatPromptScreen extends Screen {
     }
     void shinigamiTeacherOnClose()
     {
-        if (this.text.equals("Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Feel free to walk around and learn new stuff")) {
+        if (this.text.equals("Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Other teachers will surely be prone to teaching you now")) {
+            player.sendMessage(new TranslationTextComponent("You can now increase your stats in the player overview screen and learn from other teachers."), Util.NIL_UUID);
             questData.getQuest(ModQuests.KILLHOLLOW).setInProgress(false);
             PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KILLHOLLOW));
         }
         if (this.text.equals("Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. You can press alt+right click with zanpakuto to go and back to the human world. Kill a hollow and I'll make you a shinigami.")) {
+            //player.sendMessage(new TranslationTextComponent("Quest added: Kill a hollow."), Util.NIL_UUID);
             this.questData.addInProgressQuest(ModQuests.KILLHOLLOW);
             PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
             PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KILLHOLLOW));
