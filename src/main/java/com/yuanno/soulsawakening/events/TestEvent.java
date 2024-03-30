@@ -5,11 +5,8 @@ import com.yuanno.soulsawakening.abilities.kido.bakudo.SaiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ByakuraiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShakkahoAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShoAbility;
-import com.yuanno.soulsawakening.data.ChallengesWorldData;
-import com.yuanno.soulsawakening.data.ability.AbilityDataBase;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
-import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
@@ -17,28 +14,19 @@ import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.data.teleports.ITeleports;
 import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.entities.projectiles.kido.ShakkahoIncantationProjectile;
-import com.yuanno.soulsawakening.entities.projectiles.kido.ShakkahoProjectile;
-import com.yuanno.soulsawakening.init.ModChallenges;
 import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.client.COpenAbilityListScreenPacket;
-import com.yuanno.soulsawakening.networking.client.COpenPlayerScreenPacket;
-import com.yuanno.soulsawakening.networking.client.COpenTradingScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SOpenChatPromptScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncQuestDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncTeleportPacket;
-import com.yuanno.soulsawakening.quests.KillHollowQuest;
+import com.yuanno.soulsawakening.quests.shinigamiteacher.KillHollowQuest;
 import com.yuanno.soulsawakening.quests.Quest;
 import com.yuanno.soulsawakening.teleport.TeleportPosition;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.client.event.ClientChatEvent;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.ArrayList;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class TestEvent {

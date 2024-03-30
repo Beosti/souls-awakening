@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.quests;
+package com.yuanno.soulsawakening.quests.shinigamiteacher;
 
 import com.yuanno.soulsawakening.abilities.SoulSocietyKeyAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
@@ -15,6 +15,8 @@ import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.quests.*;
+import com.yuanno.soulsawakening.quests.objectives.KillObjective;
 import com.yuanno.soulsawakening.teleport.TeleportPosition;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;

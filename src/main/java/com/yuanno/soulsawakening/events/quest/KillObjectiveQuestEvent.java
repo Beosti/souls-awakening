@@ -3,7 +3,7 @@ package com.yuanno.soulsawakening.events.quest;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
-import com.yuanno.soulsawakening.quests.KillObjective;
+import com.yuanno.soulsawakening.quests.objectives.KillObjective;
 import com.yuanno.soulsawakening.quests.Quest;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -27,10 +27,7 @@ public class KillObjectiveQuestEvent {
             for (int ia = 0; ia < quest.getObjectives().size(); ia++)
             {
                 if (quest.getObjectives().get(ia) instanceof KillObjective && ((KillObjective) quest.getObjectives().get(ia)).getKill().test(player, event.getEntityLiving(), event.getSource()))
-                {
-                    ((KillObjective) quest.getObjectives().get(ia)).alterKillAmount();
-                    System.out.println("KILL AMOUNT: " + ((KillObjective) quest.getObjectives().get(ia)).getProgress() + "/" + ((KillObjective) quest.getObjectives().get(ia)).getMaxProgress());
-                }
+                    quest.getObjectives().get(ia).alterProgress(1);
             }
         }
     }

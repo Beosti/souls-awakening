@@ -2,9 +2,8 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
-import com.yuanno.soulsawakening.quests.KillHollowQuest;
+import com.yuanno.soulsawakening.quests.shinigamiteacher.KillHollowQuest;
 import com.yuanno.soulsawakening.quests.Quest;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;

@@ -1,5 +1,6 @@
-package com.yuanno.soulsawakening.quests;
+package com.yuanno.soulsawakening.quests.objectives;
 
+import com.yuanno.soulsawakening.quests.Objective;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -7,9 +8,8 @@ import net.minecraft.util.DamageSource;
 
 import java.util.function.Supplier;
 
-public class KillObjective extends Objective{
+public class KillObjective extends Objective {
 
-    private int amount;
     private Supplier<EntityType> entityType;
     private ICheckKill kill = (player, target, source) -> {
 
@@ -30,12 +30,6 @@ public class KillObjective extends Objective{
         this.maxProgress = amount;
         if (kill != null)
             this.kill = kill;
-    }
-
-    public void alterKillAmount()
-    {
-        if (this.progress < this.maxProgress)
-            this.progress += 1;
     }
 
     public String getTitle()
