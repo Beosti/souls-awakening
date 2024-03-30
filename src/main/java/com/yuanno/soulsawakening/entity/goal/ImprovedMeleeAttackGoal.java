@@ -47,8 +47,8 @@ public class ImprovedMeleeAttackGoal extends MeleeAttackGoal
 	@Override
 	protected void checkAndPerformAttack(LivingEntity enemy, double distToEnemySqr)
 	{
-		double reach = this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + enemy.getBbWidth();
-		double d0 = reach + this.mob.getAttribute(ModAttributes.ATTACK_RANGE.get()).getValue() + 0.3;
+		double reach = this.mob.getBbWidth() * this.mob.getBbWidth() * 2.0F + enemy.getBbWidth();
+		double d0 = reach + this.mob.getAttribute(ModAttributes.ATTACK_RANGE.get()).getValue();
 		if (distToEnemySqr <= d0 && this.getTicksUntilNextAttack() <= 0)
 		{
 			this.resetAttackCooldown();

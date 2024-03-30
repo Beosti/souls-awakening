@@ -40,25 +40,6 @@ public abstract class PlayerEntityMixin
 				callback.setReturnValue(poses.get(player.getPose()));
 		}
 	}
-	
-	
-	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/CooldownTracker;tick()V"))
-	public void noroTick(CooldownTracker cooldownTracker)
-	{
-		PlayerEntity player = ((PlayerEntity) (Object) this);
-		if(player.hasEffect(ModEffects.NORO_SLOWNESS.get()))
-		{
-			int amplifier = Math.max(5, (5 * player.getEffect(ModEffects.NORO_SLOWNESS.get()).getAmplifier()));
-			if(player.tickCount % amplifier == 0)
-			{
-				cooldownTracker.tick();
-			}
-		}
-		else
-		{
-			cooldownTracker.tick();
-		}
-	}
 	*/
 	@Inject(
 		method = "attack", 

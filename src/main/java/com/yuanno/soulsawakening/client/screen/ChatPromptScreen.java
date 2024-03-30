@@ -94,6 +94,8 @@ public class ChatPromptScreen extends Screen {
             dialogue1ShinigamiTeacher(posX, posY);
         else if (questData.getQuest(ModQuests.RESCUE_PLUSES) == null || questData.getQuest(ModQuests.RESCUE_PLUSES).getIsInProgress())
             dialogue2ShinigamiTeacher(posX, posY);
+        else if (questData.getQuest(ModQuests.KILL_SPECIFIC_HOLLOW) == null || questData.getQuest(ModQuests.KILL_SPECIFIC_HOLLOW).getIsInProgress())
+            dialogue3ShinigamiTeacher(posX, posY);
     }
     void dialogue1ShinigamiTeacher(int posX, int posY)
     {
@@ -163,6 +165,39 @@ public class ChatPromptScreen extends Screen {
             this.addButton(declineButton);
         }
     }
+    void dialogue3ShinigamiTeacher(int posX, int posY)
+    {
+        text = "I got another mission for you, now you're officially part of the gotei 13 you can also be paid. It's about a specific hollow.";
+        if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.KILL_SPECIFIC_HOLLOW))
+            text = "You have to go and kill a beast hollow, it walks on 4 feet and looks like a tiger.";
+        if (QuestDataCapability.get(player).isQuestComplete(ModQuests.KILL_SPECIFIC_HOLLOW))
+        {
+            text = "There have some money, thanks for handling that hollow. I am sure it took you some time to hunt it down and track it's location.";
+        }
+        if (this.page == -1)
+            text = "Tracking down missions ain't for everyone I suppose";
+        if (this.page == 1)
+        {
+            text = "Amazing, you'll have to find the 'beast' hollow in the overworld. It's a hollow on 4 feet that walks around and is quite fast. It looks like a tiger. Kill it and come back for your reward!";
+        }
+        if (!entityStats.getRace().equals(ModValues.SHINIGAMI))
+            text = "How did a non-spirit come here, you should be brought wherever you came from!";
+        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = 1;
+            init();
+        });
+        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = -1;
+            init();
+        });
+        if (text.equals("I got another mission for you, now you're officially part of the gotei 13 you can also be paid. It's about a specific hollow.")) {
+            this.addButton(acceptanceButton);
+            this.addButton(declineButton);
+        }
+    }
     void shinigamiTeacherOnClose()
     {
         if (this.text.equals("Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Feel free to walk around and learn new stuff")) {
@@ -184,6 +219,15 @@ public class ChatPromptScreen extends Screen {
         if (this.text.equals("Great! You have to go to the overworld and rescue 5 pluses, they're lost spirits. Just right click them with your zanpakuto and they'll be saved!")) {
             this.questData.addInProgressQuest(ModQuests.RESCUE_PLUSES);
             PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
+        }
+        if (this.text.equals("Amazing, you'll have to find the 'beast' hollow in the overworld. It's a hollow on 4 feet that walks around and is quite fast. It looks like a tiger. Kill it and come back for your reward!"))
+        {
+            this.questData.addInProgressQuest(ModQuests.KILL_SPECIFIC_HOLLOW);
+            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
+        }
+        if (this.text.equals("There have some money, thanks for handling that hollow. I am sure it took you some time to hunt it down and track it's location.")) {
+            questData.getQuest(ModQuests.KILL_SPECIFIC_HOLLOW).setInProgress(false);
+            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KILL_SPECIFIC_HOLLOW));
         }
     }
 }

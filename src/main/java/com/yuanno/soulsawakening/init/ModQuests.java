@@ -6,6 +6,7 @@ import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.quests.KidoUnlockQuest;
 import com.yuanno.soulsawakening.quests.Quest;
 import com.yuanno.soulsawakening.quests.shinigamiteacher.KillHollowQuest;
+import com.yuanno.soulsawakening.quests.shinigamiteacher.KillSpecificHollowQuest;
 import com.yuanno.soulsawakening.quests.shinigamiteacher.RescuePlusesQuest;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -21,6 +22,7 @@ public class ModQuests {
     public static final Quest[] SCHOOL = new Quest[] {};
     public static final Quest KILLHOLLOW = new KillHollowQuest();
     public static final Quest RESCUE_PLUSES = new RescuePlusesQuest();
+    public static final Quest KILL_SPECIFIC_HOLLOW = new KillSpecificHollowQuest();
     public static final Quest KIDO_UNLOCK = new KidoUnlockQuest();
     private static void registerQuests(Quest[] quests)
     {
@@ -31,6 +33,7 @@ public class ModQuests {
     {
         registerQuest(KILLHOLLOW);
         registerQuest(RESCUE_PLUSES);
+        registerQuest(KILL_SPECIFIC_HOLLOW);
         registerQuest(KIDO_UNLOCK);
     }
 

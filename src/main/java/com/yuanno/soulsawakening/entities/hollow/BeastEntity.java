@@ -14,6 +14,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nullable;
 
@@ -51,6 +52,7 @@ public class BeastEntity extends HollowEntity {
                 .add(Attributes.MAX_HEALTH, 25)
                 .add(Attributes.FOLLOW_RANGE, 20)
                 .add(Attributes.MOVEMENT_SPEED, 0.285)
+                .add(ModAttributes.ATTACK_RANGE.get(), 0.3)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
 
     }

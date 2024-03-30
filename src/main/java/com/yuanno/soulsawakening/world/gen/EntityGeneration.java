@@ -30,11 +30,11 @@ public class EntityGeneration {
                 && !types.contains(BiomeDictionary.Type.RIVER)
                 && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(BiomeDictionary.Type.VOID) && !biomeName.toString().equals("soulsawakening:soul_society")) || biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BEAST.get(), 1, 1, 1));
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CLAW.get(), 1, 1, 1));
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.JET.get(), 1, 1, 1));
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BULK.get(), 1, 1, 1));
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CENTIPEDE.get(), 1, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BEAST.get(), 3, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CLAW.get(), 3, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.JET.get(), 3, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BULK.get(), 3, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CENTIPEDE.get(), 3, 1, 1));
 
         }
         if (!types.contains(BiomeDictionary.Type.WET)

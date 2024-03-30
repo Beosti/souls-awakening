@@ -14,7 +14,9 @@ import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
+import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncTeleportPacket;
 import com.yuanno.soulsawakening.quests.*;
 import com.yuanno.soulsawakening.quests.objectives.KillObjective;
 import com.yuanno.soulsawakening.teleport.TeleportPosition;
@@ -71,9 +73,9 @@ public class KillHollowQuest extends Quest {
         teleportPosition.setBlockPos(player.blockPosition());
         teleportPosition.setDimension(Minecraft.getInstance().level.dimension().toString());
         teleports.addTeleportsPosition(teleportPosition);
-        PacketHandler.sendToServer(new CSyncTeleportPacket(teleports));
+        PacketHandler.sendTo(new SSyncTeleportPacket(player.getId(), teleports), player);
         abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);
-        PacketHandler.sendToServer(new CSyncAbilityDataPacket(abilityData));
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         return true;
     }
 

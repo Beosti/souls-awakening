@@ -37,24 +37,4 @@ public abstract class ServerPlayNetHandlerMixin implements IServerPlayNetHandler
 
 		return AttributeHelper.getSquaredAttackRangeDistance(this.player, attackRange);
 	}
-	
-	@Inject(
-		method = "handleClientCommand", 
-		at = @At(
-			value = "INVOKE", 
-			target = "Lnet/minecraft/server/management/PlayerList;respawn(Lnet/minecraft/entity/player/ServerPlayerEntity;Z)Lnet/minecraft/entity/player/ServerPlayerEntity;", 
-			shift = At.Shift.BEFORE
-		),
-		cancellable = true
-	)
-	public void processClientStatus(CClientStatusPacket packet, CallbackInfo callback)
-	{
-//		IDevilFruit props = DevilFruitCapability.get(this.player);
-//
-//		if(props.hasDevilFruit(ModAbilities.YOMI_YOMI_NO_MI) && !props.getZoanPoint().equalsIgnoreCase(YomiMorphInfo.INSTANCE.getForm()))
-//		{
-//			this.player = this.server.getPlayerList().respawn(this.player, false);
-//			callback.cancel();
-//		}
-	}
 }
