@@ -4,10 +4,12 @@ import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
+import com.yuanno.soulsawakening.events.ability.AbilityUseEvent;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -54,6 +56,8 @@ public class CUseSpellPacket {
                 if (abilityInUse instanceof IShootAbility)
                 {
                     ((IShootAbility) abilityInUse).onUse(player, abilityInUse);
+                    AbilityUseEvent abilityUseEvent = new AbilityUseEvent(player, abilityInUse);
+                    MinecraftForge.EVENT_BUS.post(abilityUseEvent);
                     abilityInUse.setState(Ability.STATE.COOLDOWN);
                     abilityInUse.setCooldown(abilityInUse.getMaxCooldown() / 20);
                     PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);

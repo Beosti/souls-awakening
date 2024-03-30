@@ -32,7 +32,8 @@ public class ClientHandler {
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SHINIGAMI.get(), new ShinigamiRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CHALLENGE_SHINIGAMI.get(), new ChallengeShinigamiRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.TRADER.get(), new TraderRenderer.Factory());
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.SHINIGAMI_TEACHER.get(), new ZanjutsuRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.SHINIGAMI_TEACHER.get(), new ShinigamiTeacherRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.KIDO_TEACHER.get(), new KidoTeacherRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SHIKAI.get(), new InnerShikaiRenderer.Factory());
 
         Map<String, PlayerRenderer> playerSkinMap = Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap();

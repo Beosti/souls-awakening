@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.client.renderers;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entities.npc.ShinigamiTeacherEntity;
+import com.yuanno.soulsawakening.entities.npc.KidoTeacherEntity;
 import com.yuanno.soulsawakening.models.HumanoidModel;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -14,24 +14,24 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unchecked")
-public class ZanjutsuRenderer extends MobRenderer<ShinigamiTeacherEntity, HumanoidModel<ShinigamiTeacherEntity>> {
+public class KidoTeacherRenderer extends MobRenderer<KidoTeacherEntity, HumanoidModel<KidoTeacherEntity>> {
 
-    public ZanjutsuRenderer(EntityRendererManager renderManager)
+    public KidoTeacherRenderer(EntityRendererManager renderManager)
     {
         super(renderManager, new HumanoidModel<>(), 0.1F);
         this.addLayer(new HeldItemLayer<>(this));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ShinigamiTeacherEntity shinigamiTeacherEntity) {
-        return new ResourceLocation(Main.MODID, "textures/entities/npc/zanjutsu.png");
+    public ResourceLocation getTextureLocation(KidoTeacherEntity KidoTeacherEntity) {
+        return new ResourceLocation(Main.MODID, "textures/entities/npc/kido_teacher.png");
     }
 
-    public static class Factory implements IRenderFactory<ShinigamiTeacherEntity> {
+    public static class Factory implements IRenderFactory<KidoTeacherEntity> {
 
         @Override
-        public EntityRenderer<? super ShinigamiTeacherEntity> createRenderFor(EntityRendererManager manager) {
-            return new ZanjutsuRenderer(manager);
+        public EntityRenderer<? super KidoTeacherEntity> createRenderFor(EntityRendererManager manager) {
+            return new KidoTeacherRenderer(manager);
         }
     }
 }

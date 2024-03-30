@@ -73,7 +73,6 @@ public class KillHollowQuest extends Quest {
         teleports.addTeleportsPosition(teleportPosition);
         PacketHandler.sendToServer(new CSyncTeleportPacket(teleports));
         abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);
-        PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KILLHOLLOW));
         PacketHandler.sendToServer(new CSyncAbilityDataPacket(abilityData));
         return true;
     }

@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.*;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
+import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -170,6 +171,8 @@ public class AbilityEvents {
                 ((IParticleEffect) ability).spawnParticles(player);
             if (ability instanceof ISelfEffect)
                 ((ISelfEffect) ability).applyEffect(player, ability);
+            AbilityUseEvent abilityUseEvent = new AbilityUseEvent(player, ability);
+            MinecraftForge.EVENT_BUS.post(abilityUseEvent);
             ability.setState(Ability.STATE.COOLDOWN);
             ability.setCooldown(ability.getMaxCooldown() / 20);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
