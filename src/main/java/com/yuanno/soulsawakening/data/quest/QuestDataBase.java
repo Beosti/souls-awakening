@@ -14,6 +14,20 @@ public class QuestDataBase implements IQuestData {
         return quests;
     }
 
+    /**
+     * This is more a 'failsafe' than anything, checking if it contains the string of the title is better because the id doesn't match
+     * @return all the titles of the quests from the player
+     */
+    @Override
+    public ArrayList<String> getQuestTitle()
+    {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Quest quest : this.quests) {
+            titles.add(quest.getTitle());
+        }
+        return titles;
+    }
+
     @Override
     public void clearQuests() {
         this.quests.clear();

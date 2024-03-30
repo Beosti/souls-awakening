@@ -8,6 +8,9 @@ public interface IQuestData {
 
 
     ArrayList<Quest> getQuests();
+
+    ArrayList<String> getQuestTitle();
+
     void clearQuests();
     void addQuest(Quest quest);
 

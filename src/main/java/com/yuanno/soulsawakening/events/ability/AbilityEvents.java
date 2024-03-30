@@ -138,7 +138,6 @@ public class AbilityEvents {
                 continue;
             if (!(ability instanceof IRightClickAbility)) // check if the ability is a right click ability
                 continue;
-            System.out.println("TEST");
             if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
             {
                 ItemStack zanpakutoItem = player.getMainHandItem();

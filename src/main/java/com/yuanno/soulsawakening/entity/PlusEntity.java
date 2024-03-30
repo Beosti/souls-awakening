@@ -8,6 +8,7 @@ import com.yuanno.soulsawakening.events.stats.HollowGainEvent;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -85,7 +86,7 @@ public class PlusEntity extends CreatureEntity {
                 this.kill();
         }
         else if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI)
-                && (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))
+                && (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) && this.level.dimension().equals(ModDimensions.HUECO_MUNDO) || this.level.dimension().equals(World.OVERWORLD))
         {
             String saviorString = selectRandomStringShinigami();
             player.sendMessage(new StringTextComponent(saviorString), Util.NIL_UUID);

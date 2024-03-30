@@ -52,8 +52,6 @@ public class CTeleportPacket {
             {
                 PlayerEntity player = ctx.get().getSender();
                 TeleportPosition teleportPosition = message.teleportPosition;
-                System.out.println(teleportPosition.getDimension());
-                System.out.println(player.level.dimension());
                 if (!teleportPosition.getDimension().equals(player.level.dimension().toString()))
                 {
                     player.sendMessage(new TranslationTextComponent("Not in the right dimension!"), Util.NIL_UUID);

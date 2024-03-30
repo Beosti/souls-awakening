@@ -63,7 +63,6 @@ public class TeleportPosition {
         nbt.putInt("xCoordinate", blockPos.getX());
         nbt.putInt("yCoordinate", blockPos.getY());
         nbt.putInt("zCoordinate", blockPos.getZ());
-        System.out.println(dimension.toString());
         nbt.putString("dimension", dimension.toString());
         nbt.putString("name", name.toLowerCase(Locale.ROOT));
         return nbt;

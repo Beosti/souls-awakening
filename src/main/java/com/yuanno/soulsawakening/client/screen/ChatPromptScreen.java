@@ -90,6 +90,13 @@ public class ChatPromptScreen extends Screen {
 
     void shinigamiTeacherInit(int posX, int posY)
     {
+        if (questData.getQuest(ModQuests.KILLHOLLOW) == null || questData.getQuest(ModQuests.KILLHOLLOW).getIsInProgress())
+            dialogue1ShinigamiTeacher(posX, posY);
+        else if (questData.getQuest(ModQuests.RESCUE_PLUSES) == null || questData.getQuest(ModQuests.RESCUE_PLUSES).getIsInProgress())
+            dialogue2ShinigamiTeacher(posX, posY);
+    }
+    void dialogue1ShinigamiTeacher(int posX, int posY)
+    {
         text = "So you want to become a shinigami huh?";
         if (entityStats.getRace().equals(ModValues.SHINIGAMI))
             text = "You're already a shinigami. Scram!";
@@ -123,25 +130,60 @@ public class ChatPromptScreen extends Screen {
             this.addButton(declineButton);
         }
     }
+    void dialogue2ShinigamiTeacher(int posX, int posY)
+    {
+        text = "Now you're a shinigami, I do have some missions for you. I got one where you have to rescue some pluses, are you interested?";
+        if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.RESCUE_PLUSES))
+            text = "There's pluses all over in the overworld, they're just waiting to be rescued. Go help at least 5.";
+        if (QuestDataCapability.get(player).isQuestComplete(ModQuests.RESCUE_PLUSES))
+        {
+            text = "Great work as a shinigami to help those pluses. You definitely do deserve to be ranked in the gotei 13 now.";
+        }
+        if (this.page == -1)
+            text = "Rescue missions aren't for everyone I suppose";
+        if (this.page == 1)
+        {
+            text = "Great! You have to go to the overworld and rescue 5 pluses, they're lost spirits. Just right click them with your zanpakuto and they'll be saved!";
+        }
+        if (!entityStats.getRace().equals(ModValues.SHINIGAMI))
+            text = "How did a non-spirit come here, you should be brought wherever you came from!";
+        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = 1;
+            init();
+        });
+        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = -1;
+            init();
+        });
+        if (text.equals("Now you're a shinigami, I do have some missions for you. I got one where you have to rescue some pluses, are you interested?")) {
+            this.addButton(acceptanceButton);
+            this.addButton(declineButton);
+        }
+    }
     void shinigamiTeacherOnClose()
     {
-        if (this.text.equals("Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Other teachers will surely be prone to teaching you now")) {
+        if (this.text.equals("Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Feel free to walk around and learn new stuff")) {
             player.sendMessage(new TranslationTextComponent("You can now increase your stats in the player overview screen and learn from other teachers."), Util.NIL_UUID);
             questData.getQuest(ModQuests.KILLHOLLOW).setInProgress(false);
             PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KILLHOLLOW));
         }
         if (this.text.equals("Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. You can press alt+right click with zanpakuto to go and back to the human world. Kill a hollow and I'll make you a shinigami.")) {
-            //player.sendMessage(new TranslationTextComponent("Quest added: Kill a hollow."), Util.NIL_UUID);
             this.questData.addInProgressQuest(ModQuests.KILLHOLLOW);
             PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
             PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KILLHOLLOW));
             player.sendMessage(new TranslationTextComponent("This entity is now a teleport point, you can teleport back to it in your teleports menu. You need to be in the same dimension to teleport."), Util.NIL_UUID);
         }
-    }
-    void kidoTeacher(int posX, int posY)
-    {
-        text = "I'm the kido teacher. What's kido you ask? It's a form of shinigami combat based on advanced spells. These spells are produced with Reiryoku. If you're a student at the academy I can teach you the basics and the first spell and the other teachers will get it from there!";
-        if (!entityStats.getRace().equals(ModValues.SHINIGAMI))
-            text = "I only teach shinigami's! Why are you even here? You should be brought back!";
+        if (this.text.equals("Great work as a shinigami to help those pluses. You definitely do deserve to be ranked in the gotei 13 now.")) {
+            player.sendMessage(new TranslationTextComponent("You have received the rank of non-officer official part of the gotei 13."), Util.NIL_UUID);
+            questData.getQuest(ModQuests.RESCUE_PLUSES).setInProgress(false);
+            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.RESCUE_PLUSES));
+        }
+        if (this.text.equals("Great! You have to go to the overworld and rescue 5 pluses, they're lost spirits. Just right click them with your zanpakuto and they'll be saved!")) {
+            this.questData.addInProgressQuest(ModQuests.RESCUE_PLUSES);
+            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
+        }
     }
 }

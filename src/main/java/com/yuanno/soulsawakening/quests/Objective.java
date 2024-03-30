@@ -36,7 +36,7 @@ public abstract class Objective {
     }
     public void alterProgress(int amount)
     {
-        if (this.progress > this.maxProgress)
+        if (this.progress < this.maxProgress)
             this.progress += amount;
     }
     public void setMaxProgress(int maxProgress)

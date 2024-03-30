@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.screens;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
+import com.yuanno.soulsawakening.quests.Objective;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,6 +13,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 @OnlyIn(Dist.CLIENT)
@@ -67,7 +69,14 @@ public class QuestListScreen extends Screen {
 
             // Display objectives for the current quest
             for (int ia = 0; ia < questData.getQuests().get(i).getObjectives().size(); ia++) {
-                drawString(matrixStack, this.font, "Objective" + ": " + questData.getQuests().get(i).getObjectives().get(ia).getTitle(), leftShift, posY + 20 + (i * 15) + ((ia + 1) * 15), -1);
+                Objective objective = questData.getQuests().get(i).getObjectives().get(ia);
+                String objectiveString = "Objective" + ": " + objective.getTitle();
+                int stringWidth = this.font.width(objectiveString);
+                drawString(matrixStack, this.font, objectiveString, leftShift, posY + 20 + (i * 15) + ((ia + 1) * 15), -1);
+                if (objective.getProgress() < objective.maxProgress)
+                    drawString(matrixStack, this.font, objective.getProgress() + "/" + objective.getMaxProgress(), leftShift + stringWidth + 12, posY + 20 + (i * 15) + ((ia + 1) * 15), -1);
+                else
+                    drawString(matrixStack, this.font, TextFormatting.BOLD + "completed", leftShift + stringWidth + 12, posY + 20 + (i * 15) + ((ia + 1) * 15), -1);
             }
         }
 

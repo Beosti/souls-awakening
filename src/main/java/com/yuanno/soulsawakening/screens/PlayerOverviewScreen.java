@@ -31,7 +31,6 @@ import java.util.Arrays;
 public class PlayerOverviewScreen extends Screen {
     private final PlayerEntity player;
     private final IMiscData miscData;
-    Button plusStatsButton;
     protected PlayerOverviewScreen() {
         super(new StringTextComponent(""));
         this.player = Minecraft.getInstance().player;
@@ -168,7 +167,8 @@ public class PlayerOverviewScreen extends Screen {
         this.renderBackground(matrixStack);
         statsRendering(matrixStack);
         baseStatsRendering(matrixStack);
-        miscDataRendering(matrixStack);
+        if (EntityStatsCapability.get(player).getRace().equals(ModValues.SHINIGAMI))
+            miscShinigamiDataRendering(matrixStack);
         super.render(matrixStack, x, y, f);
     }
 
@@ -237,13 +237,14 @@ public class PlayerOverviewScreen extends Screen {
 
     }
 
-    public void miscDataRendering(MatrixStack matrixStack)
+    public void miscShinigamiDataRendering(MatrixStack matrixStack)
     {
         int amountKan = miscData.getKan();
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
         int leftShift = posX + 180;
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan, leftShift, posY + 170, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Rank: " + TextFormatting.RESET + miscData.getRank(), leftShift, posY + 180, -1);
     }
     @Override
     public boolean isPauseScreen()

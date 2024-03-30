@@ -79,9 +79,9 @@ public class ObjectiveEvents {
             List<Objective> objectives = questData.getQuests().get(i).getObjectives();
             for (int ia = 0; ia < objectives.size(); ia++)
             {
-                if (!(objectives.get(i) instanceof RescueObjective))
+                if (!(objectives.get(ia) instanceof RescueObjective))
                     continue;
-                RescueObjective rescueObjective = (RescueObjective) objectives.get(i);
+                RescueObjective rescueObjective = (RescueObjective) objectives.get(ia);
                 if (rescueObjective.getRescue().test(player, event.getRescued()))
                     rescueObjective.alterProgress(1);
             }
