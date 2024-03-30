@@ -32,11 +32,6 @@ public class KillObjective extends Objective{
             this.kill = kill;
     }
 
-    public void alterKillAmount()
-    {
-        if (this.progress < this.maxProgress)
-            this.progress += 1;
-    }
 
     public String getTitle()
     {

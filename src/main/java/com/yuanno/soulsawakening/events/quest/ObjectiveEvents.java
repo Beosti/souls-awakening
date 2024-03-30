@@ -33,10 +33,7 @@ public class ObjectiveEvents {
             for (int ia = 0; ia < quest.getObjectives().size(); ia++)
             {
                 if (quest.getObjectives().get(ia) instanceof KillObjective && ((KillObjective) quest.getObjectives().get(ia)).getKill().test(player, event.getEntityLiving(), event.getSource()))
-                {
-                    ((KillObjective) quest.getObjectives().get(ia)).alterKillAmount();
-                    System.out.println("KILL AMOUNT: " + ((KillObjective) quest.getObjectives().get(ia)).getProgress() + "/" + ((KillObjective) quest.getObjectives().get(ia)).getMaxProgress());
-                }
+                    quest.getObjectives().get(ia).alterProgress(1);
             }
         }
     }
