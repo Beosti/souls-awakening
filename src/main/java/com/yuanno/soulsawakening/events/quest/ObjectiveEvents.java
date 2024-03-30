@@ -3,17 +3,18 @@ package com.yuanno.soulsawakening.events.quest;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
+import com.yuanno.soulsawakening.events.RescueEvent;
 import com.yuanno.soulsawakening.events.ability.AbilityUseEvent;
-import com.yuanno.soulsawakening.quests.KillObjective;
 import com.yuanno.soulsawakening.quests.Objective;
 import com.yuanno.soulsawakening.quests.Quest;
 import com.yuanno.soulsawakening.quests.UseAbilityObjective;
+import com.yuanno.soulsawakening.quests.objectives.KillObjective;
+import com.yuanno.soulsawakening.quests.objectives.RescueObjective;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
@@ -63,6 +64,26 @@ public class ObjectiveEvents {
                     continue;
                 if (objective.getProgress() < objective.getMaxProgress())
                     objective.alterProgress(1);
+            }
+        }
+    }
+    @SubscribeEvent
+    public static void onRescueEvent(RescueEvent event)
+    {
+        PlayerEntity player = event.getPlayer();
+        IQuestData questData = QuestDataCapability.get(player);
+        for (int i = 0; i < questData.getQuests().size(); i++)
+        {
+            if (!questData.getQuests().get(i).getIsInProgress())
+                continue;
+            List<Objective> objectives = questData.getQuests().get(i).getObjectives();
+            for (int ia = 0; ia < objectives.size(); ia++)
+            {
+                if (!(objectives.get(i) instanceof RescueObjective))
+                    continue;
+                RescueObjective rescueObjective = (RescueObjective) objectives.get(i);
+                if (rescueObjective.getRescue().test(player, event.getRescued()))
+                    rescueObjective.alterProgress(1);
             }
         }
     }

@@ -15,12 +15,25 @@ public class ModValues {
     public static final String QUINCY = "Quincy";
     public static final String FULLBRINGER = "Fullbringer";
 
-    // RANK
+    // RANK HOLLOW
     public static final String BASE = "Base";
     public static final String GILLIAN = "Gillian";
     public static final String ADJUCHA = "Adjucha";
     public static final String VASTO_LORDE = "Vasto Lorde";
     public static final String ARRANCAR = "Arrancar";
+
+    // RANK SHINIGAMI
+    public static final String NON_OFFICER = "Non-Officer";
+    public static final String SEATED_OFFICER_20 = "Seated officer 20";
+    public static final String SEATED_OFFICER_19 = "Seated officer 20";
+    public static final String SEATED_OFFICER_18 = "Seated officer 20";
+    public static final String SEATED_OFFICER_17 = "Seated officer 20";
+    public static final String SEATED_OFFICER_16 = "Seated officer 20";
+    public static final String SEATED_OFFICER_15 = "Seated officer 20";
+    public static final String SEATED_OFFICER_14 = "Seated officer 20";
+    public static final String SEATED_OFFICER_13 = "Seated officer 20";
+    public static final String SEATED_OFFICER_12 = "Seated officer 12";
+    public static final String SEATED_OFFICER_11 = "Seated officer 11";
 
     // ELEMENTS
     public static final String DARK = "dark";

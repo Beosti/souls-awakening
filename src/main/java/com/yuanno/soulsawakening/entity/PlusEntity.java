@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.entity;
 
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.events.RescueEvent;
 import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
 import com.yuanno.soulsawakening.events.stats.HollowGainEvent;
 import com.yuanno.soulsawakening.init.ModAttributes;
@@ -10,6 +11,7 @@ import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -66,31 +68,30 @@ public class PlusEntity extends CreatureEntity {
     {
         if (hand != Hand.MAIN_HAND)
             return ActionResultType.PASS;
-        if (!player.level.isClientSide)
-        {
-            this.lookAt(player, 1, 1);
-            IEntityStats entityStats = EntityStatsCapability.get(player);
-            if (entityStats.getRace().equals(ModValues.HOLLOW))
-            {
-                String killerString = selectRandomStringHollow();
-                player.sendMessage(new StringTextComponent(killerString), Util.NIL_UUID);
-                Random randomSpecial = new Random();
-                int extraHollowPoints = randomSpecial.nextInt(10);
-                HollowGainEvent hollowGainEvent = new HollowGainEvent(player, extraHollowPoints);
-                MinecraftForge.EVENT_BUS.post(hollowGainEvent);
-                PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        if (player.level.isClientSide)
+            return ActionResultType.PASS;
 
+        this.lookAt(player, 1, 1);
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (entityStats.getRace().equals(ModValues.HOLLOW))
+        {
+            String killerString = selectRandomStringHollow();
+            player.sendMessage(new StringTextComponent(killerString), Util.NIL_UUID);
+            Random randomSpecial = new Random();
+            int extraHollowPoints = randomSpecial.nextInt(10);
+            HollowGainEvent hollowGainEvent = new HollowGainEvent(player, extraHollowPoints);
+            MinecraftForge.EVENT_BUS.post(hollowGainEvent);
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                 this.kill();
-            }
-            else if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI)
-                    && (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))
-            {
-                String saviorString = selectRandomStringShinigami();
-                player.sendMessage(new StringTextComponent(saviorString), Util.NIL_UUID);
-                entityStats.alterClassPoints(1);
-                PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-                this.remove();
-            }
+        }
+        else if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI)
+                && (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))
+        {
+            String saviorString = selectRandomStringShinigami();
+            player.sendMessage(new StringTextComponent(saviorString), Util.NIL_UUID);
+            RescueEvent event = new RescueEvent(player, this);
+            MinecraftForge.EVENT_BUS.post(event);
+            this.remove();
         }
         return ActionResultType.PASS;
     }

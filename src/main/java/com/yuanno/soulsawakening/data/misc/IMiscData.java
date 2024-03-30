@@ -8,4 +8,8 @@ public interface IMiscData {
     void setKan(int amount);
     void alterKan(int amount);
     int getKan();
+
+    void setRank(String rank);
+
+    String getRank();
 }

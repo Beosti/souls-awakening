@@ -10,18 +10,10 @@ import java.util.function.Supplier;
 
 public class KillObjective extends Objective {
 
-    private Supplier<EntityType> entityType;
     private ICheckKill kill = (player, target, source) -> {
 
         return false;
     };
-    public KillObjective(String title, String description, int amount, Supplier<EntityType> entityType)
-    {
-        this.title = title;
-        this.description = description;
-        this.maxProgress = amount;
-        this.entityType = entityType;
-    }
 
     public KillObjective(String title, String description, int amount, ICheckKill kill)
     {
@@ -32,29 +24,6 @@ public class KillObjective extends Objective {
             this.kill = kill;
     }
 
-    public String getTitle()
-    {
-        return this.title;
-    }
-
-    public String getDescription()
-    {
-        return this.description;
-    }
-
-    public int getMaxProgress()
-    {
-        return this.maxProgress;
-    }
-
-    public int getProgress()
-    {
-        return this.progress;
-    }
-
-    public EntityType getEntityType() {
-        return entityType.get();
-    }
 
     public ICheckKill getKill()
     {

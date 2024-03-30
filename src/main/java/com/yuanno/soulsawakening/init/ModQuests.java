@@ -2,11 +2,11 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.quests.KidoUnlockQuest;
-import com.yuanno.soulsawakening.quests.KillHollowQuest;
 import com.yuanno.soulsawakening.quests.Quest;
+import com.yuanno.soulsawakening.quests.shinigamiteacher.KillHollowQuest;
+import com.yuanno.soulsawakening.quests.shinigamiteacher.RescuePlusesQuest;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -20,6 +20,7 @@ public class ModQuests {
     public static final DeferredRegister<Quest> QUESTS_DEFERRED_REGISTER = DeferredRegister.create(ModRegistries.QUESTS, Main.MODID);
     public static final Quest[] SCHOOL = new Quest[] {};
     public static final Quest KILLHOLLOW = new KillHollowQuest();
+    public static final Quest RESCUE_PLUSES = new RescuePlusesQuest();
     public static final Quest KIDO_UNLOCK = new KidoUnlockQuest();
     private static void registerQuests(Quest[] quests)
     {
@@ -29,6 +30,7 @@ public class ModQuests {
     public static void register(IEventBus eventBus)
     {
         registerQuest(KILLHOLLOW);
+        registerQuest(RESCUE_PLUSES);
         registerQuest(KIDO_UNLOCK);
     }
 

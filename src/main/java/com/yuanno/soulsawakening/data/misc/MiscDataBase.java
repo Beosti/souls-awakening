@@ -4,6 +4,7 @@ public class MiscDataBase implements IMiscData {
 
     private boolean canRenderOverlay;
     private int kan;
+    private String rank;
 
     @Override
     public void setCanRenderOverlay(boolean setFlag)
@@ -30,5 +31,17 @@ public class MiscDataBase implements IMiscData {
     @Override
     public int getKan() {
         return this.kan;
+    }
+
+    @Override
+    public void setRank(String rank)
+    {
+        this.rank = rank;
+    }
+
+    @Override
+    public String getRank()
+    {
+        return this.rank;
     }
 }
