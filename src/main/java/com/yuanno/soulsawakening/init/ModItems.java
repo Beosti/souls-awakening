@@ -1,7 +1,6 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.items.AsauchiItem;
 import com.yuanno.soulsawakening.items.ShinaiItem;
 import com.yuanno.soulsawakening.items.ZanpakutoWakizashiItem;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
@@ -29,6 +28,5 @@ public class ModItems {
     public static final RegistryObject<Item> ZANPAKUTO = ITEMS.register("zanpakuto", ZanpakutoItem::new);
     public static final RegistryObject<Item> ZANPAKUTO_WAKIZASHI = ITEMS.register("zanpakuto_wakizashi", ZanpakutoWakizashiItem::new);
     public static final RegistryObject<Item> SHINAI = ITEMS.register("shinai", ShinaiItem::new);
-    public static final RegistryObject<Item> ASAUCHI = ITEMS.register("asauchi", AsauchiItem::new);
 
 }
