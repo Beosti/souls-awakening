@@ -6,6 +6,7 @@ import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.quests.kidoteacher.ByakuraiQuest;
 import com.yuanno.soulsawakening.quests.kidoteacher.KidoUnlockQuest;
 import com.yuanno.soulsawakening.quests.Quest;
+import com.yuanno.soulsawakening.quests.kidoteacher.TsuzuriRaidenQuest;
 import com.yuanno.soulsawakening.quests.shinigamiteacher.KillHollowQuest;
 import com.yuanno.soulsawakening.quests.shinigamiteacher.KillSpecificHollowQuest;
 import com.yuanno.soulsawakening.quests.shinigamiteacher.RescuePlusesQuest;
@@ -26,6 +27,8 @@ public class ModQuests {
     public static final Quest KILL_SPECIFIC_HOLLOW = new KillSpecificHollowQuest();
     public static final Quest KIDO_UNLOCK = new KidoUnlockQuest();
     public static final Quest BYAKURAI_QUEST = new ByakuraiQuest();
+    public static final Quest TSUZURI_QUEST = new TsuzuriRaidenQuest();
+
     private static void registerQuests(Quest[] quests)
     {
         Arrays.stream(quests).filter(Objects::nonNull).forEach(abl -> registerQuest(abl));
@@ -38,6 +41,7 @@ public class ModQuests {
         registerQuest(KILL_SPECIFIC_HOLLOW);
         registerQuest(KIDO_UNLOCK);
         registerQuest(BYAKURAI_QUEST);
+        registerQuest(TSUZURI_QUEST);
     }
 
     public static <T extends Quest> Quest registerQuest(Quest quest)
