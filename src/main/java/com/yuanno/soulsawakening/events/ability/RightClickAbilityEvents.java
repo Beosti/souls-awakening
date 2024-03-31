@@ -64,12 +64,12 @@ public class RightClickAbilityEvents {
             }
             if (!(ability instanceof IAttackAbility)) // check if the ability is a right click ability
                 continue;
-            System.out.println(ability.getName());
             Entity entity = event.getTarget();
             if (!(entity instanceof LivingEntity))
                 return;
-            if (ability instanceof IParticleEffect)
-                ((IParticleEffect) ability).spawnParticles(((LivingEntity) entity));
+            LivingEntity livingEntity = (LivingEntity) entity;
+            AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, ability, livingEntity);
+            MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             return;
         }
@@ -154,6 +154,8 @@ public class RightClickAbilityEvents {
                 continue;
             if ((ability instanceof IEntityRayTrace) && event.getDistance() > (((IEntityRayTrace) ability).getDistance()))
                 continue;
+            AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
+            MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
             AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
             AbilityUseEvent.Post abilityUseEventPost = new AbilityUseEvent.Post(player, ability);

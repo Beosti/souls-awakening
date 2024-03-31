@@ -26,7 +26,7 @@ public class SlashAbility extends Ability implements IAttackAbility {
     }
 
     @Override
-    public void activate(LivingEntity livingEntityTarget, PlayerEntity player)
+    public void activate(PlayerEntity player, LivingEntity livingEntityTarget)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         double slashDamage = 2 + entityStats.getHollowPoints()/10;

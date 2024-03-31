@@ -1,14 +1,16 @@
 package com.yuanno.soulsawakening.events.ability;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.Event;
 
-// custom event used server side when ability is used
+/**
+ * Custom event that handles everything when an ability effectively HAPPENS
+ */
 public class AbilityUseEvent extends Event {
     private PlayerEntity player;
     private Ability ability;
-
     public AbilityUseEvent(PlayerEntity player, Ability ability)
     {
         this.player = player;
@@ -31,9 +33,20 @@ public class AbilityUseEvent extends Event {
      */
     public static class Per extends AbilityUseEvent
     {
+        private LivingEntity target;
+
         public Per(PlayerEntity player, Ability ability)
         {
             super(player, ability);
+        }
+        public Per(PlayerEntity player, Ability ability, LivingEntity target)
+        {
+            super(player, ability);
+            this.target = target;
+        }
+        public LivingEntity getTarget()
+        {
+            return this.target;
         }
     }
 

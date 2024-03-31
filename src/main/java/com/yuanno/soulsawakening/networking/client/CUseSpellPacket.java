@@ -53,7 +53,8 @@ public class CUseSpellPacket {
                 Ability abilityInUse = abilityData.getAbilitiesInBar().get(message.slot);
                 if (!abilityInUse.getState().equals(Ability.STATE.READY))
                     return;
-
+                AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, abilityInUse);
+                MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
                 AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, abilityInUse);
                 MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
                 AbilityUseEvent.Post abilityUseEventPost = new AbilityUseEvent.Post(player, abilityInUse);

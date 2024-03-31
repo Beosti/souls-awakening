@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.ability.api.interfaces;
 
+import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.events.ability.RightClickAbilityEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -7,18 +8,22 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 /**
- * Used for abilities that do something when hitting an enemy, handled in {@link #activate(LivingEntity, PlayerEntity)} that is triggered
+ * Used for abilities that do something when hitting an enemy, handled in {@link #activate(PlayerEntity, LivingEntity)} that is triggered
  * @see RightClickAbilityEvents#onAttackEvent(AttackEntityEvent)
  * {@link #secondsOnFire()} if you want to put the entity targeted on fire
  * {@link #addedEffect()} if you want to add an effect to the entity targeted
  */
 public interface IAttackAbility {
 
-    default void activate(LivingEntity entityTarget, PlayerEntity player) {
-        if (secondsOnFire() > secondsOnFire())
-            entityTarget.setSecondsOnFire(secondsOnFire());
-        if (addedEffect() != null && !entityTarget.hasEffect(addedEffect().getEffect()))
-            entityTarget.addEffect(addedEffect());
+    default void activateBack(PlayerEntity player, LivingEntity target, Ability ability)
+    {
+        activate(player, target);
+    }
+    default void activate(PlayerEntity player, LivingEntity target) {
+        if (secondsOnFire() > 0)
+            target.setSecondsOnFire(secondsOnFire());
+        if (addedEffect() != null && !target.hasEffect(addedEffect().getEffect()))
+            target.addEffect(addedEffect());
     };
 
     default int secondsOnFire()

@@ -7,6 +7,7 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -14,6 +15,30 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class AbilityEvents {
+
+    /**
+     * Called before the actual thing that should happen happens, mostly just checks if it's continuous or not
+     * @param event that happens before the actual thing around the ability/spell happens
+     */
+    @SubscribeEvent
+    public static void beforeAbilityUse(AbilityUseEvent.Pre event)
+    {
+        Ability ability = event.getAbility();
+        PlayerEntity player = event.getPlayer();
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        if (ability instanceof IContinuousAbility)
+        {
+            if (ability.getState().equals(Ability.STATE.CONTINUOUS)) {
+                ((IContinuousAbility) ability).endContinuity(player, ability);
+            }
+            if (ability.getState().equals(Ability.STATE.READY)) {
+                ((IContinuousAbility) ability).startContinuity(player, ability);
+                ability.setState(Ability.STATE.CONTINUOUS);
+                PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+                return;
+            }
+        }
+    }
 
     /**
      * All the different ways to cast a spell/ability (incantation, right click, scroll wheel, whatever there is to come) is all funneled here to handle all the logic
@@ -24,7 +49,8 @@ public class AbilityEvents {
     {
         Ability ability = event.getAbility();
         PlayerEntity player = event.getPlayer();
-        IAbilityData abilityData = AbilityDataCapability.get(player);
+        if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS))
+            return;
         if ((ability instanceof IDimensionTeleportAbility))
             ((IDimensionTeleportAbility) ability).teleport(player);
         if (ability instanceof IEntityRayTrace && ((IEntityRayTrace) ability).gotTarget(player))
@@ -39,19 +65,10 @@ public class AbilityEvents {
             ((IParticleEffect) ability).spawnParticles(player);
         if (ability instanceof ISelfEffect)
             ((ISelfEffect) ability).applyEffect(player, ability);
-        if (ability instanceof IContinuousAbility)
+        if (ability instanceof IAttackAbility)
         {
-            if (ability.getState().equals(Ability.STATE.CONTINUOUS)) {
-                ((IContinuousAbility) ability).endContinuity(player, ability);
-                AbilityUseEvent.Post abilityUseEventPost = new AbilityUseEvent.Post(player, ability);
-                MinecraftForge.EVENT_BUS.post(abilityUseEventPost);
-            }
-            if (ability.getState().equals(Ability.STATE.READY)) {
-                ((IContinuousAbility) ability).startContinuity(player, ability);
-                ability.setState(Ability.STATE.CONTINUOUS);
-                PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-                return;
-            }
+            LivingEntity target = event.getTarget();
+            ((IAttackAbility) ability).activateBack(player, target, ability);
         }
     }
 

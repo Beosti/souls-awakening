@@ -55,11 +55,13 @@ public class TestEvent {
                 continue;
             KidoAbility ability = (KidoAbility) abilityData.getUnlockedAbilities().get(i);
             if (!event.getMessage().equals(ability.getIncantation()))
-                return;
-
+                continue;
             if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
                 continue;
-
+            AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
+            MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
+            if (!ability.getState().equals(Ability.STATE.READY))
+                return;
             AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEvent);
             AbilityUseEvent.Post abilityUsedEvent = new AbilityUseEvent.Post(player, ability);

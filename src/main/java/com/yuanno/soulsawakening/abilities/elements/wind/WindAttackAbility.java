@@ -17,7 +17,7 @@ public class WindAttackAbility extends Ability implements IAttackAbility {
     }
 
     @Override
-    public void activate(LivingEntity livingEntityTarget, PlayerEntity player)
+    public void activate(PlayerEntity player, LivingEntity livingEntityTarget)
     {
         Vector3d speed = Beapi.propulsion(livingEntityTarget, 0.2, 0.2);
         livingEntityTarget.setDeltaMovement(speed.x, 4, speed.z);
