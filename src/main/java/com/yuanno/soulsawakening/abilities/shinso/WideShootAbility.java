@@ -18,7 +18,7 @@ public class WideShootAbility extends Ability implements IRightClickAbility, ISh
         this.setName("Wide Shoot");
         this.setCooldown(20);
         this.setMaxCooldown(20);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override

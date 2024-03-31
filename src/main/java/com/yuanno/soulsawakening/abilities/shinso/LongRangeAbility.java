@@ -18,7 +18,7 @@ public class LongRangeAbility extends Ability implements IPunchAbility {
         this.setName("Long Range");
         this.setCooldown(10);
         this.setMaxCooldown(10);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     public void startContinuity(PlayerEntity player) {

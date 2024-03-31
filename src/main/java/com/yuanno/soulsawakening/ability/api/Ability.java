@@ -101,7 +101,7 @@ public class Ability extends ForgeRegistryEntry<Ability> {
         return this.isShown;
     }
     public enum STATE {
-        COOLDOWN, READY
+        COOLDOWN, READY, CONTINUOUS
     }
 
     public CompoundNBT save() {

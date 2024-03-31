@@ -170,6 +170,13 @@ public class AbilityEvents {
                 ((IParticleEffect) ability).spawnParticles(player);
             if (ability instanceof ISelfEffect)
                 ((ISelfEffect) ability).applyEffect(player, ability);
+            if (ability instanceof IContinuousAbility)
+            {
+                if (ability.getState().equals(Ability.STATE.READY))
+                    ((IContinuousAbility) ability).startContinuity(player, ability);
+                if (ability.getState().equals(Ability.STATE.CONTINUOUS))
+                    ((IContinuousAbility) ability).endContinuity(player, ability);
+            }
             AbilityUseEvent abilityUseEvent = new AbilityUseEvent(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEvent);
             ability.setState(Ability.STATE.COOLDOWN);

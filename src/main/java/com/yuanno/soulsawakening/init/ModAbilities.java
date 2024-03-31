@@ -29,6 +29,7 @@ import com.yuanno.soulsawakening.abilities.kido.bakudo.SaiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ByakuraiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShakkahoAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShoAbility;
+import com.yuanno.soulsawakening.abilities.kido.hado.TsuzuriRaidenAbility;
 import com.yuanno.soulsawakening.abilities.shinso.LongRangeAbility;
 import com.yuanno.soulsawakening.abilities.shinso.ShootAbility;
 import com.yuanno.soulsawakening.abilities.shinso.WideShootAbility;
@@ -48,7 +49,6 @@ import java.util.Objects;
 
 public class ModAbilities {
 
-
     public static final DeferredRegister<Ability> ABILITIES = DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
     public static final Ability[] DARK_ZANPAKUTO = new Ability[] {DarkStepAbility.INSTANCE, ShadowAttackAbility.INSTANCE, UmbralCloakAbility.INSTANCE};
     public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
@@ -62,7 +62,7 @@ public class ModAbilities {
     public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE, CeroAbility.INSTANCE, HollowRegenerationAbility.INSTANCE, GargantaAbility.INSTANCE};
     public static final Ability[] SHINSO = new Ability[] {LongRangeAbility.INSTANCE, ShootAbility.INSTANCE, WideShootAbility.INSTANCE};
     public static final Ability[] SHINIGAMI = new Ability[] {SoulSocietyKeyAbility.INSTANCE};
-    public static final Ability[] HADO = new Ability[] {ShoAbility.INSTANCE, ByakuraiAbility.INSTANCE, ShakkahoAbility.INSTANCE};
+    public static final Ability[] HADO = new Ability[] {ShoAbility.INSTANCE, ByakuraiAbility.INSTANCE, ShakkahoAbility.INSTANCE, TsuzuriRaidenAbility.INSTANCE};
     public static final Ability[] BAKUDO = new Ability[] {SaiAbility.INSTANCE};
 
     public static void register(IEventBus eventBus)

@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.abilities.kido.bakudo.SaiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ByakuraiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShakkahoAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShoAbility;
+import com.yuanno.soulsawakening.abilities.kido.hado.TsuzuriRaidenAbility;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.KidoAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.*;
@@ -31,6 +32,7 @@ public class TestEvent {
             PlayerEntity player = event.getPlayer();
             IAbilityData abilityData = AbilityDataCapability.get(player);
             abilityData.addUnlockedAbility(ShoAbility.INSTANCE);
+            abilityData.addUnlockedAbility(TsuzuriRaidenAbility.INSTANCE);
             /*
             abilityData.addAbilityToBar(ShoAbility.INSTANCE);
             abilityData.addUnlockedAbility(ByakuraiAbility.INSTANCE);
@@ -70,6 +72,19 @@ public class TestEvent {
                     ((IParticleEffect) ability).spawnParticles(player);
                 if (ability instanceof ISelfEffect)
                     ((ISelfEffect) ability).applyEffect(player, ability);
+                if (ability instanceof IContinuousAbility)
+                {
+                    if (ability.getState().equals(Ability.STATE.CONTINUOUS)) {
+                        ((IContinuousAbility) ability).endContinuity(player, ability);
+                        ability.setState(Ability.STATE.COOLDOWN);
+                    }
+                    if (ability.getState().equals(Ability.STATE.READY)) {
+                        ((IContinuousAbility) ability).startContinuity(player, ability);
+                        ability.setState(Ability.STATE.CONTINUOUS);
+                        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+                        return;
+                    }
+                }
                 AbilityUseEvent abilityUseEvent = new AbilityUseEvent(player, ability);
                 MinecraftForge.EVENT_BUS.post(abilityUseEvent);
                 ability.setState(Ability.STATE.COOLDOWN);

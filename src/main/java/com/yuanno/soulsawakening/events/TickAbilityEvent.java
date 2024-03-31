@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IPassiveAbility;
 import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
@@ -27,6 +28,13 @@ public class TickAbilityEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         for (Ability ability : abilityData.getUnlockedAbilities())
         {
+            if (ability instanceof IContinuousAbility)
+            {
+                if (ability.getState().equals(Ability.STATE.CONTINUOUS)) {
+                    System.out.println("CALLING");
+                    ((IContinuousAbility) ability).duringContinuity(player, ability);
+                }
+            }
             if (!(ability instanceof IPassiveAbility))
             {
                 if (ability.getState().equals(Ability.STATE.READY))

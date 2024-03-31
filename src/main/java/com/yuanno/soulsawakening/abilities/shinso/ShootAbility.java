@@ -18,7 +18,7 @@ public class ShootAbility extends Ability implements IRightClickAbility, IShootA
         this.setName("Shoot");
         this.setCooldown(4);
         this.setMaxCooldown(4);
-        this.setCategory(Category.ZANPAKUTO);
+        this.setSubCategory(SubCategory.SHIKAI);
     }
 
     @Override
