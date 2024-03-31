@@ -41,10 +41,10 @@ public class ObjectiveEvents {
 
     /**
      * When an ability is used, checks if the player has a quest > objective that it can progress and if it can it does
-     * @param event AbilityUseEvent that is fired everytime that any ability is used
+     * @param event AbilityUseEvent.Post that is fired after an ability is used
      */
     @SubscribeEvent
-    public static void onUseEvent(AbilityUseEvent event)
+    public static void onUseEvent(AbilityUseEvent.Post event)
     {
         if (event.getPlayer().level.isClientSide)
             return;

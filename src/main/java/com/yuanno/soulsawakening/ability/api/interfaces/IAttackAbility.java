@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.ability.api.interfaces;
 
+import com.yuanno.soulsawakening.events.ability.RightClickAbilityEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -7,7 +8,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 /**
  * Used for abilities that do something when hitting an enemy, handled in {@link #activate(LivingEntity, PlayerEntity)} that is triggered
- * @see com.yuanno.soulsawakening.events.ability.AbilityEvents#onAttackEvent(AttackEntityEvent)
+ * @see RightClickAbilityEvents#onAttackEvent(AttackEntityEvent)
  * {@link #secondsOnFire()} if you want to put the entity targeted on fire
  * {@link #addedEffect()} if you want to add an effect to the entity targeted
  */

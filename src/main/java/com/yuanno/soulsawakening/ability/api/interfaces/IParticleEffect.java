@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.ability.api.interfaces;
 
 import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
+import com.yuanno.soulsawakening.events.ability.RightClickAbilityEvents;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,8 +14,8 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
  * {@link #spawnParticles(LivingEntity)} for particles spawning from an other entity
  * use 2 methods there so an ability can have particles spawn around the player and the target
  * it is triggered at 2 different places:
- * @see com.yuanno.soulsawakening.events.ability.AbilityEvents#customRightClickLogic(CustomInteractionEvent)
- * @see com.yuanno.soulsawakening.events.ability.AbilityEvents#onAttackEvent(AttackEntityEvent)
+ * @see RightClickAbilityEvents#customRightClickLogic(CustomInteractionEvent)
+ * @see RightClickAbilityEvents#onAttackEvent(AttackEntityEvent)
  * for the attacking and right clicking abilities
  * {@link #getSpawnParticles()} for the effect, what it does like {@link com.yuanno.soulsawakening.particles.api.WaveParticleEffect}
  * {@link #getParticleType()} for the texture of the particle like {@link com.yuanno.soulsawakening.init.ModParticleTypes}

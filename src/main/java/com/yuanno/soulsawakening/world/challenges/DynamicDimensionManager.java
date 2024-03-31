@@ -225,7 +225,7 @@ public class DynamicDimensionManager
 				if (oldKey != null && dimension != null && !removedWorldKeys.contains(oldWorldKey))
 				{
 					// newRegistry.register(oldKey, dimension, oldRegistry.lifecycle(dimension));
-					Registry.register(newRegistry, oldKey.getRegistryName(), dimension); // @todo 1.18.2 is this right?
+					Registry.register(newRegistry, oldKey.getRegistryName(), dimension);
 				}
 			}
 

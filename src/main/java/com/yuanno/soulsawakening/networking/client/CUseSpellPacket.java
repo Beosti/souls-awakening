@@ -53,16 +53,14 @@ public class CUseSpellPacket {
                 Ability abilityInUse = abilityData.getAbilitiesInBar().get(message.slot);
                 if (!abilityInUse.getState().equals(Ability.STATE.READY))
                     return;
-                if (abilityInUse instanceof IShootAbility)
-                {
-                    ((IShootAbility) abilityInUse).onUse(player, abilityInUse);
-                    AbilityUseEvent abilityUseEvent = new AbilityUseEvent(player, abilityInUse);
-                    MinecraftForge.EVENT_BUS.post(abilityUseEvent);
-                    abilityInUse.setState(Ability.STATE.COOLDOWN);
-                    abilityInUse.setCooldown(abilityInUse.getMaxCooldown() / 20);
-                    PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-                }
 
+                AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, abilityInUse);
+                MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
+                AbilityUseEvent.Post abilityUseEventPost = new AbilityUseEvent.Post(player, abilityInUse);
+                MinecraftForge.EVENT_BUS.post(abilityUseEventPost);
+                abilityInUse.setState(Ability.STATE.COOLDOWN);
+                abilityInUse.setCooldown(abilityInUse.getMaxCooldown() / 20);
+                PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             });
         }
 

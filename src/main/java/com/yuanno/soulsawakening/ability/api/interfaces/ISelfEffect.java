@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.ability.api.interfaces;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
+import com.yuanno.soulsawakening.events.ability.RightClickAbilityEvents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Used for abilities that do something to oneself.
  * All the logic is handled in {@link #applyEffect(PlayerEntity, Ability)}, triggered here:
- * @see com.yuanno.soulsawakening.events.ability.AbilityEvents#customRightClickLogic(CustomInteractionEvent)
+ * @see RightClickAbilityEvents#customRightClickLogic(CustomInteractionEvent)
  * {@link #getEffectInstance()} an effectinstance that'll be added to the player when used
  * {@link #getEffectInstances()} if there are multiple effect instances they are done here
  * {@link #otherEffects(PlayerEntity)} for other very specific things you want to make happen when using the ability

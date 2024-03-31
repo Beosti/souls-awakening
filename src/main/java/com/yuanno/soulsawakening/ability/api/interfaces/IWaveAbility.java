@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.ability.api.interfaces;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
+import com.yuanno.soulsawakening.events.ability.RightClickAbilityEvents;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Used for abilities that have an effect on entities in a radius.
  * Logic handled in {@link #onWave(PlayerEntity, Ability)}, triggered here:
- * @see com.yuanno.soulsawakening.events.ability.AbilityEvents#customRightClickLogic(CustomInteractionEvent)
+ * @see RightClickAbilityEvents#customRightClickLogic(CustomInteractionEvent)
  * {@link #getRadius()} gets the radius of the entities around the player, defaults 0
  * {@link #putOnFire()} gets amount of seconds put on fire, defaults 0
  * {@link #getDamageSource()} sets the damage source if there's damage, defaults null

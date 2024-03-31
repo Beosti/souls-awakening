@@ -54,46 +54,17 @@ public class TestEvent {
             if (!(abilityData.getUnlockedAbilities().get(i) instanceof KidoAbility))
                 continue;
             KidoAbility ability = (KidoAbility) abilityData.getUnlockedAbilities().get(i);
-            if (event.getMessage().equals(ability.getIncantation()))
-            {
-                if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
-                    continue;
-                if ((ability instanceof IDimensionTeleportAbility))
-                    ((IDimensionTeleportAbility) ability).teleport(player);
-                if (ability instanceof IEntityRayTrace && ((IEntityRayTrace) ability).gotTarget(player))
-                    ((IEntityRayTrace) ability).onEntityRayTrace(player, ability);
-                if (ability instanceof IShootAbility)
-                    ((IShootAbility) ability).onUse(player, ability);
-                if (ability instanceof IWaveAbility)
-                    ((IWaveAbility) ability).onWave(player, ability);
-                if (ability instanceof IBlockRayTrace)
-                    ((IBlockRayTrace) ability).onBlockRayTrace(player, ability);
-                if (ability instanceof IParticleEffect)
-                    ((IParticleEffect) ability).spawnParticles(player);
-                if (ability instanceof ISelfEffect)
-                    ((ISelfEffect) ability).applyEffect(player, ability);
-                if (ability instanceof IContinuousAbility)
-                {
-                    if (ability.getState().equals(Ability.STATE.CONTINUOUS)) {
-                        ((IContinuousAbility) ability).endContinuity(player, ability);
-                        ability.setState(Ability.STATE.COOLDOWN);
-                    }
-                    if (ability.getState().equals(Ability.STATE.READY)) {
-                        ((IContinuousAbility) ability).startContinuity(player, ability);
-                        ability.setState(Ability.STATE.CONTINUOUS);
-                        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-                        return;
-                    }
-                }
-                AbilityUseEvent abilityUseEvent = new AbilityUseEvent(player, ability);
-                MinecraftForge.EVENT_BUS.post(abilityUseEvent);
-                ability.setState(Ability.STATE.COOLDOWN);
-                ability.setCooldown(ability.getMaxCooldown() / 20);
-                PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+            if (!event.getMessage().equals(ability.getIncantation()))
                 return;
-            }
+
+            if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
+                continue;
+
+            AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, ability);
+            MinecraftForge.EVENT_BUS.post(abilityUseEvent);
+            AbilityUseEvent.Post abilityUsedEvent = new AbilityUseEvent.Post(player, ability);
+            MinecraftForge.EVENT_BUS.post(abilityUsedEvent);
+            return;
         }
     }
-
-
 }

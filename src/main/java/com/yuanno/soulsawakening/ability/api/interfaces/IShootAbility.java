@@ -2,13 +2,14 @@ package com.yuanno.soulsawakening.ability.api.interfaces;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
+import com.yuanno.soulsawakening.events.ability.RightClickAbilityEvents;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 /**
  * Used for abilities that shoot a projectile.
  * Logic handle in {@link #onUse(PlayerEntity)}, triggered here:
- * @see com.yuanno.soulsawakening.events.ability.AbilityEvents#customRightClickLogic(CustomInteractionEvent)
+ * @see RightClickAbilityEvents#customRightClickLogic(CustomInteractionEvent)
  * {@link #getProjectile(PlayerEntity)} get the projectile to shoot
  * {@link #getVelocity()} velocity set for the projectile, default 1
  * {@link #getInaccuracy()} innacuracy set for the projectile, default 1
