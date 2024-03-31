@@ -11,6 +11,8 @@ public interface IQuestData {
 
     ArrayList<String> getQuestTitle();
 
+    boolean getIsInRotation(Quest quest);
+
     void clearQuests();
     void addQuest(Quest quest);
 

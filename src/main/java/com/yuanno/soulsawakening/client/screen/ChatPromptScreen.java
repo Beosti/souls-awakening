@@ -7,6 +7,7 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
+import com.yuanno.soulsawakening.entities.npc.KidoTeacherEntity;
 import com.yuanno.soulsawakening.entities.npc.ShinigamiTeacherEntity;
 import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -58,6 +59,8 @@ public class ChatPromptScreen extends Screen {
         int posY = (this.height - 256) / 2;
         if (entity instanceof ShinigamiTeacherEntity)
             shinigamiTeacherInit(posX, posY);
+        if (this.entity instanceof KidoTeacherEntity)
+            kidoTeacherInit(posX, posY);
     }
 
     @Override
@@ -86,14 +89,151 @@ public class ChatPromptScreen extends Screen {
         super.onClose();
         if (this.entity instanceof ShinigamiTeacherEntity)
             shinigamiTeacherOnClose();
+        if (this.entity instanceof KidoTeacherEntity)
+            kidoTeacherOnClose();
     }
-    void kidoTeacherNPC(int posX, int posY)
+    void kidoTeacherInit(int posX, int posY)
     {
-
+        if (questData.getIsInRotation(ModQuests.KIDO_UNLOCK))
+            dialogue1KidoTeacher(posX, posY);
+        else if (questData.getIsInRotation(ModQuests.BYAKURAI_QUEST))
+            dialogue2KidoTeacher(posX, posY);
+        else if (questData.getIsInRotation(ModQuests.TSUZURI_QUEST))
+            dialogue3KidoTeacher(posX, posY);
     }
+    void dialogue1KidoTeacher(int posX, int posY)
+    {
+        text = "I'm the kido and hado teacher, you want to learn the path of 'demon arts'?";
+        if (!entityStats.getRace().equals(ModValues.SHINIGAMI))
+            text = "I only teach this stuff to shinigamis!";
+        if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.KIDO_UNLOCK))
+            text = "The incantation is: 'Push back, repel the vile knave! Hadou number 1 Sho', do that a few times!";
+        if (QuestDataCapability.get(player).isQuestComplete(ModQuests.KIDO_UNLOCK))
+        {
+            text = "You've truly learned this kido! I'm the hado instructor, the 'destructive' type of kido. But I'm sure the other kido teachers are down to teach you their path!";
+        }
+        if (this.page == -1)
+            text = "Some just like brawling into fights I guess";
+        if (this.page == 1)
+        {
+            text = "To learn your first kido type this in chat: 'Push back, repel the vile knave! Hadou number 1 Sho', it's an incantation that makes a kido-spell happen. Do that 10 times so you learn this spell";
+        }
+        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = 1;
+            init();
+        });
+        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = -1;
+            init();
+        });
+        if (text.equals("I'm the kido and hado teacher, you want to learn the path of 'demon arts'?")) {
+            this.addButton(acceptanceButton);
+            this.addButton(declineButton);
+        }
+    }
+    void dialogue2KidoTeacher(int posX, int posY)
+    {
+        text = "Now you unlocked kido, do you want to advance in the path of hado? It's the 'destructive' path, I have something else to teach you";
+        if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.BYAKURAI_QUEST))
+            text = "Go use sho multiple times and use the byakurai incantation: 'Oh ye, pale lightning may you smitten thy enemy as the lightning smitten me! Hadou number 4 Byakurai'!";
+        if (QuestDataCapability.get(player).isQuestComplete(ModQuests.BYAKURAI_QUEST))
+        {
+            text = "Good job on learning this useful kido! I always got more to teach you.";
+        }
+        if (this.page == -1)
+            text = "Some people are afraid of their own potential of destruction...";
+        if (this.page == 1)
+        {
+            text = "Use this incantation 5 times: 'Oh ye, pale lightning may you smitten thy enemy as the lightning smitten me! Hadou number 4 Byakurai' and sho 10 times";
+        }
+        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = 1;
+            init();
+        });
+        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = -1;
+            init();
+        });
+        if (text.equals("Now you unlocked kido, do you want to advance in the path of hado? It's the 'destructive' path, I have something else to teach you")) {
+            this.addButton(acceptanceButton);
+            this.addButton(declineButton);
+        }
+    }
+    void dialogue3KidoTeacher(int posX, int posY)
+    {
+        text = "I have another one that I can teach you, it's more of a 'useful' one than a destructive one. Are you interested?";
+        if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.TSUZURI_QUEST))
+            text = "To learn how to channel the lightning, go kill entities with a conductor!";
+        if (QuestDataCapability.get(player).isQuestComplete(ModQuests.TSUZURI_QUEST))
+        {
+            text = "Good job on learning this useful kido! Feel free to come by again for something else.";
+        }
+        if (this.page == -1)
+            text = "Some people really just want to explode things...";
+        if (this.page == 1)
+        {
+            text = "Go kill multiple entities with a conductor-type item. Items that can pass electricity to train on your next hado!";
+        }
+        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = 1;
+            init();
+        });
+        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = -1;
+            init();
+        });
+        if (text.equals("I have another one that I can teach you, it's more of a 'useful' one than a destructive one. Are you interested?")) {
+            this.addButton(acceptanceButton);
+            this.addButton(declineButton);
+        }
+    }
+
+    void kidoTeacherOnClose()
+    {
+        if (this.text.equals("You've truly learned this kido! I'm the hado instructor, the 'destructive' type of kido. But I'm sure the other kido teachers are down to teach you their path!")) {
+            player.sendMessage(new TranslationTextComponent("You can now scroll to known kido-spells using control+mouse wheel."), Util.NIL_UUID);
+            questData.getQuest(ModQuests.KIDO_UNLOCK).setInProgress(false);
+            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KIDO_UNLOCK));
+        }
+        if (this.text.equals("To learn your first kido type this in chat: 'Push back, repel the vile knave! Hadou number 1 Sho', it's an incantation that makes a kido-spell happen. Do that 10 times so you learn this spell")) {
+            player.sendMessage(new TranslationTextComponent("You can now use the incantation for sho: 'Push back, repel the vile knave! Hadou number 1 Sho'."), Util.NIL_UUID);
+            this.questData.addInProgressQuest(ModQuests.KIDO_UNLOCK);
+            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
+            PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KIDO_UNLOCK));
+            player.sendMessage(new TranslationTextComponent("This entity is now a teleport point, you can teleport back to it in your teleports menu. You need to be in the same dimension to teleport."), Util.NIL_UUID);
+        }
+        if (this.text.equals("Good job on learning this useful kido! I always got more to teach you.")) {
+            questData.getQuest(ModQuests.BYAKURAI_QUEST).setInProgress(false);
+            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.BYAKURAI_QUEST));
+        }
+        if (this.text.equals("Use this incantation 5 times: 'Oh ye, pale lightning may you smitten thy enemy as the lightning smitten me! Hadou number 4 Byakurai' and sho 10 times")) {
+            this.questData.addInProgressQuest(ModQuests.BYAKURAI_QUEST);
+            PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KIDO_UNLOCK));
+            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
+        }
+        if (this.text.equals("Go kill multiple entities with a conductor-type item. Items that can pass electricity to train on your next hado!"))
+        {
+            this.questData.addInProgressQuest(ModQuests.TSUZURI_QUEST);
+            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
+        }
+        if (this.text.equals("Good job on learning this useful kido! Feel free to come by again for something else.")) {
+            questData.getQuest(ModQuests.TSUZURI_QUEST).setInProgress(false);
+            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.TSUZURI_QUEST));
+        }
+    }
+
     void shinigamiTeacherInit(int posX, int posY)
     {
-        if (questData.getQuest(ModQuests.KILLHOLLOW) == null || questData.getQuest(ModQuests.KILLHOLLOW).getIsInProgress())
+        if (questData.getIsInRotation(ModQuests.KILLHOLLOW))
             dialogue1ShinigamiTeacher(posX, posY);
         else if (questData.getQuest(ModQuests.RESCUE_PLUSES) == null || questData.getQuest(ModQuests.RESCUE_PLUSES).getIsInProgress())
             dialogue2ShinigamiTeacher(posX, posY);
@@ -201,6 +341,8 @@ public class ChatPromptScreen extends Screen {
             this.addButton(declineButton);
         }
     }
+
+
     void shinigamiTeacherOnClose()
     {
         if (this.text.equals("Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Feel free to walk around and learn new stuff")) {

@@ -232,24 +232,6 @@ public class AbilityListScreen extends Screen {
         return false; // Mouse is not over any icon
     }
 
-    public Entry getHoveredEntry(double mouseX, double mouseY) {
-        int iconWidth = 16;  // Width of each icon
-        int iconHeight = 16; // Height of each icon
-
-        for (Entry entry : entries) {
-            int iconX = entry.x;
-            int iconY = entry.y;
-
-            // Check if the mouse is over the current icon
-            if (mouseX >= iconX && mouseX < iconX + iconWidth &&
-                    mouseY >= iconY && mouseY < iconY + iconHeight) {
-                return entry; // Mouse is over the current icon
-            }
-        }
-
-        return null; // Mouse is not over any icon
-    }
-
     @Override
     public boolean isPauseScreen()
     {
@@ -266,6 +248,24 @@ public class AbilityListScreen extends Screen {
         miscData.setCanRenderOverlay(true);
         PacketHandler.sendToServer(new CSyncMiscDataPacket(miscData));
 
+    }
+
+    public Entry getHoveredEntry(double mouseX, double mouseY) {
+        int iconWidth = 16;  // Width of each icon
+        int iconHeight = 16; // Height of each icon
+
+        for (Entry entry : entries) {
+            int iconX = entry.x;
+            int iconY = entry.y;
+
+            // Check if the mouse is over the current icon
+            if (mouseX >= iconX && mouseX < iconX + iconWidth &&
+                    mouseY >= iconY && mouseY < iconY + iconHeight) {
+                return entry; // Mouse is over the current icon
+            }
+        }
+
+        return null; // Mouse is not over any icon
     }
 
     class Entry

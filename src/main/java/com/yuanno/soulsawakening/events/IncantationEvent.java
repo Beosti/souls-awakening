@@ -8,6 +8,8 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.events.ability.AbilityUseEvent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Util;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,8 +35,10 @@ public class IncantationEvent {
                 continue;
             AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
-            if (!ability.getState().equals(Ability.STATE.READY))
+            if (!ability.getState().equals(Ability.STATE.READY)) {
+                player.sendMessage(new TranslationTextComponent("This spell is on cooldown!"), Util.NIL_UUID);
                 return;
+            };
             AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEvent);
             AbilityUseEvent.Post abilityUsedEvent = new AbilityUseEvent.Post(player, ability);

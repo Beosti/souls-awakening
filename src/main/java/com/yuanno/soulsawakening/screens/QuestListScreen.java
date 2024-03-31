@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.quests.Objective;
@@ -58,7 +59,7 @@ public class QuestListScreen extends Screen {
     {
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
-        int leftShift = posX - 20;
+        int leftShift = posX - 85;
         for (int i = 0; i < questData.getQuests().size(); i++) {
 
             if (!questData.getQuests().get(i).getIsInProgress())
@@ -72,11 +73,13 @@ public class QuestListScreen extends Screen {
                 Objective objective = questData.getQuests().get(i).getObjectives().get(ia);
                 String objectiveString = "Objective" + ": " + objective.getTitle();
                 int stringWidth = this.font.width(objectiveString);
-                drawString(matrixStack, this.font, objectiveString, leftShift, posY + 20 + (i * 15) + ((ia + 1) * 15), -1);
+                int offset = 16 + (i * 15) + (ia * 19);
+                drawString(matrixStack, this.font, objectiveString, leftShift, posY + 14 + offset, -1);
+                drawString(matrixStack, this.font, objective.getDescription(), leftShift, posY + 24 + offset, -1);
                 if (objective.getProgress() < objective.maxProgress)
-                    drawString(matrixStack, this.font, objective.getProgress() + "/" + objective.getMaxProgress(), leftShift + stringWidth + 12, posY + 20 + (i * 15) + ((ia + 1) * 15), -1);
+                    drawString(matrixStack, this.font, objective.getProgress() + "/" + objective.getMaxProgress(), leftShift + stringWidth + 12, posY + 15 + offset, -1);
                 else
-                    drawString(matrixStack, this.font, TextFormatting.BOLD + "completed", leftShift + stringWidth + 12, posY + 20 + (i * 15) + ((ia + 1) * 15), -1);
+                    drawString(matrixStack, this.font, TextFormatting.BOLD + "completed", leftShift + stringWidth + 12, posY + 14 + offset, -1);
             }
         }
 
@@ -90,5 +93,18 @@ public class QuestListScreen extends Screen {
     public static void open()
     {
         Minecraft.getInstance().setScreen(new QuestListScreen());
+    }
+
+    class Entry
+    {
+        private String text;
+        private int x;
+        private int y;
+        public Entry(String text, int x, int y)
+        {
+            this.text = text;
+            this.x = x;
+            this.y = y;
+        }
     }
 }

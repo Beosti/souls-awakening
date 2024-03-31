@@ -57,9 +57,9 @@ public class ObjectiveEvents {
             List<Objective> objectives = questData.getQuests().get(i).getObjectives();
             for (int ia = 0; ia < objectives.size(); ia++)
             {
-                if (!(objectives.get(i) instanceof UseAbilityObjective))
+                if (!(objectives.get(ia) instanceof UseAbilityObjective))
                     continue;
-                UseAbilityObjective objective = (UseAbilityObjective) objectives.get(i);
+                UseAbilityObjective objective = (UseAbilityObjective) objectives.get(ia);
                 if (!event.getAbility().getName().equals(objective.getAbility().getName()))
                     continue;
                 if (objective.getProgress() < objective.getMaxProgress())

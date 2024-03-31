@@ -29,6 +29,12 @@ public class QuestDataBase implements IQuestData {
     }
 
     @Override
+    public boolean getIsInRotation(Quest quest)
+    {
+        return getQuest(quest) == null || getQuest(quest).getIsInProgress();
+    }
+
+    @Override
     public void clearQuests() {
         this.quests.clear();
     }
