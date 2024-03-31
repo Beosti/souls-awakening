@@ -4,6 +4,8 @@ import com.yuanno.soulsawakening.abilities.kido.hado.TsuzuriRaidenAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.init.ModTags;
+import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.quests.Quest;
 import com.yuanno.soulsawakening.quests.QuestReward;
 import com.yuanno.soulsawakening.quests.objectives.KillObjective;
@@ -19,6 +21,7 @@ public class TsuzuriRaidenQuest extends Quest {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         abilityData.addUnlockedAbility(TsuzuriRaidenAbility.INSTANCE);
         abilityData.addAbilityToBar(TsuzuriRaidenAbility.INSTANCE);
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         return true;
     }
     public static final KillObjective.ICheckKill METAL_CHECK = ((player, target, source) ->

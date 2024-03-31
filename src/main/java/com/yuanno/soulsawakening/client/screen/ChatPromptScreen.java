@@ -138,7 +138,7 @@ public class ChatPromptScreen extends Screen {
     {
         text = "Now you unlocked kido, do you want to advance in the path of hado? It's the 'destructive' path, I have something else to teach you";
         if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.BYAKURAI_QUEST))
-            text = "Go use sho multiple times and use the byakurai incantation: 'Oh ye, pale lightning may you smitten thy enemy as the lightning smitten me! Hadou number 4 Byakurai'!";
+            text = "Go use sho multiple times and use the byakurai incantation: 'Oh ye, pale lightning may you smitten thy enemy as thy Hadou number 4 Byakurai'!";
         if (QuestDataCapability.get(player).isQuestComplete(ModQuests.BYAKURAI_QUEST))
         {
             text = "Good job on learning this useful kido! I always got more to teach you.";
@@ -147,7 +147,7 @@ public class ChatPromptScreen extends Screen {
             text = "Some people are afraid of their own potential of destruction...";
         if (this.page == 1)
         {
-            text = "Use this incantation 5 times: 'Oh ye, pale lightning may you smitten thy enemy as the lightning smitten me! Hadou number 4 Byakurai' and sho 10 times";
+            text = "Use this incantation 5 times: 'Oh ye, pale lightning may you smitten thy enemy as thy Hadou number 4 Byakurai' and sho 10 times";
         }
         this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
         TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
@@ -200,7 +200,7 @@ public class ChatPromptScreen extends Screen {
     void kidoTeacherOnClose()
     {
         if (this.text.equals("You've truly learned this kido! I'm the hado instructor, the 'destructive' type of kido. But I'm sure the other kido teachers are down to teach you their path!")) {
-            player.sendMessage(new TranslationTextComponent("You can now scroll to known kido-spells using control+mouse wheel."), Util.NIL_UUID);
+            player.sendMessage(new TranslationTextComponent("You can now scroll to known kido-spells using control+mouse wheel and press 'g' to use the spell."), Util.NIL_UUID);
             questData.getQuest(ModQuests.KIDO_UNLOCK).setInProgress(false);
             PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KIDO_UNLOCK));
         }
@@ -215,10 +215,12 @@ public class ChatPromptScreen extends Screen {
             questData.getQuest(ModQuests.BYAKURAI_QUEST).setInProgress(false);
             PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.BYAKURAI_QUEST));
         }
-        if (this.text.equals("Use this incantation 5 times: 'Oh ye, pale lightning may you smitten thy enemy as the lightning smitten me! Hadou number 4 Byakurai' and sho 10 times")) {
+        if (this.text.equals("Use this incantation 5 times: 'Oh ye, pale lightning may you smitten thy enemy as thy Hadou number 4 Byakurai' and sho 10 times")) {
             this.questData.addInProgressQuest(ModQuests.BYAKURAI_QUEST);
-            PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KIDO_UNLOCK));
+            PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.BYAKURAI_QUEST));
             PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
+            player.sendMessage(new TranslationTextComponent("You can now use the incantation for byakurai: 'Oh ye, pale lightning may you smitten thy enemy as thy Hadou number 4 Byakurai'."), Util.NIL_UUID);
+
         }
         if (this.text.equals("Go kill multiple entities with a conductor-type item. Items that can pass electricity to train on your next hado!"))
         {

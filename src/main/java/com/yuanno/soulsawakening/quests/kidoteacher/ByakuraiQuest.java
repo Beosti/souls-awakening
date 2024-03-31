@@ -38,8 +38,8 @@ public class ByakuraiQuest extends Quest {
         return true;
     }
 
-    private UseAbilityObjective objectiveSho = new UseAbilityObjective("Use Sho Again", "Use the sho ability 10 times again", 10, ShoAbility.INSTANCE);
-    private UseAbilityObjective objectiveByakurai = new UseAbilityObjective("Use Byakurai incantation", "Use the incantation 5 times for byakurai: Oh ye, pale lightning may you smitten thy enemy as the lightning smitten me! Hadou number 4 Byakurai", 5, ByakuraiAbility.INSTANCE);
+    private UseAbilityObjective objectiveSho = new UseAbilityObjective("Use Sho Again", "Use the sho spell 10 times again", 10, ShoAbility.INSTANCE);
+    private UseAbilityObjective objectiveByakurai = new UseAbilityObjective("Use Byakurai", "Use incantation 5 times: Oh ye, pale lightning may you smitten thy enemy as thy Hadou number 4 Byakurai", 5, ByakuraiAbility.INSTANCE);
 
     public ByakuraiQuest()
     {

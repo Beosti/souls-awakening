@@ -18,7 +18,7 @@ public class ByakuraiAbility extends KidoAbility implements IShootAbility, IReia
         this.setName("Byakurai");
         this.setDescription("Shoots a focuses reishi energy beam");
         this.setMaxCooldown(10);
-        this.setIncantation("Oh ye, pale lightning may you smitten thy enemy as the lightning smitten me! Hadou number 4 Byakurai");
+        this.setIncantation("Oh ye, pale lightning may you smitten thy enemy as thy Hadou number 4 Byakurai");
         this.setSubCategory(SubCategory.HADO);
     }
 
