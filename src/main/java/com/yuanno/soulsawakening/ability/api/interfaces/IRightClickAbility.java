@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.ability.api.interfaces;
 
 
-import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
+import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
 import com.yuanno.soulsawakening.events.ability.RightClickAbilityEvents;
 
 /**

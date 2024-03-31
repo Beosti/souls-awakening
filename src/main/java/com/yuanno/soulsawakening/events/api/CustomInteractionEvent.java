@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.events.ability;
+package com.yuanno.soulsawakening.events.api;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.Event;

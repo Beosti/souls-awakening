@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.events.ability;
+package com.yuanno.soulsawakening.events.ability.api;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import net.minecraft.entity.LivingEntity;

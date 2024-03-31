@@ -1,6 +1,6 @@
 package com.yuanno.soulsawakening.networking.client;
 
-import com.yuanno.soulsawakening.events.ability.CustomInteractionEvent;
+import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.MinecraftForge;

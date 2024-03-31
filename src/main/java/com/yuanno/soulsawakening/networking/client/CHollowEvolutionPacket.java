@@ -1,6 +1,5 @@
 package com.yuanno.soulsawakening.networking.client;
 
-import com.yuanno.soulsawakening.events.ability.RightClickEmptyEvent;
 import com.yuanno.soulsawakening.events.hollow.HollowEvolutionEvent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketBuffer;

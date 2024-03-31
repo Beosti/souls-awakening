@@ -1,10 +1,10 @@
 package com.yuanno.soulsawakening.networking.client;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
-import com.yuanno.soulsawakening.events.ability.AbilityUseEvent;
+import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
@@ -51,7 +51,7 @@ public class CUseSpellPacket {
                     return;
                 IAbilityData abilityData = AbilityDataCapability.get(player);
                 Ability abilityInUse = abilityData.getAbilitiesInBar().get(message.slot);
-                if (!abilityInUse.getState().equals(Ability.STATE.READY))
+                if (!abilityInUse.getState().equals(Ability.STATE.READY) && !(abilityData instanceof IContinuousAbility && !abilityInUse.getState().equals(Ability.STATE.CONTINUOUS)))
                     return;
                 AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, abilityInUse);
                 MinecraftForge.EVENT_BUS.post(abilityUseEventPre);

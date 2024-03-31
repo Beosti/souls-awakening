@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.ability.api.interfaces;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.events.ability.AbilityUseEvent;
+import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 

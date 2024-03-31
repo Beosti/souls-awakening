@@ -4,7 +4,7 @@ import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.events.RescueEvent;
-import com.yuanno.soulsawakening.events.ability.AbilityUseEvent;
+import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import com.yuanno.soulsawakening.quests.Objective;
 import com.yuanno.soulsawakening.quests.Quest;
 import com.yuanno.soulsawakening.quests.UseAbilityObjective;

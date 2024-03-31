@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.events;
+package com.yuanno.soulsawakening.events.ability;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
