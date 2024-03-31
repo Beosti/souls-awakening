@@ -13,32 +13,11 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     private String name;
     private String description;
     private double cooldown;
-    private boolean isPassive = false;
     private boolean isReady = true;
     private double maxCooldown;
     private STATE state;
-    private Category category = null;
     private SubCategory subCategory = null;
     private boolean isShown = true;
-
-    public Ability(String name, int cooldown, int maxCooldown) {
-        this.name = name;
-        this.cooldown = cooldown;
-        this.maxCooldown = maxCooldown;
-    }
-    public Ability(String name, int cooldown, int maxCooldown, boolean isPassive) {
-        this.name = name;
-        this.cooldown = cooldown;
-        this.maxCooldown = maxCooldown;
-        this.isPassive = isPassive;
-    }
-    public Ability(String name, int cooldown, int maxCooldown, boolean isPassive, boolean isShown) {
-        this.name = name;
-        this.cooldown = cooldown;
-        this.maxCooldown = maxCooldown;
-        this.isPassive = isPassive;
-        this.isShown = isShown;
-    }
 
     public Ability() {
         this.setState(STATE.READY);
@@ -46,7 +25,7 @@ public class Ability extends ForgeRegistryEntry<Ability> {
 
     public void duringCooldown(PlayerEntity player)
     {
-        if (this.isPassive || this.state.equals(STATE.READY))
+        if (this.state.equals(STATE.READY))
             return;
         if (this.getCooldown() <= 0 && !this.getState().equals(STATE.READY)) {
             this.setState(STATE.READY);
@@ -122,7 +101,7 @@ public class Ability extends ForgeRegistryEntry<Ability> {
         return this.isShown;
     }
     public enum STATE {
-        COOLDOWN, READY, PASSIVE
+        COOLDOWN, READY
     }
 
     public CompoundNBT save() {
@@ -145,15 +124,6 @@ public class Ability extends ForgeRegistryEntry<Ability> {
         int maxCooldown = (int) (compoundNBT.getDouble("maxcooldown") / 20);
         this.setMaxCooldown(maxCooldown);
         this.setState(Ability.STATE.valueOf(compoundNBT.getString("state")));
-    }
-
-    public enum ActivationType {
-        RIGHT_CLICK_EMPTY,
-        ATTACK,
-        RIGHT_CLICK_BLOCK,
-        SHIFT_RIGHT_CLICK,
-        RIGHT_CLICK_ENTITY,
-        SCROLL;
     }
 
     public enum Category {
@@ -198,10 +168,6 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     public void setSubCategory(SubCategory category)
     {
         this.subCategory = category;
-    }
-    public Category setCategory(Category category)
-    {
-        return this.category = category;
     }
     public Category getCategory()
     {

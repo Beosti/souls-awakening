@@ -11,12 +11,6 @@ import java.util.function.Supplier;
 public class UseAbilityObjective extends Objective{
 
     private Ability ability;
-    public UseAbilityObjective(String title, String description, int amount)
-    {
-        this.title = title;
-        this.description = description;
-        this.maxProgress = amount;
-    }
     public UseAbilityObjective(String title, String description, int amount, Ability ability)
     {
         this.title = title;

@@ -1,10 +1,14 @@
-package com.yuanno.soulsawakening.quests;
+package com.yuanno.soulsawakening.quests.kidoteacher;
 
 import com.yuanno.soulsawakening.abilities.kido.hado.ShoAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
+import com.yuanno.soulsawakening.quests.Quest;
+import com.yuanno.soulsawakening.quests.QuestReward;
+import com.yuanno.soulsawakening.quests.QuestStart;
+import com.yuanno.soulsawakening.quests.UseAbilityObjective;
 import net.minecraft.entity.player.PlayerEntity;
 
 public class KidoUnlockQuest extends Quest {
@@ -16,12 +20,23 @@ public class KidoUnlockQuest extends Quest {
     public boolean reward(PlayerEntity player)
     {
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        abilityData.addUnlockedAbility(ShoAbility.INSTANCE);
+        abilityData.addAbilityToBar(ShoAbility.INSTANCE);
         abilityData.setSelectedAbility(0);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         return true;
     }
 
+    QuestStart questStart = QuestStart.builder()
+            .otherStart(this::start)
+            .build();
+
+    public boolean start(PlayerEntity player)
+    {
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        abilityData.addUnlockedAbility(ShoAbility.INSTANCE);
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+        return true;
+    }
     private UseAbilityObjective objective = new UseAbilityObjective("Use Sho", "Use incantation 10 times: Push back, repel the vile knave! Hadou number 1 Sho", 10, ShoAbility.INSTANCE);
 
     public KidoUnlockQuest()
@@ -30,5 +45,6 @@ public class KidoUnlockQuest extends Quest {
         this.setDescription("Use sho 10 times with the incantation: Push back, repel the vile knave! Hadou number 1 Sho");
         this.addObjective(objective);
         this.setQuestReward(questReward);
+        this.setQuestStart(questStart);
     }
 }

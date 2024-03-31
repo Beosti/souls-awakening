@@ -87,7 +87,10 @@ public class ChatPromptScreen extends Screen {
         if (this.entity instanceof ShinigamiTeacherEntity)
             shinigamiTeacherOnClose();
     }
+    void kidoTeacherNPC(int posX, int posY)
+    {
 
+    }
     void shinigamiTeacherInit(int posX, int posY)
     {
         if (questData.getQuest(ModQuests.KILLHOLLOW) == null || questData.getQuest(ModQuests.KILLHOLLOW).getIsInProgress())
