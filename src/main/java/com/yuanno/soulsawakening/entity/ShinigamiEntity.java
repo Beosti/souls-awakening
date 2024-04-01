@@ -130,6 +130,8 @@ public class ShinigamiEntity extends CreatureEntity {
         this.setItemSlot(EquipmentSlotType.MAINHAND, swordStack);
         int randomIndex = randomTest.nextInt(options.length);
         this.constantSkin = options[randomIndex];
+        IEntityStats entityStats = EntityStatsCapability.get(this);
+        entityStats.setReiatsuPoints(10);
         return spawnData;
     }
 }
