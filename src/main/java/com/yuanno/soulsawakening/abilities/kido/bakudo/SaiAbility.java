@@ -40,4 +40,9 @@ public class SaiAbility extends KidoAbility implements IEntityRayTrace, IReiatsu
             return;
         entity.addEffect(new EffectInstance(ModEffects.SAI.get(), 120, 0));
     }
+
+    @Override
+    public int getDistance() {
+        return 6;
+    }
 }
