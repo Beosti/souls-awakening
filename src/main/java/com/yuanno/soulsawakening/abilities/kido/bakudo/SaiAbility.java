@@ -6,8 +6,10 @@ import com.yuanno.soulsawakening.ability.api.interfaces.IEntityRayTrace;
 import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.api.ModEffect;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.effects.SaiEffect;
 import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModI18n;
 import net.minecraft.entity.LivingEntity;
@@ -32,13 +34,10 @@ public class SaiAbility extends KidoAbility implements IEntityRayTrace, IReiatsu
 
     @Override
     public void somethingAtEntity(PlayerEntity player, LivingEntity entity) {
-        IEntityStats entityStatsPlayer = EntityStatsCapability.get(player);
-        if (!(entity instanceof PlayerEntity))
+        IEntityStats entityStatsTarget = EntityStatsCapability.get(entity);
+        IEntityStats entityStatsUser = EntityStatsCapability.get(player);
+        if (entityStatsTarget.getReiatsuPoints() * 2 > entityStatsUser.getReiatsuPoints())
             return;
-        PlayerEntity target = (PlayerEntity) entity;
-        IEntityStats entityStatsTarget = EntityStatsCapability.get(target);
-        if (!(entityStatsPlayer.getReiatsuPoints() > entityStatsTarget.getReiatsuPoints() * 2))
-            return;
-
+        entity.addEffect(new EffectInstance(ModEffects.SAI.get(), 120, 0));
     }
 }
