@@ -4,7 +4,7 @@ import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.entities.projectiles.kido.ShakkahoProjectile;
+import com.yuanno.soulsawakening.entities.projectiles.kido.hado.ShakkahoProjectile;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 

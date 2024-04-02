@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.setup;
 import com.mojang.brigadier.CommandDispatcher;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.commands.*;
+import com.yuanno.soulsawakening.commands.ability.AbilityCommand;
 import com.yuanno.soulsawakening.init.ModFeatures;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
@@ -37,6 +38,7 @@ public class ForgeSetup {
         CommandDispatcher dispatcher = event.getServer().getCommands().getDispatcher();
         ElementPointsCommand.register(dispatcher);
         RaceCommand.register(dispatcher);
+        AbilityCommand.register(dispatcher);
         ShinigamiStatsCommand.register(dispatcher);
         ShikaiCommand.register(dispatcher);
         ChallengeCommand.register(dispatcher);

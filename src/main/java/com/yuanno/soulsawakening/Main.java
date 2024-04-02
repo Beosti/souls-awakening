@@ -3,12 +3,15 @@ package com.yuanno.soulsawakening;
 import com.yuanno.soulsawakening.client.ClientHandler;
 import com.yuanno.soulsawakening.client.overlay.KidoOverlay;
 import com.yuanno.soulsawakening.client.overlay.StatsOverlay;
+import com.yuanno.soulsawakening.commands.ability.AbilityArgument;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.init.world.ModBiomes;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.util.ItemProperties;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.command.arguments.ArgumentSerializer;
+import net.minecraft.command.arguments.ArgumentTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -71,6 +74,8 @@ public class Main
             ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
         });
+
+        ArgumentTypes.register("ability", AbilityArgument.class, new ArgumentSerializer<>(AbilityArgument::ability));
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

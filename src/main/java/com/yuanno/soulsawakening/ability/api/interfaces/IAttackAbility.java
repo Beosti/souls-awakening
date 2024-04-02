@@ -9,7 +9,7 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 
 /**
  * Used for abilities that do something when hitting an enemy, handled in {@link #activate(PlayerEntity, LivingEntity)} that is triggered
- * @see RightClickAbilityEvents#onAttackEvent(AttackEntityEvent)
+ * @see AttackEntityEvent
  * {@link #secondsOnFire()} if you want to put the entity targeted on fire
  * {@link #addedEffect()} if you want to add an effect to the entity targeted
  */

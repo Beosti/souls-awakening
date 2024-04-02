@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.entities.projectiles.kido;
+package com.yuanno.soulsawakening.entities.projectiles.kido.hado;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.api.Beapi;
@@ -26,9 +26,7 @@ public class HadoProjectiles {
     public static final RegistryObject<EntityType<ShakkahoProjectile>> SHAKKAHO = Beapi.registerEntityType("Shakkaho", () -> Beapi.createEntityType(ShakkahoProjectile::new)
             .sized(1f, 1f)
             .build(Main.MODID + ":shakkaho"));
-    public static final RegistryObject<EntityType<ShakkahoIncantationProjectile>> SHAKKAHO_INCANTATION = Beapi.registerEntityType("Shakkaho Incantation", () -> Beapi.createEntityType(ShakkahoIncantationProjectile::new)
-            .sized(3f, 3f)
-            .build(Main.MODID + ":shakkaho_incantation"));
+
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -41,9 +39,6 @@ public class HadoProjectiles {
                 .setStretchScale(0.2, 0.2).setColor("#ADD8E6"));
         RenderingRegistry.registerEntityRenderingHandler(SHAKKAHO.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
                 .setScale(1, 1, 1)
-                .setColor("FF0000"));
-        RenderingRegistry.registerEntityRenderingHandler(SHAKKAHO_INCANTATION.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
-                .setScale(3, 3, 3)
                 .setColor("FF0000"));
     }
 }

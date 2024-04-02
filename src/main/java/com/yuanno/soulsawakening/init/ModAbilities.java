@@ -25,6 +25,7 @@ import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
 import com.yuanno.soulsawakening.abilities.hollow.*;
+import com.yuanno.soulsawakening.abilities.kido.bakudo.HainawaAbility;
 import com.yuanno.soulsawakening.abilities.kido.bakudo.SaiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ByakuraiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShakkahoAbility;
@@ -63,7 +64,7 @@ public class ModAbilities {
     public static final Ability[] SHINSO = new Ability[] {LongRangeAbility.INSTANCE, ShootAbility.INSTANCE, WideShootAbility.INSTANCE};
     public static final Ability[] SHINIGAMI = new Ability[] {SoulSocietyKeyAbility.INSTANCE};
     public static final Ability[] HADO = new Ability[] {ShoAbility.INSTANCE, ByakuraiAbility.INSTANCE, ShakkahoAbility.INSTANCE, TsuzuriRaidenAbility.INSTANCE};
-    public static final Ability[] BAKUDO = new Ability[] {SaiAbility.INSTANCE};
+    public static final Ability[] BAKUDO = new Ability[] {SaiAbility.INSTANCE, HainawaAbility.INSTANCE};
 
     public static void register(IEventBus eventBus)
     {

@@ -1,25 +1,25 @@
-package com.yuanno.soulsawakening.abilities.kido.hado;
+package com.yuanno.soulsawakening.abilities.kido.bakudo;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.KidoAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.entities.projectiles.kido.bakuro.HainawaProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.kido.hado.ByakuraiProjectile;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
 // blasts the entity a few meters away
-public class ByakuraiAbility extends KidoAbility implements IShootAbility, IReiatsuAbility {
-    public static final ByakuraiAbility INSTANCE = new ByakuraiAbility();
+public class HainawaAbility extends KidoAbility implements IShootAbility, IReiatsuAbility {
+    public static final HainawaAbility INSTANCE = new HainawaAbility();
 
-    public ByakuraiAbility()
+    public HainawaAbility()
     {
-        this.setName("Byakurai");
-        this.setDescription("Shoots a focuses reishi energy beam");
+        this.setName("Hainawa");
+        this.setDescription("Shoots a lasso of concentrated reishi, if hit the entity cannot move");
         this.setMaxCooldown(10);
-        this.setIncantation("Oh ye, pale lightning may you smitten thy enemy as thy Hadou number 4 Byakurai");
-        this.setSubCategory(SubCategory.HADO);
+        this.setIncantation("May thy crawling rope catch thy enemy Bakudo number 4 hainawa");
+        this.setSubCategory(SubCategory.BAKUDO);
     }
 
     @Override
@@ -29,6 +29,6 @@ public class ByakuraiAbility extends KidoAbility implements IShootAbility, IReia
 
     @Override
     public AbilityProjectileEntity getProjectile(PlayerEntity player) {
-        return new ByakuraiProjectile(player.level, player);
+        return new HainawaProjectile(player.level, player);
     }
 }

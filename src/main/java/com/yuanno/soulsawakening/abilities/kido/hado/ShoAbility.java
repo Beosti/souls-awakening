@@ -3,7 +3,7 @@ package com.yuanno.soulsawakening.abilities.kido.hado;
 import com.yuanno.soulsawakening.ability.api.KidoAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
-import com.yuanno.soulsawakening.entities.projectiles.kido.ShoProjectile;
+import com.yuanno.soulsawakening.entities.projectiles.kido.hado.ShoProjectile;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 

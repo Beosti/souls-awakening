@@ -6,10 +6,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
-import com.yuanno.soulsawakening.events.stats.HohoGainEvent;
-import com.yuanno.soulsawakening.events.stats.HollowGainEvent;
-import com.yuanno.soulsawakening.events.stats.ZanjutsuGainEvent;
+import com.yuanno.soulsawakening.events.stats.*;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -58,6 +55,7 @@ public class ShinigamiStatsCommand {
         suggestions.add("zanjutsu");
         suggestions.add("hoho");
         suggestions.add("hakuda");
+        suggestions.add("reiatsu");
         suggestions.add("hollow");
         suggestions.add("class");
 
@@ -67,7 +65,7 @@ public class ShinigamiStatsCommand {
     private static int setStat(CommandSource commandSource, PlayerEntity player, String stats, String change, int amount)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if ((stats.equals("zanjutsu") || stats.equals("hoho") || stats.equals("hakuda")) && !entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
+        if ((stats.equals("zanjutsu") || stats.equals("hoho") || stats.equals("hakuda") || stats.equals("reiatsu")) && !entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
         {
             commandSource.sendSuccess(new TranslationTextComponent("Can only set these stats if you're a shinigami or fullbringer!"), true);
             return 0;
@@ -98,6 +96,9 @@ public class ShinigamiStatsCommand {
                     HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player, amount, true);
                     MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
                     break;
+                case ("reiatsu"):
+                    ReiatsuGainEvent reiatsuGainEvent = new ReiatsuGainEvent(player, amount, true);
+                    MinecraftForge.EVENT_BUS.post(reiatsuGainEvent);
                 case ("hollow"):
                     HollowGainEvent hollowGainEvent = new HollowGainEvent(player, amount, true);
                     MinecraftForge.EVENT_BUS.post(hollowGainEvent);
@@ -124,6 +125,9 @@ public class ShinigamiStatsCommand {
                     entityStats.setHakudaPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
+                case ("reiatsu"):
+                    entityStats.setReiatsuPoints(amount);
+                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                 case ("hollow"):
                     entityStats.setHollowPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);

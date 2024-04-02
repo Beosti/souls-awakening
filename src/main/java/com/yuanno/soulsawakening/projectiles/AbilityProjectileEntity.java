@@ -160,7 +160,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	@Override
 	public void shootFromRotation(Entity thrower, float yRotIn, float xRotIn, float pitchOffset, float velocity, float inaccuracy)
 	{
-		ProjectileShootEvent event = new ProjectileShootEvent(this, velocity, inaccuracy);
+		ProjectileShootEvent event = new ProjectileShootEvent(this, velocity, inaccuracy, (LivingEntity) thrower);
 		if (MinecraftForge.EVENT_BUS.post(event))
 			return;
 		this.clearTargets();

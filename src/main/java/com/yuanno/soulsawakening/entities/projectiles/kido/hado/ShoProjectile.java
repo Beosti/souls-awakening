@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.entities.projectiles.kido;
+package com.yuanno.soulsawakening.entities.projectiles.kido.hado;
 
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.EntityType;
