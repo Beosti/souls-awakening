@@ -31,7 +31,6 @@ public class TickAbilityEvent {
             if (ability instanceof IContinuousAbility)
             {
                 if (ability.getState().equals(Ability.STATE.CONTINUOUS)) {
-                    System.out.println("CALLING");
                     ((IContinuousAbility) ability).duringContinuity(player, ability);
                 }
             }

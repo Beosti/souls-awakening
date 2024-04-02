@@ -33,4 +33,9 @@ public interface IContinuousAbility {
     {
         duringContinuity(player);
     }
+
+    default boolean getEndAfterUse()
+    {
+        return false;
+    }
 }

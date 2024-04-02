@@ -70,6 +70,15 @@ public class AbilityEvents {
             LivingEntity target = event.getTarget();
             ((IAttackAbility) ability).activateBack(player, target, ability);
         }
+        if (ability instanceof IGetHitAbility)
+        {
+            LivingEntity target = event.getTarget();
+            ((IGetHitAbility) ability).getHitAbility(player, target, ability);
+        }
+        if (ability instanceof IContinuousAbility && ((IContinuousAbility) ability).getEndAfterUse())
+        {
+            ((IContinuousAbility) ability).endContinuity(player, ability);
+        }
     }
 
     /**
