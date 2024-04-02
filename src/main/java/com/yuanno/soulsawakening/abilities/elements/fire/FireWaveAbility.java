@@ -26,6 +26,7 @@ public class FireWaveAbility extends Ability implements IRightClickAbility, IWav
         this.setName("Fire Wave");
         this.setDescription("Emit a wave of fire, damaging and putting enemies on fire");
         this.setMaxCooldown(15);
+        this.setSourceElement(SourceElement.FIRE);
         this.setSubCategory(SubCategory.SHIKAI);
     }
     @Override

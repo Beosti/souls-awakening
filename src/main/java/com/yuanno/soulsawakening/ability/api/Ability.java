@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.ability.api;
 
 import com.yuanno.soulsawakening.ability.api.interfaces.IPunchAbility;
+import com.yuanno.soulsawakening.api.SourceElement;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -18,6 +19,7 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     private STATE state;
     private SubCategory subCategory = null;
     private boolean isShown = true;
+    private SourceElement sourceElement;
 
     public Ability() {
         this.setState(STATE.READY);
@@ -159,7 +161,14 @@ public class Ability extends ForgeRegistryEntry<Ability> {
         }
     }
 
-
+    public SourceElement getSourceElement()
+    {
+        return this.sourceElement;
+    }
+    public void setSourceElement(SourceElement sourceElement)
+    {
+        this.sourceElement = sourceElement;
+    }
 
     public SubCategory getSubCategory()
     {

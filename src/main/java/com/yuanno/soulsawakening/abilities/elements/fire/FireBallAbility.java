@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
+import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
@@ -17,6 +18,7 @@ public class FireBallAbility extends Ability implements IRightClickAbility, ISho
         this.setName("Fireball");
         this.setDescription("Shoots a fireball");
         this.setMaxCooldown(10);
+        this.setSourceElement(SourceElement.FIRE);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

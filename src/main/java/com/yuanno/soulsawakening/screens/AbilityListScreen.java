@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.*;
 import com.yuanno.soulsawakening.ability.api.interfaces.*;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.api.RendererHelper;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
@@ -26,6 +27,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
@@ -175,7 +177,7 @@ public class AbilityListScreen extends Screen {
             StringBuilder extraInfo = new StringBuilder(name + "\n" + "press §lSHIFT§r for description and attack type");
             //extraInfo.append("\n" + "press §lSHIFT§r for more information");
             if (abilityHovering.getMaxCooldown() != 0)
-                fullDescription.append("§lCooldown§r: " + abilityHovering.getMaxCooldown() + "\n");
+                fullDescription.append("§lCooldown§r: " + abilityHovering.getMaxCooldown() / 20 + "\n");
             String activation_type = "";
             if (abilityHovering instanceof IAttackAbility)
                 activation_type = "on-hit";
@@ -203,10 +205,11 @@ public class AbilityListScreen extends Screen {
                 if (!extra.isEmpty())
                     fullDescription.append(extra + "\n");
             }
-            if (InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT))
-                this.renderTooltip(matrixStack, new TranslationTextComponent(String.valueOf(fullDescription)), x, y);
-            else
-                this.renderTooltip(matrixStack, new TranslationTextComponent(String.valueOf(extraInfo)), x, y);
+            int backgroundColorStart = Beapi.hexToRGB("#000000").getRGB();
+            int backgroundColorEnd = Beapi.hexToRGB("#FFFFFF").getRGB();
+            int backgroundStart = Beapi.hexToRGB("FFFFFF").getRGB();
+            int backgroundEnd = Beapi.hexToRGB("000000").getRGB();
+            RendererHelper.drawAbilityTooltip(abilityHovering, matrixStack, Arrays.asList(new StringTextComponent(fullDescription.toString())), x, y, this.width, this.height, 210, backgroundColorStart, backgroundColorEnd, backgroundStart, backgroundEnd, this.getMinecraft().font);
         }
         super.render(matrixStack, x, y, f);
     }

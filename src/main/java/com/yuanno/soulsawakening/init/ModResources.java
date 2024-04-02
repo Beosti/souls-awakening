@@ -13,4 +13,6 @@ public class ModResources {
     public static final ResourceLocation HOLLOW_ICON = new ResourceLocation(Main.MODID, "textures/gui/icons/hollow.png");
     public static final ResourceLocation SHINIGAMI_ICON = new ResourceLocation(Main.MODID, "textures/gui/icons/shinigami.png");
 
+    //ELEMENTAL ICONS
+    public static final ResourceLocation FIRE_ICON = new ResourceLocation(Main.MODID, "textures/gui/icons/fire.png");
 }
