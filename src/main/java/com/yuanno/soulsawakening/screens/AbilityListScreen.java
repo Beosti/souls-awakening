@@ -174,7 +174,6 @@ public class AbilityListScreen extends Screen {
             Ability abilityHovering = getHoveredEntry(x, y).ability;
             String name = abilityHovering.getName();
             StringBuilder fullDescription = new StringBuilder(name + "\n" + "§lDescription§r: " + abilityHovering.getDescription() + "\n");
-            StringBuilder extraInfo = new StringBuilder(name + "\n" + "press §lSHIFT§r for description and attack type");
             //extraInfo.append("\n" + "press §lSHIFT§r for more information");
             if (abilityHovering.getMaxCooldown() != 0)
                 fullDescription.append("§lCooldown§r: " + abilityHovering.getMaxCooldown() / 20 + "\n");
@@ -191,7 +190,9 @@ public class AbilityListScreen extends Screen {
                 activation_type = "right click an entity, in range of  " + ((IEntityRayTrace) abilityHovering).getDistance() + " blocks away";
             if (abilityHovering instanceof IBlockRayTrace)
                 activation_type = "right click a block of entity, in range of " + ((IBlockRayTrace) abilityHovering).getDistance() + " blocks away";
-            fullDescription.append("§lActivation type§r: " + activation_type + "\n");
+            if (abilityHovering.getSubCategory().equals(Ability.SubCategory.SHIKAI))
+                fullDescription.append("§lRequirement§r: Zanpakuto in Shikai state").append("\n");
+            fullDescription.append("§lActivation type§r: ").append(activation_type).append("\n");
             if (abilityHovering instanceof IReiatsuAbility && ((IReiatsuAbility) abilityHovering).addedVariable(player) > 0) {
                 String extra = "";
                 if (abilityHovering instanceof IBlockRayTrace)
@@ -203,7 +204,7 @@ public class AbilityListScreen extends Screen {
                 if (abilityHovering instanceof IShootAbility)
                     extra = "§lExtra damage§r: " + ((IReiatsuAbility) abilityHovering).addedVariable(player) + " (reiatsu)";
                 if (!extra.isEmpty())
-                    fullDescription.append(extra + "\n");
+                    fullDescription.append(extra).append("\n");
             }
             int backgroundColorStart = Beapi.hexToRGB("#000000").getRGB();
             int backgroundColorEnd = Beapi.hexToRGB("#FFFFFF").getRGB();
@@ -221,9 +222,9 @@ public class AbilityListScreen extends Screen {
         int iconWidth = 16;  // Width of each icon
         int iconHeight = 16; // Height of each icon
 
-        for (int i = 0; i < entries.size(); i++) {
-            int iconX = entries.get(i).x;
-            int iconY = entries.get(i).y;
+        for (Entry entry : entries) {
+            int iconX = entry.x;
+            int iconY = entry.y;
 
             // Check if the mouse is over the current icon
             if (mouseX >= iconX && mouseX < iconX + iconWidth &&
