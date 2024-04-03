@@ -235,11 +235,28 @@ public class ChatPromptScreen extends Screen {
 
     void shinigamiTeacherInit(int posX, int posY)
     {
-        if (questData.getIsInRotation(ModQuests.KILLHOLLOW))
-            dialogue1ShinigamiTeacher(posX, posY);
-        else if (questData.getQuest(ModQuests.RESCUE_PLUSES) == null || questData.getQuest(ModQuests.RESCUE_PLUSES).getIsInProgress())
+        ShinigamiTeacherPrompt shinigamiTeacherPrompt = new ShinigamiTeacherPrompt(this);
+        if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(0))) {
+            shinigamiTeacherPrompt.dialogue1ShinigamiTeacher(posX, posY);
+            this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+            TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+            {
+                this.page = 1;
+                init();
+            });
+            TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+            {
+                this.page = -1;
+                init();
+            });
+            if (text.equals("So you want to become a shinigami huh?")) {
+                this.addButton(acceptanceButton);
+                this.addButton(declineButton);
+            }
+        }
+        else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(1)))
             dialogue2ShinigamiTeacher(posX, posY);
-        else if (questData.getQuest(ModQuests.KILL_SPECIFIC_HOLLOW) == null || questData.getQuest(ModQuests.KILL_SPECIFIC_HOLLOW).getIsInProgress())
+        else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(2)))
             dialogue3ShinigamiTeacher(posX, posY);
     }
     void dialogue1ShinigamiTeacher(int posX, int posY)
@@ -261,21 +278,6 @@ public class ChatPromptScreen extends Screen {
         }
         if (!entityStats.getRace().equals(ModValues.SPIRIT))
             text = "How did a non-spirit come here, you should be brought wherever you came from!";
-        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
-        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-        {
-            this.page = 1;
-            init();
-        });
-        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-        {
-            this.page = -1;
-            init();
-        });
-        if (text.equals("So you want to become a shinigami huh?")) {
-            this.addButton(acceptanceButton);
-            this.addButton(declineButton);
-        }
     }
     void dialogue2ShinigamiTeacher(int posX, int posY)
     {
@@ -377,4 +379,30 @@ public class ChatPromptScreen extends Screen {
             PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KILL_SPECIFIC_HOLLOW));
         }
     }
+
+    public String getText()
+    {
+        return this.text;
+    }
+    public void setText(String text)
+    {
+        this.text = text;
+    }
+    public int getPage()
+    {
+        return this.page;
+    }
+    public void setPage(int page)
+    {
+        this.page = page;
+    }
+    public IQuestData getQuestData()
+    {
+        return this.questData;
+    }
+    public IEntityStats getEntityStats()
+    {
+        return this.entityStats;
+    }
+
 }
