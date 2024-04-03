@@ -40,6 +40,8 @@ public class ChatPromptScreen extends Screen {
     private int page = 0;
     private String text = "";
     private Entity entity;
+    TexturedIconButton acceptanceButton;
+    TexturedIconButton declineButton;
     public ChatPromptScreen(Entity entity)
     {
         super(new StringTextComponent(""));
@@ -57,12 +59,12 @@ public class ChatPromptScreen extends Screen {
         this.children.clear();
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
-        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
         {
             this.page = 1;
             init();
         });
-        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
         {
             this.page = -1;
             init();
@@ -250,56 +252,18 @@ public class ChatPromptScreen extends Screen {
         if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(0))) {
             shinigamiTeacherPrompt.dialogue1ShinigamiTeacher(posX, posY);
             this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
-            TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-            {
-                this.page = 1;
-                init();
-            });
-            TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-            {
-                this.page = -1;
-                init();
-            });
-            if (text.equals("So you want to become a shinigami huh?")) {
-                this.addButton(acceptanceButton);
-                this.addButton(declineButton);
-            }
         }
         else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(1))) {
             shinigamiTeacherPrompt.dialogue2ShinigamiTeacher(posX, posY);
             this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
-            TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-            {
-                this.page = 1;
-                init();
-            });
-            TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-            {
-                this.page = -1;
-                init();
-            });
-            if (text.equals("Now you're a shinigami, I do have some missions for you. I got one where you have to rescue some pluses, are you interested?")) {
-                this.addButton(acceptanceButton);
-                this.addButton(declineButton);
-            }
         }
         else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(2))) {
             shinigamiTeacherPrompt.dialogue3ShinigamiTeacher(posX, posY);
             this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
-            TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-            {
-                this.page = 1;
-                init();
-            });
-            TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-            {
-                this.page = -1;
-                init();
-            });
-            if (text.equals("I got another mission for you, now you're officially part of the gotei 13 you can also be paid. It's about a specific hollow.")) {
-                this.addButton(acceptanceButton);
-                this.addButton(declineButton);
-            }
+        }
+        if (shinigamiTeacherPrompt.addAcceptanceDecline) {
+            this.addButton(acceptanceButton);
+            this.addButton(declineButton);
         }
     }
 

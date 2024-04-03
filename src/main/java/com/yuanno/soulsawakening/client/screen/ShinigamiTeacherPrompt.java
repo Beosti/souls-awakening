@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class ShinigamiTeacherPrompt extends ChatPrompt {
 
     ChatPromptScreen chatPromptScreen;
+    boolean addAcceptanceDecline = false;
     public ShinigamiTeacherPrompt(ChatPromptScreen chatPromptScreen)
     {
         this.addQuest(ModQuests.KILLHOLLOW);
@@ -23,8 +24,6 @@ public class ShinigamiTeacherPrompt extends ChatPrompt {
     void dialogue1ShinigamiTeacher(int posX, int posY)
     {
         chatPromptScreen.setText("So you want to become a shinigami huh?");
-        if (chatPromptScreen.getEntityStats().getRace().equals(ModValues.SHINIGAMI))
-            chatPromptScreen.setText("You're already a shinigami. Scram!");
         if (chatPromptScreen.getQuestData().hasInProgressQuest(ModQuests.KILLHOLLOW))
             chatPromptScreen.setText("You find hollows a bit everywhere in the overworld and a ton in hueco mundo. Go kill one!");
         if (chatPromptScreen.getQuestData().isQuestComplete(ModQuests.KILLHOLLOW))
@@ -35,10 +34,14 @@ public class ShinigamiTeacherPrompt extends ChatPrompt {
             chatPromptScreen.setText("Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. You can press alt+right click with zanpakuto to go and back to the human world. Kill a hollow and I'll make you a shinigami.");
         if (!chatPromptScreen.getEntityStats().getRace().equals(ModValues.SPIRIT))
             chatPromptScreen.setText("How did a non-spirit come here, you should be brought wherever you came from!");
+        if (chatPromptScreen.getText().equals("So you want to become a shinigami huh?"))
+            this.addAcceptanceDecline = true;
     }
     void dialogue2ShinigamiTeacher(int posX, int posY)
     {
         chatPromptScreen.setText("Now you're a shinigami, I do have some missions for you. I got one where you have to rescue some pluses, are you interested?");
+        if (chatPromptScreen.getPage() == 0)
+            this.addAcceptanceDecline = true;
         if (chatPromptScreen.getQuestData().hasInProgressQuest(ModQuests.RESCUE_PLUSES))
             chatPromptScreen.setText("There's pluses all over in the overworld, they're just waiting to be rescued. Go help at least 5.");
         if (chatPromptScreen.getQuestData().isQuestComplete(ModQuests.RESCUE_PLUSES))
@@ -53,6 +56,8 @@ public class ShinigamiTeacherPrompt extends ChatPrompt {
     void dialogue3ShinigamiTeacher(int posX, int posY)
     {
         chatPromptScreen.setText("I got another mission for you, now you're officially part of the gotei 13 you can also be paid. It's about a specific hollow.");
+        if (chatPromptScreen.getPage() == 0)
+            this.addAcceptanceDecline = true;
         if (chatPromptScreen.getQuestData().hasInProgressQuest(ModQuests.RESCUE_PLUSES))
             chatPromptScreen.setText("You have to go and kill a beast hollow, it walks on 4 feet and looks like a tiger.");
         if (chatPromptScreen.getQuestData().isQuestComplete(ModQuests.RESCUE_PLUSES))
