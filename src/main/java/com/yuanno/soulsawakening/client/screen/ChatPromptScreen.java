@@ -57,10 +57,21 @@ public class ChatPromptScreen extends Screen {
         this.children.clear();
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
+        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = 1;
+            init();
+        });
+        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+        {
+            this.page = -1;
+            init();
+        });
         if (entity instanceof ShinigamiTeacherEntity)
             shinigamiTeacherInit(posX, posY);
         if (this.entity instanceof KidoTeacherEntity)
             kidoTeacherInit(posX, posY);
+
     }
 
     @Override
@@ -254,95 +265,41 @@ public class ChatPromptScreen extends Screen {
                 this.addButton(declineButton);
             }
         }
-        else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(1)))
-            dialogue2ShinigamiTeacher(posX, posY);
-        else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(2)))
-            dialogue3ShinigamiTeacher(posX, posY);
-    }
-    void dialogue1ShinigamiTeacher(int posX, int posY)
-    {
-        text = "So you want to become a shinigami huh?";
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI))
-            text = "You're already a shinigami. Scram!";
-        if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.KILLHOLLOW))
-            text = "You find hollows a bit everywhere in the overworld and a ton in hueco mundo. Go kill one!";
-        if (QuestDataCapability.get(player).isQuestComplete(ModQuests.KILLHOLLOW))
-        {
-            text = "Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Feel free to walk around and learn new stuff";
+        else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(1))) {
+            shinigamiTeacherPrompt.dialogue2ShinigamiTeacher(posX, posY);
+            this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+            TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+            {
+                this.page = 1;
+                init();
+            });
+            TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+            {
+                this.page = -1;
+                init();
+            });
+            if (text.equals("Now you're a shinigami, I do have some missions for you. I got one where you have to rescue some pluses, are you interested?")) {
+                this.addButton(acceptanceButton);
+                this.addButton(declineButton);
+            }
         }
-        if (this.page == -1)
-            text = "I guess not everyone is cut out for this job";
-        if (this.page == 1)
-        {
-            text = "Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. You can press alt+right click with zanpakuto to go and back to the human world. Kill a hollow and I'll make you a shinigami.";
-        }
-        if (!entityStats.getRace().equals(ModValues.SPIRIT))
-            text = "How did a non-spirit come here, you should be brought wherever you came from!";
-    }
-    void dialogue2ShinigamiTeacher(int posX, int posY)
-    {
-        text = "Now you're a shinigami, I do have some missions for you. I got one where you have to rescue some pluses, are you interested?";
-        if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.RESCUE_PLUSES))
-            text = "There's pluses all over in the overworld, they're just waiting to be rescued. Go help at least 5.";
-        if (QuestDataCapability.get(player).isQuestComplete(ModQuests.RESCUE_PLUSES))
-        {
-            text = "Great work as a shinigami to help those pluses. You definitely do deserve to be ranked in the gotei 13 now.";
-        }
-        if (this.page == -1)
-            text = "Rescue missions aren't for everyone I suppose";
-        if (this.page == 1)
-        {
-            text = "Great! You have to go to the overworld and rescue 5 pluses, they're lost spirits. Just right click them with your zanpakuto and they'll be saved!";
-        }
-        if (!entityStats.getRace().equals(ModValues.SHINIGAMI))
-            text = "How did a non-spirit come here, you should be brought wherever you came from!";
-        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
-        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-        {
-            this.page = 1;
-            init();
-        });
-        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-        {
-            this.page = -1;
-            init();
-        });
-        if (text.equals("Now you're a shinigami, I do have some missions for you. I got one where you have to rescue some pluses, are you interested?")) {
-            this.addButton(acceptanceButton);
-            this.addButton(declineButton);
-        }
-    }
-    void dialogue3ShinigamiTeacher(int posX, int posY)
-    {
-        text = "I got another mission for you, now you're officially part of the gotei 13 you can also be paid. It's about a specific hollow.";
-        if (QuestDataCapability.get(player).hasInProgressQuest(ModQuests.KILL_SPECIFIC_HOLLOW))
-            text = "You have to go and kill a beast hollow, it walks on 4 feet and looks like a tiger.";
-        if (QuestDataCapability.get(player).isQuestComplete(ModQuests.KILL_SPECIFIC_HOLLOW))
-        {
-            text = "There have some money, thanks for handling that hollow. I am sure it took you some time to hunt it down and track it's location.";
-        }
-        if (this.page == -1)
-            text = "Tracking down missions ain't for everyone I suppose";
-        if (this.page == 1)
-        {
-            text = "Amazing, you'll have to find the 'beast' hollow in the overworld. It's a hollow on 4 feet that walks around and is quite fast. It looks like a tiger. Kill it and come back for your reward!";
-        }
-        if (!entityStats.getRace().equals(ModValues.SHINIGAMI))
-            text = "How did a non-spirit come here, you should be brought wherever you came from!";
-        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
-        TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-        {
-            this.page = 1;
-            init();
-        });
-        TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
-        {
-            this.page = -1;
-            init();
-        });
-        if (text.equals("I got another mission for you, now you're officially part of the gotei 13 you can also be paid. It's about a specific hollow.")) {
-            this.addButton(acceptanceButton);
-            this.addButton(declineButton);
+        else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(2))) {
+            shinigamiTeacherPrompt.dialogue3ShinigamiTeacher(posX, posY);
+            this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+            TexturedIconButton acceptanceButton = new TexturedIconButton(acceptButtonTexture, posX + 180, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+            {
+                this.page = 1;
+                init();
+            });
+            TexturedIconButton declineButton = new TexturedIconButton(declineButtonTexture, posX + 220, posY + 232, 32, 32, new TranslationTextComponent(""), b ->
+            {
+                this.page = -1;
+                init();
+            });
+            if (text.equals("I got another mission for you, now you're officially part of the gotei 13 you can also be paid. It's about a specific hollow.")) {
+                this.addButton(acceptanceButton);
+                this.addButton(declineButton);
+            }
         }
     }
 
