@@ -8,8 +8,38 @@ import java.util.ArrayList;
 
 public class ChatPrompt {
 
-    private ArrayList<Quest> quests = new ArrayList<>();
+    private IOnClose onClose = () -> {};
+    private ArrayList<IChatPrompt> chatPrompts = new ArrayList<>();
 
+    public IOnClose getOnClose()
+    {
+        return this.onClose;
+    }
+    public void setOnClose(IOnClose onClose)
+    {
+        this.onClose = onClose;
+    }
+
+    public ArrayList<IChatPrompt> getChatPrompts()
+    {
+        return this.chatPrompts;
+    }
+    public void setChatPrompts(ArrayList<IChatPrompt> chatPrompts)
+    {
+        this.chatPrompts = chatPrompts;
+    }
+    public void addChatPrompts(IChatPrompt chatPrompt)
+    {
+        this.chatPrompts.add(chatPrompt);
+    }
+    public void removeChatPrompts(IChatPrompt chatPrompt)
+    {
+        this.chatPrompts.remove(chatPrompt);
+    }
+
+
+
+    private ArrayList<Quest> quests = new ArrayList<>();
 
     public ArrayList<Quest> getQuests()
     {
@@ -45,4 +75,12 @@ public class ChatPrompt {
 
     }
     */
+    public interface IChatPrompt extends Serializable
+    {
+        void chat();
+    }
+    public interface IOnClose extends Serializable
+    {
+        void onClose();
+    }
 }

@@ -42,6 +42,7 @@ public class ChatPromptScreen extends Screen {
     private Entity entity;
     TexturedIconButton acceptanceButton;
     TexturedIconButton declineButton;
+    ShinigamiTeacherPrompt shinigamiTeacherPrompt;
     public ChatPromptScreen(Entity entity)
     {
         super(new StringTextComponent(""));
@@ -50,6 +51,23 @@ public class ChatPromptScreen extends Screen {
         this.entityStats = EntityStatsCapability.get(player);
         this.questData = QuestDataCapability.get(player);
         this.entity = entity;
+        shinigamiTeacherPrompt = new ShinigamiTeacherPrompt(this);
+    }
+
+    @Override
+    public void render(MatrixStack matrixStack, int x, int y, float f)
+    {
+        this.renderBackground(matrixStack);
+        int posX = (this.width - 256) / 2;
+        int posY = (this.height - 256) / 2;
+
+        this.minecraft.textureManager.bind(chatPrompt);
+        this.blit(matrixStack, posX + 4, posY + 8, 0, 0, 256, 256);
+        matrixStack.pushPose();
+        matrixStack.scale(0.7f, 0.7f, 0.7f);
+        this.message.render(matrixStack, (int) ((posX + 12) / 0.7), (int) ((posY + 223) / 0.7));
+        matrixStack.popPose();
+        super.render(matrixStack, x, y, f);
     }
 
     @Override
@@ -70,26 +88,10 @@ public class ChatPromptScreen extends Screen {
             init();
         });
         if (entity instanceof ShinigamiTeacherEntity)
-            shinigamiTeacherInit(posX, posY);
+            shinigamiTeacherInit(this.shinigamiTeacherPrompt);
         if (this.entity instanceof KidoTeacherEntity)
             kidoTeacherInit(posX, posY);
 
-    }
-
-    @Override
-    public void render(MatrixStack matrixStack, int x, int y, float f)
-    {
-        this.renderBackground(matrixStack);
-        int posX = (this.width - 256) / 2;
-        int posY = (this.height - 256) / 2;
-
-        this.minecraft.textureManager.bind(chatPrompt);
-        this.blit(matrixStack, posX + 4, posY + 8, 0, 0, 256, 256);
-        matrixStack.pushPose();
-        matrixStack.scale(0.7f, 0.7f, 0.7f);
-        this.message.render(matrixStack, (int) ((posX + 12) / 0.7), (int) ((posY + 223) / 0.7));
-        matrixStack.popPose();
-        super.render(matrixStack, x, y, f);
     }
 
     public static void open(Entity entity)
@@ -101,7 +103,7 @@ public class ChatPromptScreen extends Screen {
     {
         super.onClose();
         if (this.entity instanceof ShinigamiTeacherEntity)
-            shinigamiTeacherOnClose();
+            this.shinigamiTeacherPrompt.getOnClose().onClose();
         if (this.entity instanceof KidoTeacherEntity)
             kidoTeacherOnClose();
     }
@@ -246,21 +248,16 @@ public class ChatPromptScreen extends Screen {
         }
     }
 
-    void shinigamiTeacherInit(int posX, int posY)
+    void shinigamiTeacherInit(ShinigamiTeacherPrompt shinigamiTeacherPrompt)
     {
-        ShinigamiTeacherPrompt shinigamiTeacherPrompt = new ShinigamiTeacherPrompt(this);
-        if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(0))) {
-            shinigamiTeacherPrompt.dialogue1ShinigamiTeacher(posX, posY);
-            this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+        for (int i = 0; i < shinigamiTeacherPrompt.getQuests().size(); i++)
+        {
+            if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(i))) {
+                shinigamiTeacherPrompt.getChatPrompts().get(i).chat();
+                break;
+            }
         }
-        else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(1))) {
-            shinigamiTeacherPrompt.dialogue2ShinigamiTeacher(posX, posY);
-            this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
-        }
-        else if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(2))) {
-            shinigamiTeacherPrompt.dialogue3ShinigamiTeacher(posX, posY);
-            this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
-        }
+        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
         if (shinigamiTeacherPrompt.addAcceptanceDecline) {
             this.addButton(acceptanceButton);
             this.addButton(declineButton);
@@ -324,6 +321,10 @@ public class ChatPromptScreen extends Screen {
     public IEntityStats getEntityStats()
     {
         return this.entityStats;
+    }
+    public PlayerEntity getPlayer()
+    {
+        return this.player;
     }
 
 }
