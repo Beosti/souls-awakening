@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.entities.npc;
 
+import com.yuanno.soulsawakening.client.screen.ChatPrompt;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -17,9 +18,13 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class SoulSocietyTeacherEntity extends CreatureEntity {
+/**
+ * Teachers in the mod that talk to you, give out quests etc
+ */
+public class SoulNPCEntity extends CreatureEntity {
 
-    public SoulSocietyTeacherEntity(EntityType type, World world)
+    private ChatPrompt chatPrompt;
+    public SoulNPCEntity(EntityType type, World world)
     {
         super(type, world);
     }
@@ -56,5 +61,14 @@ public class SoulSocietyTeacherEntity extends CreatureEntity {
                 .add(Attributes.FOLLOW_RANGE, 100)
                 .add(Attributes.MOVEMENT_SPEED, 0.31)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
+    }
+
+    public void setChatPrompt(ChatPrompt chatPrompt)
+    {
+        this.chatPrompt = chatPrompt;
+    }
+    public ChatPrompt getChatPrompt()
+    {
+        return this.chatPrompt;
     }
 }

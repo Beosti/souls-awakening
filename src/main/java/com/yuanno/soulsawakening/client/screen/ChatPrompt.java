@@ -6,11 +6,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ChatPrompt {
+public abstract class ChatPrompt {
 
     private IOnClose onClose = () -> {};
     private ArrayList<IChatPrompt> chatPrompts = new ArrayList<>();
-
+    protected ChatPromptScreen chatPromptScreen;
+    protected boolean addAcceptanceDecline = false;
+    public abstract void load();
     public IOnClose getOnClose()
     {
         return this.onClose;
@@ -57,24 +59,17 @@ public class ChatPrompt {
     {
         this.quests.remove(quest);
     }
-    /*
-    private IDialogue dialogue = ();
-    public interface IDialogue extends Serializable
-    {
-        boolean check(PlayerEntity player);
-    }
-    void dialogueSetup(int posX, int posY)
-    {
-        /*
-        if (quest1)
-            dialogue1
-        if (quest2)
-            dialogue2
-        if (quest3)
-            dialogue3
 
+    public void setChatPromptScreen(ChatPromptScreen chatPromptScreen)
+    {
+        this.chatPromptScreen = chatPromptScreen;
     }
-    */
+    public ChatPromptScreen getChatPromptScreen()
+    {
+        return this.chatPromptScreen;
+    }
+
+
     public interface IChatPrompt extends Serializable
     {
         void chat();

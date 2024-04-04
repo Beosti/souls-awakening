@@ -7,8 +7,7 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
-import com.yuanno.soulsawakening.entities.npc.KidoTeacherEntity;
-import com.yuanno.soulsawakening.entities.npc.ShinigamiTeacherEntity;
+import com.yuanno.soulsawakening.entities.npc.SoulNPCEntity;
 import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -42,7 +41,6 @@ public class ChatPromptScreen extends Screen {
     private Entity entity;
     TexturedIconButton acceptanceButton;
     TexturedIconButton declineButton;
-    ShinigamiTeacherPrompt shinigamiTeacherPrompt;
     public ChatPromptScreen(Entity entity)
     {
         super(new StringTextComponent(""));
@@ -51,7 +49,6 @@ public class ChatPromptScreen extends Screen {
         this.entityStats = EntityStatsCapability.get(player);
         this.questData = QuestDataCapability.get(player);
         this.entity = entity;
-        shinigamiTeacherPrompt = new ShinigamiTeacherPrompt(this);
     }
 
     @Override
@@ -87,11 +84,24 @@ public class ChatPromptScreen extends Screen {
             this.page = -1;
             init();
         });
-        if (entity instanceof ShinigamiTeacherEntity)
-            shinigamiTeacherInit(this.shinigamiTeacherPrompt);
-        if (this.entity instanceof KidoTeacherEntity)
-            kidoTeacherInit(posX, posY);
 
+        SoulNPCEntity soulNPCEntity = (SoulNPCEntity) entity;
+        ChatPrompt chatPrompt = soulNPCEntity.getChatPrompt();
+        chatPrompt.setChatPromptScreen(this);
+        chatPrompt.load();
+        for (int i = 0; i < chatPrompt.getQuests().size(); i++)
+        {
+            if (questData.getIsInRotation(chatPrompt.getQuests().get(i)))
+            {
+                chatPrompt.getChatPrompts().get(i).chat();
+                break;
+            }
+        }
+        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+        if (chatPrompt.addAcceptanceDecline) {
+            this.addButton(acceptanceButton);
+            this.addButton(declineButton);
+        }
     }
 
     public static void open(Entity entity)
@@ -102,10 +112,11 @@ public class ChatPromptScreen extends Screen {
     public void onClose()
     {
         super.onClose();
-        if (this.entity instanceof ShinigamiTeacherEntity)
-            this.shinigamiTeacherPrompt.getOnClose().onClose();
-        if (this.entity instanceof KidoTeacherEntity)
-            kidoTeacherOnClose();
+        SoulNPCEntity soulNPCEntity = (SoulNPCEntity) entity;
+        ChatPrompt chatPrompt = soulNPCEntity.getChatPrompt();
+        chatPrompt.setChatPromptScreen(this);
+        chatPrompt.load();
+        chatPrompt.getOnClose().onClose();
     }
     void kidoTeacherInit(int posX, int posY)
     {
@@ -248,55 +259,6 @@ public class ChatPromptScreen extends Screen {
         }
     }
 
-    void shinigamiTeacherInit(ShinigamiTeacherPrompt shinigamiTeacherPrompt)
-    {
-        for (int i = 0; i < shinigamiTeacherPrompt.getQuests().size(); i++)
-        {
-            if (questData.getIsInRotation(shinigamiTeacherPrompt.getQuests().get(i))) {
-                shinigamiTeacherPrompt.getChatPrompts().get(i).chat();
-                break;
-            }
-        }
-        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
-        if (shinigamiTeacherPrompt.addAcceptanceDecline) {
-            this.addButton(acceptanceButton);
-            this.addButton(declineButton);
-        }
-    }
-
-
-    void shinigamiTeacherOnClose()
-    {
-        if (this.text.equals("Good job on your first kill! You have forged a better bond with your sword, making it have a spirit also making you a real shinigami. Feel free to walk around and learn new stuff")) {
-            player.sendMessage(new TranslationTextComponent("You can now increase your stats in the player overview screen and learn from other teachers."), Util.NIL_UUID);
-            questData.getQuest(ModQuests.KILLHOLLOW).setInProgress(false);
-            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KILLHOLLOW));
-        }
-        if (this.text.equals("Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. You can press alt+right click with zanpakuto to go and back to the human world. Kill a hollow and I'll make you a shinigami.")) {
-            this.questData.addInProgressQuest(ModQuests.KILLHOLLOW);
-            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
-            PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KILLHOLLOW));
-            player.sendMessage(new TranslationTextComponent("This entity is now a teleport point, you can teleport back to it in your teleports menu. You need to be in the same dimension to teleport."), Util.NIL_UUID);
-        }
-        if (this.text.equals("Great work as a shinigami to help those pluses. You definitely do deserve to be ranked in the gotei 13 now.")) {
-            player.sendMessage(new TranslationTextComponent("You have received the rank of non-officer official part of the gotei 13."), Util.NIL_UUID);
-            questData.getQuest(ModQuests.RESCUE_PLUSES).setInProgress(false);
-            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.RESCUE_PLUSES));
-        }
-        if (this.text.equals("Great! You have to go to the overworld and rescue 5 pluses, they're lost spirits. Just right click them with your zanpakuto and they'll be saved!")) {
-            this.questData.addInProgressQuest(ModQuests.RESCUE_PLUSES);
-            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
-        }
-        if (this.text.equals("Amazing, you'll have to find the 'beast' hollow in the overworld. It's a hollow on 4 feet that walks around and is quite fast. It looks like a tiger. Kill it and come back for your reward!"))
-        {
-            this.questData.addInProgressQuest(ModQuests.KILL_SPECIFIC_HOLLOW);
-            PacketHandler.sendToServer(new CSyncQuestDataPacket(questData));
-        }
-        if (this.text.equals("There have some money, thanks for handling that hollow. I am sure it took you some time to hunt it down and track it's location.")) {
-            questData.getQuest(ModQuests.KILL_SPECIFIC_HOLLOW).setInProgress(false);
-            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KILL_SPECIFIC_HOLLOW));
-        }
-    }
 
     public String getText()
     {
