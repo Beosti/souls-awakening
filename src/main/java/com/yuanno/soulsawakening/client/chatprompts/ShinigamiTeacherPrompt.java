@@ -1,5 +1,6 @@
-package com.yuanno.soulsawakening.client.screen;
+package com.yuanno.soulsawakening.client.chatprompts;
 
+import com.yuanno.soulsawakening.client.chatprompts.api.ChatPrompt;
 import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;

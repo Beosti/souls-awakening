@@ -1,6 +1,6 @@
 package com.yuanno.soulsawakening.entities.npc;
 
-import com.yuanno.soulsawakening.client.screen.ChatPrompt;
+import com.yuanno.soulsawakening.client.chatprompts.api.ChatPrompt;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.networking.PacketHandler;

@@ -1,7 +1,7 @@
-package com.yuanno.soulsawakening.client.screen;
+package com.yuanno.soulsawakening.client.chatprompts.api;
 
+import com.yuanno.soulsawakening.client.screen.ChatPromptScreen;
 import com.yuanno.soulsawakening.quests.Quest;
-import net.minecraft.entity.player.PlayerEntity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -68,7 +68,10 @@ public abstract class ChatPrompt {
     {
         return this.chatPromptScreen;
     }
-
+    public boolean getAcceptOrDecline()
+    {
+        return this.addAcceptanceDecline;
+    }
 
     public interface IChatPrompt extends Serializable
     {
