@@ -56,9 +56,19 @@ public class AbilityUseEvent extends Event {
      */
     public static class Post extends AbilityUseEvent
     {
+        private LivingEntity target;
         public Post(PlayerEntity player, Ability ability)
         {
             super(player, ability);
+        }
+        public Post(PlayerEntity player, Ability ability, LivingEntity target)
+        {
+            super(player, ability);
+            this.target = target;
+        }
+        public LivingEntity getTarget()
+        {
+            return this.target;
         }
     }
     public PlayerEntity getPlayer()

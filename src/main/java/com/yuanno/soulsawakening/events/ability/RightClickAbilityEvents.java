@@ -126,7 +126,10 @@ public class RightClickAbilityEvents {
             MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
             AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
-            AbilityUseEvent.Post abilityUseEventPost = new AbilityUseEvent.Post(player, ability);
+            AbilityUseEvent.Post abilityUseEventPost;
+            // todo make the target also pass by this event
+            if (ability instanceof IEntityRayTrace)
+                abilityUseEventPost = new AbilityUseEvent.Post(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEventPost);
             return;
         }

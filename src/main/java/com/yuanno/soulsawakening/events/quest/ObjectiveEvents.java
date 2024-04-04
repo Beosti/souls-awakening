@@ -62,6 +62,11 @@ public class ObjectiveEvents {
                 UseAbilityObjective objective = (UseAbilityObjective) objectives.get(ia);
                 if (!event.getAbility().getName().equals(objective.getAbility().getName()))
                     continue;
+                if (objective.hasICheckAbility() && event.getTarget() != null)
+                {
+                    if (!objective.getCheckAbility().test(player, event.getTarget()))
+                        continue;
+                }
                 if (objective.getProgress() < objective.getMaxProgress())
                     objective.alterProgress(1);
             }
