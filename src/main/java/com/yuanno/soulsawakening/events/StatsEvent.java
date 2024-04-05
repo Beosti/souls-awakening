@@ -80,7 +80,7 @@ public class StatsEvent {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
-
+        IQuestData questData = QuestDataCapability.get(player);
         if (entityStats.getRace().equals(ModValues.HUMAN)) {
             entityStats.setRace(ModValues.SPIRIT);
             ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
@@ -105,7 +105,7 @@ public class StatsEvent {
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
-
+        PacketHandler.sendTo(new SSyncQuestDataPacket(player.getId(), questData), player);
     }
 
     public static void statsHandling(PlayerEntity player)
@@ -242,7 +242,6 @@ public class StatsEvent {
             IAbilityData abilityData = AbilityDataCapability.get(player);
             PacketHandler.sendToAllTrackingAndSelf(new SSyncEntityStatsPacket(player.getId(), stats), player);
             PacketHandler.sendToAllTrackingAndSelf(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-
         }
     }
 

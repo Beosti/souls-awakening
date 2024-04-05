@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.entities.hollow.*;
+import com.yuanno.soulsawakening.entities.npc.BakudoTeacherEntity;
 import com.yuanno.soulsawakening.entities.npc.KidoTeacherEntity;
 import com.yuanno.soulsawakening.entities.npc.TraderEntity;
 import com.yuanno.soulsawakening.entities.npc.ShinigamiTeacherEntity;
@@ -26,6 +27,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.TRADER.get(), TraderEntity.setCustomAttributes().build());
         event.put(ModEntities.SHINIGAMI_TEACHER.get(), ShinigamiTeacherEntity.setCustomAttributes().build());
         event.put(ModEntities.KIDO_TEACHER.get(), KidoTeacherEntity.setCustomAttributes().build());
+        event.put(ModEntities.BAKUDO_TEACHER.get(), BakudoTeacherEntity.setCustomAttributes().build());
         event.put(ModEntities.CHALLENGE_SHINIGAMI.get(), ChallengeShinigamiEntity.setCustomAttributes().build());
         event.put(ModEntities.SHIKAI.get(), InnerShikaiEntity.setCustomAttributes().build());
 

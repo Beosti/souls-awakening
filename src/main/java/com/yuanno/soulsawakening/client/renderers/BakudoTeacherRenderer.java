@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.client.renderers;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entities.npc.KidoTeacherEntity;
+import com.yuanno.soulsawakening.entities.npc.BakudoTeacherEntity;
 import com.yuanno.soulsawakening.models.HumanoidModel;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -14,24 +14,24 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unchecked")
-public class KidoTeacherRenderer extends MobRenderer<KidoTeacherEntity, HumanoidModel<KidoTeacherEntity>> {
+public class BakudoTeacherRenderer extends MobRenderer<BakudoTeacherEntity, HumanoidModel<BakudoTeacherEntity>> {
 
-    public KidoTeacherRenderer(EntityRendererManager renderManager)
+    public BakudoTeacherRenderer(EntityRendererManager renderManager)
     {
         super(renderManager, new HumanoidModel<>(), 0.1F);
         this.addLayer(new HeldItemLayer<>(this));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(KidoTeacherEntity KidoTeacherEntity) {
-        return new ResourceLocation(Main.MODID, "textures/entities/npc/kido_teacher.png");
+    public ResourceLocation getTextureLocation(BakudoTeacherEntity BakudoTeacherEntity) {
+        return new ResourceLocation(Main.MODID, "textures/entities/npc/bakudo_teacher.png");
     }
 
-    public static class Factory implements IRenderFactory<KidoTeacherEntity> {
+    public static class Factory implements IRenderFactory<BakudoTeacherEntity> {
 
         @Override
-        public EntityRenderer<? super KidoTeacherEntity> createRenderFor(EntityRendererManager manager) {
-            return new KidoTeacherRenderer(manager);
+        public EntityRenderer<? super BakudoTeacherEntity> createRenderFor(EntityRendererManager manager) {
+            return new BakudoTeacherRenderer(manager);
         }
     }
 }

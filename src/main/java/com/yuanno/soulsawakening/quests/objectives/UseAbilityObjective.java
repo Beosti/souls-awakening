@@ -13,9 +13,9 @@ import java.util.function.Supplier;
 public class UseAbilityObjective extends Objective {
 
     private Ability ability;
-    private ICheckAbility checkAbility = ((player, target) -> {
+    private ICheckAbility checkAbility = (player, target) -> {
         return false;
-    });
+    };
     public UseAbilityObjective(String title, String description, int amount, Ability ability)
     {
         this.title = title;
