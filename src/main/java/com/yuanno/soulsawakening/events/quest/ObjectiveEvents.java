@@ -7,11 +7,12 @@ import com.yuanno.soulsawakening.events.RescueEvent;
 import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import com.yuanno.soulsawakening.quests.Objective;
 import com.yuanno.soulsawakening.quests.Quest;
-import com.yuanno.soulsawakening.quests.UseAbilityObjective;
+import com.yuanno.soulsawakening.quests.objectives.UseAbilityObjective;
 import com.yuanno.soulsawakening.quests.objectives.KillObjective;
 import com.yuanno.soulsawakening.quests.objectives.RescueObjective;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -91,5 +92,17 @@ public class ObjectiveEvents {
                     rescueObjective.alterProgress(1);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onDefending(LivingHurtEvent event)
+    {
+        if (!(event.getEntityLiving() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        if (event.getSource().isProjectile())
+            return;
+        if (player.isBlocking())
+            System.out.println("BLOCKING");
     }
 }

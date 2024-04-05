@@ -1,6 +1,5 @@
 package com.yuanno.soulsawakening.client.chatprompts.api;
 
-import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -10,43 +9,43 @@ import com.yuanno.soulsawakening.networking.client.CSyncQuestDataPacket;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class KidoTeacherPrompt extends ChatPrompt {
+public class BakudoTeacherPrompt extends ChatPrompt {
 
     public void load()
     {
-        this.addQuest(ModQuests.KIDO_UNLOCK);
-        this.addChatPrompts(this::dialogue1KidoTeacher);
-        this.addQuest(ModQuests.BYAKURAI_QUEST);
-        this.addChatPrompts(this::dialogue2KidoTeacher);
-        this.addQuest(ModQuests.TSUZURI_QUEST);
-        this.addChatPrompts(this::dialogue3KidoTeacher);
+        this.addQuest(ModQuests.BAKUDO_UNLOCK);
+        this.addChatPrompts(this::dialogue1BakudoTeacher);
+        this.addQuest(ModQuests.HAINAWA_QUEST);
+        this.addChatPrompts(this::dialogue2BakudoTeacher);
+        this.addQuest(ModQuests.SEKI_QUEST);
+        this.addChatPrompts(this::dialogue3BakudoTeacher);
         this.setOnClose(this::kidoTeacherClose);
     }
 
-    void dialogue1KidoTeacher()
+    void dialogue1BakudoTeacher()
     {
         this.addAcceptanceDecline = false;
         String text = "";
-        text = "I'm the kido and hado teacher, you want to learn the path of 'demon arts'?";
-        if (!this.chatPromptScreen.getEntityStats().getRace().equals(ModValues.SHINIGAMI))
-            text = "I only teach this stuff to shinigamis!";
-        if (this.chatPromptScreen.getQuestData().hasInProgressQuest(ModQuests.KIDO_UNLOCK))
-            text = "The incantation is: 'Push back, repel the vile knave! Hadou number 1 Sho', do that a few times!";
-        if (this.chatPromptScreen.getQuestData().isQuestComplete(ModQuests.KIDO_UNLOCK))
-            text = "You've truly learned this kido! I'm the hado instructor, the 'destructive' type of kido. But I'm sure the other kido teachers are down to teach you their path!";
+        text = "I'm the bakudo teacher, so I teach the bakudo sub-class of kido. What's bakudo? These are kido spells that are mostly supplementary, barriers, seals etc. Are you interested to learn?";
+        if (!this.chatPromptScreen.getQuestData().hasFinishedQuest(ModQuests.KIDO_UNLOCK))
+            text = "You should first learn kido or the basics at least... Go to the kido teacher to learn some of that!";
+        if (this.chatPromptScreen.getQuestData().hasInProgressQuest(ModQuests.BAKUDO_UNLOCK))
+            text = "The incantation is: 'Ye thy stop moving Bakudo number 1 Sai', you have to look at an enemy to make it work. You have to do that 5 times, forgot to tell you but if you use a bakudo spell against someone with more reishi it'll fail!";
+        if (this.chatPromptScreen.getQuestData().isQuestComplete(ModQuests.BAKUDO_UNLOCK))
+            text = "Good job on learning the first bakudo! Don't forget that for bakudo spells if your target has more spiritual pressure or power than you (depending on the spell) the spell will fail. Come back for another spell.";
         if (this.chatPromptScreen.getPage() == -1)
-            text = "Some just like brawling into fights I guess";
+            text = "It's alright, not everyone is made for the support role.";
         if (this.chatPromptScreen.getPage() == 1)
-            text = "To learn your first kido type this in chat: 'Push back, repel the vile knave! Hadou number 1 Sho', it's an incantation that makes a kido-spell happen. Do that 10 times so you learn this spell";
+            text = "To learn your first bakudo spell say: 'Ye thy stop moving Bakudo number 1 Sai', the incantation for the sai spell. You have to say that while looking at an entity. Do 5 10 times so you learn this spell";
         this.chatPromptScreen.setText(text);
-        if (text.equals("I'm the kido and hado teacher, you want to learn the path of 'demon arts'?"))
+        if (text.equals("I'm the bakudo teacher, so I teach the bakudo sub-class of kido. What's bakudo? These are kido spells that are mostly supplementary, barriers, seals etc. Are you interested to learn?"))
             this.addAcceptanceDecline = true;
     }
-    void dialogue2KidoTeacher()
+    void dialogue2BakudoTeacher()
     {
         this.addAcceptanceDecline = false;
         String text = "";
-        text = "Now you unlocked kido, do you want to advance in the path of hado? It's the 'destructive' path, I have something else to teach you";
+        text = "Now the path of ";
         if (this.chatPromptScreen.getQuestData().hasInProgressQuest(ModQuests.BYAKURAI_QUEST))
             text = "Go use sho multiple times and use the byakurai incantation: 'Oh ye, pale lightning may you smitten thy enemy as thy Hadou number 4 Byakurai'!";
         if (this.chatPromptScreen.getQuestData().isQuestComplete(ModQuests.BYAKURAI_QUEST))
@@ -59,7 +58,7 @@ public class KidoTeacherPrompt extends ChatPrompt {
         if (text.equals("Now you unlocked kido, do you want to advance in the path of hado? It's the 'destructive' path, I have something else to teach you"))
             this.addAcceptanceDecline = true;
     }
-    void dialogue3KidoTeacher()
+    void dialogue3BakudoTeacher()
     {
         this.addAcceptanceDecline = false;
         String text = "";
@@ -77,16 +76,16 @@ public class KidoTeacherPrompt extends ChatPrompt {
     }
     void kidoTeacherClose()
     {
-        if (this.chatPromptScreen.getText().equals("You've truly learned this kido! I'm the hado instructor, the 'destructive' type of kido. But I'm sure the other kido teachers are down to teach you their path!")) {
-            this.chatPromptScreen.getPlayer().sendMessage(new TranslationTextComponent("You can now scroll to known kido-spells using control+mouse wheel and press 'g' to use the spell."), Util.NIL_UUID);
-            this.chatPromptScreen.getQuestData().getQuest(ModQuests.KIDO_UNLOCK).setInProgress(false);
-            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KIDO_UNLOCK));
+        if (this.chatPromptScreen.getText().equals("Good job on learning the first bakudo! Don't forget that for bakudo spells if your target has more spiritual pressure or power than you (depending on the spell) the spell will fail. Come back for another spell.")) {
+            this.chatPromptScreen.getPlayer().sendMessage(new TranslationTextComponent("You have learned the spell: Sai Bakudo #1."), Util.NIL_UUID);
+            this.chatPromptScreen.getQuestData().getQuest(ModQuests.BAKUDO_UNLOCK).setInProgress(false);
+            PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.BAKUDO_UNLOCK));
         }
-        if (this.chatPromptScreen.getText().equals("To learn your first kido type this in chat: 'Push back, repel the vile knave! Hadou number 1 Sho', it's an incantation that makes a kido-spell happen. Do that 10 times so you learn this spell")) {
-            this.chatPromptScreen.getPlayer().sendMessage(new TranslationTextComponent("You can now use the incantation for sho: 'Push back, repel the vile knave! Hadou number 1 Sho'."), Util.NIL_UUID);
-            this.chatPromptScreen.getQuestData().addInProgressQuest(ModQuests.KIDO_UNLOCK);
+        if (this.chatPromptScreen.getText().equals("The incantation is: 'Ye thy stop moving Bakudo number 1 Sai', you have to look at an enemy to make it work. You have to do that 5 times, forgot to tell you but if you use a bakudo spell against someone with more reishi it'll fail!")) {
+            this.chatPromptScreen.getPlayer().sendMessage(new TranslationTextComponent("You can now use the incantation for sai: 'Ye thy stop moving Bakudo number 1 Sai'."), Util.NIL_UUID);
+            this.chatPromptScreen.getQuestData().addInProgressQuest(ModQuests.BAKUDO_UNLOCK);
             PacketHandler.sendToServer(new CSyncQuestDataPacket(this.chatPromptScreen.getQuestData()));
-            PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.KIDO_UNLOCK));
+            PacketHandler.sendToServer(new CSyncGiveQuestStartPacket(ModQuests.BAKUDO_UNLOCK));
             this.chatPromptScreen.getPlayer().sendMessage(new TranslationTextComponent("This entity is now a teleport point, you can teleport back to it in your teleports menu. You need to be in the same dimension to teleport."), Util.NIL_UUID);
         }
         if (this.chatPromptScreen.getText().equals("Good job on learning this useful kido! I always got more to teach you.")) {

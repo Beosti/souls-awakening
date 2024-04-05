@@ -1,7 +1,6 @@
 package com.yuanno.soulsawakening.quests.bakudoteacher;
 
 import com.yuanno.soulsawakening.abilities.kido.bakudo.SaiAbility;
-import com.yuanno.soulsawakening.abilities.kido.hado.ShoAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.teleports.ITeleports;
@@ -12,7 +11,7 @@ import com.yuanno.soulsawakening.networking.server.SSyncTeleportPacket;
 import com.yuanno.soulsawakening.quests.Quest;
 import com.yuanno.soulsawakening.quests.QuestReward;
 import com.yuanno.soulsawakening.quests.QuestStart;
-import com.yuanno.soulsawakening.quests.UseAbilityObjective;
+import com.yuanno.soulsawakening.quests.objectives.UseAbilityObjective;
 import com.yuanno.soulsawakening.teleport.TeleportPosition;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;

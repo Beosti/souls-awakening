@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.quests.bakudoteacher.BakudoUnlockQuest;
 import com.yuanno.soulsawakening.quests.bakudoteacher.HainawaUnlockQuest;
+import com.yuanno.soulsawakening.quests.bakudoteacher.SekiUnlockQuest;
 import com.yuanno.soulsawakening.quests.kidoteacher.ByakuraiQuest;
 import com.yuanno.soulsawakening.quests.kidoteacher.KidoUnlockQuest;
 import com.yuanno.soulsawakening.quests.Quest;
@@ -32,7 +33,7 @@ public class ModQuests {
     public static final Quest TSUZURI_QUEST = new TsuzuriRaidenQuest();
     public static final Quest BAKUDO_UNLOCK = new BakudoUnlockQuest();
     public static final Quest HAINAWA_QUEST = new HainawaUnlockQuest();
-
+    public static final Quest SEKI_QUEST = new SekiUnlockQuest();
     private static void registerQuests(Quest[] quests)
     {
         Arrays.stream(quests).filter(Objects::nonNull).forEach(abl -> registerQuest(abl));
@@ -48,6 +49,7 @@ public class ModQuests {
         registerQuest(TSUZURI_QUEST);
         registerQuest(BAKUDO_UNLOCK);
         registerQuest(HAINAWA_QUEST);
+        registerQuest(SEKI_QUEST);
     }
 
     public static <T extends Quest> Quest registerQuest(Quest quest)

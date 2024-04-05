@@ -1,6 +1,7 @@
-package com.yuanno.soulsawakening.quests;
+package com.yuanno.soulsawakening.quests.objectives;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.quests.Objective;
 import com.yuanno.soulsawakening.quests.objectives.KillObjective;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -9,7 +10,7 @@ import net.minecraft.util.DamageSource;
 
 import java.util.function.Supplier;
 
-public class UseAbilityObjective extends Objective{
+public class UseAbilityObjective extends Objective {
 
     private Ability ability;
     private ICheckAbility checkAbility = ((player, target) -> {
