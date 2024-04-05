@@ -48,6 +48,15 @@ public interface IEntityRayTrace {
             return false;
         return ((EntityRayTraceResult) rayTraceResult).getEntity() instanceof LivingEntity;
     }
+    default LivingEntity getLivingEntity(PlayerEntity player)
+    {
+        RayTraceResult rayTraceResult = Beapi.rayTraceBlocksAndEntities(player, getDistance());
+        if (!(rayTraceResult instanceof EntityRayTraceResult))
+            return null;
+        if (!(((EntityRayTraceResult) rayTraceResult).getEntity() instanceof LivingEntity))
+            return null;
+        return (LivingEntity) ((EntityRayTraceResult) rayTraceResult).getEntity();
+    }
     default int getDistance()
     {
         return 0;

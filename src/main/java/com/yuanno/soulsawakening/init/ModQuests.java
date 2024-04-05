@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.quests.bakudoteacher.BakudoUnlockQuest;
+import com.yuanno.soulsawakening.quests.bakudoteacher.HainawaUnlockQuest;
 import com.yuanno.soulsawakening.quests.kidoteacher.ByakuraiQuest;
 import com.yuanno.soulsawakening.quests.kidoteacher.KidoUnlockQuest;
 import com.yuanno.soulsawakening.quests.Quest;
@@ -30,6 +31,7 @@ public class ModQuests {
     public static final Quest BYAKURAI_QUEST = new ByakuraiQuest();
     public static final Quest TSUZURI_QUEST = new TsuzuriRaidenQuest();
     public static final Quest BAKUDO_UNLOCK = new BakudoUnlockQuest();
+    public static final Quest HAINAWA_QUEST = new HainawaUnlockQuest();
 
     private static void registerQuests(Quest[] quests)
     {
@@ -45,6 +47,7 @@ public class ModQuests {
         registerQuest(BYAKURAI_QUEST);
         registerQuest(TSUZURI_QUEST);
         registerQuest(BAKUDO_UNLOCK);
+        registerQuest(HAINAWA_QUEST);
     }
 
     public static <T extends Quest> Quest registerQuest(Quest quest)
