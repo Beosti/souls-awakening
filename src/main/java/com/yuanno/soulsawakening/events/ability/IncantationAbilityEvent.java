@@ -41,7 +41,11 @@ public class IncantationAbilityEvent {
             };
             AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEvent);
-            AbilityUseEvent.Post abilityUsedEvent = new AbilityUseEvent.Post(player, ability);
+            AbilityUseEvent.Post abilityUsedEvent;
+            if (ability instanceof IEntityRayTrace)
+                abilityUsedEvent = new AbilityUseEvent.Post(player, ability, ((IEntityRayTrace) ability).getLivingEntity(player));
+            else
+                abilityUsedEvent = new AbilityUseEvent.Post(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUsedEvent);
             return;
         }

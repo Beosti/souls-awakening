@@ -101,7 +101,6 @@ public class ModAbilities {
         if(!ABILITIES.getEntries().contains(ret))
         {
             ABILITIES.register(resourceName, () -> ability);
-            //ability.setIcon(key);
         }
 
         return ability;

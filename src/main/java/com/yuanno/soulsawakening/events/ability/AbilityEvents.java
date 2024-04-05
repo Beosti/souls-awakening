@@ -90,6 +90,8 @@ public class AbilityEvents {
     {
         Ability ability = event.getAbility();
         PlayerEntity player = event.getPlayer();
+        if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
+            return;
         IAbilityData abilityData = AbilityDataCapability.get(player);
         ability.setState(Ability.STATE.COOLDOWN);
         ability.setCooldown(ability.getMaxCooldown() / 20);

@@ -97,6 +97,7 @@ public abstract class Quest extends ForgeRegistryEntry<Quest> {
     public CompoundNBT save()
     {
         CompoundNBT nbt = new CompoundNBT();
+        nbt.putString("id", this.getRegistryName().toString());
         nbt.putString("title", this.title);
         nbt.putString("description", this.description);
         nbt.putString("rank", this.rank);
@@ -113,13 +114,11 @@ public abstract class Quest extends ForgeRegistryEntry<Quest> {
 
     public void load(CompoundNBT nbt)
     {
-        /*
+
         this.title = nbt.getString("title");
         this.description = nbt.getString("description");
         this.rank = nbt.getString("rank");
         this.inProgress = nbt.getBoolean("inProgress");
-
-         */
         ListNBT objectivesData = nbt.getList("objectives", Constants.NBT.TAG_COMPOUND);
         for (int i = 0; i < objectivesData.size(); i++)
         {

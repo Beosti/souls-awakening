@@ -14,7 +14,7 @@ public class UseAbilityObjective extends Objective {
 
     private Ability ability;
     private ICheckAbility checkAbility = (player, target) -> {
-        return false;
+        return true;
     };
     public UseAbilityObjective(String title, String description, int amount, Ability ability)
     {

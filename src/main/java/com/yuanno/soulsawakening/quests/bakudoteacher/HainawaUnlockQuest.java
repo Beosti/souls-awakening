@@ -32,7 +32,6 @@ public class HainawaUnlockQuest extends Quest {
         if (!(target instanceof MobEntity))
             return false;
         MobEntity targetMod = (MobEntity) target;
-        System.out.println("CHECK");
         return targetMod.isLeashed();
     }));
 
