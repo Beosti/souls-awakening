@@ -14,12 +14,9 @@ public class KidoTeacherPrompt extends ChatPrompt {
 
     public void load()
     {
-        this.addQuest(ModQuests.KIDO_UNLOCK);
-        this.addChatPrompts(this::dialogue1KidoTeacher);
-        this.addQuest(ModQuests.BYAKURAI_QUEST);
-        this.addChatPrompts(this::dialogue2KidoTeacher);
-        this.addQuest(ModQuests.TSUZURI_QUEST);
-        this.addChatPrompts(this::dialogue3KidoTeacher);
+        this.addQuestWithChat(ModQuests.KIDO_UNLOCK, this::dialogue1KidoTeacher);
+        this.addQuestWithChat(ModQuests.BYAKURAI_QUEST, this::dialogue2KidoTeacher);
+        this.addQuestWithChat(ModQuests.TSUZURI_QUEST, this::dialogue3KidoTeacher);
         this.setOnClose(this::kidoTeacherClose);
     }
 

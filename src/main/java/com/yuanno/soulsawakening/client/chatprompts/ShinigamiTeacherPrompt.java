@@ -15,12 +15,9 @@ public class ShinigamiTeacherPrompt extends ChatPrompt {
 
     public void load()
     {
-        this.addQuest(ModQuests.KILLHOLLOW);
-        this.addChatPrompts(this::dialogue1ShinigamiTeacher);
-        this.addQuest(ModQuests.RESCUE_PLUSES);
-        this.addChatPrompts(this::dialogue2ShinigamiTeacher);
-        this.addQuest(ModQuests.KILL_SPECIFIC_HOLLOW);
-        this.addChatPrompts(this::dialogue3ShinigamiTeacher);
+        this.addQuestWithChat(ModQuests.KILLHOLLOW, this::dialogue1ShinigamiTeacher);
+        this.addQuestWithChat(ModQuests.RESCUE_PLUSES, this::dialogue2ShinigamiTeacher);
+        this.addQuestWithChat(ModQuests.KILL_SPECIFIC_HOLLOW, this::dialogue3ShinigamiTeacher);
         this.setOnClose(this::shinigamiTeacherOnClose);
     }
     void dialogue1ShinigamiTeacher()

@@ -18,12 +18,9 @@ public class BakudoTeacherPrompt extends ChatPrompt {
     private String congratulation3 = "That's a great defensive bakudo spell, don't forget it only works with physical hits and has quite a large cooldown!";
     public void load()
     {
-        this.addQuest(ModQuests.BAKUDO_UNLOCK);
-        this.addChatPrompts(this::dialogue1BakudoTeacher);
-        this.addQuest(ModQuests.HAINAWA_QUEST);
-        this.addChatPrompts(this::dialogue2BakudoTeacher);
-        this.addQuest(ModQuests.SEKI_QUEST);
-        this.addChatPrompts(this::dialogue3BakudoTeacher);
+        this.addQuestWithChat(ModQuests.BAKUDO_UNLOCK, this::dialogue1BakudoTeacher);
+        this.addQuestWithChat(ModQuests.HAINAWA_QUEST, this::dialogue2BakudoTeacher);
+        this.addQuestWithChat(ModQuests.SEKI_QUEST, this::dialogue3BakudoTeacher);
         this.setOnClose(this::bakudoTeacherOnClose);
     }
 

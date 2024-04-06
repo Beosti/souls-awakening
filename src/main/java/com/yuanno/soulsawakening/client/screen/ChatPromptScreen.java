@@ -13,6 +13,7 @@ import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
+import com.yuanno.soulsawakening.quests.Quest;
 import com.yuanno.soulsawakening.screens.TexturedIconButton;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -24,6 +25,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class ChatPromptScreen extends Screen {
@@ -90,11 +93,12 @@ public class ChatPromptScreen extends Screen {
         ChatPrompt chatPrompt = soulNPCEntity.getChatPrompt();
         chatPrompt.setChatPromptScreen(this);
         chatPrompt.load();
-        for (int i = 0; i < chatPrompt.getQuests().size(); i++)
-        {
-            if (questData.getIsInRotation(chatPrompt.getQuests().get(i)))
-            {
-                chatPrompt.getChatPrompts().get(i).chat();
+        for (Map.Entry<Quest, ChatPrompt.IChatPrompt> entry : chatPrompt.getChatPromptHashMap().entrySet()) {
+            Quest quest = entry.getKey();
+            ChatPrompt.IChatPrompt IChatPrompt = entry.getValue();
+            if (questData.getIsInRotation(quest)) {
+                System.out.println(quest);
+                IChatPrompt.chat();
                 break;
             }
         }
