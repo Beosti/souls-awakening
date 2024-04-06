@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.quests.Quest;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public abstract class ChatPrompt {
 
@@ -12,7 +13,17 @@ public abstract class ChatPrompt {
     private ArrayList<IChatPrompt> chatPrompts = new ArrayList<>();
     protected ChatPromptScreen chatPromptScreen;
     protected boolean addAcceptanceDecline = false;
+    private HashMap<Quest, IChatPrompt> chatPromptHashMap = new HashMap<>();
     public abstract void load();
+
+    private void addQuestWithChat(Quest quest, IChatPrompt chatPrompt)
+    {
+        chatPromptHashMap.put(quest, chatPrompt);
+    }
+    private HashMap<Quest, IChatPrompt> getChatPromptHashMap()
+    {
+        return this.chatPromptHashMap;
+    }
     public IOnClose getOnClose()
     {
         return this.onClose;

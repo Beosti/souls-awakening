@@ -1,7 +1,6 @@
 package com.yuanno.soulsawakening.client.chatprompts.api;
 
 import com.yuanno.soulsawakening.init.ModQuests;
-import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CSyncGiveQuestRewardPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncGiveQuestStartPacket;
@@ -25,7 +24,7 @@ public class BakudoTeacherPrompt extends ChatPrompt {
         this.addChatPrompts(this::dialogue2BakudoTeacher);
         this.addQuest(ModQuests.SEKI_QUEST);
         this.addChatPrompts(this::dialogue3BakudoTeacher);
-        this.setOnClose(this::kidoTeacherClose);
+        this.setOnClose(this::bakudoTeacherOnClose);
     }
 
     void dialogue1BakudoTeacher()
@@ -77,10 +76,11 @@ public class BakudoTeacherPrompt extends ChatPrompt {
             text = "Protecting yourself ain't always good enough I suppose";
         if (this.chatPromptScreen.getPage() == 1)
             text = acceptance3;
+        this.chatPromptScreen.setText(text);
         if (text.equals("The next spell I'd like to teach you is purely defensive this time. Are you interested in learning it?"))
             this.addAcceptanceDecline = true;
     }
-    void kidoTeacherClose()
+    void bakudoTeacherOnClose()
     {
         if (this.chatPromptScreen.getText().equals(congratulation1)) {
             this.chatPromptScreen.getPlayer().sendMessage(new TranslationTextComponent("You have learned the spell: Sai Bakudo #1."), Util.NIL_UUID);
@@ -102,12 +102,12 @@ public class BakudoTeacherPrompt extends ChatPrompt {
             this.chatPromptScreen.getQuestData().addInProgressQuest(ModQuests.HAINAWA_QUEST);
             PacketHandler.sendToServer(new CSyncQuestDataPacket(this.chatPromptScreen.getQuestData()));
         }
-        if (this.chatPromptScreen.getText().equals(congratulation3))
+        if (this.chatPromptScreen.getText().equals(acceptance3))
         {
             this.chatPromptScreen.getQuestData().addInProgressQuest(ModQuests.SEKI_QUEST);
             PacketHandler.sendToServer(new CSyncQuestDataPacket(this.chatPromptScreen.getQuestData()));
         }
-        if (this.chatPromptScreen.getText().equals(acceptance3)) {
+        if (this.chatPromptScreen.getText().equals(congratulation3)) {
             this.chatPromptScreen.getQuestData().getQuest(ModQuests.SEKI_QUEST).setInProgress(false);
             PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.SEKI_QUEST));
         }

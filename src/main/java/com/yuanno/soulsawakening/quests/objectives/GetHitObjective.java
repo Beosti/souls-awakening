@@ -9,7 +9,7 @@ public class GetHitObjective extends Objective {
 
     private IGetHit getHit = (player, damageSource) -> {
 
-        return false;
+        return true;
     };
 
     public GetHitObjective(String title, String description, int amount, IGetHit getHit)
@@ -22,7 +22,7 @@ public class GetHitObjective extends Objective {
     }
 
 
-    public IGetHit getKill()
+    public IGetHit getHit()
     {
         return this.getHit;
     }

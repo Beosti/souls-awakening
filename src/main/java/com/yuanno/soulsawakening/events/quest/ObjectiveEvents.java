@@ -7,6 +7,7 @@ import com.yuanno.soulsawakening.events.RescueEvent;
 import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import com.yuanno.soulsawakening.quests.Objective;
 import com.yuanno.soulsawakening.quests.Quest;
+import com.yuanno.soulsawakening.quests.objectives.GetHitObjective;
 import com.yuanno.soulsawakening.quests.objectives.UseAbilityObjective;
 import com.yuanno.soulsawakening.quests.objectives.KillObjective;
 import com.yuanno.soulsawakening.quests.objectives.RescueObjective;
@@ -88,7 +89,7 @@ public class ObjectiveEvents {
                 if (!(objectives.get(ia) instanceof RescueObjective))
                     continue;
                 RescueObjective rescueObjective = (RescueObjective) objectives.get(ia);
-                if (rescueObjective.getRescue().test(player, event.getRescued()))
+                if (rescueObjective.getRescue().test(player, event.getRescued()) && rescueObjective.getProgress() < rescueObjective.getMaxProgress())
                     rescueObjective.alterProgress(1);
             }
         }
@@ -100,9 +101,20 @@ public class ObjectiveEvents {
         if (!(event.getEntityLiving() instanceof PlayerEntity))
             return;
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-        if (event.getSource().isProjectile())
-            return;
-        if (player.isBlocking())
-            System.out.println("BLOCKING");
+        IQuestData questData = QuestDataCapability.get(player);
+        for (int i = 0; i < questData.getQuests().size(); i++)
+        {
+            if (!questData.getQuests().get(i).getIsInProgress())
+                continue;
+            List<Objective> objectives = questData.getQuests().get(i).getObjectives();
+            for (int ia = 0; ia < objectives.size(); ia++)
+            {
+                if (!(objectives.get(ia) instanceof GetHitObjective))
+                    continue;
+                GetHitObjective getHitObjective = (GetHitObjective) objectives.get(ia);
+                if (getHitObjective.getHit().test(player, event.getSource()) && getHitObjective.getProgress() < getHitObjective.getMaxProgress())
+                    getHitObjective.alterProgress(1);
+            }
+        }
     }
 }
