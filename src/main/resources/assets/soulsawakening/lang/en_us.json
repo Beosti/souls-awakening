@@ -88,11 +88,13 @@
   "ability.message.no_target": "No target found",
   "ability.message.reiatsu_target": "The target has too much reiatsu presssure to be affected!",
 
-  "gui.reiatsu.button": "Makes reiatsu-based abilities and kido stronger, also makes you more resistant against those.",
+  "gui.reiatsu.button": "Makes reiatsu-based abilities, also makes you more resistant against those.",
   "gui.hoho.button": "Increases your attack speed, speed and improves hoho-based abilities.",
   "gui.haku.button": "Increases your damage with bare fists and improves hakuda-based abilities.",
   "gui.zanju.button": "Increased damage with any sword and improves zanjutsu-based abilities.",
-
+  "gui.constitution.button": "Increases max health and health regeneration",
+  "gui.hierro.button": "Increases resistance against all incoming damage",
+  "gui.agility.button": "Increases attack speed and agility-based abilities",
   "gui.evolution.button": "Evolve",
 
   "gui.evolution.tooltip": "Consume all your hollow points to evolve, resetting the extra damage on certain abilities",
