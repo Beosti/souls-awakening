@@ -9,6 +9,7 @@ import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CRightClickEmptyPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.InputMappings;
@@ -43,6 +44,12 @@ import java.util.ArrayList;
  */
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class RightClickAbilityEvents {
+    @SubscribeEvent
+    public static void onRightClickEmpty(PlayerInteractEvent.RightClickEmpty event)
+    {
+        PacketHandler.sendToServer(new CRightClickEmptyPacket());
+    }
+
     @SubscribeEvent
     public static void onRightClickInteraction(PlayerInteractEvent.EntityInteract event)
     {

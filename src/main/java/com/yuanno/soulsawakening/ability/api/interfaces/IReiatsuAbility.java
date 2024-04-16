@@ -29,4 +29,13 @@ public interface IReiatsuAbility {
         return 0;
     }
 
+    default int reducedCooldown(PlayerEntity player)
+    {
+        return 0;
+    }
+    default int reducedCooldown()
+    {
+        return 0;
+    }
+
 }

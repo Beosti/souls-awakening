@@ -94,7 +94,10 @@ public class AbilityEvents {
             return;
         IAbilityData abilityData = AbilityDataCapability.get(player);
         ability.setState(Ability.STATE.COOLDOWN);
-        ability.setCooldown(ability.getMaxCooldown() / 20);
+        if (ability instanceof IReiatsuAbility)
+            ability.setCooldown((ability.getMaxCooldown() - ((IReiatsuAbility) ability).reducedCooldown(player))/ 20);
+        else
+            ability.setCooldown(ability.getMaxCooldown()/20);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
     }
 }

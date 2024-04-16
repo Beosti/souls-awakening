@@ -53,8 +53,10 @@ public class RaceCommand {
         entityStats.setRace(race);
         if (race.equals(ModValues.SHINIGAMI) && !entityStats.hasShinigamiStats())
             entityStats.setShinigamiStats(new ShinigamiStats());
-        if (race.equals(ModValues.HOLLOW) && !entityStats.hasHollowStats())
+        if (race.equals(ModValues.HOLLOW) && !entityStats.hasHollowStats()) {
             entityStats.setHollowStats(new HollowStats());
+            entityStats.setRank(ModValues.BASE);
+        }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
 
         commandSource.sendSuccess(new TranslationTextComponent("set race of " + player.getDisplayName().getString() + " to " + race), true);

@@ -62,23 +62,6 @@ public class HollowEvents {
 
     static void handleHierro(PlayerEntity player, IEntityStats entityStats)
     {
-        // currentHier
-        // updatedHierro = hierroStat * 0.5
-        // updatedHierro = currentDamageReduction - updatedHierro
-        /*
-        double updatedHierro = entityStats.getHollowStats().getHierro() * 0.005;
-        double addedHierro = updatedHierro - player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get()).getValue();
-        if (addedHierro >= 0)
-        {
-            UUID hierroUUID = hierroUUIDAttribute;
-
-            player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get()).removeModifier(hierroUUID);
-            AttributeModifier attributeModifier = new AttributeModifier(hierroUUID, "hierroStatIncrease", addedHierro, AttributeModifier.Operation.ADDITION);
-            pl
-            ayer.getAttribute(ModAttributes.DAMAGE_REDUCTION.get()).addPermanentModifier(attributeModifier);
-        }
-         */
-
         ModifiableAttributeInstance damageReductionAttribute = player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get());
         damageReductionAttribute.setBaseValue(entityStats.getHollowStats().getHierro() * 0.05);
     }
@@ -86,7 +69,6 @@ public class HollowEvents {
     // handles the constitution stat
     static void handleConstitution(PlayerEntity player, IEntityStats entityStats)
     {
-        int constitution = entityStats.getHollowStats().getConstitution();
         ModifiableAttributeInstance maxHpAttribute = player.getAttribute(Attributes.MAX_HEALTH);
         maxHpAttribute.setBaseValue(20 + (float) (entityStats.getHollowStats().getConstitution()));
         ((ServerPlayerEntity) player).connection.send(new SUpdateHealthPacket(player.getHealth(), player.getFoodData().getFoodLevel(), player.getFoodData().getSaturationLevel()));
@@ -149,16 +131,18 @@ public class HollowEvents {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
+
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         AttributeModifier attributeModifierGillian = new AttributeModifier(UUID.fromString("4658d71c-a663-11ee-a506-0242ac120002"), "Gillian attack bonus", 5, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierAdjucha = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Adjucha Speed Bonus", 0.10, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttackSpeed = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Vasto Lorde Attack Speed Bonus", 1, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttack = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Vasto Lorde Attack Bonus", 5, AttributeModifier.Operation.ADDITION);
-
+        System.out.println(entityStats.getRank());
         switch (entityStats.getRank())
         {
             case (ModValues.BASE):
+                System.out.println("CALLED");
                 PARTICLES_WAVE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
                 entityStats.setRank(ModValues.GILLIAN);
                 abilityData.addUnlockedAbility(CeroAbility.INSTANCE);

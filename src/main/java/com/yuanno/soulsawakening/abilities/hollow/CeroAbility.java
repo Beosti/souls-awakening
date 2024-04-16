@@ -1,14 +1,16 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entities.projectiles.hollow.CeroProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.water.TidalWaveProjectile;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class CeroAbility extends Ability implements IRightClickAbility, IShootAbility {
+public class CeroAbility extends Ability implements IRightClickAbility, IShootAbility, IReiatsuAbility {
     public static final CeroAbility INSTANCE = new CeroAbility();
 
     public CeroAbility()
@@ -24,6 +26,10 @@ public class CeroAbility extends Ability implements IRightClickAbility, IShootAb
         return new CeroProjectile(player.level, player);
     }
 
+    @Override
+    public int reducedCooldown(PlayerEntity player) {
+        return (int) EntityStatsCapability.get(player).getReiatsuPoints();
+    }
 
     @Override
     public boolean getShift()

@@ -197,6 +197,8 @@ public class PlayerOverviewScreen extends Screen {
         // evolution button
         this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift - 180, posY + 160, 95, 16, new TranslationTextComponent("gui.evolution.button"), b -> {
             PacketHandler.sendToServer(new CHollowEvolutionPacket());
+            entityStats.getHollowStats().setHollowPoints(0);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
             this.onClose();
         }, (button, matrixStack, mouseX, mouseY) -> {
             if (button.isHovered() && button.active) {
