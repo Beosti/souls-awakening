@@ -36,7 +36,7 @@ public class BiteAbility extends Ability implements IEntityRayTrace, IRightClick
         if (entity instanceof PlusEntity)
             return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        double biteDamage = (6 + entityStats.getHollowPoints()/5);
+        double biteDamage = (6 + (double) entityStats.getHollowStats().getHollowPoints() /5);
         entity.hurt(AbilityDamageSource.causeAbilityDamage(player, this), (float) biteDamage);
         PARTICLES.spawn(entity.level, entity.getX(), entity.getY(), entity.getZ(), 0, 0, 0);
     }

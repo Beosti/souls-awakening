@@ -2,30 +2,24 @@ package com.yuanno.soulsawakening.entity;
 
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entities.hollow.IBleach;
 import com.yuanno.soulsawakening.events.RescueEvent;
-import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
-import com.yuanno.soulsawakening.events.stats.HollowGainEvent;
 import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -33,7 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import java.util.Random;
 
-public class PlusEntity extends CreatureEntity {
+public class PlusEntity extends CreatureEntity implements IBleach {
 
     public String[] options = {"cool", "magma", "receptionist", "vex"};
     public String constantSkin;
@@ -80,8 +74,7 @@ public class PlusEntity extends CreatureEntity {
             player.sendMessage(new StringTextComponent(killerString), Util.NIL_UUID);
             Random randomSpecial = new Random();
             int extraHollowPoints = randomSpecial.nextInt(10);
-            HollowGainEvent hollowGainEvent = new HollowGainEvent(player, extraHollowPoints);
-            MinecraftForge.EVENT_BUS.post(hollowGainEvent);
+            entityStats.getHollowStats().alterHollowPoints(extraHollowPoints);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                 this.kill();
         }
@@ -131,5 +124,15 @@ public class PlusEntity extends CreatureEntity {
 
         // Return the selected string
         return strings[randomIndex];
+    }
+
+    @Override
+    public String getRace() {
+        return ModValues.SPIRIT;
+    }
+
+    @Override
+    public String getRank() {
+        return "";
     }
 }

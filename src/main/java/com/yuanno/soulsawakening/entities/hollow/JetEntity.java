@@ -23,15 +23,18 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 
+import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
 
-public class JetEntity extends FlyingEntity implements IMob {
+public class JetEntity extends FlyingEntity implements IMob, IBleach {
     String element;
     private Vector3d moveTargetPoint = Vector3d.ZERO;
     private BlockPos anchorPoint = BlockPos.ZERO;
@@ -381,4 +384,22 @@ public class JetEntity extends FlyingEntity implements IMob {
         zanpakutoItem.setTag(tagCompound);
     }
 
+    @Override
+    @Nullable
+    public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataTag)
+    {
+        spawnData = super.finalizeSpawn(world, difficulty, reason, spawnData, dataTag);
+        EntityStatsCapability.get(this).setRace(ModValues.HOLLOW);
+        return spawnData;
+
+    }
+    @Override
+    public String getRank() {
+        return ModValues.BASE;
+    }
+    @Override
+    public String getRace()
+    {
+        return ModValues.HOLLOW;
+    }
 }

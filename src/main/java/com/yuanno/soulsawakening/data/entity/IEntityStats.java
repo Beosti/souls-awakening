@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.data.entity;
 
-import java.util.List;
+import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
+import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 
 public interface IEntityStats {
 
@@ -12,39 +13,17 @@ public interface IEntityStats {
     String getRank();
     boolean hasRank();
 
-    void setHollowPoints(double hollowPoints);
-    void alterHollowPoints(double hollowPoints);
-    double getHollowPoints();
+    void setShinigamiStats(ShinigamiStats shinigamiStats);
+    boolean hasShinigamiStats();
+    ShinigamiStats getShinigamiStats();
 
-    void setClassLevel(int classLevel);
-    void alterClassLevel(int alterLevel);
-    int getClassLevel();
+    void setHollowStats(HollowStats hollowStats);
 
-    void setClassPoints(int classPoints);
-    void alterClassPoints(int alterPoints);
-    int getClassPoints();
+    boolean hasHollowStats();
 
-    void setClassExperience(int classExperience);
-    void alterClassExperience(int classExperience);
-    int getClassExperience();
-
-    void setZanjutsuPoints(double zanjutsuPoints);
-    void alterZanjutsuPoints(double zanjutsuPoints);
-    double getZanjutsuPoints();
-
-    void setHakudaPoints(double hakudaPoints);
-    void alterHakudaPoints(double hakudaPoints);
-    double getHakudaPoints();
-
-    void setHohoPoints(double hohoPoints);
-    void alterHohoPoints(double hohoPoints);
-    double getHohoPoints();
+    HollowStats getHollowStats();
 
     void setReiatsuPoints(double reiatsuPoints);
     void alterReiatsuPoints(double reiatsuPoints);
     double getReiatsuPoints();
-    void addAvailableStats(double stats);
-    void removeAvailableStats(double stats);
-    boolean hasAvailableStats(double stat);
-    List<Double> getAvailableStats();
 }

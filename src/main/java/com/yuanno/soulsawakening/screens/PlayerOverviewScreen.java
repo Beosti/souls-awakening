@@ -13,6 +13,7 @@ import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,82 +31,36 @@ import java.util.Arrays;
 @OnlyIn(Dist.CLIENT)
 public class PlayerOverviewScreen extends Screen {
     private final PlayerEntity player;
+    private IEntityStats entityStats;
     private final IMiscData miscData;
+    private Minecraft mc;
     protected PlayerOverviewScreen() {
         super(new StringTextComponent(""));
+        this.mc = Minecraft.getInstance();
         this.player = Minecraft.getInstance().player;
+        this.entityStats = EntityStatsCapability.get(player);
         this.miscData = MiscDataCapability.get(this.player);
         miscData.setCanRenderOverlay(false);
         PacketHandler.sendToServer(new CSyncMiscDataPacket(miscData));
 
     }
 
-
     @Override
     public void init()
     {
         Minecraft mc = Minecraft.getInstance();
-        PlayerEntity playerEntity = mc.player;
+        this.entityStats = EntityStatsCapability.get(player);
         this.buttons.clear();
+        this.children.clear();
+
         int posX = ((this.width - 256) / 2);
         int posY = (this.height - 256) / 2;
-        IEntityStats entityStats = EntityStatsCapability.get(playerEntity);
-        IAbilityData abilityData = AbilityDataCapability.get(playerEntity);
-        int classPoints = entityStats.getClassPoints();
         int leftShift = posX - 75;
 
-        int statsAmount = 0;
-        if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI))
-            statsAmount = 4;
-        else if (entityStats.getRace().equals(ModValues.HOLLOW))
-            statsAmount = 0;
-
-        if (entityStats.getRace().equals(ModValues.HOLLOW)) {
-            this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 57, 80, 16, new TranslationTextComponent("Evolution"), b -> {
-                if (entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE))) {
-                    PacketHandler.sendToServer(new CHollowEvolutionPacket());
-                    this.onClose();
-                }
-            }, (button, matrixStack, mouseX, mouseY) -> {
-                if (button.isHovered() && button.active) {
-                    this.renderTooltip(matrixStack, new TranslationTextComponent("You can consume all your hollow points, evolving to the next stage"), mouseX, mouseY);
-                }
-                else if (button.isHovered() && entityStats.getRank().equals(ModValues.VASTO_LORDE))
-                {
-                    this.renderTooltip(matrixStack, new TranslationTextComponent("WIP"), mouseX, mouseY);
-                }
-                else if (button.isHovered())
-                {
-                    this.renderTooltip(matrixStack, new TranslationTextComponent("You need 50 hollow points to evolve"), mouseX, mouseY);
-                }
-            })).active = entityStats.getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE));
-        }
-
-        for (int i = 0; i < statsAmount; i++)
-        {
-            int finalI = i;
-            this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 120, posY + 60 + (i * 15), 10, 10, new TranslationTextComponent("+"), b ->
-            {
-                if (entityStats.getClassPoints() > 0)
-                {
-                    entityStats.alterClassPoints(-1);
-                    handleStats(finalI, entityStats);
-                    //PacketHandler.sendToServer(new CSyncentityStatsStatsPacket(entityStats));
-                }
-
-                init();
-            }, (button, matrixStack, mouseX, mouseY) ->
-            {
-                if (button.isHovered() && finalI == 3)
-                    this.renderTooltip(matrixStack, new TranslationTextComponent("Increases reiatsu, kid-type abilities deal more damage"), mouseX, mouseY);
-                if (button.isHovered() && finalI == 2)
-                    this.renderTooltip(matrixStack, new TranslationTextComponent("Increases speed and attack speed"), mouseX, mouseY);
-                if (button.isHovered() && finalI == 1)
-                    this.renderTooltip(matrixStack, new TranslationTextComponent("Increases damage with your empty hand and more health"), mouseX, mouseY);
-                if (button.isHovered() && finalI == 0)
-                    this.renderTooltip(matrixStack, new TranslationTextComponent("Increases damage with a sword"), mouseX, mouseY);
-            })).active = classPoints > 0;
-        }
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI))
+            handleShinigamiInit();
+        if (entityStats.getRace().equals(ModValues.HOLLOW))
+            handleHollowInit();
         this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 252, posY + 117, 60, 20, new TranslationTextComponent("Challenges"), b ->
         {
             PacketHandler.sendToServer(new COpenChallengeScreenPacket());
@@ -124,128 +79,160 @@ public class PlayerOverviewScreen extends Screen {
         this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 61 + 252, posY + 140, 60, 20, new TranslationTextComponent("Teleports"), b -> {
             PacketHandler.sendToServer(new COpenTeleportScreenPacket());
             this.onClose();
-        })).active = !TeleportCapability.get(playerEntity).getTeleportPositions().isEmpty();
+        })).active = !TeleportCapability.get(this.player).getTeleportPositions().isEmpty();
     }
 
-    private void handleStats(int integer, IEntityStats entityStats)
+    void handleShinigamiInit()
     {
+        int posX = ((this.width - 256) / 2);
+        int posY = (this.height - 256) / 2;
+        int leftShift = posX + 120;
 
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER))
+        // reiatsu point
+        this.addButton(new Button(leftShift - 75, posY + 104, 8, 8, new TranslationTextComponent("+"), b ->
         {
-            if (integer == 3) {
-                PacketHandler.sendToServer(new CSyncentityStatsReiatsuPacket(entityStats));
-
-            }
-            if (integer == 2) {
-                PacketHandler.sendToServer(new CSyncentityStatsHohoPacket(entityStats));
-
-            }
-            else if (integer == 1) {
-                PacketHandler.sendToServer(new CSyncentityStatsHakudaPacket(entityStats));
-
-            }
-            else if (integer == 0) {
-                PacketHandler.sendToServer(new CSyncentityStatsZanjutsuPacket(entityStats));
-            }
-        }
-        else if (entityStats.getRace().equals(ModValues.HOLLOW))
+            entityStats.getShinigamiStats().alterClassPoints(-1);
+            entityStats.alterReiatsuPoints(1);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            this.init();
+        }, ((button, matrixStack, mouseX, mouseY) ->
         {
-            if (integer == 0) {
-                entityStats.alterHollowPoints(1);
-                PacketHandler.sendToServer(new CSyncentityStatsHollowPacket(entityStats));
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.reiatsu.button"), mouseX, mouseY);
+        }))).active = this.entityStats.getShinigamiStats().getClassPoints() > 0;
+        // hoho point
+        this.addButton(new Button(leftShift - 75, posY + 89, 8, 8, new TranslationTextComponent("+"), b ->
+        {
+            entityStats.getShinigamiStats().alterClassPoints(-1);
+            entityStats.getShinigamiStats().alterHohoPoints(1);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            this.init();
+        }, ((button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.hoho.button"), mouseX, mouseY);
+        }))).active = this.entityStats.getShinigamiStats().getClassPoints() > 0;
+        // hakuda point
+        this.addButton(new Button(leftShift - 75, posY + 74, 8, 8, new TranslationTextComponent("+"), b ->
+        {
+            entityStats.getShinigamiStats().alterClassPoints(-1);
+            entityStats.getShinigamiStats().alterHakudaPoints(1);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            this.init();
+        }, ((button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.haku.button"), mouseX, mouseY);
+        }))).active = this.entityStats.getShinigamiStats().getClassPoints() > 0;
+        // zanjutsu point
+        this.addButton(new Button(leftShift - 75, posY + 59, 8, 8, new TranslationTextComponent("+"), b ->
+        {
+            entityStats.getShinigamiStats().alterClassPoints(-1);
+            entityStats.getShinigamiStats().alterZanjutsuPoints(1);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            this.init();
+        }, ((button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.zanju.button"), mouseX, mouseY);
+        }))).active = this.entityStats.getShinigamiStats().getClassPoints() > 0;
+    }
+
+    void handleHollowInit()
+    {
+        int posX = ((this.width - 256) / 2);
+        int posY = (this.height - 256) / 2;
+        int leftShift = posX - 75;
+
+        // evolution button
+        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift, posY + 160, 95, 16, new TranslationTextComponent("gui.evolution.button"), b -> {
+            PacketHandler.sendToServer(new CHollowEvolutionPacket());
+            this.onClose();
+        }, (button, matrixStack, mouseX, mouseY) -> {
+            if (button.isHovered() && button.active) {
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution.tooltip"), mouseX, mouseY);
             }
-        }
+            else if (button.isHovered() && entityStats.getRank().equals(ModValues.VASTO_LORDE))
+            {
+                this.renderTooltip(matrixStack, new TranslationTextComponent("WIP"), mouseX, mouseY);
+            }
+            else if (button.isHovered())
+            {
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution.active"), mouseX, mouseY);
+            }
+        })).active = entityStats.getHollowStats().getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE));
+
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int x, int y, float f)
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float f)
     {
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
-
-
-        this.renderBackground(matrixStack);
-        statsRendering(matrixStack);
-        baseStatsRendering(matrixStack);
-        if (EntityStatsCapability.get(player).getRace().equals(ModValues.SHINIGAMI))
-            miscShinigamiDataRendering(matrixStack);
-        super.render(matrixStack, x, y, f);
-    }
-
-    public void statsRendering(MatrixStack matrixStack)
-    {
-        PlayerEntity playerEntity = this.getMinecraft().player;
-        IEntityStats entityStats = EntityStatsCapability.get(playerEntity);
-        String name = playerEntity.getName().getString();
+        String name = this.player.getName().getString();
         String race = entityStats.getRace();
-        int classPoints = entityStats.getClassPoints();
-        int zanjutsuPoints = (int) Math.floor(entityStats.getZanjutsuPoints());
-        int hakuPoints = (int) Math.floor(entityStats.getHakudaPoints());
-        int hohoPoints = (int) Math.floor(entityStats.getHohoPoints());
-        int reiatsuPoints = (int) Math.floor(entityStats.getReiatsuPoints());
-
-        int posX = (this.width - 256) / 2;
-        int posY = (this.height - 256) / 2;
-
         int leftShift = posX - 75;
+        this.renderBackground(matrixStack);
+
+        // Every race needs to have this rendered anyway
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Name: " + TextFormatting.RESET + name, leftShift, posY + 20, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + race, leftShift, posY + 40, -1);
-        if (race.equals(ModValues.HOLLOW))
-        {
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Hollow points: " + TextFormatting.RESET + entityStats.getHollowPoints(), leftShift, posY + 60, -1);
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Rank: " + TextFormatting.RESET + entityStats.getRank(), leftShift, posY + 75, -1);
-            //drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 105, -1);
-        }
-        else if (race.equals(ModValues.FULLBRINGER) || race.equals(ModValues.SHINIGAMI))
-        {
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Zanju points: " + TextFormatting.RESET + zanjutsuPoints, leftShift, posY + 60, -1);
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Haku points: " + TextFormatting.RESET + hakuPoints, leftShift, posY + 75, -1);
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Hoho points: " + TextFormatting.RESET + hohoPoints, leftShift, posY + 90, -1);
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 120, -1);
-        }
+
+        if (this.entityStats.getRace().equals(ModValues.SHINIGAMI))
+            shinigamiRendering(matrixStack, posX, posY);
+        if (this.entityStats.getRace().equals(ModValues.HOLLOW))
+            hollowRendering(matrixStack, posX, posY, mouseX, mouseY);
+        super.render(matrixStack, mouseX, mouseY, f);
     }
 
-    public void baseStatsRendering(MatrixStack matrixStack)
+    public void shinigamiRendering(MatrixStack matrixStack, int posX, int posY)
     {
-        PlayerEntity playerEntity = this.getMinecraft().player;
-        IEntityStats entityStats = EntityStatsCapability.get(playerEntity);
-        ModifiableAttributeInstance attributes = playerEntity.getAttribute(Attributes.MOVEMENT_SPEED);
-        double baseDamage = 1 + entityStats.getHakudaPoints();
-        double hollowBaseDamage = playerEntity.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        double speed = playerEntity.getAttributeValue(Attributes.MOVEMENT_SPEED);
-        double attackSpeed = playerEntity.getAttributeValue(Attributes.ATTACK_SPEED);
-        String formattedSpeed = String.format("%.2f", speed);
-        String formattedAttackSpeed = String.format("%.2f", attackSpeed);
+        int leftShift = posX - 75;
 
-        int posX = (this.width - 256) / 2;
-        int posY = (this.height - 256) / 2;
-        int leftShift = posX + 180;
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Max health: " + TextFormatting.RESET + (int) playerEntity.getMaxHealth(), leftShift, posY + 20, -1);
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI) || entityStats.getRace().equals(ModValues.FULLBRINGER))
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + (int) baseDamage, leftShift, posY + 40, -1);
-        else if (entityStats.getRace().equals(ModValues.HOLLOW) && entityStats.getRank().equals(ModValues.GILLIAN))
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + (int) 6, leftShift, posY + 40, -1);
-        else if (entityStats.getRank().equals(ModValues.HOLLOW) && entityStats.getRank().equals(ModValues.VASTO_LORDE))
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + (int) 11, leftShift, posY + 40, -1);
-        else
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + 1, leftShift, posY + 40, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Extra sword damage: " + TextFormatting.RESET + (int) entityStats.getZanjutsuPoints(), leftShift, posY + 60, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Attack speed: " + TextFormatting.RESET + formattedAttackSpeed, leftShift, posY + 80, -1);
+        int classPoints = entityStats.getShinigamiStats().getClassPoints();
+        int zanjutsuPoints = (int) Math.floor(entityStats.getShinigamiStats().getZanjutsuPoints());
+        int hakuPoints = (int) Math.floor(entityStats.getShinigamiStats().getHakudaPoints());
+        int hohoPoints = (int) Math.floor(entityStats.getShinigamiStats().getHohoPoints());
+        int reiatsuPoints = (int) Math.floor(entityStats.getReiatsuPoints());
 
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Speed: " + TextFormatting.RESET + formattedSpeed, leftShift, posY + 100, -1);
 
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Zanjutsu points: " + TextFormatting.RESET + zanjutsuPoints, leftShift, posY + 60, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Hakuda points: " + TextFormatting.RESET + hakuPoints, leftShift, posY + 75, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Hoho points: " + TextFormatting.RESET + hohoPoints, leftShift, posY + 90, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 120, -1);
+        leftShift = posX + 180;
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan(), leftShift, posY + 170, -1);
     }
 
-    public void miscShinigamiDataRendering(MatrixStack matrixStack)
+    public void hollowRendering(MatrixStack matrixStack, int posX, int posY, int mouseX, int mouseY)
     {
-        int amountKan = miscData.getKan();
-        int posX = (this.width - 256) / 2;
-        int posY = (this.height - 256) / 2;
-        int leftShift = posX + 180;
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan, leftShift, posY + 170, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Rank: " + TextFormatting.RESET + miscData.getRank(), leftShift, posY + 180, -1);
+        int leftShift = posX - 75;
+
+        int hollowPoints = this.entityStats.getHollowStats().getHollowPoints();
+        int mutationPoints = this.entityStats.getHollowStats().getMutationPoints();
+
+        int constitution = this.entityStats.getHollowStats().getConstitution();
+        int hierro = this.entityStats.getHollowStats().getHierro();
+        int agility = this.entityStats.getHollowStats().getAgility();
+        int reiatsuPoints = (int) Math.floor(this.entityStats.getReiatsuPoints());
+
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Contitution points: " + TextFormatting.RESET + constitution, leftShift, posY + 60, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Hierro points: " + TextFormatting.RESET + hierro, leftShift, posY + 75, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Agility points: " + TextFormatting.RESET + agility, leftShift, posY + 90, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
+
+        String mutationPointsString = TextFormatting.BOLD + "Mutation points: " + TextFormatting.RESET + mutationPoints;
+        drawString(matrixStack, this.font, mutationPointsString, leftShift, posY + 125, -1);
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(mutationPointsString) && mouseY >= posY + 125 && mouseY <= posY + 125 + this.mc.font.lineHeight)
+            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.mutation_point.tooltip"), mouseX, mouseY);
+        String HollowPointsString = TextFormatting.BOLD + "Hollow points: " + TextFormatting.RESET + hollowPoints;
+        drawString(matrixStack, this.font, HollowPointsString, leftShift, posY + 140, -1);
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(HollowPointsString) && mouseY >= posY + 140 && mouseY <= posY + 140 + this.mc.font.lineHeight)
+            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution_point.tooltip"), mouseX, mouseY);
     }
+
+
     @Override
     public boolean isPauseScreen()
     {

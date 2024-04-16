@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.entity;
 import com.google.common.base.Predicates;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entities.hollow.IBleach;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackShinigamiGoal;
 import com.yuanno.soulsawakening.entities.hollow.HollowEntity;
 import com.yuanno.soulsawakening.entities.hollow.JetEntity;
@@ -29,7 +30,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class ShinigamiEntity extends CreatureEntity {
+public class ShinigamiEntity extends CreatureEntity implements IBleach {
 
     public String[] options = {"shinigami_pink", "shinigami_normal", "shinigami_yellow"};
     public String constantSkin = "";
@@ -47,6 +48,17 @@ public class ShinigamiEntity extends CreatureEntity {
         this.constantSkin = options[randomIndex];
         return this.constantSkin;
     }
+
+    @Override
+    public String getRace() {
+        return ModValues.SHINIGAMI;
+    }
+
+    @Override
+    public String getRank() {
+        return ModValues.NON_OFFICER;
+    }
+
     @Override
     protected void registerGoals()
     {

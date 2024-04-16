@@ -5,6 +5,8 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
+import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -49,6 +51,10 @@ public class RaceCommand {
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         entityStats.setRace(race);
+        if (race.equals(ModValues.SHINIGAMI) && !entityStats.hasShinigamiStats())
+            entityStats.setShinigamiStats(new ShinigamiStats());
+        if (race.equals(ModValues.HOLLOW) && !entityStats.hasHollowStats())
+            entityStats.setHollowStats(new HollowStats());
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
 
         commandSource.sendSuccess(new TranslationTextComponent("set race of " + player.getDisplayName().getString() + " to " + race), true);

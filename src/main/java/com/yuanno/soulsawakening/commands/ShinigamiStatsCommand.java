@@ -85,55 +85,51 @@ public class ShinigamiStatsCommand {
             switch (stats)
             {
                 case ("zanjutsu"):
-                    ZanjutsuGainEvent zanjutsuGainEvent = new ZanjutsuGainEvent(player, amount, true);
-                    MinecraftForge.EVENT_BUS.post(zanjutsuGainEvent);
+                    entityStats.getShinigamiStats().alterZanjutsuPoints(amount);
                     break;
                 case ("hoho"):
-                    HohoGainEvent hohoGainEvent = new HohoGainEvent(player, amount);
-                    MinecraftForge.EVENT_BUS.post(hohoGainEvent);
+                    entityStats.getShinigamiStats().alterHohoPoints(amount);
                     break;
                 case ("hakuda"):
-                    HakudaGainEvent hakudaGainEvent = new HakudaGainEvent(player, amount, true);
-                    MinecraftForge.EVENT_BUS.post(hakudaGainEvent);
+                    entityStats.getShinigamiStats().alterHakudaPoints(amount);
                     break;
                 case ("reiatsu"):
-                    ReiatsuGainEvent reiatsuGainEvent = new ReiatsuGainEvent(player, amount, true);
-                    MinecraftForge.EVENT_BUS.post(reiatsuGainEvent);
+                    entityStats.alterReiatsuPoints(amount);
                 case ("hollow"):
-                    HollowGainEvent hollowGainEvent = new HollowGainEvent(player, amount, true);
-                    MinecraftForge.EVENT_BUS.post(hollowGainEvent);
+                    entityStats.getHollowStats().alterHollowPoints(amount);
                     break;
                 case ("class"):
-                    entityStats.alterClassPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+                    entityStats.getShinigamiStats().alterClassPoints(amount);
                     break;
             }
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+
         }
         else if (change.equals("set"))
         {
             switch (stats)
             {
                 case ("zanjutsu"):
-                    entityStats.setZanjutsuPoints(amount);
+                    entityStats.getShinigamiStats().setZanjutsuPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
                 case ("hoho"):
-                    entityStats.setHohoPoints(amount);
+                    entityStats.getShinigamiStats().setHohoPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
                 case ("hakuda"):
-                    entityStats.setHakudaPoints(amount);
+                    entityStats.getShinigamiStats().setHakudaPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
                 case ("reiatsu"):
                     entityStats.setReiatsuPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                 case ("hollow"):
-                    entityStats.setHollowPoints(amount);
+                    entityStats.getHollowStats().setHollowPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
                 case ("class"):
-                    entityStats.setClassPoints(amount);
+                    entityStats.getShinigamiStats().setClassPoints(amount);
                     PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
             }
@@ -142,15 +138,6 @@ public class ShinigamiStatsCommand {
             commandSource.sendSuccess(new TranslationTextComponent("set " + stats + " of " + player.getDisplayName().getString() + " to " + amount), true);
         if (change.equals("add"))
             commandSource.sendSuccess(new TranslationTextComponent("added " + amount + " " + stats + " points" + " to " + player.getDisplayName().getString()), true);
-
-        /*
-        IEntityStats entityStats = EntityStatsCapability.get(player);
-        entityStats.setRace(race);
-        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-
-        commandSource.sendSuccess(new TranslationTextComponent("set race of " + player.getDisplayName().getString() + " to " + race), true);
-
-         */
         return 1;
     }
 }

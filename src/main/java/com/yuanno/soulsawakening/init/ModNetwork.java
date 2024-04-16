@@ -14,16 +14,11 @@ public class ModNetwork {
         PacketHandler.registerPacket(CSyncMiscDataPacket.class, CSyncMiscDataPacket::encode, CSyncMiscDataPacket::decode, CSyncMiscDataPacket::handle);
         PacketHandler.registerPacket(CSyncAbilityDataPacket.class, CSyncAbilityDataPacket::encode, CSyncAbilityDataPacket::decode, CSyncAbilityDataPacket::handle);
         PacketHandler.registerPacket(CRightClickEmptyPacket.class, CRightClickEmptyPacket::encode, CRightClickEmptyPacket::decode, CRightClickEmptyPacket::handle);
-        PacketHandler.registerPacket(CSyncentityStatsZanjutsuPacket.class, CSyncentityStatsZanjutsuPacket::encode, CSyncentityStatsZanjutsuPacket::decode, CSyncentityStatsZanjutsuPacket::handle);
-        PacketHandler.registerPacket(CSyncentityStatsHakudaPacket.class, CSyncentityStatsHakudaPacket::encode, CSyncentityStatsHakudaPacket::decode, CSyncentityStatsHakudaPacket::handle);
-        PacketHandler.registerPacket(CSyncentityStatsHohoPacket.class, CSyncentityStatsHohoPacket::encode, CSyncentityStatsHohoPacket::decode, CSyncentityStatsHohoPacket::handle);
-        PacketHandler.registerPacket(CSyncentityStatsHollowPacket.class, CSyncentityStatsHollowPacket::encode, CSyncentityStatsHollowPacket::decode, CSyncentityStatsHollowPacket::handle);
         PacketHandler.registerPacket(CHollowEvolutionPacket.class, CHollowEvolutionPacket::encode, CHollowEvolutionPacket::decode, CHollowEvolutionPacket::handle);
         PacketHandler.registerPacket(CStartChallengePacket.class, CStartChallengePacket::encode, CStartChallengePacket::decode, CStartChallengePacket::handle);
         PacketHandler.registerPacket(COpenChallengeScreenPacket.class, COpenChallengeScreenPacket::encode, COpenChallengeScreenPacket::decode, COpenChallengeScreenPacket::handle);
         PacketHandler.registerPacket(CGiveItemStackPacket.class, CGiveItemStackPacket::encode, CGiveItemStackPacket::decode, CGiveItemStackPacket::handle);
         PacketHandler.registerPacket(COpenTradingScreenPacket.class, COpenTradingScreenPacket::encode, COpenTradingScreenPacket::decode, COpenTradingScreenPacket::handle);
-        PacketHandler.registerPacket(CSyncentityStatsReiatsuPacket.class, CSyncentityStatsReiatsuPacket::encode, CSyncentityStatsReiatsuPacket::decode, CSyncentityStatsReiatsuPacket::handle);
         PacketHandler.registerPacket(COpenAbilityListScreenPacket.class, COpenAbilityListScreenPacket::encode, COpenAbilityListScreenPacket::decode, COpenAbilityListScreenPacket::handle);
         PacketHandler.registerPacket(CUseSpellPacket.class, CUseSpellPacket::encode, CUseSpellPacket::decode, CUseSpellPacket::handle);
         PacketHandler.registerPacket(CSyncQuestDataPacket.class, CSyncQuestDataPacket::encode, CSyncQuestDataPacket::decode, CSyncQuestDataPacket::handle);

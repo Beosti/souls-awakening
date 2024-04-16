@@ -29,7 +29,7 @@ public class SlashAbility extends Ability implements IAttackAbility {
     public void activate(PlayerEntity player, LivingEntity livingEntityTarget)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        double slashDamage = 2 + entityStats.getHollowPoints()/10;
+        double slashDamage = 2 + (double) entityStats.getHollowStats().getHollowPoints() /10;
         livingEntityTarget.hurt(SLASH_DAMAGE, Math.round(slashDamage));
         double d0 = (double)(-MathHelper.sin(livingEntityTarget.yRot * ((float)Math.PI / 180F)));
         double d1 = (double)MathHelper.cos(livingEntityTarget.yRot * ((float)Math.PI / 180F));

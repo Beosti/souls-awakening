@@ -126,7 +126,7 @@ public class ZanpakutoEvent {
             return;
         }
 
-        if (entityStats.getZanjutsuPoints() < 20) {
+        if (entityStats.getShinigamiStats().getZanjutsuPoints() < 20) {
             event.getPlayer().sendMessage(new StringTextComponent("Need to have at least 20 Zanjutsu points!"), Util.NIL_UUID);
             return;
         }

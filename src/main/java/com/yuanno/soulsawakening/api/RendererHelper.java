@@ -210,7 +210,6 @@ public class RendererHelper {
             }
             for(ResourceLocation icon : staticIcons) {
                 spacing += 12;
-                System.out.println(tooltipY);
                 RendererHelper.drawIcon(icon, event.getMatrixStack(), tooltipX - 18 + (spacing - 12), (tooltipY + tooltipHeight) - 14, 500, 16, 16, 1.0f, 1.0f, 1.0f, 1.0f);
             }
 

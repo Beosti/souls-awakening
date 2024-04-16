@@ -119,46 +119,6 @@ public class ZanpakutoItem extends SwordItem {
         }
     }
 
-    /*
-    @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand)
-    {
-        ItemStack itemStack = player.getItemInHand(hand);
-        IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (!itemStack.hasTag())
-            itemStack.setTag(new CompoundNBT());
-
-        String currentOwner = itemStack.getOrCreateTag().getString("owner");
-        itemStack.getOrCreateTag().putBoolean("soulbound", true);
-
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI)
-                || entityStats.getRace().equals(ModValues.FULLBRINGER)
-                || entityStats.getRace().equals(ModValues.HOLLOW))
-            return ActionResult.fail(itemStack);
-        if (currentOwner.isEmpty() && !player.level.isClientSide) {
-            IAbilityData abilityData = AbilityDataCapability.get(player);
-            itemStack.getTag().putString("owner", player.getDisplayName().getString());
-            itemStack.getTag().putString("zanpakutoType", ModValues.TYPE.getRandomType().name());
-            //itemStack.getTag().putString("zanpakutoState", ModValues.STATE.SEALED.name());
-            if (entityStats.getHohoPoints() <= 0)
-                entityStats.setHohoPoints(0);
-            if (entityStats.getHakudaPoints() <= 0)
-                entityStats.setHakudaPoints(0);
-            if (entityStats.getZanjutsuPoints() <= 0)
-                entityStats.setZanjutsuPoints(0);
-            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-            PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-            return ActionResult.success(itemStack);
-        }
-        else if (!currentOwner.equals(player.getDisplayName().getString()))
-            return ActionResult.fail(itemStack);
-
-        return ActionResult.success(itemStack);
-
-    }
-
-     */
-
     public void setOwner(PlayerEntity player, ItemStack itemStack)
     {
         if (!itemStack.hasTag())

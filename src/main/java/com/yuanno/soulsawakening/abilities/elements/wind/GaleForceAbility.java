@@ -47,7 +47,7 @@ public class GaleForceAbility extends Ability implements IRightClickAbility, IDu
             targets.forEach(entity ->
             {
                 if(user.canSee(entity))
-                    entity.hurt(AbilityDamageSource.causeAbilityDamage(user, this), 8 + (float) entityStats.getZanjutsuPoints()/2);
+                    entity.hurt(AbilityDamageSource.causeAbilityDamage(user, this), 8 + (float) entityStats.getShinigamiStats().getZanjutsuPoints()/2);
             });
         }    }
 

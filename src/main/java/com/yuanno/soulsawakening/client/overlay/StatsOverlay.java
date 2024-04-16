@@ -39,7 +39,7 @@ public class StatsOverlay extends AbstractGui {
         if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT)
         {
             //drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "RACE: " + TextFormatting.RESET + race, 330, 20, -1);
-            if ((race.equals(ModValues.SHINIGAMI) || race.equals(ModValues.FULLBRINGER)) && (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) || entityStats.getZanjutsuPoints() < 10))
+            if ((race.equals(ModValues.SHINIGAMI) || race.equals(ModValues.FULLBRINGER)) && (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) || entityStats.getShinigamiStats().getZanjutsuPoints() < 10))
                 return;
             int rgb = Color.RED.getRGB();
 

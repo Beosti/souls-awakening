@@ -1,21 +1,15 @@
 package com.yuanno.soulsawakening.data.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
+import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 
 public class EntityStatsBase implements IEntityStats {
 
     private String race = "";
     private String rank = "";
-    private double hollowPoints;
-    private int classLevel;
-    private int classPoints;
-    private int classExperience;
-    private double zanjutsuPoints;
-    private double hakudaPoints;
-    private double hohoPoints;
     private double reiatsuPoints;
-    public List<Double> availableStats = new ArrayList<>();
+    private ShinigamiStats shinigamiStats;
+    private HollowStats hollowStats;
 
     @Override
     public void setRace(String race)
@@ -54,120 +48,33 @@ public class EntityStatsBase implements IEntityStats {
     }
 
     @Override
-    public void setHollowPoints(double hollowPoints)
-    {
-        this.hollowPoints = hollowPoints;
+    public void setShinigamiStats(ShinigamiStats shinigamiStats) {
+        this.shinigamiStats = shinigamiStats;
     }
 
     @Override
-    public void alterHollowPoints(double hollowPoints)
-    {
-        this.hollowPoints += hollowPoints;
+    public boolean hasShinigamiStats() {
+        return shinigamiStats != null;
     }
 
     @Override
-    public double getHollowPoints()
-    {
-        return this.hollowPoints;
+    public ShinigamiStats getShinigamiStats() {
+        return this.shinigamiStats;
     }
 
     @Override
-    public void setClassLevel(int classLevel)
-    {
-        this.classLevel = classLevel;
+    public void setHollowStats(HollowStats hollowStats) {
+        this.hollowStats = hollowStats;
     }
 
     @Override
-    public void alterClassLevel(int alterLevel)
-    {
-        this.classLevel += alterLevel;
+    public boolean hasHollowStats() {
+        return hollowStats != null;
     }
 
     @Override
-    public int getClassLevel()
-    {
-        return this.classLevel;
-    }
-
-    @Override
-    public void setClassPoints(int classPoints)
-    {
-        this.classPoints = classPoints;
-    }
-
-    @Override
-    public void alterClassPoints(int alteredPoints)
-    {
-        this.classPoints += alteredPoints;
-    }
-
-    @Override
-    public int getClassPoints()
-    {
-        return this.classPoints;
-    }
-
-    @Override
-    public void setClassExperience(int classExperience)
-    {
-        this.classExperience = classExperience;
-    }
-
-    @Override
-    public void alterClassExperience(int alterExperience)
-    {
-        this.classExperience += alterExperience;
-    }
-
-    @Override
-    public int getClassExperience()
-    {
-        return this.classExperience;
-    }
-
-    @Override
-    public void setZanjutsuPoints(double zanjutsuPoints) {
-        this.zanjutsuPoints = zanjutsuPoints;
-    }
-
-    @Override
-    public void alterZanjutsuPoints(double zanjutsuPoints) {
-        this.zanjutsuPoints += zanjutsuPoints;
-    }
-
-    @Override
-    public double getZanjutsuPoints() {
-        return this.zanjutsuPoints;
-    }
-
-    @Override
-    public void setHakudaPoints(double hakudaPoints) {
-        this.hakudaPoints = hakudaPoints;
-    }
-
-    @Override
-    public void alterHakudaPoints(double hakudaPoints) {
-        this.hakudaPoints += hakudaPoints;
-    }
-
-    @Override
-    public double getHakudaPoints() {
-        return this.hakudaPoints;
-    }
-
-    @Override
-    public void setHohoPoints(double hohoPoints) {
-        this.hohoPoints = hohoPoints;
-    }
-
-    @Override
-    public void alterHohoPoints(double hohoPoints) {
-        this.hohoPoints += hohoPoints;
-    }
-
-    @Override
-    public double getHohoPoints() {
-        return this.hohoPoints;
+    public HollowStats getHollowStats() {
+        return this.hollowStats;
     }
 
     @Override
@@ -186,32 +93,5 @@ public class EntityStatsBase implements IEntityStats {
     public double getReiatsuPoints()
     {
         return this.reiatsuPoints;
-    }
-
-
-    @Override
-    public void addAvailableStats(double stats)
-    {
-        this.availableStats.add(stats);
-    }
-
-
-
-    @Override
-    public void removeAvailableStats(double stats)
-    {
-        this.availableStats.remove(stats);
-    }
-
-    @Override
-    public boolean hasAvailableStats(double stat)
-    {
-        return this.availableStats.contains(stat);
-    }
-
-    @Override
-    public List<Double> getAvailableStats()
-    {
-        return this.availableStats;
     }
 }

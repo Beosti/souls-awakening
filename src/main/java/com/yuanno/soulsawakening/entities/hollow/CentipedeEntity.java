@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.entities.hollow;
 
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
@@ -20,7 +21,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class CentipedeEntity extends HollowEntity {
+public class CentipedeEntity extends HollowEntity implements IBleach {
 
     public CentipedeEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
@@ -92,9 +93,17 @@ public class CentipedeEntity extends HollowEntity {
     public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataTag)
     {
         spawnData = super.finalizeSpawn(world, difficulty, reason, spawnData, dataTag);
+        EntityStatsCapability.get(this).setRace(ModValues.HOLLOW);
         return spawnData;
 
     }
-
-
+    @Override
+    public String getRank() {
+        return ModValues.BASE;
+    }
+    @Override
+    public String getRace()
+    {
+        return ModValues.HOLLOW;
+    }
 }

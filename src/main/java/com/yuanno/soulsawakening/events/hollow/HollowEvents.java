@@ -7,6 +7,7 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entities.hollow.IBleach;
 import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -15,27 +16,63 @@ import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
-public class HollowSpecificEvents {
-    public static final UUID GILLIAN_ATTACK_BONUS_ID = UUID.fromString("e19608b6-8b16-11ee-b9d1-0242ac120002");
-    public static final UUID ADJUCHA_SPEED_BONUS_ID = UUID.fromString("e19608b6-8b16-11ee-b9d1-0242ac120002");
-    public static final UUID VASTO_LORDE_ATTACK_SPEED_BONUS_ID = UUID.fromString("e19608b6-8b16-11ee-b9d1-0242ac120002");
-    public static final UUID VASTO_LORDE_ATTACK_BONUS_ID = UUID.fromString("e19608b6-8b16-11ee-b9d1-0242ac120002");
+public class HollowEvents {
 
     public static final ParticleEffect PARTICLES_WAVE = new WaveParticleEffect(1.4);
     public static final ParticleEffect PARTICLES_WAVE_ADJUCHA = new WaveParticleEffect(1.6);
     public static final ParticleEffect PARTICLES_WAVE_VASTO = new WaveParticleEffect(1.8);
 
-
+    @SubscribeEvent
+    public static void onHollowKillEvent(LivingDeathEvent event)
+    {
+        if (event.getEntityLiving() != null && event.getSource().getDirectEntity() != null && event.getSource().getDirectEntity() instanceof LivingEntity)
+        {
+            LivingEntity attacker = (LivingEntity) event.getSource().getDirectEntity();
+            LivingEntity livingEntity = event.getEntityLiving();
+            if (!(livingEntity instanceof IBleach))
+                return;
+            if (((IBleach) livingEntity).getRace().equals(ModValues.HOLLOW))
+                handleHollowDeath(livingEntity, attacker);
+            if (((IBleach) livingEntity).getRace().equals(ModValues.SHINIGAMI))
+                handleShinigamiDeath(livingEntity, attacker);
+            if (((IBleach) livingEntity).getRank().equals(ModValues.SPIRIT))
+                handleSpiritDeath(livingEntity, attacker);
+        }
+    }
+    static void handleHollowDeath(LivingEntity livingEntity, LivingEntity attacker)
+    {
+        String rank = ((IBleach) livingEntity).getRank();
+        if (rank.equals(ModValues.BASE))
+            EntityStatsCapability.get(attacker).getHollowStats().alterMutationPoints(1);
+        if (attacker instanceof PlayerEntity)
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(attacker.getId(), EntityStatsCapability.get(attacker)), ((PlayerEntity)attacker));
+    }
+    static void handleShinigamiDeath(LivingEntity livingEntity, LivingEntity attacker)
+    {
+        String rank = ((IBleach) livingEntity).getRank();
+        if (rank.equals(ModValues.NON_OFFICER))
+            EntityStatsCapability.get(attacker).getHollowStats().alterHollowPoints(1);
+        if (attacker instanceof PlayerEntity)
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(attacker.getId(), EntityStatsCapability.get(attacker)), ((PlayerEntity)attacker));
+    }
+    static void handleSpiritDeath(LivingEntity livingEntity, LivingEntity attacker)
+    {
+        EntityStatsCapability.get(attacker).getHollowStats().alterHollowPoints(1);
+        if (attacker instanceof PlayerEntity)
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(attacker.getId(), EntityStatsCapability.get(attacker)), ((PlayerEntity)attacker));
+    }
     @SubscribeEvent
     public static void hollowEvolutionEvent(HollowEvolutionEvent event)
     {
@@ -49,7 +86,8 @@ public class HollowSpecificEvents {
         AttributeModifier attributeModifierVastoLordeAttackSpeed = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Vasto Lorde Attack Speed Bonus", 1, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttack = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Vasto Lorde Attack Bonus", 5, AttributeModifier.Operation.ADDITION);
 
-        switch (entityStats.getRank()) {
+        switch (entityStats.getRank())
+        {
             case (ModValues.BASE):
                 PARTICLES_WAVE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
                 entityStats.setRank(ModValues.GILLIAN);
@@ -57,14 +95,14 @@ public class HollowSpecificEvents {
                 player.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(attributeModifierGillian);
                 ModAdvancements.GILLIAN.trigger((ServerPlayerEntity) player);
                 break;
-                case (ModValues.GILLIAN):
-                    PARTICLES_WAVE_ADJUCHA.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
-                    entityStats.setRank(ModValues.ADJUCHA);
-                    abilityData.addUnlockedAbility(GargantaAbility.INSTANCE);
-                    player.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(attributeModifierAdjucha);
-                    ModAdvancements.ADJUCHA.trigger((ServerPlayerEntity) player);
-                    break;
-                    case (ModValues.ADJUCHA):
+            case (ModValues.GILLIAN):
+                PARTICLES_WAVE_ADJUCHA.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
+                entityStats.setRank(ModValues.ADJUCHA);
+                abilityData.addUnlockedAbility(GargantaAbility.INSTANCE);
+                player.getAttribute(Attributes.MOVEMENT_SPEED).addPermanentModifier(attributeModifierAdjucha);
+                ModAdvancements.ADJUCHA.trigger((ServerPlayerEntity) player);
+                break;
+            case (ModValues.ADJUCHA):
                         PARTICLES_WAVE_VASTO.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
                         entityStats.setRank(ModValues.VASTO_LORDE);
                         player.getAttribute(Attributes.ATTACK_DAMAGE).addPermanentModifier(attributeModifierVastoLordeAttack);
@@ -78,7 +116,6 @@ public class HollowSpecificEvents {
 
                          */
             }
-            entityStats.setHollowPoints(0);
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
     }

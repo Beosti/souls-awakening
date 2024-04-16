@@ -43,11 +43,11 @@ public class KillHollowQuest extends Quest {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         entityStats.setRace(ModValues.SHINIGAMI);
         ModAdvancements.SHINIGAMI.trigger((ServerPlayerEntity) player);
-        entityStats.setHakudaPoints(0);
-        entityStats.setHohoPoints(0);
-        entityStats.setZanjutsuPoints(0);
+        entityStats.getShinigamiStats().setHakudaPoints(0);
+        entityStats.getShinigamiStats().setHohoPoints(0);
+        entityStats.getShinigamiStats().setZanjutsuPoints(0);
         entityStats.setReiatsuPoints(0);
-        entityStats.setClassPoints(0);
+        entityStats.getShinigamiStats().setClassPoints(0);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         return true;
     }

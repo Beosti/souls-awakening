@@ -1,16 +1,9 @@
 package com.yuanno.soulsawakening.networking.client;
 
-import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.events.stats.HakudaGainEvent;
-import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.quests.Quest;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;

@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.entities.hollow;
 
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
@@ -14,11 +15,10 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeMod;
 
 import javax.annotation.Nullable;
 
-public class BeastEntity extends HollowEntity {
+public class BeastEntity extends HollowEntity implements IBleach {
     private static final float SCALE_FACTOR = 1.5f; // Adjust this value based on your scaling factor
     public BeastEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
@@ -79,7 +79,18 @@ public class BeastEntity extends HollowEntity {
     public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataTag)
     {
         spawnData = super.finalizeSpawn(world, difficulty, reason, spawnData, dataTag);
+        EntityStatsCapability.get(this).setRace(ModValues.HOLLOW);
         return spawnData;
 
+    }
+
+    @Override
+    public String getRank() {
+        return ModValues.BASE;
+    }
+    @Override
+    public String getRace()
+    {
+        return ModValues.HOLLOW;
     }
 }

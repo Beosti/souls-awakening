@@ -98,8 +98,7 @@ public class StatsEvent {
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
             //abilityData.addUnlockedAbility(AcidicTouchAbility.INSTANCE);
             abilityData.addUnlockedAbility(HollowRegenerationAbility.INSTANCE);
-            entityStats.setHollowPoints(0);
-            entityStats.addAvailableStats(0);
+            entityStats.getHollowStats().setHollowPoints(0);
 
         }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
