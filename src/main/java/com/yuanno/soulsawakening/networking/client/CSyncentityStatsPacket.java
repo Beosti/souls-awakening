@@ -2,10 +2,12 @@ package com.yuanno.soulsawakening.networking.client;
 
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.events.UpdateStatEvent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -44,6 +46,8 @@ public class CSyncentityStatsPacket {
                 PlayerEntity player = ctx.get().getSender();
                 IEntityStats props = EntityStatsCapability.get(player);
                 EntityStatsCapability.INSTANCE.getStorage().readNBT(EntityStatsCapability.INSTANCE, props, null, message.data);
+                UpdateStatEvent event = new UpdateStatEvent(player);
+                MinecraftForge.EVENT_BUS.post(event);
             });
         }
         ctx.get().setPacketHandled(true);
