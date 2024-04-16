@@ -21,12 +21,14 @@ import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.play.server.SUpdateHealthPacket;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.w3c.dom.Attr;
 
 import java.util.UUID;
 
@@ -63,6 +65,7 @@ public class HollowEvents {
         // currentHier
         // updatedHierro = hierroStat * 0.5
         // updatedHierro = currentDamageReduction - updatedHierro
+        /*
         double updatedHierro = entityStats.getHollowStats().getHierro() * 0.005;
         double addedHierro = updatedHierro - player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get()).getValue();
         if (addedHierro >= 0)
@@ -71,25 +74,22 @@ public class HollowEvents {
 
             player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get()).removeModifier(hierroUUID);
             AttributeModifier attributeModifier = new AttributeModifier(hierroUUID, "hierroStatIncrease", addedHierro, AttributeModifier.Operation.ADDITION);
-            player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get()).addPermanentModifier(attributeModifier);
+            pl
+            ayer.getAttribute(ModAttributes.DAMAGE_REDUCTION.get()).addPermanentModifier(attributeModifier);
         }
+         */
+
+        ModifiableAttributeInstance damageReductionAttribute = player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get());
+        damageReductionAttribute.setBaseValue(entityStats.getHollowStats().getHierro() * 0.05);
     }
 
     // handles the constitution stat
     static void handleConstitution(PlayerEntity player, IEntityStats entityStats)
     {
         int constitution = entityStats.getHollowStats().getConstitution();
-        float addedHealth = (float) ((float) 20 + constitution - player.getAttribute(Attributes.MAX_HEALTH).getValue());
-        System.out.println(addedHealth);
-        System.out.println(player.getAttribute(Attributes.MAX_HEALTH).getValue());
-        if (addedHealth >= 0)
-        {
-            UUID healthUUID = healthUUIDAttribute;
-            player.getAttribute(Attributes.MAX_HEALTH).removeModifier(healthUUID);
-            AttributeModifier attributeModifier = new AttributeModifier(healthUUID, "healthStatIncrease", addedHealth, AttributeModifier.Operation.ADDITION);
-            player.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(attributeModifier);
-            ((ServerPlayerEntity) player).connection.send(new SUpdateHealthPacket(player.getHealth(), player.getFoodData().getFoodLevel(), player.getFoodData().getSaturationLevel()));
-        }
+        ModifiableAttributeInstance maxHpAttribute = player.getAttribute(Attributes.MAX_HEALTH);
+        maxHpAttribute.setBaseValue(20 + (float) (entityStats.getHollowStats().getConstitution()));
+        ((ServerPlayerEntity) player).connection.send(new SUpdateHealthPacket(player.getHealth(), player.getFoodData().getFoodLevel(), player.getFoodData().getSaturationLevel()));
     }
 
     /**

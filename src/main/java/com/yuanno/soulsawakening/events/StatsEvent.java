@@ -26,6 +26,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -44,6 +45,8 @@ public class StatsEvent {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
+        UpdateStatEvent updateStatEvent = new UpdateStatEvent(player);
+        MinecraftForge.EVENT_BUS.post(updateStatEvent);
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IChallengesData challengesData = ChallengesDataCapability.get(player);
@@ -130,6 +133,8 @@ public class StatsEvent {
     @SubscribeEvent
     public static void onRelogging(PlayerEvent.PlayerRespawnEvent event) {
         PlayerEntity player = event.getPlayer();
+        UpdateStatEvent updateStatEvent = new UpdateStatEvent(player);
+        MinecraftForge.EVENT_BUS.post(updateStatEvent);
         IEntityStats statsProps = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
