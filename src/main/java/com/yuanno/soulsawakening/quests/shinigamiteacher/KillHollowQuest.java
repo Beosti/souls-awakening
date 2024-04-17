@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.data.teleports.ITeleports;
 import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.entities.hollow.HollowEntity;
@@ -43,6 +44,8 @@ public class KillHollowQuest extends Quest {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         entityStats.setRace(ModValues.SHINIGAMI);
         ModAdvancements.SHINIGAMI.trigger((ServerPlayerEntity) player);
+        if (!entityStats.hasShinigamiStats())
+            entityStats.setShinigamiStats(new ShinigamiStats());
         entityStats.getShinigamiStats().setHakudaPoints(0);
         entityStats.getShinigamiStats().setHohoPoints(0);
         entityStats.getShinigamiStats().setZanjutsuPoints(0);

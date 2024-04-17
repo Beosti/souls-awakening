@@ -44,10 +44,8 @@ public class AbilityOverlay extends AbstractGui {
         if (event.getType() == RenderGameOverlayEvent.ElementType.VIGNETTE)
         {
             //drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "RACE: " + TextFormatting.RESET + race, 330, 20, -1);
-            if ((race.equals(ModValues.SHINIGAMI) || race.equals(ModValues.FULLBRINGER)) && (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) || entityStats.getShinigamiStats().getZanjutsuPoints() < 10))
+            if ((race.equals(ModValues.SHINIGAMI) || race.equals(ModValues.FULLBRINGER)) && (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem)))
                 return;
-            MatrixStack matrixStack = event.getMatrixStack();
-            matrixStack.pushPose();
             for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++) // goes through unlocked abilities to draw each one
             {
                 if (!abilityData.getUnlockedAbilities().get(i).getCategory().equals(Ability.Category.KIDO))
@@ -66,16 +64,18 @@ public class AbilityOverlay extends AbstractGui {
                         {
                         int cooldown = (int) abilityToDraw.getCooldown();
                         Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 1.0f, 0, 0);
+                            MatrixStack matrixStack = event.getMatrixStack();
+                            matrixStack.pushPose();
                         matrixStack.scale(0.5f, 0.5f, 0.5f);
                         matrixStack.translate(1, 1, 1);
                         int stringWidth = Minecraft.getInstance().font.width(String.valueOf(cooldown));
 
                         int posX = (int) ((28 - 1 - (stringWidth / 5)) / 0.5f);
                         Beapi.drawStringWithBorder(Minecraft.getInstance().font, matrixStack, TextFormatting.WHITE + "" + cooldown, posX, (int) ((26 + i * 20) / 0.5), 0);
-                    }
+                            matrixStack.popPose();
+                        }
                 }
             }
-            matrixStack.popPose();
         }
     }
 }
