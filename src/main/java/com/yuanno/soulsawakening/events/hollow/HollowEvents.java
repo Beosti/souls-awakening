@@ -138,11 +138,9 @@ public class HollowEvents {
         AttributeModifier attributeModifierAdjucha = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Adjucha Speed Bonus", 0.10, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttackSpeed = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Vasto Lorde Attack Speed Bonus", 1, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttack = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Vasto Lorde Attack Bonus", 5, AttributeModifier.Operation.ADDITION);
-        System.out.println(entityStats.getRank());
         switch (entityStats.getRank())
         {
             case (ModValues.BASE):
-                System.out.println("CALLED");
                 PARTICLES_WAVE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
                 entityStats.setRank(ModValues.GILLIAN);
                 abilityData.addUnlockedAbility(CeroAbility.INSTANCE);

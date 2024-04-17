@@ -66,9 +66,6 @@ public class CUseSpellPacket {
                 else
                     abilityUsedEvent = new AbilityUseEvent.Post(player, abilityInUse);
                 MinecraftForge.EVENT_BUS.post(abilityUsedEvent);
-                abilityInUse.setState(Ability.STATE.COOLDOWN);
-                abilityInUse.setCooldown(abilityInUse.getMaxCooldown() / 20);
-                PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             });
         }
 

@@ -24,8 +24,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.awt.*;
 
+/**
+ * Visual overlays for abilities
+ */
 @OnlyIn(Dist.CLIENT)
-public class StatsOverlay extends AbstractGui {
+public class AbilityOverlay extends AbstractGui {
 
     @SubscribeEvent
     public void renderStatsOverlay(RenderGameOverlayEvent.Post event)
@@ -45,28 +48,29 @@ public class StatsOverlay extends AbstractGui {
                 return;
             MatrixStack matrixStack = event.getMatrixStack();
             matrixStack.pushPose();
-            for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
+            for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++) // goes through unlocked abilities to draw each one
             {
                 if (!abilityData.getUnlockedAbilities().get(i).getCategory().equals(Ability.Category.KIDO))
                 {
                     Color iconColor = Beapi.hexToRGB("#FFFFFF");
-                    Ability abilityToDraw = abilityData.getUnlockedAbilities().get(i);
+                    Ability abilityToDraw = abilityData.getUnlockedAbilities().get(i); // ability to draw retrieved
 
                     String originalResourceLocation = abilityToDraw.getRegistryName().toString();
                     String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
-                    ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
-                    Beapi.drawIcon(resourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                    ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png"); // icon for the ability retrieved
+                    Beapi.drawIcon(resourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f); // draw icon
                     ResourceLocation widgetResourceLocation = new ResourceLocation(Main.MODID, "textures/widget/widget_contour.png");
-                    if (!abilityToDraw.getState().equals(Ability.STATE.COOLDOWN))
+                    if (!abilityToDraw.getState().equals(Ability.STATE.COOLDOWN)) // draw widget counter
                         Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
-                    else {
+                    else // draw widget during cooldown + cooldown counter
+                        {
                         int cooldown = (int) abilityToDraw.getCooldown();
                         Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 1.0f, 0, 0);
                         matrixStack.scale(0.5f, 0.5f, 0.5f);
                         matrixStack.translate(1, 1, 1);
                         int stringWidth = Minecraft.getInstance().font.width(String.valueOf(cooldown));
 
-                        int posX = (int) ((20 + (16 - stringWidth) / 2) / 0.5f);
+                        int posX = (int) ((28 - 1 - (stringWidth / 5)) / 0.5f);
                         Beapi.drawStringWithBorder(Minecraft.getInstance().font, matrixStack, TextFormatting.WHITE + "" + cooldown, posX, (int) ((26 + i * 20) / 0.5), 0);
                     }
                 }

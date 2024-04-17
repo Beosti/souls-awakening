@@ -63,13 +63,12 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     }
     public double getMaxCooldown()
     {
-        return maxCooldown;
+        return this.maxCooldown;
     }
     public void setMaxCooldown(double maxCooldown)
     {
-        this.maxCooldown = maxCooldown * 20;
-        this.cooldown = maxCooldown * 20;
-
+        System.out.println("CALLED");
+        this.maxCooldown = maxCooldown;
     }
     public double getCooldown() {
         return cooldown;
@@ -121,9 +120,9 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     public void load(CompoundNBT compoundNBT)
     {
         this.setName(compoundNBT.getString("displayname"));
-        int cooldown = (int) (compoundNBT.getDouble("cooldown") / 20);
+        int cooldown = (int) (compoundNBT.getDouble("cooldown"));
         this.setCooldown(cooldown);
-        int maxCooldown = (int) (compoundNBT.getDouble("maxcooldown") / 20);
+        int maxCooldown = (int) (compoundNBT.getDouble("maxcooldown"));
         this.setMaxCooldown(maxCooldown);
         this.setState(Ability.STATE.valueOf(compoundNBT.getString("state")));
     }

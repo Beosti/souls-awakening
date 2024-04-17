@@ -90,14 +90,21 @@ public class AbilityEvents {
     {
         Ability ability = event.getAbility();
         PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
         if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
             return;
         IAbilityData abilityData = AbilityDataCapability.get(player);
+        if (ability instanceof IReiatsuAbility) {
+            double amount = (ability.getMaxCooldown() - ((IReiatsuAbility) ability).reducedCooldown(player));
+            System.out.println("CALED");
+            System.out.println(amount);
+            ability.setCooldown(amount * 20);
+        }
+        else {
+            ability.setCooldown(ability.getMaxCooldown() * 20);
+        }
         ability.setState(Ability.STATE.COOLDOWN);
-        if (ability instanceof IReiatsuAbility)
-            ability.setCooldown((ability.getMaxCooldown() - ((IReiatsuAbility) ability).reducedCooldown(player))/ 20);
-        else
-            ability.setCooldown(ability.getMaxCooldown()/20);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
     }
 }

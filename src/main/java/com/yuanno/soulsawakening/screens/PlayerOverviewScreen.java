@@ -199,6 +199,7 @@ public class PlayerOverviewScreen extends Screen {
             PacketHandler.sendToServer(new CHollowEvolutionPacket());
             entityStats.getHollowStats().setHollowPoints(0);
             PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            this.init();
             this.onClose();
         }, (button, matrixStack, mouseX, mouseY) -> {
             if (button.isHovered() && button.active) {
