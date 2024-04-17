@@ -134,6 +134,7 @@ public class HollowEvents {
 
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
+        entityStats.getHollowStats().setHollowPoints(0);
         AttributeModifier attributeModifierGillian = new AttributeModifier(UUID.fromString("4658d71c-a663-11ee-a506-0242ac120002"), "Gillian attack bonus", 5, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierAdjucha = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Adjucha Speed Bonus", 0.10, AttributeModifier.Operation.ADDITION);
         AttributeModifier attributeModifierVastoLordeAttackSpeed = new AttributeModifier(UUID.fromString("56925e5a-a663-11ee-a506-0242ac120002"), "Vasto Lorde Attack Speed Bonus", 1, AttributeModifier.Operation.ADDITION);

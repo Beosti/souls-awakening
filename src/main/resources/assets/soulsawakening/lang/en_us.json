@@ -94,7 +94,7 @@
   "gui.zanju.button": "Increased damage with any sword and improves zanjutsu-based abilities.",
   "gui.constitution.button": "Increases max health and health regeneration",
   "gui.hierro.button": "Increases resistance against all incoming damage",
-  "gui.agility.button": "Increases attack speed and agility-based abilities",
+  "gui.agility.button": "Increases agility-based abilities",
   "gui.evolution.button": "Evolve",
 
   "gui.evolution.tooltip": "Consume all your hollow points to evolve, resetting the extra damage on certain abilities",

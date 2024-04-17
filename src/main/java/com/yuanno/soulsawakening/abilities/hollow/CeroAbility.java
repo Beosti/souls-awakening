@@ -27,6 +27,11 @@ public class CeroAbility extends Ability implements IRightClickAbility, IShootAb
     }
 
     @Override
+    public float addedVariable(PlayerEntity player) {
+        return (int) EntityStatsCapability.get(player).getReiatsuPoints();
+    }
+
+    @Override
     public int reducedCooldown(PlayerEntity player) {
         return (int) EntityStatsCapability.get(player).getReiatsuPoints() * 10;
     }
