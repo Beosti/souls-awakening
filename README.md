@@ -23,7 +23,7 @@ Besides the basic comments in the code there is no documentation at the moment.
 
 ## Contributing
 You can always contribute by making a pull request like so:
-##### 1. Fork it
+##### 1. Fork it (git clone https://github.com/Beosti/souls-awakening.git)
 ##### 2. Create your branch (git checkout -b changes)
 ##### 3. Commit your changes (git commit -m "changed something")
 ##### 4. Push to branch (git push origin my-changes)
