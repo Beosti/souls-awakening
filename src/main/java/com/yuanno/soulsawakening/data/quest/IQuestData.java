@@ -27,4 +27,6 @@ public interface IQuestData {
     boolean isQuestComplete(Quest quest);
 
     Quest getQuest(Quest quest);
+
+    void removeQuest(Quest quest);
 }

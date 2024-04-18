@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.commands;
+package com.yuanno.soulsawakening.commands.challenge;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.arguments.ArgumentType;

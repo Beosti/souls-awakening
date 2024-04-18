@@ -24,6 +24,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Command to:
+ * - add abilities
+ * - remove abilities
+ * - put them in the bottom right bar or not
+ */
 public class AbilityCommand {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher)
@@ -75,23 +81,5 @@ public class AbilityCommand {
     private static Collection<ServerPlayerEntity> getDefaultCollection(CommandContext<CommandSource> context) throws CommandSyntaxException
     {
         return Lists.newArrayList(context.getSource().getPlayerOrException());
-    }
-
-
-    private static int addAbility(CommandContext<CommandSource> context, Ability ability, Collection<ServerPlayerEntity> targets)
-    {
-        for (ServerPlayerEntity player : targets)
-        {
-            IAbilityData props = AbilityDataCapability.get(player);
-
-            props.addUnlockedAbility(ability);
-
-            //if(BeoDebug.isDebug())
-              //  player.sendMessage(new StringTextComponent(TextFormatting.GREEN + "" + TextFormatting.ITALIC + "[DEBUG] " + ability.getName() + " unlocked for " + player.getName().getString()), Util.NIL_UUID);
-
-            PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), props), player);
-        }
-
-        return 1;
     }
 }

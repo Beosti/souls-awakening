@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.commands;
+package com.yuanno.soulsawakening.commands.challenge;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -17,8 +17,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.server.command.EnumArgument;
-
-import javax.annotation.Nullable;
 
 public class ChallengeCommand
 {

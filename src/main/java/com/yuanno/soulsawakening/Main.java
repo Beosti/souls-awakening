@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.client.ClientHandler;
 import com.yuanno.soulsawakening.client.overlay.KidoOverlay;
 import com.yuanno.soulsawakening.client.overlay.AbilityOverlay;
 import com.yuanno.soulsawakening.commands.ability.AbilityArgument;
+import com.yuanno.soulsawakening.commands.quest.QuestArgument;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.init.world.ModBiomes;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
@@ -75,6 +76,7 @@ public class Main
         });
 
         ArgumentTypes.register("ability", AbilityArgument.class, new ArgumentSerializer<>(AbilityArgument::ability));
+        ArgumentTypes.register("quest", QuestArgument.class, new ArgumentSerializer<>(QuestArgument::new));
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {

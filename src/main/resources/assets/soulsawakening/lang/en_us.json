@@ -100,5 +100,14 @@
   "gui.evolution.tooltip": "Consume all your hollow points to evolve, resetting the extra damage on certain abilities",
   "gui.evolution.active": "You need 50 hollow points to evolve.",
   "gui.mutation_point.tooltip": "You gain mutation points by killing other hollows. Those mutation points you can spend somewhere.",
-  "gui.evolution_point.tooltip": "You gain evolution points by killing pluses and shinigami."
+  "gui.evolution_point.tooltip": "You gain evolution points by killing pluses and shinigami.",
+
+  "command.quest.progress": "Already have that quest in progress!",
+  "command.quest.finished": "Already finished that quest!",
+  "command.quest.add_quest": "Added quest in progress",
+  "command.quest.add_name": "to: ",
+  "command.quest.inexistent": "Do not have that quest!",
+  "command.quest.remove_true": "Removed quest",
+  "command.quest.from": "from: ",
+  "command.quest.finish": "Finished quest"
 }

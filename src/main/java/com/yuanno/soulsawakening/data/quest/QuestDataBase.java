@@ -109,4 +109,10 @@ public class QuestDataBase implements IQuestData {
         }
         return null;
     }
+
+    @Override
+    public void removeQuest(Quest quest)
+    {
+        this.quests.remove(quest);
+    }
 }
