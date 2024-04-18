@@ -6,7 +6,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.events.stats.*;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -16,16 +15,21 @@ import net.minecraft.command.ISuggestionProvider;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShinigamiStatsCommand {
+/**
+ * Stat command to change the entity stats, reliant on race
+ */
+public class StatsCommand {
+
+    static ArrayList<String> shinigami = new ArrayList<>();
+    static ArrayList<String> hollow = new ArrayList<>();
 
     public static void register(CommandDispatcher<CommandSource> dispatcher)
     {
-        dispatcher.register(Commands.literal("class").requires((commandSource) -> commandSource.hasPermission(4))
+        dispatcher.register(Commands.literal("stats").requires((commandSource) -> commandSource.hasPermission(4))
                 .then(Commands.argument("target", EntityArgument.player())
                         .then(Commands.argument("stats", StringArgumentType.string()).suggests(SUGGEST_STAT)
                             .then(Commands.argument("add|set", StringArgumentType.string()).suggests(SUGGEST_SET)
@@ -52,12 +56,27 @@ public class ShinigamiStatsCommand {
     private static final SuggestionProvider<CommandSource> SUGGEST_STAT = (source, builder) -> {
         List<String> suggestions = new ArrayList<>();
 
-        suggestions.add("zanjutsu");
-        suggestions.add("hoho");
-        suggestions.add("hakuda");
         suggestions.add("reiatsu");
-        suggestions.add("hollow");
+
+        suggestions.add("zanjutsu");
+        shinigami.add("zanjutsu");
+        suggestions.add("hoho");
+        shinigami.add("hoho");
+        suggestions.add("hakuda");
+        shinigami.add("hakuda");
         suggestions.add("class");
+        shinigami.add("class");
+
+        suggestions.add("hollow");
+        hollow.add("hollow");
+        suggestions.add("mutation");
+        hollow.add("mutation");
+        suggestions.add("constitution");
+        hollow.add("constitution");
+        suggestions.add("hierro");
+        hollow.add("hierro");
+        suggestions.add("agility");
+        hollow.add("agility");
 
         return ISuggestionProvider.suggest(suggestions.stream(), builder);
     };
@@ -65,22 +84,30 @@ public class ShinigamiStatsCommand {
     private static int setStat(CommandSource commandSource, PlayerEntity player, String stats, String change, int amount)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if ((stats.equals("zanjutsu") || stats.equals("hoho") || stats.equals("hakuda") || stats.equals("reiatsu")) && !entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
+        String race = entityStats.getRace();
+        if (stats.equals("reiatsu") && !race.equals(ModValues.SPIRIT) && !race.equals(ModValues.HUMAN))
         {
-            commandSource.sendSuccess(new TranslationTextComponent("Can only set these stats if you're a shinigami or fullbringer!"), true);
+            if (change.equals("set"))
+                entityStats.setReiatsuPoints(amount);
+            else if (change.equals("add"))
+                entityStats.alterReiatsuPoints(amount);
+            commandSource.sendSuccess(new TranslationTextComponent("command.stats.changed"), true);
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+            return 1;
+        }
+
+        if (shinigami.contains(stats) && !race.equals(ModValues.SHINIGAMI))
+        {
+            commandSource.sendSuccess(new TranslationTextComponent("command.rank.not_shinigami"), true);
             return 0;
         }
-        else if (stats.equals("hollow") && !entityStats.getRace().equals(ModValues.HOLLOW))
+        else if (hollow.contains(stats) && !race.equals(ModValues.HOLLOW))
         {
-            commandSource.sendSuccess(new TranslationTextComponent("Can only set these stats if you're a hollow!"), true);
+            commandSource.sendSuccess(new TranslationTextComponent("command.rank.not_hollow"), true);
             return 0;
         }
-        else if (stats.equals("class") && entityStats.getRace().equals(ModValues.HUMAN) || entityStats.getRace().equals(ModValues.SPIRIT))
-        {
-            commandSource.sendSuccess(new TranslationTextComponent("Can not set these stats to this race, only shinigami, hollow and fullbringers!"), true);
-            return 0;
-        }
-        if (change.equals("add"))
+
+        if (change.equals("set"))
         {
             switch (stats)
             {
@@ -93,51 +120,75 @@ public class ShinigamiStatsCommand {
                 case ("hakuda"):
                     entityStats.getShinigamiStats().alterHakudaPoints(amount);
                     break;
-                case ("reiatsu"):
-                    entityStats.alterReiatsuPoints(amount);
-                case ("hollow"):
-                    entityStats.getHollowStats().alterHollowPoints(amount);
-                    break;
                 case ("class"):
                     entityStats.getShinigamiStats().alterClassPoints(amount);
                     break;
+                case ("hollow"):
+                    entityStats.getHollowStats().alterHollowPoints(amount);
+                    break;
+                case ("mutation"):
+                    entityStats.getHollowStats().alterMutationPoints(amount);
+                    break;
+                case ("hierro"):
+                    entityStats.getHollowStats().alterHierro(amount);
+                    break;
+                case ("constitution"):
+                    entityStats.getHollowStats().alterConstitution(amount);
+                    break;
+                case ("agility"):
+                    entityStats.getHollowStats().alterAgility(amount);
+                    break;
+                default:
+                    commandSource.sendFailure(new TranslationTextComponent("command.general.input_false"));
+                    return 0;
             }
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-
+            commandSource.sendSuccess(new TranslationTextComponent("command.stats.changed"), true);
+            return 1;
         }
-        else if (change.equals("set"))
+        else if (change.equals("add"))
         {
             switch (stats)
             {
                 case ("zanjutsu"):
                     entityStats.getShinigamiStats().setZanjutsuPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
                 case ("hoho"):
                     entityStats.getShinigamiStats().setHohoPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
                 case ("hakuda"):
                     entityStats.getShinigamiStats().setHakudaPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-                    break;
-                case ("reiatsu"):
-                    entityStats.setReiatsuPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-                case ("hollow"):
-                    entityStats.getHollowStats().setHollowPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
                 case ("class"):
                     entityStats.getShinigamiStats().setClassPoints(amount);
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                     break;
+                case ("hollow"):
+                    entityStats.getHollowStats().setHollowPoints(amount);
+                    break;
+                case ("mutation"):
+                    entityStats.getHollowStats().setMutationPoints(amount);
+                    break;
+                case ("hierro"):
+                    entityStats.getHollowStats().setHierro(amount);
+                    break;
+                case ("constitution"):
+                    entityStats.getHollowStats().setConstitution(amount);
+                    break;
+                case ("agility"):
+                    entityStats.getHollowStats().setAgility(amount);
+                    break;
+                default:
+                    commandSource.sendFailure(new TranslationTextComponent("command.general.input_false"));
+                    return 0;
             }
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+            commandSource.sendSuccess(new TranslationTextComponent("command.stats.changed"), true);
+            return 1;
         }
-        if (change.equals("set"))
-            commandSource.sendSuccess(new TranslationTextComponent("set " + stats + " of " + player.getDisplayName().getString() + " to " + amount), true);
-        if (change.equals("add"))
-            commandSource.sendSuccess(new TranslationTextComponent("added " + amount + " " + stats + " points" + " to " + player.getDisplayName().getString()), true);
-        return 1;
+        else
+        {
+            commandSource.sendFailure(new TranslationTextComponent("command.general.input_false"));
+            return 0;
+        }
     }
 }
