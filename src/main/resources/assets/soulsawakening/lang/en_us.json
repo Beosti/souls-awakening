@@ -109,5 +109,12 @@
   "command.quest.inexistent": "Do not have that quest!",
   "command.quest.remove_true": "Removed quest",
   "command.quest.from": "from: ",
-  "command.quest.finish": "Finished quest"
+  "command.quest.finish": "Finished quest",
+
+  "command.rank.not_shinigami": "Need to be a shinigami for this!",
+  "command.rank.not_hollow": "Need to be a hollow for this!",
+  "command.rank.success": "Changed rank",
+
+  "command.stats.changed": "Succesfully changed the stat!",
+  "command.general.input_false": "Not a valid input!"
 }

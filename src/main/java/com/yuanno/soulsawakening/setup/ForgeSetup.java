@@ -9,11 +9,15 @@ import com.yuanno.soulsawakening.commands.quest.QuestCommand;
 import com.yuanno.soulsawakening.init.ModFeatures;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = Main.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeSetup {
@@ -39,7 +43,9 @@ public class ForgeSetup {
         AbilityCommand.register(dispatcher);
         QuestCommand.register(dispatcher);
         ShinigamiStatsCommand.register(dispatcher);
+        StatsCommand.register(dispatcher);
         ShikaiCommand.register(dispatcher);
         ChallengeCommand.register(dispatcher);
+        RankCommand.register(dispatcher);
     }
 }
