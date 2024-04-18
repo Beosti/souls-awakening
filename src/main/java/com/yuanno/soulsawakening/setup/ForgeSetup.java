@@ -42,7 +42,6 @@ public class ForgeSetup {
         RaceCommand.register(dispatcher);
         AbilityCommand.register(dispatcher);
         QuestCommand.register(dispatcher);
-        ShinigamiStatsCommand.register(dispatcher);
         StatsCommand.register(dispatcher);
         ShikaiCommand.register(dispatcher);
         ChallengeCommand.register(dispatcher);
