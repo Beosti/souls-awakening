@@ -117,7 +117,29 @@ public class Beapi {
 
         return false;
     }
+    public static List<BlockPos> getNearbyBlocks(BlockPos pos, IWorld world, int sizeX, int sizeY, int sizeZ, @Nullable Predicate<BlockState> predicate)
+    {
+        predicate = predicate == null ? (blockPos) -> true : predicate;
 
+        List<BlockPos> blockLocations = new ArrayList<BlockPos>();
+        for (int x = -sizeX; x <= sizeX; x++)
+        {
+            for (int y = -sizeY; y <= sizeY; y++)
+            {
+                for (int z = -sizeZ; z <= sizeZ; z++)
+                {
+                    BlockPos newPos = new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ() + z);
+                    BlockState state = world.getBlockState(newPos);
+                    if(!predicate.test(state))
+                        continue;
+
+                    blockLocations.add(newPos);
+                }
+            }
+        }
+
+        return blockLocations;
+    }
     public static boolean setBlockStateInChunk(World world, BlockPos pos, BlockState newState, int flags)
     {
         if (Beapi.isInChallengeDimension(world) && world.players().size() <= 0) {

@@ -1,11 +1,14 @@
 package com.yuanno.soulsawakening.projectiles;
 
+import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.events.projectiles.ProjectileBlockEvent;
 import com.yuanno.soulsawakening.events.projectiles.ProjectileHitEvent;
 import com.yuanno.soulsawakening.events.projectiles.ProjectileShootEvent;
+import com.yuanno.soulsawakening.init.ModEntityPredicates;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -27,6 +30,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceContext.BlockMode;
 import net.minecraft.util.math.RayTraceContext.FluidMode;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -36,6 +40,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class AbilityProjectileEntity extends ThrowableEntity
 {
@@ -96,6 +101,20 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		this.source = new IndirectEntityDamageSource("ability_projectile", this, thrower).setProjectile();
 		this.bypassingSource = new IndirectEntityDamageSource("ability_projectile", this, thrower).setProjectile().bypassArmor();		
 	}
+	private double collisionSizeX = super.getBoundingBox().getXsize();
+	private double collisionSizeY = super.getBoundingBox().getYsize();
+	private double collisionSizeZ = super.getBoundingBox().getZsize();
+
+	@Override
+	public AxisAlignedBB getBoundingBox() {
+		return new AxisAlignedBB(
+				super.getX() - this.collisionSizeX / 2.0D,
+				super.getY() - this.collisionSizeY / 2.0D,
+				super.getZ() - this.collisionSizeZ / 2.0D,
+				super.getX() + this.collisionSizeX / 2.0D,
+				super.getY() + this.collisionSizeY / 2.0D,
+				super.getZ() + this.collisionSizeZ / 2.0D);
+	}
 
 	@Override
 	public void tick()
@@ -113,43 +132,29 @@ public class AbilityProjectileEntity extends ThrowableEntity
 			}
 			else
 				this.life--;
-
-			// -> ability restriction
-			/*
-			if(ExtendedWorldData.get(this.level).isInsideRestrictedArea((int)this.getX(), (int)this.getY(), (int)this.getZ()))
-			{
-				this.remove();
-				return;
-			}
-
-			 */
 		}
 
 		Vector3d vec31 = new Vector3d(this.getX(), this.getY(), this.getZ());
 		Vector3d vec3 = new Vector3d(this.getX() + this.getDeltaMovement().x, this.getY() + this.getDeltaMovement().y, this.getZ() + this.getDeltaMovement().z);
 		RayTraceResult hit = this.level.clip(new RayTraceContext(vec3, vec31, BlockMode.OUTLINE, FluidMode.ANY, this));
 
-		double sizeX = this.collisionSize;
-		double sizeY = this.collisionSize;
-		double sizeZ = this.collisionSize;
+		Vector3i radius = new Vector3i(this.getBoundingBox().getXsize() / 2.0D, this.getBoundingBox().getYsize() / 2.0D, this.getBoundingBox().getZsize() / 2.0D);
 
-		AxisAlignedBB aabb = new AxisAlignedBB(this.getX(), this.getY(), this.getZ(), this.getX(), this.getY(), this.getZ()).expandTowards(sizeX, sizeY, sizeZ);
-		List<LivingEntity> list = this.level.getEntitiesOfClass(LivingEntity.class, aabb);
+		List<Entity> list = Beapi.getNearbyEntities(super.blockPosition(), super.level, radius.getX(), radius.getY(), radius.getZ(), entityPredicate, Entity.class);
+        list.remove(this.getThrower());
+		List<BlockPos> blockList = Beapi.getNearbyBlocks(super.blockPosition(), super.level, radius.getX(), radius.getY(), radius.getZ(), blockPredicate);
 
-		Entity entity = null;
+		Entity entityTarget = list.stream().findAny().orElse(null);
+		BlockPos blockTarget = blockList.stream().findAny().orElse(null);
 
-		for (Entity target : list)
-			if (target.canBeCollidedWith() && (target != this.getOwner() || this.tickCount >= 5)) entity = target;
-		
-		if (entity == this.getOwner())
-			return;
+		if (entityTarget != null)
+			hit = new EntityRayTraceResult(entityTarget);
+		else if (blockTarget != null)
+			hit = new BlockRayTraceResult(new Vector3d(blockTarget.getX(), blockTarget.getY(), blockTarget.getZ()), null, blockTarget, false);
 
-		if (entity != null)
-			hit = new EntityRayTraceResult(entity);
-
-		if (hit.getType() == RayTraceResult.Type.ENTITY)
+		if (hit.getType() == RayTraceResult.Type.ENTITY || hit.getType() == RayTraceResult.Type.BLOCK) {
 			this.onHit(hit);
-
+		}
 		if(this.tickCount % this.getTargetResetTime() == 0)
 			this.clearTargets();
 
@@ -157,14 +162,44 @@ public class AbilityProjectileEntity extends ThrowableEntity
 
 	}
 
+	Predicate<Entity> entityPredicate = ModEntityPredicates.getEnemyFactions(this.getThrower())
+			.and(target -> {
+				if (target instanceof LivingEntity && target.canBeCollidedWith() && target != this.getThrower()) {
+					return ((LivingEntity) target).canSee(this);
+				}
+
+				return true;
+			})
+			.and(target -> target != this);
+
+	Predicate<BlockState> blockPredicate = (state) -> {
+		return !state.isAir();
+	};
+
 	@Override
-	public void shootFromRotation(Entity thrower, float yRotIn, float xRotIn, float pitchOffset, float velocity, float inaccuracy)
+	public void shootFromRotation(Entity thrower, float pX, float pY, float pZ, float velocity, float inaccuracy)
 	{
 		ProjectileShootEvent event = new ProjectileShootEvent(this, velocity, inaccuracy, (LivingEntity) thrower);
 		if (MinecraftForge.EVENT_BUS.post(event))
 			return;
 		this.clearTargets();
-		super.shootFromRotation(thrower, yRotIn, xRotIn, pitchOffset, velocity, inaccuracy);
+		float f = -MathHelper.sin(pY * ((float) Math.PI / 180F)) * MathHelper.cos(pX * ((float) Math.PI / 180F));
+		float f1 = -MathHelper.sin((pX + pZ) * ((float) Math.PI / 180F));
+		float f2 = MathHelper.cos(pY * ((float) Math.PI / 180F)) * MathHelper.cos(pX * ((float) Math.PI / 180F));
+		this.shoot(f, f1, f2, velocity, inaccuracy);
+	}
+
+	public void shootFromRotation(float pX, float pY, float pZ, float velocity, float inaccuracy)
+	{
+		ProjectileShootEvent event = new ProjectileShootEvent(this, velocity, inaccuracy, getThrower());
+		if (MinecraftForge.EVENT_BUS.post(event))
+			return;
+		this.clearTargets();
+		float f = -MathHelper.sin(pY * ((float) Math.PI / 180F)) * MathHelper.cos(pX * ((float) Math.PI / 180F));
+		float f1 = -MathHelper.sin((pX + pZ) * ((float) Math.PI / 180F));
+		float f2 = MathHelper.cos(pY * ((float) Math.PI / 180F)) * MathHelper.cos(pX * ((float) Math.PI / 180F));
+		this.shoot(f, f1, f2, velocity, inaccuracy);
+		this.setDeltaMovement(this.getDeltaMovement());
 	}
 	
 	// XXX(wynd) - Due to legacy reasons this method will remain as 'shoot' despite being more correctly to name it 'shootFromRotation'. Over time the name change should be a priority to avoid further confusions
@@ -185,33 +220,33 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	@Override
 	protected void onHit(RayTraceResult hit)
 	{
-		if (!this.level.isClientSide)
+		if (!this.isAlive())
+			return;
+		if (this.level.isClientSide)
+			return;
+
+		if (hit.getType() == RayTraceResult.Type.ENTITY)
 		{
-			if (hit.getType() == RayTraceResult.Type.ENTITY)
+			EntityRayTraceResult entityHit = (EntityRayTraceResult) hit;
+			if (entityHit.getEntity() instanceof LivingEntity && this.getOwner() != null && this.getOwner() instanceof LivingEntity)
 			{
-				EntityRayTraceResult entityHit = (EntityRayTraceResult) hit;
+				LivingEntity hitEntity = (LivingEntity) entityHit.getEntity();
+				IEntityStats statProps = EntityStatsCapability.get((LivingEntity) this.getOwner());
 
-				if (entityHit.getEntity() instanceof LivingEntity && this.getOwner() != null && this.getOwner() instanceof LivingEntity)
+				if (hitEntity == this.getOwner() && !this.canHurtThrower)
+					return;
+				ProjectileHitEvent event = new ProjectileHitEvent(this, hit);
+				if (MinecraftForge.EVENT_BUS.post(event))
+					return;
+				if (!this.entityDamaged && !targets.contains(hitEntity.getEntity().getId()) && hitEntity.getEntity().isAlive())
 				{
-					LivingEntity hitEntity = (LivingEntity) entityHit.getEntity();
-					IEntityStats statProps = EntityStatsCapability.get((LivingEntity) this.getOwner());
-					
-					if (hitEntity == this.getOwner() && !this.canHurtThrower)
-						return;
+					if(this.source == null)
+						this.source = new IndirectEntityDamageSource("ability_projectile", this, this.getOwner()).setProjectile();
 
-					ProjectileHitEvent event = new ProjectileHitEvent(this, hit);
-					if (MinecraftForge.EVENT_BUS.post(event))
-						return;
+					if(this.bypassingSource == null)
+						this.bypassingSource = new IndirectEntityDamageSource("ability_projectile", this, this.getOwner()).setProjectile().bypassArmor();
 
-					if (!this.entityDamaged && !targets.contains(hitEntity.getEntity().getId()) && hitEntity.getEntity().isAlive())
-					{
-						if(this.source == null)
-							this.source = new IndirectEntityDamageSource("ability_projectile", this, this.getOwner()).setProjectile();
-												
-						if(this.bypassingSource == null)
-							this.bypassingSource = new IndirectEntityDamageSource("ability_projectile", this, this.getOwner()).setProjectile().bypassArmor();
-						
-						if (!this.canBlockDamageSource(this.source, hitEntity)) {
+					if (!this.canBlockDamageSource(this.source, hitEntity)) {
 							if (this.isPhysical() && this.getOwner() != null && this.applyOnlyOnce)
 							{
 
@@ -297,7 +332,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 					}
 				}
 			}
-		}
+
 	}
 
 	public void onProjectileCollision(AbilityProjectileEntity owner, AbilityProjectileEntity target)
@@ -338,7 +373,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 
 	@Override
 	public boolean canBeCollidedWith() {
-		return true;
+		return false;
 	}
 
 	public float getArmorDamage()
@@ -492,7 +527,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		else 
 			return null;
 	}
-	
+
 	@Nullable
 	@Override
 	public Entity getOwner()
