@@ -7,12 +7,10 @@ import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.DangleItem;
-import com.yuanno.soulsawakening.items.ISpiritWeapon;
-import com.yuanno.soulsawakening.items.KojakuItem;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -34,7 +32,6 @@ public class QuincyEvents {
             if (!(player.inventory.getItem(i).getItem() instanceof DangleItem))
                 continue;
             if (player.inventory.contains(new ItemStack(ModItems.KOJAKU.get()))) {
-                System.out.println("CALLED");
                 return;
             }
             hasDangle = true;
@@ -43,5 +40,11 @@ public class QuincyEvents {
         {
             player.setItemInHand(Hand.MAIN_HAND, new ItemStack(ModItems.KOJAKU.get()));
         }
+    }
+    @SubscribeEvent
+    public static void onDropBow(ItemTossEvent event)
+    {
+        if (event.getEntityItem().getItem().getItem().equals(ModItems.KOJAKU.get()))
+            event.getEntityItem().remove();
     }
 }

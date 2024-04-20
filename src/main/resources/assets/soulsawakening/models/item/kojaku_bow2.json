@@ -1,0 +1,6 @@
+{
+  "parent": "soulsawakening:item/kojaku",
+  "textures": {
+    "layer0": "soulsawakening:items/kojaku_bow2"
+  }
+}

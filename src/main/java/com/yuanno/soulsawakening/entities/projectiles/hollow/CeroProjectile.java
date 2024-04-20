@@ -39,7 +39,6 @@ public class CeroProjectile extends AbilityProjectileEntity {
         if (this.getOwner() != null)
             if (!this.getOwner().level.isClientSide)
                 PARTICLES.spawn(this.getOwner().level, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 0, 0, 0);
-
     }
 
 }

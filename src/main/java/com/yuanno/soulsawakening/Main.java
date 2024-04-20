@@ -87,7 +87,6 @@ public class Main
         ItemProperties.register();
         MinecraftForge.EVENT_BUS.register(new AbilityOverlay());
         MinecraftForge.EVENT_BUS.register(new KidoOverlay());
-
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

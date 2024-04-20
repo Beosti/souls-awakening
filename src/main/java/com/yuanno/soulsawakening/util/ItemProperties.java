@@ -3,10 +3,25 @@ package com.yuanno.soulsawakening.util;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemModelsProperties;
 import net.minecraft.util.ResourceLocation;
 
 public class ItemProperties {
+
+    public static void makeBow(Item item) {
+        ItemModelsProperties.register(item, new ResourceLocation("pull"), (itemStack, world, livingEntity) -> {
+            if (livingEntity == null) {
+                return 0.0F;
+            } else {
+                return livingEntity.getUseItem() != itemStack ? 0.0F : (float)(itemStack.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / 20.0F;
+            }
+        });
+
+        ItemModelsProperties.register(item, new ResourceLocation("pulling"), (p_239428_0_, p_239428_1_, p_239428_2_) -> {
+            return p_239428_2_ != null && p_239428_2_.isUsingItem() && p_239428_2_.getUseItem() == p_239428_0_ ? 1.0F : 0.0F;
+        });
+    }
 
     private static final IItemPropertyGetter ZANPAKUTO_STAGE = (itemStack, world, livingEntity) ->
     {
@@ -73,6 +88,8 @@ public class ItemProperties {
         ItemModelsProperties.register(ModItems.ZANPAKUTO_WAKIZASHI.get(), new ResourceLocation("stage"), ZANPAKUTO_STAGE);
         ItemModelsProperties.register(ModItems.ZANPAKUTO_WAKIZASHI.get(), new ResourceLocation("element"), ZANPAKUTO_ELEMENT);
         ItemModelsProperties.register(ModItems.ZANPAKUTO_WAKIZASHI.get(), new ResourceLocation("type"), ZANPAKUTO_TYPE);
+
+        makeBow(ModItems.KOJAKU.get());
 
     }
 }
