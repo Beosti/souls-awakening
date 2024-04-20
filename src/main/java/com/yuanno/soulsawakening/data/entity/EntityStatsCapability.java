@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.data.entity;
 
 import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
+import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
 import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.LivingEntity;
@@ -29,6 +30,8 @@ public class EntityStatsCapability {
                     props.put("shinigami", instance.getShinigamiStats().save());
                 if (instance.getRace().equals(ModValues.HOLLOW) && instance.hasHollowStats())
                     props.put("hollow", instance.getHollowStats().save());
+                if (instance.getRace().equals(ModValues.QUINCY) && instance.hasQuincyStats())
+                    props.put("quincy", instance.getQuincyStats().save());
                 props.putDouble("reiatsupoints", instance.getReiatsuPoints());
 
 
@@ -53,6 +56,13 @@ public class EntityStatsCapability {
                     HollowStats hollowStats = new HollowStats();
                     hollowStats.load(compoundNBT);
                     instance.setHollowStats(hollowStats);
+                }
+                if (props.getString("race").equals(ModValues.QUINCY))
+                {
+                    CompoundNBT compoundNBT = props.getCompound("quincy");
+                    QuincyStats quincyStats = new QuincyStats();
+                    quincyStats.load(compoundNBT);
+                    instance.setQuincyStats(quincyStats);
                 }
                 instance.setReiatsuPoints(props.getDouble("reiatsupoints"));
             }

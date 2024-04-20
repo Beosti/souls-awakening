@@ -61,6 +61,8 @@ public class PlayerOverviewScreen extends Screen {
             handleShinigamiInit();
         if (entityStats.getRace().equals(ModValues.HOLLOW))
             handleHollowInit();
+        if (entityStats.getRace().equals(ModValues.QUINCY))
+            handleQuincyInit();
         this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 252, posY + 117, 60, 20, new TranslationTextComponent("Challenges"), b ->
         {
             PacketHandler.sendToServer(new COpenChallengeScreenPacket());
@@ -212,7 +214,62 @@ public class PlayerOverviewScreen extends Screen {
                 this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution.active"), mouseX, mouseY);
             }
         })).active = entityStats.getHollowStats().getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE));
+    }
 
+    void handleQuincyInit()
+    {
+        int posX = ((this.width - 256) / 2);
+        int posY = (this.height - 256) / 2;
+        int leftShift = posX + 120;
+
+        // reiatsu point
+        this.addButton(new Button(leftShift - 65, posY + 104, 8, 8, new TranslationTextComponent("+"), b ->
+        {
+            entityStats.getQuincyStats().alterClassPoints(-1);
+            entityStats.alterReiatsuPoints(1);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            this.init();
+        }, ((button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.reiatsu_quincy.button"), mouseX, mouseY);
+        }))).active = this.entityStats.getQuincyStats().getClassPoints() > 0;
+        // hirenkyaku point
+        this.addButton(new Button(leftShift - 65, posY + 89, 8, 8, new TranslationTextComponent("+"), b ->
+        {
+            entityStats.getQuincyStats().alterClassPoints(-1);
+            entityStats.getQuincyStats().alterHirenkyaku(1);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            this.init();
+        }, ((button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.hirenkyaku.button"), mouseX, mouseY);
+        }))).active = this.entityStats.getQuincyStats().getClassPoints() > 0;
+        // constitution point
+        this.addButton(new Button(leftShift - 65, posY + 74, 8, 8, new TranslationTextComponent("+"), b ->
+        {
+            entityStats.getQuincyStats().alterClassPoints(-1);
+            entityStats.getQuincyStats().alterConstitution(1);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            this.init();
+        }, ((button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.constitution.button"), mouseX, mouseY);
+        }))).active = this.entityStats.getQuincyStats().getClassPoints() > 0;
+        // blut point
+        this.addButton(new Button(leftShift - 65, posY + 59, 8, 8, new TranslationTextComponent("+"), b ->
+        {
+            entityStats.getQuincyStats().alterClassPoints(-1);
+            entityStats.getQuincyStats().alterBlut(1);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            this.init();
+        }, ((button, matrixStack, mouseX, mouseY) ->
+        {
+            if (button.isHovered())
+                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.blut.button"), mouseX, mouseY);
+        }))).active = this.entityStats.getQuincyStats().getClassPoints() > 0;
     }
 
     @Override
@@ -233,6 +290,8 @@ public class PlayerOverviewScreen extends Screen {
             shinigamiRendering(matrixStack, posX, posY);
         if (this.entityStats.getRace().equals(ModValues.HOLLOW))
             hollowRendering(matrixStack, posX, posY, mouseX, mouseY);
+        if (this.entityStats.getRace().equals(ModValues.QUINCY))
+            quincyRendering(matrixStack, posX, posY, mouseX, mouseY);
         super.render(matrixStack, mouseX, mouseY, f);
     }
 
@@ -283,6 +342,25 @@ public class PlayerOverviewScreen extends Screen {
             this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution_point.tooltip"), mouseX, mouseY);
     }
 
+    public void quincyRendering(MatrixStack matrixStack, int posX, int posY, int mouseX, int mouseY)
+    {
+        int leftShift = posX - 75;
+
+        int classPoints = entityStats.getQuincyStats().getClassPoints();
+        int blut = entityStats.getQuincyStats().getBlut();
+        int constitution = entityStats.getQuincyStats().getConstitution();
+        int hirenkyaku = entityStats.getQuincyStats().getHirenkyaku();
+        int reiatsuPoints = (int) entityStats.getReiatsuPoints();
+
+
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Blut points: " + TextFormatting.RESET + blut, leftShift, posY + 60, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Constitution points: " + TextFormatting.RESET + constitution, leftShift, posY + 75, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Hirenkyaku points: " + TextFormatting.RESET + hirenkyaku, leftShift, posY + 90, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 120, -1);
+        leftShift = posX + 180;
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan(), leftShift, posY + 170, -1);
+    }
 
     @Override
     public boolean isPauseScreen()

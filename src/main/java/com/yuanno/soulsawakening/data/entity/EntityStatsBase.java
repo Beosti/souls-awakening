@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.data.entity;
 
 import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
+import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
 import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 
 public class EntityStatsBase implements IEntityStats {
@@ -10,6 +11,7 @@ public class EntityStatsBase implements IEntityStats {
     private double reiatsuPoints;
     private ShinigamiStats shinigamiStats;
     private HollowStats hollowStats;
+    private QuincyStats quincyStats;
 
     @Override
     public void setRace(String race)
@@ -93,5 +95,20 @@ public class EntityStatsBase implements IEntityStats {
     public double getReiatsuPoints()
     {
         return this.reiatsuPoints;
+    }
+
+    @Override
+    public void setQuincyStats(QuincyStats quincyStats) {
+        this.quincyStats = quincyStats;
+    }
+
+    @Override
+    public boolean hasQuincyStats() {
+        return quincyStats != null;
+    }
+
+    @Override
+    public QuincyStats getQuincyStats() {
+        return this.quincyStats;
     }
 }

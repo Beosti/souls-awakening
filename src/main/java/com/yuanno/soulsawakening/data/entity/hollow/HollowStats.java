@@ -95,6 +95,5 @@ public class HollowStats {
         this.constitution = compoundNBT.getInt("constitution");
         this.hierro = compoundNBT.getInt("hierro");
         this.agility = compoundNBT.getInt("agility");
-
     }
 }
