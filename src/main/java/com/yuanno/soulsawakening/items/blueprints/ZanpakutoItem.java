@@ -4,10 +4,13 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
+import com.yuanno.soulsawakening.events.projectiles.AbilityProjectileHurtEvent;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -23,6 +26,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -38,6 +42,33 @@ public class ZanpakutoItem extends SwordItem {
 
     }
 
+    /**
+     * You can cancel projectiles made from reishi as long as your zanjutsu is 2 x theirs
+     * @param event
+     */
+    @SubscribeEvent
+    public static void onAttackSpellProjectile(AbilityProjectileHurtEvent event)
+    {
+        Entity entity = event.getAttacker();
+        if (!(entity instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) entity;
+        if (player.level.isClientSide)
+            return;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (!entityStats.getRace().equals(ModValues.SHINIGAMI))
+            return;
+        ItemStack itemStack = player.getMainHandItem();
+        if (!(itemStack.getItem().asItem() instanceof ZanpakutoItem))
+            return;
+        if (!(event.getProjectile() instanceof AbilityProjectileEntity))
+            return;
+        AbilityProjectileEntity abilityProjectileEntity = (AbilityProjectileEntity) event.getProjectile();
+        ShinigamiStats shinigamiStats = entityStats.getShinigamiStats();
+        if (shinigamiStats.getZanjutsuPoints() < abilityProjectileEntity.getDamage() * 2)
+            return;
+        abilityProjectileEntity.remove();
+    }
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (Screen.hasShiftDown() && stack.getTag().getString("spirit").isEmpty())

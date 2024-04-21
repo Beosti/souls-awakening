@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.projectiles;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.events.projectiles.AbilityProjectileHurtEvent;
 import com.yuanno.soulsawakening.events.projectiles.ProjectileBlockEvent;
 import com.yuanno.soulsawakening.events.projectiles.ProjectileHitEvent;
 import com.yuanno.soulsawakening.events.projectiles.ProjectileShootEvent;

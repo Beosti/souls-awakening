@@ -1,6 +1,9 @@
 package com.yuanno.soulsawakening.challenges.arena;
 
 import com.yuanno.soulsawakening.api.challenges.InProgressChallenge;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.entity.ChallengeShinigamiEntity;
 import com.yuanno.soulsawakening.init.ModEntities;
 import com.yuanno.soulsawakening.init.ModItems;
@@ -28,9 +31,12 @@ public class GlowstoneArenaSeatedOfficer18 extends GlowstoneArena {
         ChallengeShinigamiEntity boss = new ChallengeShinigamiEntity(ModEntities.CHALLENGE_SHINIGAMI.get(), challenge.getShard());
         ItemStack swordStack = new ItemStack(ModItems.ZANPAKUTO.get());
         swordStack.getTag().putString("owner", boss.getDisplayName().getString());
-        boss.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(14);
-        boss.getAttribute(Attributes.MAX_HEALTH).setBaseValue(32);
-        boss.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.295);
+        IEntityStats entityStats = EntityStatsCapability.get(boss);
+        ShinigamiStats shinigamiStats = new ShinigamiStats();
+        shinigamiStats.setHakudaPoints(14);
+        shinigamiStats.setZanjutsuPoints(7);
+        entityStats.setShinigamiStats(shinigamiStats);
+        boss.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.32);
 
         boss.setItemSlot(EquipmentSlotType.MAINHAND, swordStack);
         boss.forcedLoading = true;

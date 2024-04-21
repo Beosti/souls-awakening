@@ -21,6 +21,10 @@ public abstract class MiscItem extends Item {
         super(new Properties().rarity(rarity).tab(ModItemGroup.SOULS_AWAKENINGS_MISC));
     }
 
+    public MiscItem(Properties properties) {
+        super(properties);
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         switch (this.getRarity(stack))

@@ -54,7 +54,6 @@ public class KojakuItem extends BowItem implements ISpiritWeapon {
             return;
         int timeUsed = this.getUseDuration(itemStack) - duration;
         float power = getPowerForTime(timeUsed);
-        System.out.println(power);
         if ((double) power < 0.1)
             return;
         ReishiArrow reishiArrow = new ReishiArrow(player.level, player);

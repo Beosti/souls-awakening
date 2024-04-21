@@ -10,6 +10,8 @@ import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
 import com.yuanno.soulsawakening.data.challenges.IChallengesData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
+import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
@@ -100,8 +102,8 @@ public class StatsEvent {
             abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
             abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
             abilityData.addUnlockedAbility(HollowRegenerationAbility.INSTANCE);
-            entityStats.getHollowStats().setHollowPoints(0);
-
+            HollowStats hollowStats = new HollowStats();
+            entityStats.setHollowStats(hollowStats);
         }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);

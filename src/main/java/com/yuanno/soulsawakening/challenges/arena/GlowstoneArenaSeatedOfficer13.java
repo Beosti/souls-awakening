@@ -38,7 +38,6 @@ public class GlowstoneArenaSeatedOfficer13 extends GlowstoneArena {
         boss.teleportTo(challenge.getArenaPos().getX() - 15, challenge.getArenaPos().getY() - 23, challenge.getArenaPos().getZ() - 15);
         boss.setYBodyRot(-45);
         boss.setTarget(challenge.getOwner());
-        //GoalUtil.lookAtEntity(boss, challenge.getOwner());
         set.add(boss);
 
         return set;

@@ -66,18 +66,19 @@ public class ShinigamiEntity extends CreatureEntity implements IBleach {
         Predicate<Entity> factionScope = getEnemyFactions(this);
 
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, HollowEntity.class, false));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, JetEntity.class, false));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, true, factionScope));
+        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, HollowEntity.class, false));
+        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, JetEntity.class, false));
+        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, true, factionScope));
+        this.targetSelector.addGoal(7, new LeapAtTargetGoal(this, 0.4f));
 
-        this.goalSelector.addGoal(4, new ImprovedMeleeAttackShinigamiGoal(this, 1, true));
+        this.goalSelector.addGoal(7, new ImprovedMeleeAttackShinigamiGoal(this, 1, true));
 
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 4));
-        this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 4));
+        this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
     }
 
     public static Predicate<Entity> getEnemyFactions(LivingEntity entity)
@@ -143,6 +144,7 @@ public class ShinigamiEntity extends CreatureEntity implements IBleach {
         int randomIndex = randomTest.nextInt(options.length);
         this.constantSkin = options[randomIndex];
         IEntityStats entityStats = EntityStatsCapability.get(this);
+        entityStats.setRace(ModValues.SHINIGAMI);
         entityStats.setReiatsuPoints(10);
         return spawnData;
     }

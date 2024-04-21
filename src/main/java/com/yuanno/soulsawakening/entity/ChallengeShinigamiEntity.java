@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.entity;
 import com.google.common.base.Predicates;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.entity.goal.DeflectProjectileGoal;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
@@ -37,10 +38,12 @@ public class ChallengeShinigamiEntity extends CreatureEntity {
     {
         super.registerGoals();
 
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 
         this.goalSelector.addGoal(7, new ImprovedMeleeAttackGoal(this, 1, true));
+        this.targetSelector.addGoal(5, new LeapAtTargetGoal(this, 0.32f));
 
+        this.targetSelector.addGoal(8, new DeflectProjectileGoal(this, 5));
 
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
 
@@ -69,13 +72,6 @@ public class ChallengeShinigamiEntity extends CreatureEntity {
                 return false;
             }
 
-            /*
-            if(isTamedBy(entity).test(target)) {
-                return false;
-            }
-
-             */
-
             boolean isSpectating = !EntityPredicates.NO_SPECTATORS.test(target);
             if (isSpectating) {
                 return false;
@@ -97,6 +93,7 @@ public class ChallengeShinigamiEntity extends CreatureEntity {
                 .add(Attributes.MAX_HEALTH, 20)
                 .add(Attributes.FOLLOW_RANGE, 100)
                 .add(Attributes.MOVEMENT_SPEED, 0.28)
+                .add(ModAttributes.ATTACK_RANGE.get(), 0.3)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
 
     }
