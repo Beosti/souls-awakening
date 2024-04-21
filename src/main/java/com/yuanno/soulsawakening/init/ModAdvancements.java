@@ -20,6 +20,7 @@ public class ModAdvancements {
 
     public static final RaceChangeTrigger RACE_CHANGE = new RaceChangeTrigger();
 
+    public static final QuincyTrigger QUINCY = new QuincyTrigger();
 
     public static void register(IEventBus eventBus)
     {
@@ -31,6 +32,6 @@ public class ModAdvancements {
         CriteriaTriggers.register(GILLIAN);
         CriteriaTriggers.register(ADJUCHA);
         CriteriaTriggers.register(VASTO_LORDE);
-
+        CriteriaTriggers.register(QUINCY);
     }
 }

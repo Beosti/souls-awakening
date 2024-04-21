@@ -1,0 +1,28 @@
+{
+  "parent": "soulsawakening:races/root",
+  "display": {
+    "icon": {
+      "item": "soulsawakening:kojaku"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.race.quincy.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.race.quincy.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "quincy": {
+      "trigger": "soulsawakening:quincy"
+    }
+  },
+  "requirements": [
+    [
+      "quincy"
+    ]
+  ]
+}

@@ -12,6 +12,8 @@
   "item.soulsawakening.zanpakuto": "Zanpakuto",
   "item.soulsawakening.zanpakuto_wakizashi": "Zanpakuto: Wakizashi",
   "item.soulsawakening.shinai": "Shinai",
+  "item.soulsawakening.dangle": "Dangle",
+  "item.soulsawakening.kojaku": "Kojaku",
 
   "gui.soulsawakening.tree": "Skill tree",
   "gui.soulsawakening.hollow_tree": "Hollow",
@@ -20,6 +22,7 @@
 
   "block.soulsawakening.reishi_ore": "Reishi Ore",
   "block.soulsawakening.hollow_sand": "Hollow Sand",
+  "block.soulsawakening.reishi_bricks": "Reishi Bricks",
 
   "entity.soulsawakening.centipede": "Hollow Centipede",
 
@@ -31,6 +34,12 @@
 
   "advancements.soulsawakening.items.get_reishi_ingot.title": "Collector of spirit",
   "advancements.soulsawakening.items.get_reishi_ingot.description": "A start for a hoarder of spirit",
+
+  "advancements.soulsawakening.items.get_dangle.title": "Collector of spiritual trinkets",
+  "advancements.soulsawakening.items.get_dangle.description": "Another path to take",
+
+  "advancements.soulsawakening.items.get_kojaku.title": "Harnessing the surroundings",
+  "advancements.soulsawakening.items.get_kojaku.description": "Always more of a fan of the bow anyways",
 
   "advancements.soulsawakening.race.root.title": "Shedding human",
   "advancements.soulsawakening.race.root.description": "Humanity wasn't the end, nor wil it ever be",
@@ -56,6 +65,8 @@
   "advancements.soulsawakening.race.vasto_lorde.title": "Vasto Lorde",
   "advancements.soulsawakening.race.vasto_lorde.description": "Is this the peak?",
 
+  "advancements.soulsawakening.race.quincy.title": "Quincy",
+  "advancements.soulsawakening.race.quincy.description": "Balance? I want them all dead.",
   "soulsawakening.attack_range": "Attack range",
 
   "challenge.message.start_title": "Starting Challenge",

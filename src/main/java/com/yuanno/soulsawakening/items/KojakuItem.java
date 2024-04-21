@@ -3,18 +3,38 @@ package com.yuanno.soulsawakening.items;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entities.projectiles.quincy.ReishiArrow;
 import com.yuanno.soulsawakening.init.ModItemGroup;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Rarity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public class KojakuItem extends BowItem implements ISpiritWeapon {
     public KojakuItem() {
-        super(new Properties().tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).stacksTo(1));
+        super(new Properties().tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).rarity(Rarity.RARE).stacksTo(1));
+    }
+    @Override
+    public void appendHoverText(ItemStack itemStack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag)
+    {
+        if (Screen.hasShiftDown())
+        {
+            tooltip.add(new TranslationTextComponent("§6A bow made out of surrounding reishi"));
+        }
+        else if (!Screen.hasShiftDown())
+        {
+            tooltip.add(new TranslationTextComponent("§6Hold " + "§eSHIFT " + "§6" + "for more Information!"));
+        }
     }
 
     /**
@@ -57,5 +77,20 @@ public class KojakuItem extends BowItem implements ISpiritWeapon {
             return ret;
         player.startUsingItem(hand);
         return ActionResult.consume(itemstack);
+    }
+
+    public static float getPowerForTime(int time) {
+        float power = (float)time / 40.0F;
+        power = (power * power + power * 2.0F) / 3.0F;
+        if (power > 1.0F) {
+            power = 1.0F;
+        }
+
+        return power;
+    }
+
+    @Override
+    public int getUseDuration(ItemStack itemStack) {
+        return 72000;
     }
 }

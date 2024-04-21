@@ -67,7 +67,6 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     }
     public void setMaxCooldown(double maxCooldown)
     {
-        System.out.println("CALLED");
         this.maxCooldown = maxCooldown;
     }
     public double getCooldown() {
