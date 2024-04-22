@@ -27,7 +27,7 @@ public class Ability extends ForgeRegistryEntry<Ability> {
 
     public void duringCooldown(PlayerEntity player)
     {
-        if (this.state.equals(STATE.READY))
+        if (this.state.equals(STATE.READY) || this.state.equals(STATE.CONTINUOUS))
             return;
         if (this.getCooldown() <= 0 && !this.getState().equals(STATE.READY)) {
             this.setState(STATE.READY);
@@ -146,7 +146,8 @@ public class Ability extends ForgeRegistryEntry<Ability> {
         BANKAI(Category.ZANPAKUTO),
         BAKUDO(Category.KIDO),
         HADO(Category.KIDO),
-        KAIDO(Category.KIDO);
+        KAIDO(Category.KIDO),
+        REISHI(Category.QUINCY);
         private Category category;
         SubCategory(Category category)
         {

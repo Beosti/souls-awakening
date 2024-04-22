@@ -5,6 +5,13 @@ import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 
+/**
+ * Abilities that are constantly ticking, doing something you got 3 methods that really handle it:
+ * {@link #startContinuity(PlayerEntity)} that does something when it starts
+ * {@link #duringContinuity(PlayerEntity)} that does something when it's going on
+ * {@link #endContinuity(PlayerEntity)} that does something when it's over
+ *  The rest is mostly boiler plate
+ */
 public interface IContinuousAbility {
 
     default void duringContinuity(PlayerEntity player)

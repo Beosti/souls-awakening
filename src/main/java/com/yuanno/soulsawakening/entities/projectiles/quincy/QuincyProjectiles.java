@@ -19,6 +19,9 @@ public class QuincyProjectiles {
     public static final RegistryObject<EntityType<ReishiArrow>> REISHI_ARROW = Beapi.registerEntityType("reishi", () -> Beapi.createEntityType(ReishiArrow::new)
             .sized(0.35f, 0.35f)
             .build(Main.MODID + ":reishi_arrow"));
+    public static final RegistryObject<EntityType<BigReishiArrow>> BIG_REISHI_ARROW = Beapi.registerEntityType("big_reishi_arrow", () -> Beapi.createEntityType(BigReishiArrow::new)
+            .sized(0.7f, 0.7f)
+            .build(Main.MODID + ":big_reishi_arrow"));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -26,5 +29,7 @@ public class QuincyProjectiles {
     {
         RenderingRegistry.registerEntityRenderingHandler(REISHI_ARROW.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
                 .setColor("#ADD8E6").setScale(0.35f, 0.35f, 1.5f));
+        RenderingRegistry.registerEntityRenderingHandler(BIG_REISHI_ARROW.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
+                .setColor("#ADD8E6").setScale(0.75f, 0.75f, 1.7f));
     }
 }

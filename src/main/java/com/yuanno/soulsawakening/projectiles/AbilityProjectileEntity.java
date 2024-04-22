@@ -3,7 +3,6 @@ package com.yuanno.soulsawakening.projectiles;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.events.projectiles.AbilityProjectileHurtEvent;
 import com.yuanno.soulsawakening.events.projectiles.ProjectileBlockEvent;
 import com.yuanno.soulsawakening.events.projectiles.ProjectileHitEvent;
 import com.yuanno.soulsawakening.events.projectiles.ProjectileShootEvent;
@@ -50,6 +49,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 	private int knockbackStrength = 0;
 	private double collisionSize = 1;
 	private float damage = 0.1F;
+	private float addedDamage = 0.0F;
 	private float gravity = 0.0001F;
 	private boolean canPassThroughBlocks = false;
 	private boolean canPassThroughEntities = false;
@@ -447,6 +447,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		compound.putInt("hurtTime", this.hurtTime);
 		compound.putInt("knockbackStrength", this.knockbackStrength);
 		compound.putFloat("damage", this.damage);
+		compound.putFloat("addedDamage", this.addedDamage);
 		compound.putFloat("gravity", this.gravity);
 		compound.putDouble("collisionSize", this.collisionSize);
 		compound.putBoolean("isPhysical", this.entityData.get(IS_PHYSICAL));
@@ -468,6 +469,7 @@ public class AbilityProjectileEntity extends ThrowableEntity
 		this.hurtTime = compound.getInt("hurtTime");
 		this.knockbackStrength = compound.getInt("knockbackStrength");
 		this.damage = compound.getFloat("damage");
+		this.addedDamage = compound.getFloat("addedDamage");
 		this.gravity = compound.getFloat("gravity");
 		this.collisionSize = compound.getDouble("collisionSize");
 		this.entityData.set(IS_PHYSICAL, compound.getBoolean("isPhysical"));
@@ -622,11 +624,23 @@ public class AbilityProjectileEntity extends ThrowableEntity
 
 	public float getDamage()
 	{
-		return this.damage;
+		return this.damage += this.addedDamage;
 	}
-	public void alterDamage(float damage)
+	public void alterDamage(float amount)
+	{
+		this.damage += amount;
+	}
+	public void setAddedDamage(float damage)
 	{
 		this.damage += damage;
+	}
+	public float getAddedDamage()
+	{
+		return this.addedDamage;
+	}
+	public void alterAddedDamage(float amount)
+	{
+		this.addedDamage += amount;
 	}
 
 	public void setGravity(float gravity)

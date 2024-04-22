@@ -88,11 +88,12 @@ public class RightClickAbilityEvents {
      * @param event custom event where the other right click ability events funnel through to handle all the logic at one place
      */
     @SubscribeEvent
-    public static void customRightClickLogic(CustomInteractionEvent event)
-    {
+    public static void customRightClickLogic(CustomInteractionEvent event) {
         PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        ArrayList <Ability> unlockedAbilities = (ArrayList<Ability>) abilityData.getUnlockedAbilities();
+        ArrayList<Ability> unlockedAbilities = (ArrayList<Ability>) abilityData.getUnlockedAbilities();
         unlockedAbilities.sort((ability1, ability2) -> {
             if (ability1 instanceof IEntityRayTrace && ability2 instanceof IEntityRayTrace) {
                 return 0;
@@ -104,10 +105,9 @@ public class RightClickAbilityEvents {
                 return 0;
             }
         });
-        for (int i = 0; i < unlockedAbilities.size(); i++)
-        {
+        for (int i = 0; i < unlockedAbilities.size(); i++) {
             Ability ability = unlockedAbilities.get(i);
-            if (!(ability.getState().equals(Ability.STATE.READY))) // check if the ability is read
+            if (!(ability.getState().equals(Ability.STATE.READY)) && !(ability instanceof IContinuousAbility)) // check if the ability is ready or continuous
                 continue;
             if (!(ability instanceof IRightClickAbility)) // check if the ability is a right click ability
                 continue;
@@ -130,8 +130,13 @@ public class RightClickAbilityEvents {
             if ((ability instanceof IEntityRayTrace) && event.getDistance() > (((IEntityRayTrace) ability).getDistance()))
                 continue;
             AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
-            MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
             AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, ability);
+            if (ability instanceof IContinuousAbility && ability.getState().equals(Ability.STATE.READY)) {
+                MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
+                System.out.println("CALLED MAKING");
+                return;
+            }
+            System.out.println("CALLED");
             MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
             AbilityUseEvent.Post abilityUseEventPost;
             // todo make the target also pass by this event
@@ -139,8 +144,10 @@ public class RightClickAbilityEvents {
                 abilityUseEventPost = new AbilityUseEvent.Post(player, ability, ((IEntityRayTrace) ability).getLivingEntity(player));
             else
                 abilityUseEventPost = new AbilityUseEvent.Post(player, ability);
-            MinecraftForge.EVENT_BUS.post(abilityUseEventPost);
-            return;
+            if (!(ability instanceof IContinuousAbility)) {
+                MinecraftForge.EVENT_BUS.post(abilityUseEventPost);
+                return;
+            }
         }
     }
 }

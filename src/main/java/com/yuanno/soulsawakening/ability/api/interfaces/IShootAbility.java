@@ -21,7 +21,7 @@ public interface IShootAbility {
     default void onUse(PlayerEntity player, Ability ability) {
         AbilityProjectileEntity projectile = getProjectile(player);
         if (ability instanceof IReiatsuAbility) {
-            projectile.alterDamage(((IReiatsuAbility) ability).addedVariable(player));
+            projectile.setAddedDamage(((IReiatsuAbility) ability).addedVariable(player));
             projectile.alterMaxLife(((IReiatsuAbility) ability).addedLife());
         }
         if (projectile != null) {

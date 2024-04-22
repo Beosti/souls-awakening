@@ -32,6 +32,7 @@ import com.yuanno.soulsawakening.abilities.kido.hado.ByakuraiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShakkahoAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShoAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.TsuzuriRaidenAbility;
+import com.yuanno.soulsawakening.abilities.quincy.StrongArrowAbility;
 import com.yuanno.soulsawakening.abilities.shinso.LongRangeAbility;
 import com.yuanno.soulsawakening.abilities.shinso.ShootAbility;
 import com.yuanno.soulsawakening.abilities.shinso.WideShootAbility;
@@ -41,6 +42,7 @@ import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.entities.projectiles.quincy.BigReishiArrow;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -66,7 +68,7 @@ public class ModAbilities {
     public static final Ability[] SHINIGAMI = new Ability[] {SoulSocietyKeyAbility.INSTANCE};
     public static final Ability[] HADO = new Ability[] {ShoAbility.INSTANCE, ByakuraiAbility.INSTANCE, ShakkahoAbility.INSTANCE, TsuzuriRaidenAbility.INSTANCE};
     public static final Ability[] BAKUDO = new Ability[] {SaiAbility.INSTANCE, HainawaAbility.INSTANCE, SekiAbility.INSTANCE};
-
+    public static final Ability[] QUINCY = new Ability[] {StrongArrowAbility.INSTANCE};
     public static void register(IEventBus eventBus)
     {
         registerAbilities(DARK_ZANPAKUTO);
@@ -83,6 +85,7 @@ public class ModAbilities {
         registerAbilities(HADO);
         registerAbilities(BAKUDO);
         registerAbilities(SHINIGAMI);
+        registerAbilities(QUINCY);
     }
 
     private static void registerAbilities(Ability[] abilities)

@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.items;
 
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entities.projectiles.quincy.ReishiArrow;
+import com.yuanno.soulsawakening.events.util.CustomArrowLooseEvent;
 import com.yuanno.soulsawakening.init.ModItemGroup;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -15,6 +16,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
@@ -61,8 +63,10 @@ public class KojakuItem extends BowItem implements ISpiritWeapon {
         float inaccuracy = 1 / power;
         int reishi = (int) EntityStatsCapability.get(player).getReiatsuPoints();
         int addedDamage = (int) (reishi * power);
-        reishiArrow.alterDamage(addedDamage);
+        reishiArrow.setAddedDamage(addedDamage);
         reishiArrow.alterMaxLife(addedDamage);
+        CustomArrowLooseEvent event = new CustomArrowLooseEvent(player, itemStack, world, power, reishiArrow);
+        MinecraftForge.EVENT_BUS.post(event);
         reishiArrow.shootFromRotation(player, player.xRot, player.yRot, 0, velocity, inaccuracy);
         player.level.addFreshEntity(reishiArrow);
     }

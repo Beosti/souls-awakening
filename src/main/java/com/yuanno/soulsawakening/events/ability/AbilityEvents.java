@@ -18,6 +18,7 @@ public class AbilityEvents {
 
     /**
      * Called before the actual thing that should happen happens, mostly just checks if it's continuous or not
+     * Then appropriately does what it has to do
      * @param event that happens before the actual thing around the ability/spell happens
      */
     @SubscribeEvent
@@ -49,8 +50,9 @@ public class AbilityEvents {
     {
         Ability ability = event.getAbility();
         PlayerEntity player = event.getPlayer();
-        if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS))
+        if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS)) {
             return;
+        }
         if ((ability instanceof IDimensionTeleportAbility))
             ((IDimensionTeleportAbility) ability).teleport(player);
         if (ability instanceof IEntityRayTrace && ((IEntityRayTrace) ability).gotTarget(player))
@@ -97,8 +99,6 @@ public class AbilityEvents {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (ability instanceof IReiatsuAbility) {
             double amount = (ability.getMaxCooldown() - ((IReiatsuAbility) ability).reducedCooldown(player));
-            System.out.println("CALED");
-            System.out.println(amount);
             ability.setCooldown(amount * 20);
         }
         else {

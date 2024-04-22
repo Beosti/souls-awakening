@@ -60,6 +60,8 @@ public class AbilityOverlay extends AbstractGui {
                     ResourceLocation widgetResourceLocation = new ResourceLocation(Main.MODID, "textures/widget/widget_contour.png");
                     if (!abilityToDraw.getState().equals(Ability.STATE.COOLDOWN)) // draw widget counter
                         Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                    else if (abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS))
+                        Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 0, 0, 1.0f);
                     else // draw widget during cooldown + cooldown counter
                         {
                         int cooldown = (int) abilityToDraw.getCooldown();
