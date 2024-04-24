@@ -20,6 +20,7 @@ public interface IContinuousAbility {
     }
     default void endContinuity(PlayerEntity player, Ability ability)
     {
+        System.out.println("CALLED ENDING");
         endContinuity(player);
         AbilityUseEvent.Post abilityUseEventPost = new AbilityUseEvent.Post(player, ability);
         MinecraftForge.EVENT_BUS.post(abilityUseEventPost);

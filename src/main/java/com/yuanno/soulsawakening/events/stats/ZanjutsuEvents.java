@@ -58,6 +58,8 @@ public class ZanjutsuEvents {
                     return;
 
                 LivingEntity target = event.getEntityLiving();
+                if (!EntityStatsCapability.get(livingEntity).getRace().equals(ModValues.SHINIGAMI))
+                    return;
                 if (livingEntity instanceof PlayerEntity)
                     experienceHandler((PlayerEntity) livingEntity, entityStats);
                 if (entityStats.getShinigamiStats().getZanjutsuPoints() <= 0)

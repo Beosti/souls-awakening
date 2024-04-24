@@ -8,13 +8,15 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import com.yuanno.soulsawakening.events.util.CustomArrowLooseEvent;
-import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+/**
+ * Checks abilities that have {@link IReleaseArrow} and if they're {@link IContinuousAbility} and handles the pre-defined logic here
+ * Mostly quincies that only use this but can always be handy for zanpakuto, bankai etc.
+ */
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class AbilityArrowLooseEvents {
 
@@ -29,15 +31,14 @@ public class AbilityArrowLooseEvents {
         {
             if (!(abilityData.getUnlockedAbilities().get(i) instanceof IReleaseArrow))
                 continue;
-            if (!abilityData.getUnlockedAbilities().get(i).getState().equals(Ability.STATE.READY) && !(abilityData instanceof IContinuousAbility && !abilityData.getUnlockedAbilities().get(i).getState().equals(Ability.STATE.CONTINUOUS)))
+            if (abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility && !abilityData.getUnlockedAbilities().get(i).getState().equals(Ability.STATE.CONTINUOUS))
+                continue;
+            if (!(abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility) && !abilityData.getUnlockedAbilities().get(i).getState().equals(Ability.STATE.READY))
                 continue;
             IReleaseArrow releaseArrow = (IReleaseArrow) abilityData.getUnlockedAbilities().get(i);
             releaseArrow.onLooseArrow(player, event.getProjectile(), event.getPower());
-            if (abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility && ((IContinuousAbility) abilityData.getUnlockedAbilities().get(i)).getEndAfterUse());
-            {
-                AbilityUseEvent.Post abilityUseEvent = new AbilityUseEvent.Post(player, abilityData.getUnlockedAbilities().get(i));
-                MinecraftForge.EVENT_BUS.post(abilityUseEvent);
-            }
+            if (abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility && ((IContinuousAbility) abilityData.getUnlockedAbilities().get(i)).getEndAfterUse())
+                ((IContinuousAbility) abilityData.getUnlockedAbilities().get(i)).endContinuity(player, abilityData.getUnlockedAbilities().get(i));
         }
 
     }

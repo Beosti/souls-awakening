@@ -30,7 +30,7 @@ import java.util.ArrayList;
 /**
  * Here all the event abilities handled.
  * For the abilities that are on-hit {@link IAttackAbility}
- * Everything happens in the {@link #onAttackEvent(AttackEntityEvent)}, when the player attacks the entity and it has {@link IAttackAbility} it does what it has to do
+ * Everything happens in the {@link AttackAbilityEvents}, when the player attacks the entity and it has {@link IAttackAbility} it does what it has to do
  * Possibly could add cooldown and other stuff to those type of abilities
  *
  * For the abilities with right-clicking {@link IRightClickAbility}
@@ -47,6 +47,8 @@ public class RightClickAbilityEvents {
     @SubscribeEvent
     public static void onRightClickEmpty(PlayerInteractEvent.RightClickEmpty event)
     {
+        if (!event.getHand().equals(Hand.MAIN_HAND))
+            return;
         PacketHandler.sendToServer(new CRightClickEmptyPacket());
     }
 
@@ -107,8 +109,6 @@ public class RightClickAbilityEvents {
         });
         for (int i = 0; i < unlockedAbilities.size(); i++) {
             Ability ability = unlockedAbilities.get(i);
-            if (!(ability.getState().equals(Ability.STATE.READY)) && !(ability instanceof IContinuousAbility)) // check if the ability is ready or continuous
-                continue;
             if (!(ability instanceof IRightClickAbility)) // check if the ability is a right click ability
                 continue;
             if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
@@ -121,8 +121,9 @@ public class RightClickAbilityEvents {
                     return;
             }
             IRightClickAbility rightClickEmptyAbility = (IRightClickAbility) abilityData.getUnlockedAbilities().get(i);
-            if (rightClickEmptyAbility.getAlt() ^ InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_ALT))
+            if (rightClickEmptyAbility.getAlt() ^ InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_ALT)) {
                 continue;
+            }
             if (player.isCrouching() ^ rightClickEmptyAbility.getShift())
                 continue;
             if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
@@ -131,12 +132,7 @@ public class RightClickAbilityEvents {
                 continue;
             AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
             AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, ability);
-            if (ability instanceof IContinuousAbility && ability.getState().equals(Ability.STATE.READY)) {
-                MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
-                System.out.println("CALLED MAKING");
-                return;
-            }
-            System.out.println("CALLED");
+            MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
             MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
             AbilityUseEvent.Post abilityUseEventPost;
             // todo make the target also pass by this event
@@ -144,9 +140,9 @@ public class RightClickAbilityEvents {
                 abilityUseEventPost = new AbilityUseEvent.Post(player, ability, ((IEntityRayTrace) ability).getLivingEntity(player));
             else
                 abilityUseEventPost = new AbilityUseEvent.Post(player, ability);
-            if (!(ability instanceof IContinuousAbility)) {
+            if (!(ability instanceof IContinuousAbility)) // this is mostly there so the continuous logic can be handled by the ability itself to decide when it stops
+            {
                 MinecraftForge.EVENT_BUS.post(abilityUseEventPost);
-                return;
             }
         }
     }

@@ -46,7 +46,8 @@ public class IncantationAbilityEvent {
                 abilityUsedEvent = new AbilityUseEvent.Post(player, ability, ((IEntityRayTrace) ability).getLivingEntity(player));
             else
                 abilityUsedEvent = new AbilityUseEvent.Post(player, ability);
-            MinecraftForge.EVENT_BUS.post(abilityUsedEvent);
+            if (!(ability instanceof IContinuousAbility)) // there to let the continuous ability decide itself when to stop
+                MinecraftForge.EVENT_BUS.post(abilityUsedEvent);
             return;
         }
     }

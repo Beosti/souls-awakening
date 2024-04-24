@@ -13,6 +13,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+/**
+ * Where ALL the events for abilities are gathered;
+ * The WHOLE point of this so we don't have to look around in {@link RightClickAbilityEvents} or {@link AttackAbilityEvents}
+ * They just check when the ability has to be called and all the logic goes into here;
+ */
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class AbilityEvents {
 
@@ -26,17 +31,15 @@ public class AbilityEvents {
     {
         Ability ability = event.getAbility();
         PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (ability instanceof IContinuousAbility)
         {
-            if (ability.getState().equals(Ability.STATE.CONTINUOUS)) {
-                ((IContinuousAbility) ability).endContinuity(player, ability);
-            }
             if (ability.getState().equals(Ability.STATE.READY)) {
                 ((IContinuousAbility) ability).startContinuity(player, ability);
                 ability.setState(Ability.STATE.CONTINUOUS);
                 PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-                return;
             }
         }
     }
@@ -77,8 +80,9 @@ public class AbilityEvents {
             LivingEntity target = event.getTarget();
             ((IGetHitAbility) ability).getHitAbility(player, target, ability);
         }
-        if (ability instanceof IContinuousAbility && ((IContinuousAbility) ability).getEndAfterUse())
+        if (ability instanceof IContinuousAbility && ((IContinuousAbility) ability).getEndAfterUse() && !(ability instanceof IReleaseArrow))
         {
+            System.out.println("CALLED HERE");
             ((IContinuousAbility) ability).endContinuity(player, ability);
         }
     }
@@ -94,7 +98,7 @@ public class AbilityEvents {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
-        if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
+        if (ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player)))
             return;
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (ability instanceof IReiatsuAbility) {
@@ -102,6 +106,7 @@ public class AbilityEvents {
             ability.setCooldown(amount * 20);
         }
         else {
+            System.out.println(ability.getMaxCooldown() * 20);
             ability.setCooldown(ability.getMaxCooldown() * 20);
         }
         ability.setState(Ability.STATE.COOLDOWN);

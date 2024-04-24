@@ -28,8 +28,9 @@ public class StrongArrowAbility extends Ability implements IContinuousAbility, I
         float extraDamage = abilityProjectileEntity.getAddedDamage();
         BigReishiArrow bigReishiArrow = new BigReishiArrow(player.level, player);
         bigReishiArrow.alterAddedDamage(extraDamage);
-        abilityProjectileEntity = bigReishiArrow;
-        System.out.println("CALLED");
+        abilityProjectileEntity.remove();
+        bigReishiArrow.shootFromRotation(player, player.xRot, player.yRot, 0, 3, 1);
+        player.level.addFreshEntity(bigReishiArrow);
     }
 
     @Override

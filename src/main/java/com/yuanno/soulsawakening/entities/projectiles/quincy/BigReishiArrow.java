@@ -19,8 +19,8 @@ public class BigReishiArrow extends AbilityProjectileEntity {
     public BigReishiArrow(World world, LivingEntity player)
     {
         super(QuincyProjectiles.BIG_REISHI_ARROW.get(), world, player);
-        this.setDamage(6);
-        this.setMaxLife(32);
+        this.setDamage(8);
+        this.setMaxLife(64);
         this.setKnockbackStrength(0);
         this.setPhysical(false);
         this.onEntityImpactEvent = this::onHit;
