@@ -32,6 +32,7 @@ import com.yuanno.soulsawakening.abilities.kido.hado.ByakuraiAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShakkahoAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.ShoAbility;
 import com.yuanno.soulsawakening.abilities.kido.hado.TsuzuriRaidenAbility;
+import com.yuanno.soulsawakening.abilities.quincy.MultipleArrowAbility;
 import com.yuanno.soulsawakening.abilities.quincy.StrongArrowAbility;
 import com.yuanno.soulsawakening.abilities.shinso.LongRangeAbility;
 import com.yuanno.soulsawakening.abilities.shinso.ShootAbility;
@@ -68,7 +69,7 @@ public class ModAbilities {
     public static final Ability[] SHINIGAMI = new Ability[] {SoulSocietyKeyAbility.INSTANCE};
     public static final Ability[] HADO = new Ability[] {ShoAbility.INSTANCE, ByakuraiAbility.INSTANCE, ShakkahoAbility.INSTANCE, TsuzuriRaidenAbility.INSTANCE};
     public static final Ability[] BAKUDO = new Ability[] {SaiAbility.INSTANCE, HainawaAbility.INSTANCE, SekiAbility.INSTANCE};
-    public static final Ability[] QUINCY = new Ability[] {StrongArrowAbility.INSTANCE};
+    public static final Ability[] QUINCY = new Ability[] {StrongArrowAbility.INSTANCE, MultipleArrowAbility.INSTANCE};
     public static void register(IEventBus eventBus)
     {
         registerAbilities(DARK_ZANPAKUTO);
