@@ -1,6 +1,11 @@
 package com.yuanno.soulsawakening.events.quincy;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.quincy.BlutStrengthAbility;
+import com.yuanno.soulsawakening.abilities.quincy.PiercingArrowAbility;
+import com.yuanno.soulsawakening.abilities.quincy.StrongArrowAbility;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
@@ -12,6 +17,7 @@ import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.items.DangleItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -105,14 +111,27 @@ public class QuincyEvents {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         if (!entityStats.getRace().equals(ModValues.QUINCY))
             return;
+        handleAbilities(player, entityStats);
         handleConstitution(player, entityStats);
-        handleHierro(player, entityStats);
+        handleBlut(player, entityStats);
     }
 
-    static void handleHierro(PlayerEntity player, IEntityStats entityStats)
+    public static void handleAbilities(PlayerEntity player, IEntityStats entityStats)
+    {
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        if (!abilityData.getUnlockedAbilities().contains(StrongArrowAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 5)
+            abilityData.addUnlockedAbility(StrongArrowAbility.INSTANCE);
+        if (!abilityData.getUnlockedAbilities().contains(BlutStrengthAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 10)
+            abilityData.addUnlockedAbility(BlutStrengthAbility.INSTANCE);
+        if (!abilityData.getUnlockedAbilities().contains(PiercingArrowAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 15)
+            abilityData.addUnlockedAbility(PiercingArrowAbility.INSTANCE);
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+    }
+
+    static void handleBlut(PlayerEntity player, IEntityStats entityStats)
     {
         ModifiableAttributeInstance damageReductionAttribute = player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get());
-        damageReductionAttribute.setBaseValue(entityStats.getHollowStats().getHierro() * 0.05);
+        damageReductionAttribute.setBaseValue(entityStats.getHollowStats().getHierro() * 0.02);
     }
 
     // handles the constitution stat
