@@ -14,7 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * Checks abilities that have {@link IReleaseArrow} and if they're {@link IContinuousAbility} and handles the pre-defined logic here
+ * Checks abilities that have {@link IReleaseArrow} and if they're {@link IContinuousAbility} and funnels it properly to {@link AbilityUseEvent}
  * Mostly quincies that only use this but can always be handy for zanpakuto, bankai etc.
  */
 @Mod.EventBusSubscriber(modid = Main.MODID)
@@ -35,11 +35,12 @@ public class AbilityArrowLooseEvents {
                 continue;
             if (!(abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility) && !abilityData.getUnlockedAbilities().get(i).getState().equals(Ability.STATE.READY))
                 continue;
-            IReleaseArrow releaseArrow = (IReleaseArrow) abilityData.getUnlockedAbilities().get(i);
-            releaseArrow.onLooseArrow(player, event.getProjectile(), event.getPower());
-            if (abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility && ((IContinuousAbility) abilityData.getUnlockedAbilities().get(i)).getEndAfterUse())
-                ((IContinuousAbility) abilityData.getUnlockedAbilities().get(i)).endContinuity(player, abilityData.getUnlockedAbilities().get(i));
+            AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, abilityData.getUnlockedAbilities().get(i), event.getProjectile(), event.getPower());
+            MinecraftForge.EVENT_BUS.post(abilityUseEvent);
+            if (abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility && ((IContinuousAbility) abilityData.getUnlockedAbilities().get(i)).getEndAfterUse()) {
+                AbilityUseEvent.Post abilityUseEventPost = new AbilityUseEvent.Post(player, abilityData.getUnlockedAbilities().get(i));
+                MinecraftForge.EVENT_BUS.post(abilityUseEventPost);
+            }
         }
-
     }
 }

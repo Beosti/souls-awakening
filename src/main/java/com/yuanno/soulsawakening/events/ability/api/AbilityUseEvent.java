@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.events.ability.api;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.eventbus.api.Event;
@@ -15,6 +16,10 @@ public class AbilityUseEvent extends Event {
     {
         this.player = player;
         this.ability = ability;
+    }
+    public AbilityUseEvent(PlayerEntity player)
+    {
+        this.player = player;
     }
 
     /**
@@ -34,7 +39,8 @@ public class AbilityUseEvent extends Event {
     public static class Per extends AbilityUseEvent
     {
         private LivingEntity target;
-
+        private AbilityProjectileEntity projectile;
+        private float power;
         public Per(PlayerEntity player, Ability ability)
         {
             super(player, ability);
@@ -44,9 +50,23 @@ public class AbilityUseEvent extends Event {
             super(player, ability);
             this.target = target;
         }
+        public Per(PlayerEntity player, Ability ability, AbilityProjectileEntity projectile, float power)
+        {
+            super(player, ability);
+            this.projectile = projectile;
+            this.power = power;
+        }
         public LivingEntity getTarget()
         {
             return this.target;
+        }
+        public AbilityProjectileEntity getProjectile()
+        {
+            return this.projectile;
+        }
+        public float getPower()
+        {
+            return this.power;
         }
     }
 

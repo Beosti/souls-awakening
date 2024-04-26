@@ -80,9 +80,13 @@ public class AbilityEvents {
             LivingEntity target = event.getTarget();
             ((IGetHitAbility) ability).getHitAbility(player, target, ability);
         }
+        if (ability instanceof IReleaseArrow)
+        {
+            IReleaseArrow releaseArrow = (IReleaseArrow) ability;
+            releaseArrow.onLooseArrow(player, event.getProjectile(), event.getPower());
+        }
         if (ability instanceof IContinuousAbility && ((IContinuousAbility) ability).getEndAfterUse() && !(ability instanceof IReleaseArrow))
         {
-            System.out.println("CALLED HERE");
             ((IContinuousAbility) ability).endContinuity(player, ability);
         }
     }
@@ -106,7 +110,6 @@ public class AbilityEvents {
             ability.setCooldown(amount * 20);
         }
         else {
-            System.out.println(ability.getMaxCooldown() * 20);
             ability.setCooldown(ability.getMaxCooldown() * 20);
         }
         ability.setState(Ability.STATE.COOLDOWN);
