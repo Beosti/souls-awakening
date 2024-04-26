@@ -1,34 +1,34 @@
 package com.yuanno.soulsawakening.abilities.quincy;
 
-import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IReleaseArrow;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.entities.projectiles.quincy.BigReishiArrow;
+import com.yuanno.soulsawakening.entities.projectiles.quincy.PiercingReishiArrow;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class StrongArrowAbility extends Ability implements IContinuousAbility, IReleaseArrow, IRightClickAbility {
-    public static final StrongArrowAbility INSTANCE = new StrongArrowAbility();
+public class PiercingArrowAbility extends Ability implements IContinuousAbility, IReleaseArrow, IRightClickAbility {
+    public static final PiercingArrowAbility INSTANCE = new PiercingArrowAbility();
 
 
-    public StrongArrowAbility()
+    public PiercingArrowAbility()
     {
         this.setName("Strong Arrow");
-        this.setDescription("Shoots a bigger reishi arrow when this ability is active");
-        this.setMaxCooldown(12);
+        this.setDescription("Shoots a lightning fast reishi arrow that goes through anything");
+        this.setMaxCooldown(32);
         this.setSubCategory(SubCategory.REISHI);
     }
 
     @Override
     public void onLooseArrow(PlayerEntity player, AbilityProjectileEntity abilityProjectileEntity) {
         float extraDamage = abilityProjectileEntity.getAddedDamage();
-        BigReishiArrow bigReishiArrow = new BigReishiArrow(player.level, player);
-        bigReishiArrow.alterAddedDamage(extraDamage);
+        PiercingReishiArrow piercingReishiArrow = new PiercingReishiArrow(player.level, player);
+        piercingReishiArrow.alterAddedDamage(extraDamage);
         abilityProjectileEntity.remove();
-        bigReishiArrow.shootFromRotation(player, player.xRot, player.yRot, 0, 3, 1);
-        player.level.addFreshEntity(bigReishiArrow);
+        piercingReishiArrow.shootFromRotation(player, player.xRot, player.yRot, 0, 3, 1);
+        player.level.addFreshEntity(piercingReishiArrow);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class StrongArrowAbility extends Ability implements IContinuousAbility, I
     }
 
     @Override
-    public boolean getAlt() {
+    public boolean getShift() {
         return true;
     }
 }

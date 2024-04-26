@@ -5,8 +5,13 @@ import net.minecraft.entity.player.PlayerEntity;
 
 public interface IReleaseArrow {
 
-    default void onLooseArrow(PlayerEntity player, AbilityProjectileEntity abilityProjectileEntity, float power)
+    default void onLooseArrow(PlayerEntity player, AbilityProjectileEntity abilityProjectileEntity)
     {
 
+    }
+
+    default float getPowerRequired()
+    {
+        return 1f;
     }
 }

@@ -83,7 +83,8 @@ public class AbilityEvents {
         if (ability instanceof IReleaseArrow)
         {
             IReleaseArrow releaseArrow = (IReleaseArrow) ability;
-            releaseArrow.onLooseArrow(player, event.getProjectile(), event.getPower());
+            if (event.getPower() >= releaseArrow.getPowerRequired())
+                releaseArrow.onLooseArrow(player, event.getProjectile());
         }
         if (ability instanceof IContinuousAbility && ((IContinuousAbility) ability).getEndAfterUse() && !(ability instanceof IReleaseArrow))
         {
