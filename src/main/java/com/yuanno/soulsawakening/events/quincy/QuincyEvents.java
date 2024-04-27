@@ -11,6 +11,7 @@ import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
 import com.yuanno.soulsawakening.events.UpdateStatEvent;
 import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
+import com.yuanno.soulsawakening.events.util.CustomArrowLooseEvent;
 import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
@@ -19,10 +20,13 @@ import com.yuanno.soulsawakening.items.DangleItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -59,6 +63,7 @@ public class QuincyEvents {
                 ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
                 ModAdvancements.QUINCY.trigger((ServerPlayerEntity) player);
                 QuincyStats quincyStats = new QuincyStats();
+                quincyStats.setMaxClassExperience(100);
                 entityStats.setQuincyStats(quincyStats);
                 PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             }
@@ -80,27 +85,75 @@ public class QuincyEvents {
     @SubscribeEvent
     public static void onKillHollow(LivingDeathEvent event)
     {
-        if (!EntityStatsCapability.get(event.getEntityLiving()).getRace().equals(ModValues.HOLLOW))
+        int amountToChange;
+        if (EntityStatsCapability.get(event.getEntityLiving()).getRace().equals(ModValues.HOLLOW))
+            amountToChange = 100;
+        else if (event.getEntityLiving() instanceof MonsterEntity)
+            amountToChange = 25;
+        else
             return;
-        LivingEntity hollowEntity = event.getEntityLiving();
-        if (hollowEntity.level.isClientSide)
+        LivingEntity deadEntity = event.getEntityLiving();
+        if (deadEntity.level.isClientSide)
             return;
-        if (event.getSource().getDirectEntity() != null && event.getSource().getDirectEntity() instanceof LivingEntity)
+        System.out.println("CALLED FIRST");
+        if (event.getSource().getDirectEntity() != null)
         {
-            Entity killerEntity = event.getSource().getDirectEntity();
+            Entity killerEntity;
+            if (event.getSource().getDirectEntity() instanceof AbilityProjectileEntity)
+            {
+                AbilityProjectileEntity abilityProjectileEntity = (AbilityProjectileEntity) event.getSource().getDirectEntity();
+                if (abilityProjectileEntity.getOwner() != null)
+                    killerEntity = abilityProjectileEntity.getOwner();
+                else
+                    return;
+            }
+            else
+                killerEntity = event.getSource().getDirectEntity();
+            System.out.println("CALLED SECOND");
+
             if (!(killerEntity instanceof LivingEntity))
                 return;
             LivingEntity killerLivingEntity = (LivingEntity) killerEntity;
             if (!EntityStatsCapability.get(killerLivingEntity).getRace().equals(ModValues.QUINCY) || !EntityStatsCapability.get(killerLivingEntity).hasQuincyStats())
                 return;
+            System.out.println("CALLED THIRD");
+
             IEntityStats killerStats = EntityStatsCapability.get(killerLivingEntity);
-            Random random = new Random();
-            int randomNumber = random.nextInt();
-            if (randomNumber < 25)
+            killerStats.getQuincyStats().alterClassExperience(amountToChange);
+            System.out.println(amountToChange);
+            System.out.println(killerStats.getQuincyStats().getMaxClassExperience());
+            if (killerStats.getQuincyStats().getClassExperience() >= killerStats.getQuincyStats().getMaxClassExperience())
+            {
+                System.out.println("CALLED FOURTH");
+                int amount = killerStats.getQuincyStats().getMaxClassExperience() - killerStats.getQuincyStats().getClassExperience();
+                killerStats.getQuincyStats().setExperiencePoints(0);
+                killerStats.getQuincyStats().alterClassExperience(amount);
+                killerStats.getQuincyStats().alterMaxClassExperience(50);
                 killerStats.getQuincyStats().alterClassPoints(1);
+            }
             if (killerLivingEntity instanceof PlayerEntity)
                 PacketHandler.sendTo(new SSyncEntityStatsPacket(killerLivingEntity.getId(), killerStats), (PlayerEntity) killerLivingEntity);
         }
+    }
+    @SubscribeEvent
+    public static void onKojakuLoose(CustomArrowLooseEvent event)
+    {
+        if (event.getPower() != 1)
+            return;
+        IEntityStats looseEntity = EntityStatsCapability.get(event.getEntityLiving());
+        if (!looseEntity.getRace().equals(ModValues.QUINCY) || !looseEntity.hasQuincyStats())
+            return;
+        looseEntity.getQuincyStats().alterClassExperience(10);
+        if (looseEntity.getQuincyStats().getClassExperience() >= looseEntity.getQuincyStats().getMaxClassExperience())
+        {
+            int amount = looseEntity.getQuincyStats().getMaxClassExperience() - looseEntity.getQuincyStats().getClassExperience();
+            looseEntity.getQuincyStats().setExperiencePoints(0);
+            looseEntity.getQuincyStats().alterClassExperience(amount);
+            looseEntity.getQuincyStats().alterMaxClassExperience(50);
+        }
+        if (event.getEntityLiving() instanceof PlayerEntity)
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getEntityLiving().getId(), looseEntity), (PlayerEntity) event.getEntityLiving());
+
     }
     @SubscribeEvent
     public static void onUpdateHollowStat(UpdateStatEvent event)
@@ -111,11 +164,19 @@ public class QuincyEvents {
         IEntityStats entityStats = EntityStatsCapability.get(player);
         if (!entityStats.getRace().equals(ModValues.QUINCY))
             return;
-        handleAbilities(player, entityStats);
         handleConstitution(player, entityStats);
         handleBlut(player, entityStats);
     }
 
+    // handles the blut stat -> extra damage reduction + extra damage + abilities
+    static void handleBlut(PlayerEntity player, IEntityStats entityStats)
+    {
+        ModifiableAttributeInstance damageReductionAttribute = player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get());
+        damageReductionAttribute.setBaseValue(entityStats.getQuincyStats().getBlut() * 0.02);
+        ModifiableAttributeInstance attackAddedAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+        attackAddedAttribute.setBaseValue(entityStats.getQuincyStats().getBlut() * 0.02);
+        handleAbilities(player, entityStats);
+    }
     public static void handleAbilities(PlayerEntity player, IEntityStats entityStats)
     {
         IAbilityData abilityData = AbilityDataCapability.get(player);
@@ -128,13 +189,7 @@ public class QuincyEvents {
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
     }
 
-    static void handleBlut(PlayerEntity player, IEntityStats entityStats)
-    {
-        ModifiableAttributeInstance damageReductionAttribute = player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get());
-        damageReductionAttribute.setBaseValue(entityStats.getHollowStats().getHierro() * 0.02);
-    }
-
-    // handles the constitution stat
+    // handles the constitution stat -> extra max health
     static void handleConstitution(PlayerEntity player, IEntityStats entityStats)
     {
         ModifiableAttributeInstance maxHpAttribute = player.getAttribute(Attributes.MAX_HEALTH);

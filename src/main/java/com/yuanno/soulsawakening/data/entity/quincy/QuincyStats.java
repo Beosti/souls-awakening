@@ -9,6 +9,8 @@ public class QuincyStats {
     private int hirenkyaku = 0;
 
     private int classPoints = 0;
+    private int classExperience = 0;
+    private int maxClassExperience = 0;
 
     public void setConstitution(int constitution)
     {
@@ -62,6 +64,32 @@ public class QuincyStats {
         this.classPoints += amount;
     }
 
+    public void setExperiencePoints(int amount)
+    {
+        this.classExperience = amount;
+    }
+    public int getClassExperience()
+    {
+        return this.classExperience;
+    }
+    public void alterClassExperience(int amount)
+    {
+        this.classExperience += amount;
+    }
+
+    public void setMaxClassExperience(int amount)
+    {
+        this.maxClassExperience = amount;
+    }
+    public int getMaxClassExperience()
+    {
+        return this.maxClassExperience;
+    }
+    public void alterMaxClassExperience(int amount)
+    {
+        this.maxClassExperience += amount;
+    }
+
     public CompoundNBT save()
     {
         CompoundNBT compoundNBT = new CompoundNBT();
@@ -71,6 +99,8 @@ public class QuincyStats {
         compoundNBT.putInt("hirenkyaku", this.getHirenkyaku());
 
         compoundNBT.putInt("class", this.getClassPoints());
+        compoundNBT.putInt("classExperience", this.getClassExperience());
+        compoundNBT.putInt("classExperienceMax", this.getMaxClassExperience());
 
         return compoundNBT;
     }
@@ -82,6 +112,7 @@ public class QuincyStats {
         this.hirenkyaku = compoundNBT.getInt("hirenkyaku");
 
         this.classPoints = compoundNBT.getInt("class");
-
+        this.classExperience = compoundNBT.getInt("classExperience");
+        this.maxClassExperience = compoundNBT.getInt("classExperienceMax");
     }
 }

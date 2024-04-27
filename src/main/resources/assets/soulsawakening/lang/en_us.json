@@ -117,6 +117,14 @@
   "gui.mutation_point.tooltip": "You gain mutation points by killing other hollows. Those mutation points you can spend somewhere.",
   "gui.evolution_point.tooltip": "You gain evolution points by killing pluses and shinigami.",
 
+  "gui.constitution_point.tooltip": "This stat has an effect on the max health of the player",
+  "gui.blut_points.tooltip": "The manipulation of flow of reishi throughout the blood vessels of a quincy. This stat has an effect on your attack damage and resistance attribute. But also the abilities you acquire",
+  "gui.reiatsu_point.tooltip": "The manipulation and control of ambient reishi for quincies is related to this stat, increasing it will mean more resistance against reishi based attacks and better stats for your spirit weapon created by ambient reishi. You can increase this stat naturally by using your spirit weapon",
+  "gui.hirenkyaku.tooltip": "The speed stat for quincies, more resistance against speed-based abilities, longer teleportation range and better for own speed based attacks",
+  "gui.class_point.tooltip": "The experience you've gathered as a quincy you can spend on chosen stats, you can acquire more by killing hollows and vanilla mobs",
+
+  "gui.kan.tooltip": "The money and currency in the spirit realm used by hollows, quincies and shinigami alike. You can spend them in a shop of your liking spawned around the world",
+
   "command.quest.progress": "Already have that quest in progress!",
   "command.quest.finished": "Already finished that quest!",
   "command.quest.add_quest": "Added quest in progress",

@@ -352,14 +352,31 @@ public class PlayerOverviewScreen extends Screen {
         int hirenkyaku = entityStats.getQuincyStats().getHirenkyaku();
         int reiatsuPoints = (int) entityStats.getReiatsuPoints();
 
-
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Blut points: " + TextFormatting.RESET + blut, leftShift, posY + 60, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Constitution points: " + TextFormatting.RESET + constitution, leftShift, posY + 75, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Hirenkyaku points: " + TextFormatting.RESET + hirenkyaku, leftShift, posY + 90, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 120, -1);
+        String blutPoints = TextFormatting.BOLD + "Blut points: "  + TextFormatting.RESET + blut;
+        drawString(matrixStack, this.font, blutPoints, leftShift, posY + 60, -1);
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(blutPoints) && mouseY >= posY + 60 && mouseY <= posY + 60 + this.mc.font.lineHeight)
+            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.blut_points.tooltip"), mouseX, mouseY);
+        String constitutionPoints = TextFormatting.BOLD + "Constitution points: " + TextFormatting.RESET + constitution;
+        drawString(matrixStack, this.font, constitutionPoints, leftShift, posY + 75, -1);
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(constitutionPoints) && mouseY >= posY + 75 && mouseY <= posY + 75 + this.mc.font.lineHeight)
+            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.constitution_point.tooltip"), mouseX, mouseY);
+        String hirenkyakuPoints = TextFormatting.BOLD + "Hirenkyaku points: " + TextFormatting.RESET + hirenkyaku;
+        drawString(matrixStack, this.font, hirenkyakuPoints, leftShift, posY + 90, -1);
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(hirenkyakuPoints) && mouseY >= posY + 90 && mouseY <= posY + 90 + this.mc.font.lineHeight)
+            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.hirenkyaku.tooltip"), mouseX, mouseY);
+        String reiatsuPointsString = TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints;
+        drawString(matrixStack, this.font, reiatsuPointsString, leftShift, posY + 105, -1);
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(reiatsuPointsString) && mouseY >= posY + 105 && mouseY <= posY + 105 + this.mc.font.lineHeight)
+            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.reiatsu_point.tooltip"), mouseX, mouseY);
+        String classPointString = TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints;
+        drawString(matrixStack, this.font, classPointString, leftShift, posY + 120, -1);
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(classPointString) && mouseY >= posY + 120 && mouseY <= posY + 120 + this.mc.font.lineHeight)
+            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.class_point.tooltip"), mouseX, mouseY);
         leftShift = posX + 180;
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan(), leftShift, posY + 170, -1);
+        String kanString = TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan();
+        drawString(matrixStack, this.font, kanString, leftShift, posY + 170, -1);
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(kanString) && mouseY >= posY + 125 && mouseY <= posY + 170 + this.mc.font.lineHeight)
+            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.kan.tooltip"), mouseX, mouseY);
     }
 
     @Override
