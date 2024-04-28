@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
@@ -14,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,17 +24,19 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class TradingScreen extends Screen {
+public class WeaponChoiceScreen extends Screen {
     private PlayerEntity player;
     private IMiscData miscData;
     //private final ResourceLocation background = new ResourceLocation(Main.MODID, "textures/gui/widget_contour_cooldown.png");
+    List<WeaponChoiceScreen.Entry> entries = new ArrayList<>();
 
-    ArrayList<NoTextureButton> buttons = new ArrayList<>();
+    ArrayList<TexturedIconButton> buttons = new ArrayList<>();
 
     int state = 1;
-    public TradingScreen(PlayerEntity player)
+    public WeaponChoiceScreen(PlayerEntity player)
     {
         super(new StringTextComponent(""));
         this.minecraft = Minecraft.getInstance();
@@ -53,20 +58,27 @@ public class TradingScreen extends Screen {
         super.init();
         int posX = this.width / 2;
         int posY = this.height / 2;
-        addBuyButton(posX - 45, posY - 73, Items.DIAMOND, 150);
-        addBuyButton(posX - 45, posY - 55, Items.IRON_INGOT, 10);
-        addBuyButton(posX - 45, posY - 37, Items.COAL, 1);
-        addBuyButton(posX - 45, posY - 19, Items.GOLD_INGOT, 20);
-        addBuyButton(posX + 105, posY - 73, ModItems.REISHI_INGOT.get(), 100);
-        addBuyButton(posX + 105, posY - 55, ModItems.DANGLE.get(), 175);
-        addBuyButton(posX + 105, posY - 37, ModItems.SHINAI.get(), 15);
-        addBuyButton(posX + 105, posY - 19, ModItems.REISHI.get(), 30);
 
-        //System.out.println(buttons);
+        addWeaponButton(50, 50, ModItems.FISHING_ROD_REISHI.get());
     }
 
-    private void addBuyButton(int x, int y, Item item, int price)
+    private void addWeaponButton(int x, int y, Item item)
     {
+        Entry entry = new Entry(item, x, y);
+        this.entries.add(entry);
+        String nameWeapon = item.getRegistryName().toString();
+        String formattedNameWeapon = nameWeapon.replace("soulsawakening:", "");
+        ResourceLocation finalNameWeaponResource = new ResourceLocation(Main.MODID, "textures/items/" + formattedNameWeapon + ".png");
+        TexturedIconButton itemButton = new TexturedIconButton(finalNameWeaponResource, x, y, 16, 16, new TranslationTextComponent(""), b ->
+        {
+            PacketHandler.sendToServer(new CGiveItemStackPacket(new ItemStack(item)));
+            this.onClose();
+        });
+        itemButton.active = true;
+        this.addButton(itemButton);
+        buttons.add(itemButton);
+        itemButton.visible = true;
+        /*
         NoTextureButton button = new NoTextureButton(x, y, 16, 16, new TranslationTextComponent("Buy"), (btn) -> {
            miscData.alterKan(-price);
            PacketHandler.sendToServer(new CGiveItemStackPacket(new ItemStack(item)));
@@ -78,6 +90,8 @@ public class TradingScreen extends Screen {
         this.addButton(button);
         buttons.add(button);
         button.visible = true;
+
+         */
     }
 
     @Override
@@ -86,8 +100,8 @@ public class TradingScreen extends Screen {
         this.renderBackground(matrixStack);
         int posX = this.width / 2;
         int posY = this.height / 2;
-        miscDataRendering(matrixStack);
 
+        /*
         for (int i = 0; i < buttons.size(); i++)
         {
             NoTextureButton button = buttons.get(i);
@@ -100,20 +114,12 @@ public class TradingScreen extends Screen {
                 button.active = true;
             }
         }
+
+         */
         super.render(matrixStack, x, y, f);
     }
 
-    public void miscDataRendering(MatrixStack matrixStack)
-    {
-        int amountKan = miscData.getKan();
-        int posX = (this.width - 256) / 2;
-        int posY = (this.height - 256) / 2;
-        int leftShift = posX - 20;
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan, leftShift, posY + 160, -1);
 
-
-
-    }
     @Override
     public boolean isPauseScreen()
     {
@@ -122,6 +128,37 @@ public class TradingScreen extends Screen {
 
     public static void open(PlayerEntity player)
     {
-        Minecraft.getInstance().setScreen(new TradingScreen(player));
+        Minecraft.getInstance().setScreen(new WeaponChoiceScreen(player));
+    }
+
+    public WeaponChoiceScreen.Entry getHoveredEntry(double mouseX, double mouseY) {
+        int iconWidth = 16;  // Width of each icon
+        int iconHeight = 16; // Height of each icon
+
+        for (WeaponChoiceScreen.Entry entry : entries) {
+            int iconX = entry.x;
+            int iconY = entry.y;
+
+            // Check if the mouse is over the current icon
+            if (mouseX >= iconX && mouseX < iconX + iconWidth &&
+                    mouseY >= iconY && mouseY < iconY + iconHeight) {
+                return entry; // Mouse is over the current icon
+            }
+        }
+
+        return null; // Mouse is not over any icon
+    }
+
+    class Entry
+    {
+        private Item item;
+        private int x;
+        private int y;
+        public Entry(Item item, int x, int y)
+        {
+            this.item = item;
+            this.x = x;
+            this.y = y;
+        }
     }
 }

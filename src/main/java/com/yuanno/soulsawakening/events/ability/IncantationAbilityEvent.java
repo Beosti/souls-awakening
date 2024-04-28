@@ -7,6 +7,9 @@ import com.yuanno.soulsawakening.ability.api.interfaces.*;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
+import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SOpenTradingScreenPacket;
+import com.yuanno.soulsawakening.networking.server.SOpenWeaponChoiceScreenPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -20,12 +23,14 @@ import net.minecraftforge.fml.common.Mod;
 public class IncantationAbilityEvent {
 
     @SubscribeEvent
-    public static void incantationAbilityEvent(ServerChatEvent event)
-    {
+    public static void incantationAbilityEvent(ServerChatEvent event) {
         PlayerEntity player = event.getPlayer();
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
+        if (event.getMessage().equals("weapon"))
         {
+            PacketHandler.sendTo(new SOpenWeaponChoiceScreenPacket(), player);
+        }
+        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++) {
             if (!(abilityData.getUnlockedAbilities().get(i) instanceof KidoAbility))
                 continue;
             KidoAbility ability = (KidoAbility) abilityData.getUnlockedAbilities().get(i);
@@ -38,7 +43,8 @@ public class IncantationAbilityEvent {
             if (!ability.getState().equals(Ability.STATE.READY)) {
                 player.sendMessage(new TranslationTextComponent("This spell is on cooldown!"), Util.NIL_UUID);
                 return;
-            };
+            }
+            ;
             AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEvent);
             AbilityUseEvent.Post abilityUsedEvent;

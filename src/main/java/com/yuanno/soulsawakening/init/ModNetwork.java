@@ -47,6 +47,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(SOpenChatPromptScreenPacket.class, SOpenChatPromptScreenPacket::encode, SOpenChatPromptScreenPacket::decode, SOpenChatPromptScreenPacket::handle);
         PacketHandler.registerPacket(SSyncTeleportPacket.class, SSyncTeleportPacket::encode, SSyncTeleportPacket::decode, SSyncTeleportPacket::handle);
         PacketHandler.registerPacket(SOpenTeleportScreenPacket.class, SOpenTeleportScreenPacket::encode, SOpenTeleportScreenPacket::decode, SOpenTeleportScreenPacket::handle);
+        PacketHandler.registerPacket(SOpenWeaponChoiceScreenPacket.class, SOpenWeaponChoiceScreenPacket::encode, SOpenWeaponChoiceScreenPacket::decode, SOpenWeaponChoiceScreenPacket::handle);
 
     }
 }

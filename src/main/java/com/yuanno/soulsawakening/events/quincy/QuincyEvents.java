@@ -65,6 +65,7 @@ public class QuincyEvents {
                 QuincyStats quincyStats = new QuincyStats();
                 quincyStats.setMaxClassExperience(100);
                 entityStats.setQuincyStats(quincyStats);
+                quincyStats.setSpiritWeapon(ModItems.FISHING_ROD_REISHI.get());
                 PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             }
             if (!entityStats.getRace().equals(ModValues.QUINCY))
@@ -73,7 +74,7 @@ public class QuincyEvents {
         }
         if (hasDangle && player.getMainHandItem().isEmpty())
         {
-            player.setItemInHand(Hand.MAIN_HAND, new ItemStack(ModItems.KOJAKU.get()));
+            player.setItemInHand(Hand.MAIN_HAND, new ItemStack(entityStats.getQuincyStats().getSpiritWeapon()));
         }
     }
     @SubscribeEvent
@@ -87,7 +88,7 @@ public class QuincyEvents {
     {
         int amountToChange;
         if (EntityStatsCapability.get(event.getEntityLiving()).getRace().equals(ModValues.HOLLOW))
-            amountToChange = 100;
+            amountToChange = 150;
         else if (event.getEntityLiving() instanceof MonsterEntity)
             amountToChange = 25;
         else
@@ -95,7 +96,6 @@ public class QuincyEvents {
         LivingEntity deadEntity = event.getEntityLiving();
         if (deadEntity.level.isClientSide)
             return;
-        System.out.println("CALLED FIRST");
         if (event.getSource().getDirectEntity() != null)
         {
             Entity killerEntity;
@@ -109,22 +109,17 @@ public class QuincyEvents {
             }
             else
                 killerEntity = event.getSource().getDirectEntity();
-            System.out.println("CALLED SECOND");
 
             if (!(killerEntity instanceof LivingEntity))
                 return;
             LivingEntity killerLivingEntity = (LivingEntity) killerEntity;
             if (!EntityStatsCapability.get(killerLivingEntity).getRace().equals(ModValues.QUINCY) || !EntityStatsCapability.get(killerLivingEntity).hasQuincyStats())
                 return;
-            System.out.println("CALLED THIRD");
 
             IEntityStats killerStats = EntityStatsCapability.get(killerLivingEntity);
             killerStats.getQuincyStats().alterClassExperience(amountToChange);
-            System.out.println(amountToChange);
-            System.out.println(killerStats.getQuincyStats().getMaxClassExperience());
             if (killerStats.getQuincyStats().getClassExperience() >= killerStats.getQuincyStats().getMaxClassExperience())
             {
-                System.out.println("CALLED FOURTH");
                 int amount = killerStats.getQuincyStats().getMaxClassExperience() - killerStats.getQuincyStats().getClassExperience();
                 killerStats.getQuincyStats().setExperiencePoints(0);
                 killerStats.getQuincyStats().alterClassExperience(amount);

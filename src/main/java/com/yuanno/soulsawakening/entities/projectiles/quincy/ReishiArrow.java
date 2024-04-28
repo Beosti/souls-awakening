@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -20,8 +19,8 @@ public class ReishiArrow extends AbilityProjectileEntity {
     public ReishiArrow(World world, LivingEntity player)
     {
         super(QuincyProjectiles.REISHI_ARROW.get(), world, player);
-        this.setDamage(3);
-        this.setMaxLife(32);
+        this.setDamage(5);
+        this.setMaxLife(16);
         this.setKnockbackStrength(0);
         this.setPhysical(false);
         this.onEntityImpactEvent = this::onHit;

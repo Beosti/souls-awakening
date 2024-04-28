@@ -1,0 +1,6 @@
+{
+  "parent": "item/fishing_rod_reishi",
+  "textures": {
+    "layer0": "items/fishing_rod_cast_reishi"
+  }
+}

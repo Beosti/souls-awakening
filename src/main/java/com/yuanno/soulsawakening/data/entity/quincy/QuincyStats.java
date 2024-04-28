@@ -1,5 +1,8 @@
 package com.yuanno.soulsawakening.data.entity.quincy;
 
+import com.yuanno.soulsawakening.init.ModItems;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
 public class QuincyStats {
@@ -12,6 +15,7 @@ public class QuincyStats {
     private int classExperience = 0;
     private int maxClassExperience = 0;
 
+    private Item spiritWeapon;
     public void setConstitution(int constitution)
     {
         this.constitution = constitution;
@@ -90,6 +94,15 @@ public class QuincyStats {
         this.maxClassExperience += amount;
     }
 
+    public void setSpiritWeapon(Item item)
+    {
+        this.spiritWeapon = item;
+    }
+    public Item getSpiritWeapon()
+    {
+        return this.spiritWeapon;
+    }
+
     public CompoundNBT save()
     {
         CompoundNBT compoundNBT = new CompoundNBT();
@@ -101,7 +114,7 @@ public class QuincyStats {
         compoundNBT.putInt("class", this.getClassPoints());
         compoundNBT.putInt("classExperience", this.getClassExperience());
         compoundNBT.putInt("classExperienceMax", this.getMaxClassExperience());
-
+        compoundNBT.putInt("spiritWeapon", Item.getId(this.getSpiritWeapon()));
         return compoundNBT;
     }
 
@@ -114,5 +127,6 @@ public class QuincyStats {
         this.classPoints = compoundNBT.getInt("class");
         this.classExperience = compoundNBT.getInt("classExperience");
         this.maxClassExperience = compoundNBT.getInt("classExperienceMax");
+        this.spiritWeapon = Item.byId(compoundNBT.getInt("spiritWeapon"));
     }
 }

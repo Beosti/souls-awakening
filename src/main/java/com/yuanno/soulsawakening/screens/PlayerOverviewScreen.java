@@ -375,7 +375,7 @@ public class PlayerOverviewScreen extends Screen {
         leftShift = posX + 180;
         String kanString = TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan();
         drawString(matrixStack, this.font, kanString, leftShift, posY + 170, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(kanString) && mouseY >= posY + 125 && mouseY <= posY + 170 + this.mc.font.lineHeight)
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(kanString) && mouseY >= posY + 170 && mouseY <= posY + 170 + this.mc.font.lineHeight)
             this.renderTooltip(matrixStack, new TranslationTextComponent("gui.kan.tooltip"), mouseX, mouseY);
     }
 

@@ -33,9 +33,6 @@ public class TraderEntity extends CreatureEntity {
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 4));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(4, new ImprovedMeleeAttackGoal(this, 1, true));
-
-        //this.goalSelector.addGoal(1, new LookAtGoal(this, PlayerEntity.class, 4));
-
     }
 
     @Override
