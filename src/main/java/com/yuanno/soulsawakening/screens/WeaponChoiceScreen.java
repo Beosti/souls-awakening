@@ -4,12 +4,16 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
+import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CGiveItemStackPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncMiscDataPacket;
+import com.yuanno.soulsawakening.networking.client.CSyncentityStatsPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,7 +39,6 @@ public class WeaponChoiceScreen extends Screen {
 
     ArrayList<TexturedIconButton> buttons = new ArrayList<>();
 
-    int state = 1;
     public WeaponChoiceScreen(PlayerEntity player)
     {
         super(new StringTextComponent(""));
@@ -60,6 +63,9 @@ public class WeaponChoiceScreen extends Screen {
         int posY = this.height / 2;
 
         addWeaponButton(50, 50, ModItems.FISHING_ROD_REISHI.get());
+        addWeaponButton(70, 50, ModItems.SPEAR_REISHI.get());
+        addWeaponButton(90, 50, ModItems.TRIDENT_REISHI.get());
+        addWeaponButton(110, 50, ModItems.SWORD_REISHI.get());
     }
 
     private void addWeaponButton(int x, int y, Item item)
@@ -69,29 +75,19 @@ public class WeaponChoiceScreen extends Screen {
         String nameWeapon = item.getRegistryName().toString();
         String formattedNameWeapon = nameWeapon.replace("soulsawakening:", "");
         ResourceLocation finalNameWeaponResource = new ResourceLocation(Main.MODID, "textures/items/" + formattedNameWeapon + ".png");
-        TexturedIconButton itemButton = new TexturedIconButton(finalNameWeaponResource, x, y, 16, 16, new TranslationTextComponent(""), b ->
+        TexturedIconButton itemButton = new TexturedIconButton(finalNameWeaponResource, x, y, 32, 32, new TranslationTextComponent(""), b ->
         {
-            PacketHandler.sendToServer(new CGiveItemStackPacket(new ItemStack(item)));
+            IEntityStats entityStats = EntityStatsCapability.get(player);
+            if (!entityStats.getRace().equals(ModValues.QUINCY) || !entityStats.hasQuincyStats())
+                return;
+            entityStats.getQuincyStats().setSpiritWeapon(item);
+            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
             this.onClose();
         });
         itemButton.active = true;
         this.addButton(itemButton);
         buttons.add(itemButton);
         itemButton.visible = true;
-        /*
-        NoTextureButton button = new NoTextureButton(x, y, 16, 16, new TranslationTextComponent("Buy"), (btn) -> {
-           miscData.alterKan(-price);
-           PacketHandler.sendToServer(new CGiveItemStackPacket(new ItemStack(item)));
-           PacketHandler.sendToServer(new CSyncMiscDataPacket(miscData));
-        });
-        button.item = item;
-        button.number = price;
-        button.active = miscData.getKan() >= price;
-        this.addButton(button);
-        buttons.add(button);
-        button.visible = true;
-
-         */
     }
 
     @Override
@@ -100,22 +96,6 @@ public class WeaponChoiceScreen extends Screen {
         this.renderBackground(matrixStack);
         int posX = this.width / 2;
         int posY = this.height / 2;
-
-        /*
-        for (int i = 0; i < buttons.size(); i++)
-        {
-            NoTextureButton button = buttons.get(i);
-            Item item = buttons.get(i).item;
-            this.renderItem(new ItemStack(item.asItem()), button.x - 73, button.y);
-            Beapi.drawStringWithBorder(this.font, matrixStack, "Price: " + button.number, button.x - 53, button.y + 5, -1);
-            if (button.number > miscData.getKan()) {
-                button.active = false;
-            } else {
-                button.active = true;
-            }
-        }
-
-         */
         super.render(matrixStack, x, y, f);
     }
 

@@ -65,7 +65,7 @@ public class QuincyEvents {
                 QuincyStats quincyStats = new QuincyStats();
                 quincyStats.setMaxClassExperience(100);
                 entityStats.setQuincyStats(quincyStats);
-                quincyStats.setSpiritWeapon(ModItems.FISHING_ROD_REISHI.get());
+                quincyStats.setSpiritWeapon(ModItems.KOJAKU.get());
                 PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             }
             if (!entityStats.getRace().equals(ModValues.QUINCY))
