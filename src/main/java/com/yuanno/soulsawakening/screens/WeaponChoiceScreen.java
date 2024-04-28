@@ -8,15 +8,18 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
+import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.CGiveItemStackPacket;
+import com.yuanno.soulsawakening.networking.client.CSAchievementSpiritWeaponPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncMiscDataPacket;
 import com.yuanno.soulsawakening.networking.client.CSyncentityStatsPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -34,7 +37,6 @@ import java.util.List;
 public class WeaponChoiceScreen extends Screen {
     private PlayerEntity player;
     private IMiscData miscData;
-    //private final ResourceLocation background = new ResourceLocation(Main.MODID, "textures/gui/widget_contour_cooldown.png");
     List<WeaponChoiceScreen.Entry> entries = new ArrayList<>();
 
     ArrayList<TexturedIconButton> buttons = new ArrayList<>();
@@ -63,9 +65,9 @@ public class WeaponChoiceScreen extends Screen {
         int posY = this.height / 2;
 
         addWeaponButton(50, 50, ModItems.FISHING_ROD_REISHI.get());
-        addWeaponButton(70, 50, ModItems.SPEAR_REISHI.get());
-        addWeaponButton(90, 50, ModItems.TRIDENT_REISHI.get());
-        addWeaponButton(110, 50, ModItems.SWORD_REISHI.get());
+        addWeaponButton(82, 50, ModItems.SPEAR_REISHI.get());
+        addWeaponButton(98, 50, ModItems.TRIDENT_REISHI.get());
+        addWeaponButton(130, 50, ModItems.SWORD_REISHI.get());
     }
 
     private void addWeaponButton(int x, int y, Item item)
@@ -82,6 +84,7 @@ public class WeaponChoiceScreen extends Screen {
                 return;
             entityStats.getQuincyStats().setSpiritWeapon(item);
             PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+            PacketHandler.sendToServer(new CSAchievementSpiritWeaponPacket());
             this.onClose();
         });
         itemButton.active = true;

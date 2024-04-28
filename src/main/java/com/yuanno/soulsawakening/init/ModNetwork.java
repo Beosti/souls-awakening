@@ -29,6 +29,7 @@ public class ModNetwork {
         PacketHandler.registerPacket(CSyncTeleportPacket.class, CSyncTeleportPacket::encode, CSyncTeleportPacket::decode, CSyncTeleportPacket::handle);
         PacketHandler.registerPacket(COpenTeleportScreenPacket.class, COpenTeleportScreenPacket::encode, COpenTeleportScreenPacket::decode, COpenTeleportScreenPacket::handle);
         PacketHandler.registerPacket(CTeleportPacket.class, CTeleportPacket::encode, CTeleportPacket::decode, CTeleportPacket::handle);
+        PacketHandler.registerPacket(CSAchievementSpiritWeaponPacket.class, CSAchievementSpiritWeaponPacket::encode, CSAchievementSpiritWeaponPacket::decode, CSAchievementSpiritWeaponPacket::handle);
 
 
 

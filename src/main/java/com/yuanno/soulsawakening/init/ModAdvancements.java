@@ -5,6 +5,8 @@ import com.yuanno.soulsawakening.achievements.hollow.AdjuchaTrigger;
 import com.yuanno.soulsawakening.achievements.hollow.GillianTrigger;
 import com.yuanno.soulsawakening.achievements.hollow.HollowTrigger;
 import com.yuanno.soulsawakening.achievements.hollow.VastoLordeTrigger;
+import com.yuanno.soulsawakening.achievements.quincy.QuincyTrigger;
+import com.yuanno.soulsawakening.achievements.quincy.SpiritWeaponTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraftforge.eventbus.api.IEventBus;
 
@@ -21,6 +23,7 @@ public class ModAdvancements {
     public static final RaceChangeTrigger RACE_CHANGE = new RaceChangeTrigger();
 
     public static final QuincyTrigger QUINCY = new QuincyTrigger();
+    public static final SpiritWeaponTrigger SPIRIT_WEAPON = new SpiritWeaponTrigger();
 
     public static void register(IEventBus eventBus)
     {
@@ -33,5 +36,6 @@ public class ModAdvancements {
         CriteriaTriggers.register(ADJUCHA);
         CriteriaTriggers.register(VASTO_LORDE);
         CriteriaTriggers.register(QUINCY);
+        CriteriaTriggers.register(SPIRIT_WEAPON);
     }
 }

@@ -1,0 +1,28 @@
+{
+  "parent": "soulsawakening:items/kojaku",
+  "display": {
+    "icon": {
+      "item": "soulsawakening:fishing_rod_reishi"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.race.spirit_weapon.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.race.spirit_weapon.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "spirit_weapon": {
+      "trigger": "soulsawakening:spirit_weapon"
+    }
+  },
+  "requirements": [
+    [
+      "spirit_weapon"
+    ]
+  ]
+}

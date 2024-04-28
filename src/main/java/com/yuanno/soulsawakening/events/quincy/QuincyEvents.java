@@ -12,12 +12,10 @@ import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
 import com.yuanno.soulsawakening.events.UpdateStatEvent;
 import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
 import com.yuanno.soulsawakening.events.util.CustomArrowLooseEvent;
-import com.yuanno.soulsawakening.init.ModAdvancements;
-import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModItems;
-import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.items.DangleItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SOpenWeaponChoiceScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
@@ -54,7 +52,7 @@ public class QuincyEvents {
         {
             if (!(player.inventory.getItem(i).getItem() instanceof DangleItem))
                 continue;
-            if (player.inventory.contains(new ItemStack(ModItems.KOJAKU.get()))) {
+            if (player.inventory.contains(ModTags.Items.SPIRIT_WEAPON)) {
                 return;
             }
             if (entityStats.getRace().equals(ModValues.SPIRIT) || entityStats.getRace().equals(ModValues.HUMAN))
@@ -80,7 +78,7 @@ public class QuincyEvents {
     @SubscribeEvent
     public static void onDropBow(ItemTossEvent event)
     {
-        if (event.getEntityItem().getItem().getItem().equals(ModItems.KOJAKU.get()))
+        if (event.getEntityItem().getItem().getItem().is(ModTags.Items.SPIRIT_WEAPON))
             event.getEntityItem().remove();
     }
     @SubscribeEvent
@@ -175,12 +173,17 @@ public class QuincyEvents {
     public static void handleAbilities(PlayerEntity player, IEntityStats entityStats)
     {
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        if (!abilityData.getUnlockedAbilities().contains(StrongArrowAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 5)
-            abilityData.addUnlockedAbility(StrongArrowAbility.INSTANCE);
+        if (!abilityData.getUnlockedAbilities().contains(BlutStrengthAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 5) {
+            abilityData.addUnlockedAbility(BlutStrengthAbility.INSTANCE);
+            PacketHandler.sendTo(new SOpenWeaponChoiceScreenPacket(), player);
+        }
+        /*
         if (!abilityData.getUnlockedAbilities().contains(BlutStrengthAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 10)
             abilityData.addUnlockedAbility(BlutStrengthAbility.INSTANCE);
         if (!abilityData.getUnlockedAbilities().contains(PiercingArrowAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 15)
             abilityData.addUnlockedAbility(PiercingArrowAbility.INSTANCE);
+
+         */
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
     }
 

@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.achievements;
+package com.yuanno.soulsawakening.achievements.quincy;
 
 import com.google.gson.JsonObject;
 import com.yuanno.soulsawakening.Main;
@@ -13,8 +13,8 @@ import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.loot.ConditionArraySerializer;
 import net.minecraft.util.ResourceLocation;
 
-public class QuincyTrigger extends AbstractCriterionTrigger<QuincyTrigger.Instance> {
-    private static final ResourceLocation ID = new ResourceLocation(Main.MODID, "quincy");
+public class SpiritWeaponTrigger extends AbstractCriterionTrigger<SpiritWeaponTrigger.Instance> {
+    private static final ResourceLocation ID = new ResourceLocation(Main.MODID, "spirit_weapon");
 
     @Override
     public ResourceLocation getId()
@@ -23,9 +23,9 @@ public class QuincyTrigger extends AbstractCriterionTrigger<QuincyTrigger.Instan
     }
 
     @Override
-    public QuincyTrigger.Instance createInstance(JsonObject jsonObject, EntityPredicate.AndPredicate entityPredicate, ConditionArrayParser parser)
+    public SpiritWeaponTrigger.Instance createInstance(JsonObject jsonObject, EntityPredicate.AndPredicate entityPredicate, ConditionArrayParser parser)
     {
-        return new QuincyTrigger.Instance(entityPredicate);
+        return new SpiritWeaponTrigger.Instance(entityPredicate);
     }
 
     public void trigger(ServerPlayerEntity player)
@@ -40,7 +40,7 @@ public class QuincyTrigger extends AbstractCriterionTrigger<QuincyTrigger.Instan
     {
         public Instance(EntityPredicate.AndPredicate entityPredicate)
         {
-            super(QuincyTrigger.ID, entityPredicate);
+            super(SpiritWeaponTrigger.ID, entityPredicate);
         }
 
         @Override

@@ -18,6 +18,8 @@ public class ModTags {
         private static void init() {}
 
         public static final Tags.IOptionalNamedTag<Item> CONDUCTOR = tag("conductor");
+        public static final Tags.IOptionalNamedTag<Item> SPIRIT_WEAPON = tag("spirit_weapon");
+
         private static Tags.IOptionalNamedTag<Item> tag(String id)
         {
             return ItemTags.createOptional(new ResourceLocation(Main.MODID, id));
