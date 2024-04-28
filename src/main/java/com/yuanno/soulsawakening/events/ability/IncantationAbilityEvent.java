@@ -44,7 +44,6 @@ public class IncantationAbilityEvent {
                 player.sendMessage(new TranslationTextComponent("This spell is on cooldown!"), Util.NIL_UUID);
                 return;
             }
-            ;
             AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEvent);
             AbilityUseEvent.Post abilityUsedEvent;

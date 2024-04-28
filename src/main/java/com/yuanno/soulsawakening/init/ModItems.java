@@ -5,6 +5,7 @@ import com.yuanno.soulsawakening.items.*;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.items.misc.ReishiItem;
 import com.yuanno.soulsawakening.items.misc.ReishiIngotItem;
+import com.yuanno.soulsawakening.items.spiritweapon.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

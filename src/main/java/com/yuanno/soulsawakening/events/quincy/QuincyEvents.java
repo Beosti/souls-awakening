@@ -35,8 +35,6 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Random;
-
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class QuincyEvents {
 
@@ -76,7 +74,7 @@ public class QuincyEvents {
         }
     }
     @SubscribeEvent
-    public static void onDropBow(ItemTossEvent event)
+    public static void onDropSpiritWeapon(ItemTossEvent event)
     {
         if (event.getEntityItem().getItem().getItem().is(ModTags.Items.SPIRIT_WEAPON))
             event.getEntityItem().remove();

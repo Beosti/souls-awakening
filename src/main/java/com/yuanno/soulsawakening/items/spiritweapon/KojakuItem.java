@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.items;
+package com.yuanno.soulsawakening.items.spiritweapon;
 
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entities.projectiles.quincy.ReishiArrow;
@@ -22,7 +22,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class KojakuItem extends BowItem implements ISpiritWeapon {
+public class KojakuItem extends BowItem {
     public KojakuItem() {
         super(new Properties().tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).rarity(Rarity.RARE).stacksTo(1));
     }

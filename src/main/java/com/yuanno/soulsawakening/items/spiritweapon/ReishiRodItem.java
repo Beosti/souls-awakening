@@ -1,11 +1,11 @@
-package com.yuanno.soulsawakening.items;
+package com.yuanno.soulsawakening.items.spiritweapon;
 
 import com.yuanno.soulsawakening.init.ModItemGroup;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
-import net.minecraft.item.TridentItem;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ReishiSpearItem extends TridentItem {
-    public ReishiSpearItem() {
+public class ReishiRodItem extends FishingRodItem {
+    public ReishiRodItem() {
         super(new Properties().tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).rarity(Rarity.RARE).stacksTo(1));
     }
 
@@ -23,7 +23,7 @@ public class ReishiSpearItem extends TridentItem {
     {
         if (Screen.hasShiftDown())
         {
-            tooltip.add(new TranslationTextComponent("§6A spear made out of surrounding reishi"));
+            tooltip.add(new TranslationTextComponent("§6A fishing rod made out of surrounding reishi"));
         }
         else if (!Screen.hasShiftDown())
         {

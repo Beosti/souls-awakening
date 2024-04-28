@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.items;
+package com.yuanno.soulsawakening.items.spiritweapon;
 
 import com.yuanno.soulsawakening.init.ModItemGroup;
 import net.minecraft.client.gui.screen.Screen;
@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ReishiTridentItem extends TridentItem {
-    public ReishiTridentItem() {
+public class ReishiSpearItem extends TridentItem {
+    public ReishiSpearItem() {
         super(new Properties().tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).rarity(Rarity.RARE).stacksTo(1));
     }
 
@@ -23,7 +23,7 @@ public class ReishiTridentItem extends TridentItem {
     {
         if (Screen.hasShiftDown())
         {
-            tooltip.add(new TranslationTextComponent("§6A trident made out of surrounding reishi"));
+            tooltip.add(new TranslationTextComponent("§6A spear made out of surrounding reishi"));
         }
         else if (!Screen.hasShiftDown())
         {
