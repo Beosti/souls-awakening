@@ -62,6 +62,8 @@ public class ZanjutsuEvents {
                     return;
                 if (livingEntity instanceof PlayerEntity)
                     experienceHandler((PlayerEntity) livingEntity, entityStats);
+                if (!entityStats.hasShinigamiStats())
+                    return;
                 if (entityStats.getShinigamiStats().getZanjutsuPoints() <= 0)
                     return;
                 event.setAmount((float) (event.getAmount() + entityStats.getShinigamiStats().getZanjutsuPoints() / 2));

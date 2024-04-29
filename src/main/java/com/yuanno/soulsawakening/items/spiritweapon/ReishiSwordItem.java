@@ -71,7 +71,6 @@ public class ReishiSwordItem extends SwordItem {
                     if (!(livingEntity.getMainHandItem().getItem().asItem() instanceof ReishiSwordItem))
                         return;
 
-                    LivingEntity target = event.getEntityLiving();
                     if (entityStats.getReiatsuPoints() <= 0)
                         return;
                     event.setAmount((float) (event.getAmount() + entityStats.getReiatsuPoints() / 2));
@@ -94,7 +93,7 @@ public class ReishiSwordItem extends SwordItem {
             IEntityStats entityStats = EntityStatsCapability.get(player);
             if (event.getItemStack().getItem() instanceof ReishiSwordItem && entityStats.getRace().equals(ModValues.QUINCY) && entityStats.getReiatsuPoints() > 0)
             {
-                StringTextComponent damageBonus = new StringTextComponent(TextFormatting.WHITE + "" + new TranslationTextComponent("Reiatsu Bonus Damage: " + Math.floor(entityStats.getReiatsuPoints() / 2)).getString());
+                StringTextComponent damageBonus = new StringTextComponent(TextFormatting.BLUE + "" + new TranslationTextComponent("Reiatsu Bonus Damage: " + Math.floor(entityStats.getReiatsuPoints() / 2)).getString());
                 if (!event.getToolTip().contains(damageBonus)) {
                     event.getToolTip().add(new StringTextComponent(""));
                     event.getToolTip().add(damageBonus);

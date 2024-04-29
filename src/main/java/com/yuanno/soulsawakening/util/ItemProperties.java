@@ -9,12 +9,26 @@ import net.minecraft.util.ResourceLocation;
 
 public class ItemProperties {
 
-    public static void makeBow(Item item) {
+    public static void makeKojakuBow(Item item) {
         ItemModelsProperties.register(item, new ResourceLocation("pull"), (itemStack, world, livingEntity) -> {
             if (livingEntity == null) {
                 return 0.0F;
             } else {
                 return livingEntity.getUseItem() != itemStack ? 0.0F : (float)(itemStack.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / 40.0F;
+            }
+        });
+
+        ItemModelsProperties.register(item, new ResourceLocation("pulling"), (p_239428_0_, p_239428_1_, p_239428_2_) -> {
+            return p_239428_2_ != null && p_239428_2_.isUsingItem() && p_239428_2_.getUseItem() == p_239428_0_ ? 1.0F : 0.0F;
+        });
+    }
+
+    public static void makeGinreiKojakuBow(Item item) {
+        ItemModelsProperties.register(item, new ResourceLocation("pull"), (itemStack, world, livingEntity) -> {
+            if (livingEntity == null) {
+                return 0.0F;
+            } else {
+                return livingEntity.getUseItem() != itemStack ? 0.0F : (float)(itemStack.getUseDuration() - livingEntity.getUseItemRemainingTicks()) / 30.0F;
             }
         });
 
@@ -89,7 +103,7 @@ public class ItemProperties {
         ItemModelsProperties.register(ModItems.ZANPAKUTO_WAKIZASHI.get(), new ResourceLocation("element"), ZANPAKUTO_ELEMENT);
         ItemModelsProperties.register(ModItems.ZANPAKUTO_WAKIZASHI.get(), new ResourceLocation("type"), ZANPAKUTO_TYPE);
 
-        makeBow(ModItems.KOJAKU.get());
-
+        makeKojakuBow(ModItems.KOJAKU.get());
+        makeGinreiKojakuBow(ModItems.GINREI_KOJAKU.get());
     }
 }

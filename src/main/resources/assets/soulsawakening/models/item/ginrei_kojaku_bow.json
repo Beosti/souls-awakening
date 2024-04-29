@@ -1,12 +1,12 @@
 {
-  "parent": "item/handheld_rod",
+  "parent": "item/generated",
   "textures": {
-    "layer0": "soulsawakening:items/fishing_rod_reishi"
+    "layer0": "soulsawakening:items/ginrei_kojaku_bow"
   },
   "display": {
     "thirdperson_righthand": {
       "rotation": [ 0, -90, 55 ],
-      "translation": [ 0, 10.0, -0.5 ],
+      "translation": [ 0, 0.0, -0.5 ],
       "scale": [ 1.65, 1.65, 1.0 ]
     },
     "thirdperson_lefthand": {
@@ -28,9 +28,23 @@
   "overrides": [
     {
       "predicate": {
-        "cast": 1
+        "minecraft:pulling": 1
       },
-      "model": "item/fishing_rod_cast_reishi"
+      "model": "soulsawakening:item/ginrei_kojaku_bow1"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 0.65
+      },
+      "model": "soulsawakening:item/ginrei_kojaku_bow2"
+    },
+    {
+      "predicate": {
+        "minecraft:pulling": 1,
+        "minecraft:pull": 0.9
+      },
+      "model": "soulsawakening:item/ginrei_kojaku_bow3"
     }
   ]
 }

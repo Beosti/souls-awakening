@@ -22,8 +22,8 @@ import net.minecraftforge.event.ForgeEventFactory;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class KojakuItem extends BowItem {
-    public KojakuItem() {
+public class GinreiKojaku extends BowItem {
+    public GinreiKojaku() {
         super(new Properties().tab(ModItemGroup.SOULS_AWAKENINGS_WEAPONS).rarity(Rarity.RARE).stacksTo(1));
     }
     @Override
@@ -62,7 +62,7 @@ public class KojakuItem extends BowItem {
         float velocity = 5 * power;
         float inaccuracy = 1 / power;
         int reishi = (int) EntityStatsCapability.get(player).getReiatsuPoints();
-        int addedDamage = (int) ((reishi * power) / 2);
+        int addedDamage = (int) (reishi * power);
         reishiArrow.setAddedDamage(addedDamage);
         reishiArrow.alterMaxLife(addedDamage);
         CustomArrowLooseEvent event = new CustomArrowLooseEvent(player, itemStack, world, power, reishiArrow);
@@ -83,7 +83,7 @@ public class KojakuItem extends BowItem {
     }
 
     public static float getPowerForTime(int time) {
-        float power = (float)time / 40.0F;
+        float power = (float)time / 30.0F;
         power = (power * power + power * 2.0F) / 3.0F;
         if (power > 1.0F) {
             power = 1.0F;

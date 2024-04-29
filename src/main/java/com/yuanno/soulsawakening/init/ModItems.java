@@ -30,6 +30,7 @@ public class ModItems {
     public static final RegistryObject<Item> SHINAI = ITEMS.register("shinai", ShinaiItem::new);
     public static final RegistryObject<Item> DANGLE = ITEMS.register("dangle", DangleItem::new);
     public static final RegistryObject<Item> KOJAKU = ITEMS.register("kojaku", KojakuItem::new);
+    public static final RegistryObject<Item> GINREI_KOJAKU = ITEMS.register("ginrei_kojaku_bow", GinreiKojaku::new);
     public static final RegistryObject<Item> FISHING_ROD_REISHI = ITEMS.register("fishing_rod_reishi", ReishiRodItem::new);
     public static final RegistryObject<Item> SPEAR_REISHI = ITEMS.register("spear_reishi", ReishiSpearItem::new);
     public static final RegistryObject<Item> TRIDENT_REISHI = ITEMS.register("trident_reishi", ReishiTridentItem::new);
