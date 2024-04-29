@@ -13,7 +13,8 @@
     "client.ServerWorldInfoMixin",
     "client.DeathScreenMixin",
     "client.GameRendererMixin",
-    "client.MainMenuScreenMixin"
+    "client.MainMenuScreenMixin",
+    "client.SplashesMixin"
   ],
   "server": [],
   "injectors": {

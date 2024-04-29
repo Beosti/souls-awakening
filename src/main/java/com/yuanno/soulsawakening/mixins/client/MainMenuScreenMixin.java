@@ -8,16 +8,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.renderer.RenderSkybox;
+import net.minecraft.client.renderer.RenderSkyboxCube;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import javax.annotation.Resource;
 
 @Mixin(MainMenuScreen.class)
 public class MainMenuScreenMixin extends Screen
@@ -26,7 +27,14 @@ public class MainMenuScreenMixin extends Screen
 	@Shadow
 	@Final
     private static ResourceLocation MINECRAFT_LOGO;
-
+	@Mutable
+	@Shadow
+	@Final
+    public static RenderSkyboxCube CUBE_MAP;
+	@Mutable
+	@Shadow
+	@Final
+	private RenderSkybox panorama;
 	public MainMenuScreenMixin(ITextComponent title)
 	{
 		super(title);
@@ -39,5 +47,7 @@ public class MainMenuScreenMixin extends Screen
 	public void init(CallbackInfo callback)
 	{
 		MINECRAFT_LOGO = new ResourceLocation(Main.MODID, "textures/gui/soulsawakening_title.png");
+		CUBE_MAP = new RenderSkyboxCube(new ResourceLocation(Main.MODID, "textures/gui/panorama/panorama"));
+		panorama = new RenderSkybox(CUBE_MAP);
 	}
 }
