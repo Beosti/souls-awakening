@@ -1,0 +1,28 @@
+{
+  "parent": "soulsawakening:items/zanpakuto",
+  "display": {
+    "icon": {
+      "item": "soulsawakening:zanpakuto"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.item.shikai.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.item.shikai.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "shikai": {
+      "trigger": "soulsawakening:shikai"
+    }
+  },
+  "requirements": [
+    [
+      "shikai"
+    ]
+  ]
+}

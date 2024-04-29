@@ -140,13 +140,6 @@ public class ZanpakutoEvent {
         if (element.isEmpty())
         {
             World world = event.getPlayer().level;
-            /*
-            InnerShikaiEntity innerShikaiEntity = new InnerShikaiEntity(ModEntities.SHIKAI.get(), event.getPlayer().level);
-            innerShikaiEntity.moveTo(event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ());
-            innerShikaiEntity.setOwner(event.getPlayer().getUUID());
-            world.addFreshEntity(innerShikaiEntity);
-
-             */
             Map<String, Integer> elementalPointsHash = new HashMap<>();
 
             int normalPoints = zanpakutoItem.getTag().getInt(ModValues.NORMAL);
@@ -222,6 +215,7 @@ public class ZanpakutoEvent {
 
             }
             abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);
+            ModAdvancements.SHIKAI.trigger((ServerPlayerEntity) event.getPlayer());
             PacketHandler.sendTo(new SSyncAbilityDataPacket(event.getPlayer().getId(), abilityData), event.getPlayer());
 
         }

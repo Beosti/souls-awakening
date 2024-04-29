@@ -54,6 +54,8 @@
 
   "advancements.soulsawakening.race.shinigami.title": "Shinigami",
   "advancements.soulsawakening.race.shinigami.description": "A war against the others",
+  "advancements.soulsawakening.item.shikai.title": "Shikai",
+  "advancements.soulsawakening.item.shikai.description": "Far from full potential",
 
   "advancements.soulsawakening.race.fullbringer.title": "Fullbringer",
   "advancements.soulsawakening.race.fullbringer.description": "Skipping a few steps",
@@ -75,6 +77,16 @@
   "advancements.soulsawakening.race.spirit_weapon.title": "Spirit Weapon",
   "advancements.soulsawakening.race.spirit_weapon.description": "New tools are imperative for domination",
   "soulsawakening.attack_range": "Attack range",
+
+  "advancements.soulsawakening.dimensions.root.title": "The human world",
+  "advancements.soulsawakening.dimensions.root.description": "Start of a wandering soul",
+
+  "advancements.soulsawakening.dimensions.soul_society.title": "Soul society",
+  "advancements.soulsawakening.dimensions.soul_society.description": "Welcome... to my soul society",
+
+  "advancements.soulsawakening.dimensions.hueco_mundo.title": "Hueco Mundo",
+  "advancements.soulsawakening.dimensions.hueco_mundo.description": "An endless dead desert...",
+
 
   "challenge.message.start_title": "Starting Challenge",
   "challenge.message.start_subtitle": "Please wait",

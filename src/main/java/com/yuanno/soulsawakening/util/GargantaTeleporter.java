@@ -1,7 +1,11 @@
 package com.yuanno.soulsawakening.util;
 
+import com.yuanno.soulsawakening.init.ModAdvancements;
+import com.yuanno.soulsawakening.init.world.ModDimensions;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
@@ -40,6 +44,14 @@ public class GargantaTeleporter implements ITeleporter {
         }
 
         entity.teleportTo(destinationPos.getX(), destinationPos.getY(), destinationPos.getZ());
+        if (entity instanceof PlayerEntity)
+        {
+            PlayerEntity player = (PlayerEntity) entity;
+            if (destinationWorld.dimension() == ModDimensions.HUECO_MUNDO)
+                ModAdvancements.HUECO_MUNDO.trigger((ServerPlayerEntity) player);
+            else if (destinationWorld.dimension() == ModDimensions.SOUL_SOCIETY)
+                ModAdvancements.SOUL_SOCIETY.trigger((ServerPlayerEntity) player);
+        }
 
         return entity;
     }

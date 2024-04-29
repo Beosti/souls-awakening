@@ -124,6 +124,7 @@ public class StatsEvent {
         miscData.setKan(0);
         challengesData.addChallenge(ModChallenges.BASIC_SHINIGAMI.get());
         //challengesData.addChallenge(ModChallenges.SEATED20_SHINIGAMI.get());
+        ModAdvancements.OVERWORLD.trigger((ServerPlayerEntity) player);
 
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);

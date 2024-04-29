@@ -1,6 +1,9 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.achievements.*;
+import com.yuanno.soulsawakening.achievements.dimensions.HuecoMundoTrigger;
+import com.yuanno.soulsawakening.achievements.dimensions.OverworldTrigger;
+import com.yuanno.soulsawakening.achievements.dimensions.SoulSocietyTrigger;
 import com.yuanno.soulsawakening.achievements.hollow.AdjuchaTrigger;
 import com.yuanno.soulsawakening.achievements.hollow.GillianTrigger;
 import com.yuanno.soulsawakening.achievements.hollow.HollowTrigger;
@@ -13,6 +16,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public class ModAdvancements {
 
     public static final ShinigamiTrigger SHINIGAMI = new ShinigamiTrigger();
+    public static final ShikaiTrigger SHIKAI = new ShikaiTrigger();
     public static final FullbringerTrigger FULLBRINGER = new FullbringerTrigger();
     public static final SpiritTrigger SPIRIT = new SpiritTrigger();
     public static final HollowTrigger HOLLOW = new HollowTrigger();
@@ -24,6 +28,10 @@ public class ModAdvancements {
 
     public static final QuincyTrigger QUINCY = new QuincyTrigger();
     public static final SpiritWeaponTrigger SPIRIT_WEAPON = new SpiritWeaponTrigger();
+
+    public static final OverworldTrigger OVERWORLD = new OverworldTrigger();
+    public static final HuecoMundoTrigger HUECO_MUNDO = new HuecoMundoTrigger();
+    public static final SoulSocietyTrigger SOUL_SOCIETY = new SoulSocietyTrigger();
 
     public static void register(IEventBus eventBus)
     {
@@ -37,5 +45,10 @@ public class ModAdvancements {
         CriteriaTriggers.register(VASTO_LORDE);
         CriteriaTriggers.register(QUINCY);
         CriteriaTriggers.register(SPIRIT_WEAPON);
+        CriteriaTriggers.register(SHIKAI);
+
+        CriteriaTriggers.register(OVERWORLD);
+        CriteriaTriggers.register(HUECO_MUNDO);
+        CriteriaTriggers.register(SOUL_SOCIETY);
     }
 }
