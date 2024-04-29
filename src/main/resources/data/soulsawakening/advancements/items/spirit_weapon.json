@@ -2,7 +2,7 @@
   "parent": "soulsawakening:items/kojaku",
   "display": {
     "icon": {
-      "item": "soulsawakening:fishing_rod_reishi"
+      "item": "soulsawakening:ginrei_kojaku_bow"
     },
     "title": {
       "translate": "advancements.soulsawakening.race.spirit_weapon.title"

@@ -144,7 +144,6 @@ public class QuincyEvents {
         }
         if (event.getEntityLiving() instanceof PlayerEntity)
             PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getEntityLiving().getId(), looseEntity), (PlayerEntity) event.getEntityLiving());
-
     }
     @SubscribeEvent
     public static void onUpdateHollowStat(UpdateStatEvent event)
