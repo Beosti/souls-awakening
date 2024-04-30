@@ -15,13 +15,16 @@ public class NormalBuffAbility extends Ability implements IRightClickAbility, IS
     public static final NormalBuffAbility INSTANCE = new NormalBuffAbility();
     public static final EffectInstance DAMAGE = new EffectInstance(Effects.DAMAGE_BOOST, 400, 3);
     public static final EffectInstance ATTACK_SPEED = new EffectInstance(Effects.DIG_SPEED, 400, 3);
+    public static final EffectInstance SPEED = new EffectInstance(Effects.MOVEMENT_SPEED, 400, 3);
+
     List<EffectInstance> effectInstances = new ArrayList<>(
-            Arrays.asList(DAMAGE, ATTACK_SPEED)
+            Arrays.asList(DAMAGE, ATTACK_SPEED, SPEED)
     );
     public NormalBuffAbility()
     {
         this.setName("Normal Buff");
-        this.setMaxCooldown(20);
+        this.setDescription("Buggs your damage, attack speed and movement speed a lot for a few seconds");
+        this.setMaxCooldown(60);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

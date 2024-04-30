@@ -24,8 +24,8 @@ public class LunarBlessingAbility extends Ability implements IRightClickAbility,
     );
     public LunarBlessingAbility()
     {
-        this.setName("Lunar Curse");
-        this.setDescription("Sucks life energy from the target, granting you buffs and the target debuffs");
+        this.setName("Lunar Blessing");
+        this.setDescription("Grants you buffs");
         this.setMaxCooldown(20);
         this.setSubCategory(SubCategory.SHIKAI);
     }
