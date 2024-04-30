@@ -83,6 +83,7 @@ public class ZanpakutoEvent {
             event.setCanceled(false);
     }
 
+    /*
     @SubscribeEvent
     public static void onZanpakutoCraftin(PlayerEvent.ItemCraftedEvent event)
     {
@@ -112,6 +113,8 @@ public class ZanpakutoEvent {
             zanpakutoItem.setOwner(event.getPlayer(), event.getCrafting());
         }
     }
+
+     */
 
     @SubscribeEvent
     public static void onZanpakutoChange(ZanpakutoChangeEvent event)
