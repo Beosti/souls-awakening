@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.client.renderers;
+package com.yuanno.soulsawakening.client.renderers.entity.hostile.shinigami;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.entity.ChallengeShinigamiEntity;
@@ -11,8 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
-
-import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unchecked")

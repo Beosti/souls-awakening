@@ -1,9 +1,9 @@
-package com.yuanno.soulsawakening.client.renderers.hollow;
+package com.yuanno.soulsawakening.client.renderers.entity.hostile.hollow;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entities.hollow.BeastEntity;
-import com.yuanno.soulsawakening.models.hollow.BeastModel;
+import com.yuanno.soulsawakening.entities.hollow.ClawEntity;
+import com.yuanno.soulsawakening.models.hollow.ClawModel;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -14,33 +14,33 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 @OnlyIn(Dist.CLIENT)
-public class BeastRenderer extends MobRenderer<BeastEntity, BeastModel<BeastEntity>> {
+public class ClawRenderer extends MobRenderer<ClawEntity, ClawModel<ClawEntity>> {
 
     protected static final ResourceLocation TEXTURE =
             new ResourceLocation(Main.MODID, "");
 
-    public BeastRenderer(EntityRendererManager rendererManager)
+    public ClawRenderer(EntityRendererManager rendererManager)
     {
-        super(rendererManager, new BeastModel(), 3f);
+        super(rendererManager, new ClawModel(), 1f);
     }
 
     @Override
-    public void render(BeastEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight)
+    public void render(ClawEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight)
     {
         super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
     }
 
-    public static class Factory implements IRenderFactory<BeastEntity>
+    public static class Factory implements IRenderFactory<ClawEntity>
     {
         @Override
-        public EntityRenderer<? super BeastEntity> createRenderFor(EntityRendererManager manager)
+        public EntityRenderer<? super ClawEntity> createRenderFor(EntityRendererManager manager)
         {
-            return new BeastRenderer(manager);
+            return new ClawRenderer(manager);
         }
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BeastEntity entity)
+    public ResourceLocation getTextureLocation(ClawEntity entity)
     {
         return TEXTURE;
     }

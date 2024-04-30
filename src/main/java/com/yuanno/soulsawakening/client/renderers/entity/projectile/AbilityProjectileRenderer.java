@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.client.renderers;
+package com.yuanno.soulsawakening.client.renderers.entity.projectile;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;

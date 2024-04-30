@@ -19,6 +19,7 @@ public class ModTags {
 
         public static final Tags.IOptionalNamedTag<Item> CONDUCTOR = tag("conductor");
         public static final Tags.IOptionalNamedTag<Item> SPIRIT_WEAPON = tag("spirit_weapon");
+        public static final Tags.IOptionalNamedTag<Item> ZANPAKUTO = tag("zanpakuto");
 
         private static Tags.IOptionalNamedTag<Item> tag(String id)
         {

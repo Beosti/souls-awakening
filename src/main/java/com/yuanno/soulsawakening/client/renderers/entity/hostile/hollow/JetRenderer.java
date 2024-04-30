@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.client.renderers.hollow;
+package com.yuanno.soulsawakening.client.renderers.entity.hostile.hollow;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;

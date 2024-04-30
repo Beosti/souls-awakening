@@ -2,7 +2,7 @@ package com.yuanno.soulsawakening.entities.projectiles.hollow;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.api.Beapi;
-import com.yuanno.soulsawakening.client.renderers.StretchingProjectileRenderer;
+import com.yuanno.soulsawakening.client.renderers.entity.projectile.StretchingProjectileRenderer;
 import com.yuanno.soulsawakening.models.CubeModel;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;

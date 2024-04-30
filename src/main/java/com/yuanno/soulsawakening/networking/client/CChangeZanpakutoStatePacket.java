@@ -1,14 +1,9 @@
 package com.yuanno.soulsawakening.networking.client;
 
-import com.yuanno.soulsawakening.events.zanpakuto.ZanpakutoChangeEvent;
-import com.yuanno.soulsawakening.init.ModItems;
-import com.yuanno.soulsawakening.init.ModResources;
-import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
+import com.yuanno.soulsawakening.events.util.ZanpakutoChangeEvent;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 

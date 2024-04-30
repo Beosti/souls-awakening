@@ -1,9 +1,9 @@
-package com.yuanno.soulsawakening.client.renderers.hollow;
+package com.yuanno.soulsawakening.client.renderers.entity.hostile.hollow;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entities.hollow.ClawEntity;
-import com.yuanno.soulsawakening.models.hollow.ClawModel;
+import com.yuanno.soulsawakening.entities.hollow.BulkEntity;
+import com.yuanno.soulsawakening.models.hollow.BulkModel;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -14,33 +14,33 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 @OnlyIn(Dist.CLIENT)
-public class ClawRenderer extends MobRenderer<ClawEntity, ClawModel<ClawEntity>> {
+public class BulkRenderer extends MobRenderer<BulkEntity, BulkModel<BulkEntity>> {
 
     protected static final ResourceLocation TEXTURE =
             new ResourceLocation(Main.MODID, "");
 
-    public ClawRenderer(EntityRendererManager rendererManager)
+    public BulkRenderer(EntityRendererManager rendererManager)
     {
-        super(rendererManager, new ClawModel(), 1f);
+        super(rendererManager, new BulkModel(), 1f);
     }
 
     @Override
-    public void render(ClawEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight)
+    public void render(BulkEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight)
     {
         super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
     }
 
-    public static class Factory implements IRenderFactory<ClawEntity>
+    public static class Factory implements IRenderFactory<BulkEntity>
     {
         @Override
-        public EntityRenderer<? super ClawEntity> createRenderFor(EntityRendererManager manager)
+        public EntityRenderer<? super BulkEntity> createRenderFor(EntityRendererManager manager)
         {
-            return new ClawRenderer(manager);
+            return new BulkRenderer(manager);
         }
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ClawEntity entity)
+    public ResourceLocation getTextureLocation(BulkEntity entity)
     {
         return TEXTURE;
     }

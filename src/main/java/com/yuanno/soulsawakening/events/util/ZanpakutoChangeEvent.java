@@ -1,7 +1,5 @@
-package com.yuanno.soulsawakening.events.zanpakuto;
+package com.yuanno.soulsawakening.events.util;
 
-import com.yuanno.soulsawakening.init.ModResources;
-import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.eventbus.api.Event;

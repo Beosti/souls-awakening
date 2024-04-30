@@ -1,7 +1,7 @@
-package com.yuanno.soulsawakening.client.renderers;
+package com.yuanno.soulsawakening.client.renderers.entity.npc;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entity.ShinigamiEntity;
+import com.yuanno.soulsawakening.entities.npc.KidoTeacherEntity;
 import com.yuanno.soulsawakening.models.HumanoidModel;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -12,30 +12,26 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-import java.util.Random;
-
 @OnlyIn(Dist.CLIENT)
 @SuppressWarnings("unchecked")
-public class ShinigamiRenderer extends MobRenderer<ShinigamiEntity, HumanoidModel<ShinigamiEntity>> {
+public class KidoTeacherRenderer extends MobRenderer<KidoTeacherEntity, HumanoidModel<KidoTeacherEntity>> {
 
-    public ShinigamiRenderer(EntityRendererManager renderManager)
+    public KidoTeacherRenderer(EntityRendererManager renderManager)
     {
         super(renderManager, new HumanoidModel<>(), 0.1F);
         this.addLayer(new HeldItemLayer<>(this));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ShinigamiEntity ShinigamiEntity) {
-        String finalTexture = ShinigamiEntity.getSkin();
-
-        return new ResourceLocation(Main.MODID, "textures/entities/npc/" + finalTexture +  ".png");
+    public ResourceLocation getTextureLocation(KidoTeacherEntity KidoTeacherEntity) {
+        return new ResourceLocation(Main.MODID, "textures/entities/npc/kido_teacher.png");
     }
 
-    public static class Factory implements IRenderFactory<ShinigamiEntity> {
+    public static class Factory implements IRenderFactory<KidoTeacherEntity> {
 
         @Override
-        public EntityRenderer<? super ShinigamiEntity> createRenderFor(EntityRendererManager manager) {
-            return new ShinigamiRenderer(manager);
+        public EntityRenderer<? super KidoTeacherEntity> createRenderFor(EntityRendererManager manager) {
+            return new KidoTeacherRenderer(manager);
         }
     }
 }

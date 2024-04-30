@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.client.renderers;
+package com.yuanno.soulsawakening.client.renderers.entity.npc;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.entity.PlusEntity;

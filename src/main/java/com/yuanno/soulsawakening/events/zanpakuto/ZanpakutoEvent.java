@@ -30,16 +30,15 @@ import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
 import com.yuanno.soulsawakening.abilities.shinso.LongRangeAbility;
 import com.yuanno.soulsawakening.abilities.shinso.ShootAbility;
 import com.yuanno.soulsawakening.abilities.shinso.WideShootAbility;
-import com.yuanno.soulsawakening.api.SoulboundItemHelper;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.events.util.ZanpakutoChangeEvent;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
-import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -49,7 +48,6 @@ import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -82,39 +80,6 @@ public class ZanpakutoEvent {
         else
             event.setCanceled(false);
     }
-
-    /*
-    @SubscribeEvent
-    public static void onZanpakutoCraftin(PlayerEvent.ItemCraftedEvent event)
-    {
-        if (event.getCrafting().getItem().asItem() instanceof ZanpakutoItem)
-        {
-            if (event.getPlayer().level.isClientSide)
-                return;
-            IEntityStats entityStats = EntityStatsCapability.get(event.getPlayer());
-            if (entityStats.getRace().equals(ModValues.HOLLOW))
-                return;
-            else if (entityStats.getRace().equals(ModValues.HUMAN)) {
-                entityStats.setRace(ModValues.FULLBRINGER);
-                ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) event.getPlayer());
-                ModAdvancements.FULLBRINGER.trigger((ServerPlayerEntity) event.getPlayer());
-                event.getCrafting().getOrCreateTag().putBoolean("soulbound", true);
-
-            }
-            else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
-                entityStats.setRace(ModValues.SHINIGAMI);
-                ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) event.getPlayer());
-                ModAdvancements.SHINIGAMI.trigger((ServerPlayerEntity) event.getPlayer());
-                event.getCrafting().getOrCreateTag().putBoolean("soulbound", true);
-            }
-            PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getPlayer().getId(), entityStats), event.getPlayer());
-            SoulboundItemHelper.setOwner(event.getCrafting().getStack(), event.getPlayer());
-            ZanpakutoItem zanpakutoItem = (ZanpakutoItem) event.getCrafting().getItem();
-            zanpakutoItem.setOwner(event.getPlayer(), event.getCrafting());
-        }
-    }
-
-     */
 
     @SubscribeEvent
     public static void onZanpakutoChange(ZanpakutoChangeEvent event)

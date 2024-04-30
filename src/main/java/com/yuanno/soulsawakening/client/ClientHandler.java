@@ -1,7 +1,10 @@
 package com.yuanno.soulsawakening.client;
 
 import com.yuanno.soulsawakening.client.renderers.*;
-import com.yuanno.soulsawakening.client.renderers.hollow.*;
+import com.yuanno.soulsawakening.client.renderers.entity.hostile.hollow.*;
+import com.yuanno.soulsawakening.client.renderers.entity.hostile.shinigami.ChallengeShinigamiRenderer;
+import com.yuanno.soulsawakening.client.renderers.entity.hostile.shinigami.ShinigamiRenderer;
+import com.yuanno.soulsawakening.client.renderers.entity.npc.*;
 import com.yuanno.soulsawakening.init.ModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
