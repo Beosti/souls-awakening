@@ -40,13 +40,17 @@ import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.item.ItemEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -80,6 +84,39 @@ public class ZanpakutoEvent {
         else
             event.setCanceled(false);
     }
+
+    /**
+     * In shikai state when changing items it becomes sealed again
+     * Whole ass turnaround instead of just taking event.getfrom() because of issues
+     * @param event
+     */
+    @SubscribeEvent
+    public static void onItemChange(LivingEquipmentChangeEvent event)
+    {
+        if (!(event.getEntity() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getEntity();
+        if (player.level.isClientSide)
+            return;
+        if (!(event.getSlot() == EquipmentSlotType.MAINHAND))
+            return;
+        if (!(event.getFrom().getItem().asItem() instanceof ZanpakutoItem))
+            return;
+        ItemStack zanpakutoStack = event.getFrom().getStack();
+        String zanpakutoState = zanpakutoStack.getTag().getString("zanpakutoState");
+        if (!(zanpakutoState.equals(ModValues.STATE.SHIKAI.name())))
+            return;
+        for (int i = 0; i < player.inventory.getContainerSize(); i++)
+        {
+            if (player.inventory.getItem(i).getItem() instanceof ZanpakutoItem)
+            {
+                CompoundNBT tagCompound = player.inventory.getItem(i).getTag();
+                tagCompound.putString("zanpakutoState", ModValues.STATE.SEALED.name());
+                player.inventory.getItem(i).setTag(tagCompound);
+            }
+        }
+    }
+
 
     @SubscribeEvent
     public static void onZanpakutoChange(ZanpakutoChangeEvent event)

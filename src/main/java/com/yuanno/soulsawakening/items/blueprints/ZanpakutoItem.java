@@ -149,16 +149,4 @@ public class ZanpakutoItem extends SwordItem {
             return true;
         }
     }
-
-    public void setOwner(PlayerEntity player, ItemStack itemStack)
-    {
-        if (!itemStack.hasTag())
-            itemStack.setTag(new CompoundNBT());
-        String currentOwner = itemStack.getOrCreateTag().getString("owner");
-        if (currentOwner.isEmpty())
-            itemStack.getTag().putString("owner", player.getDisplayName().getString());
-        else
-            return;
-    }
-
 }
