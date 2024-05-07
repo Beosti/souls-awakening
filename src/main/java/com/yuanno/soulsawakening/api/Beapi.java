@@ -1,12 +1,14 @@
 package com.yuanno.soulsawakening.api;
 
 import com.google.common.base.Predicates;
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.init.ModRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -17,6 +19,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.play.server.SPlayEntityEffectPacket;
 import net.minecraft.network.play.server.SRemoveEntityEffectPacket;
@@ -24,10 +27,8 @@ import net.minecraft.network.play.server.SSpawnParticlePacket;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.EntityPredicates;
-import net.minecraft.util.IReorderingProcessor;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IWorld;
@@ -35,6 +36,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkSection;
 import net.minecraft.world.chunk.IChunk;
+import net.minecraft.world.gen.feature.template.*;
 import net.minecraft.world.server.ChunkHolder;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.RegistryObject;
@@ -117,6 +119,138 @@ public class Beapi {
 
         return false;
     }
+
+    public static void takeBlocksFromWorld(Template template, World world, BlockPos startPos, BlockPos size, @Nullable List<Block> toIgnore)
+    {
+        if (size.getX() >= 1 && size.getY() >= 1 && size.getZ() >= 1)
+        {
+            BlockPos blockpos = startPos.offset(size).offset(-1, -1, -1);
+            List<Template.BlockInfo> list = Lists.newArrayList();
+            List<Template.BlockInfo> list1 = Lists.newArrayList();
+            List<Template.BlockInfo> list2 = Lists.newArrayList();
+            BlockPos blockpos1 = new BlockPos(Math.min(startPos.getX(), blockpos.getX()), Math.min(startPos.getY(), blockpos.getY()), Math.min(startPos.getZ(), blockpos.getZ()));
+            BlockPos blockpos2 = new BlockPos(Math.max(startPos.getX(), blockpos.getX()), Math.max(startPos.getY(), blockpos.getY()), Math.max(startPos.getZ(), blockpos.getZ()));
+            //((TemplateMixin)template).setSize(size);
+
+            for (BlockPos blockpos3 : BlockPos.betweenClosed(blockpos1, blockpos2))
+            {
+                BlockPos blockpos4 = blockpos3.subtract(blockpos1);
+                BlockState blockstate = world.getBlockState(blockpos3);
+
+                if (toIgnore != null && toIgnore.contains(blockstate.getBlock()))
+                {
+                    world.setBlockAndUpdate(blockpos3, Blocks.AIR.defaultBlockState());
+                    blockstate = world.getBlockState(blockpos3);
+                    //if(blockstate.has(BlockStateProperties.WATERLOGGED))
+                    //	blockstate.with(BlockStateProperties.WATERLOGGED, false);
+                }
+
+                TileEntity tileentity = world.getBlockEntity(blockpos3);
+                if (tileentity != null)
+                {
+                    CompoundNBT compoundnbt = tileentity.save(new CompoundNBT());
+                    compoundnbt.remove("x");
+                    compoundnbt.remove("y");
+                    compoundnbt.remove("z");
+                    list1.add(new Template.BlockInfo(blockpos4, blockstate, compoundnbt));
+                }
+                else if (!blockstate.propagatesSkylightDown(world, blockpos3) && !blockstate.isCollisionShapeFullBlock(world, blockpos3))
+                {
+                    list2.add(new Template.BlockInfo(blockpos4, blockstate, (CompoundNBT) null));
+                }
+                else
+                {
+                    list.add(new Template.BlockInfo(blockpos4, blockstate, (CompoundNBT) null));
+                }
+            }
+
+            List<Template.BlockInfo> list3 = Lists.newArrayList();
+            list3.addAll(list);
+            list3.addAll(list1);
+            list3.addAll(list2);
+            //((TemplateMixin)template).getBlocks().clear();
+            //((TemplateMixin)template).getBlocks().add(list3);
+            //((TemplateMixin)template).getEntities().clear();
+        }
+    }
+    public static boolean saveNBTStructure(ServerWorld world, String name, BlockPos pos, BlockPos size, List<Block> toIgnore)
+    {
+        if (!world.isClientSide)
+        {
+            ServerWorld serverworld = world;
+            TemplateManager templatemanager = serverworld.getStructureManager();
+            ResourceLocation res = new ResourceLocation(Main.MODID, name);
+
+            Template template;
+            try
+            {
+                template = templatemanager.getOrCreate(res);
+            }
+            catch (ResourceLocationException ex)
+            {
+                ex.printStackTrace();
+                return false;
+            }
+
+            toIgnore.add(Blocks.STRUCTURE_VOID);
+            //toIgnore.add(Blocks.BEDROCK);
+            takeBlocksFromWorld(template, world, pos, size, toIgnore);
+            template.fillFromWorld(serverworld, pos, size, true, Blocks.STRUCTURE_VOID);
+            template.setAuthor("?");
+            try
+            {
+                return templatemanager.save(res);
+            }
+            catch (ResourceLocationException var7)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public static boolean loadNBTStructure(ServerWorld world, String name, BlockPos pos, PlacementSettings settings)
+    {
+        if (!world.isClientSide)
+        {
+            TemplateManager templatemanager = world.getStructureManager();
+            ResourceLocation res = new ResourceLocation(Main.MODID, name);
+
+            Template template;
+            try
+            {
+                template = templatemanager.get(res);
+            }
+            catch (ResourceLocationException ex)
+            {
+                ex.printStackTrace();
+                return false;
+            }
+
+            if (template == null)
+            {
+                return false;
+            }
+            else
+            {
+                BlockState blockstate = world.getBlockState(pos);
+                world.sendBlockUpdated(pos, blockstate, blockstate, 3);
+            }
+
+            //placementsettings.clearProcessors().addProcessor(new BlockIgnoreStructureProcessor(ImmutableList.of(Blocks.SAND)));
+
+            template.placeInWorldChunk(world, pos, settings, new Random(Util.getMillis()));
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static List<BlockPos> getNearbyBlocks(BlockPos pos, IWorld world, int sizeX, int sizeY, int sizeZ, @Nullable Predicate<BlockState> predicate)
     {
         predicate = predicate == null ? (blockPos) -> true : predicate;

@@ -46,5 +46,6 @@ public class ForgeSetup {
         ShikaiCommand.register(dispatcher);
         ChallengeCommand.register(dispatcher);
         RankCommand.register(dispatcher);
+        StructureCommand.register(dispatcher);
     }
 }

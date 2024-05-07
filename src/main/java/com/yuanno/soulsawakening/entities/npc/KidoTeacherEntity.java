@@ -13,4 +13,9 @@ public class KidoTeacherEntity extends SoulNPCEntity {
     }
 
 
+    @Override
+    public boolean removeWhenFarAway(double d)
+    {
+        return false;
+    }
 }

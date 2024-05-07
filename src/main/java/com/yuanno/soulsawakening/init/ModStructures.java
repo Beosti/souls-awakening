@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.world.structures.BigRuinStructure;
 import com.yuanno.soulsawakening.world.structures.RoadStructure;
+import com.yuanno.soulsawakening.world.structures.ShinigamiSchoolStructure;
 import com.yuanno.soulsawakening.world.structures.SmallRuinStructure;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -26,6 +27,7 @@ public class ModStructures {
     public static final RegistryObject<Structure<NoFeatureConfig>> BIG_RUIN = DEFERRED_REGISTRY_STRUCTURE.register("big_ruin", BigRuinStructure::new);
     public static final RegistryObject<Structure<NoFeatureConfig>> SMALL_RUIN = DEFERRED_REGISTRY_STRUCTURE.register("small_ruin", SmallRuinStructure::new);
     public static final RegistryObject<Structure<NoFeatureConfig>> ROADS = DEFERRED_REGISTRY_STRUCTURE.register("roads", RoadStructure::new);
+    public static final RegistryObject<Structure<NoFeatureConfig>> SHINIGAMI_SCHOOL = DEFERRED_REGISTRY_STRUCTURE.register("shinigami_school", ShinigamiSchoolStructure::new);
 
     public static void setupStructures()
     {
@@ -33,9 +35,7 @@ public class ModStructures {
         setupMapSpacingAndLand(BIG_RUIN.get(), new StructureSeparationSettings(15, 10, 1234534561), false);
         setupMapSpacingAndLand(SMALL_RUIN.get(), new StructureSeparationSettings(10, 5, 721689745), false);
         setupMapSpacingAndLand(ROADS.get(), new StructureSeparationSettings(12, 7, 643921737), false);
-
-        //setupMapSpacingAndLand(ROADS.get(), new StructureSeparationSettings(10, 5, 721689745), false);
-
+        setupMapSpacingAndLand(SHINIGAMI_SCHOOL.get(), new StructureSeparationSettings(60, 30, 963925494), true);
     }
 
     public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure, StructureSeparationSettings structureSeparationSettings, boolean transformSurroundingLand)

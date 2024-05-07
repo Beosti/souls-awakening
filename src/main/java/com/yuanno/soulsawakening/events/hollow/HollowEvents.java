@@ -87,6 +87,8 @@ public class HollowEvents {
             LivingEntity attacker = (LivingEntity) event.getSource().getDirectEntity();
             if (!EntityStatsCapability.get(attacker).getRace().equals(ModValues.HOLLOW))
                 return;
+            if (!EntityStatsCapability.get(attacker).hasHollowStats())
+                return;
             LivingEntity livingEntity = event.getEntityLiving();
             if (!(livingEntity instanceof IBleach))
                 return;

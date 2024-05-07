@@ -25,6 +25,7 @@ public class StructureGeneration {
         if (biomeName.toString().equals("soulsawakening:soul_society"))
         {
             event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_ROADS);
+            event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SHINIGAMI_SCHOOL);
         }
     }
 }

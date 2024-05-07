@@ -12,4 +12,9 @@ public class ShinigamiTeacherEntity extends SoulNPCEntity {
         this.setChatPrompt(new ShinigamiTeacherPrompt());
     }
 
+    @Override
+    public boolean removeWhenFarAway(double d)
+    {
+        return false;
+    }
 }
