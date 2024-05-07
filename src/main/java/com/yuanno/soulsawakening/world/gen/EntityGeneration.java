@@ -25,10 +25,7 @@ public class EntityGeneration {
 
         Set types = BiomeDictionary.getTypes(key);
         ResourceLocation biomeName = event.getName();
-        if ((!types.contains(BiomeDictionary.Type.WET)
-                && !types.contains(BiomeDictionary.Type.OCEAN)
-                && !types.contains(BiomeDictionary.Type.RIVER)
-                && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(BiomeDictionary.Type.VOID) && !biomeName.toString().equals("soulsawakening:soul_society")) || biomeName.toString().equals("soulsawakening:hueco_mundo"))
+        if (!types.contains(BiomeDictionary.Type.WET) && !biomeName.toString().equals("minecraft:deep_ocean") && !biomeName.toString().equals("minecraft:lukewarm_ocean") && !biomeName.toString().equals("minecraft:ocean") && !biomeName.toString().equals("soulsawakening:soul_society") || biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BEAST.get(), 3, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CLAW.get(), 3, 1, 1));
@@ -37,10 +34,7 @@ public class EntityGeneration {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CENTIPEDE.get(), 3, 1, 1));
 
         }
-        if (!types.contains(BiomeDictionary.Type.WET)
-                && !types.contains(BiomeDictionary.Type.OCEAN)
-                && !types.contains(BiomeDictionary.Type.RIVER)
-                && !types.contains(BiomeDictionary.Type.WATER) && !types.contains(BiomeDictionary.Type.VOID) && !biomeName.toString().equals("soulsawakening:hueco_mundo"))
+        if (!types.contains(BiomeDictionary.Type.WET) && !types.contains(BiomeDictionary.Type.VOID) && !biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.PLUS.get(), 20, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.SHINIGAMI.get(), 20, 1, 1));
