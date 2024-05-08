@@ -21,11 +21,24 @@ public class EntityGeneration {
     {
         RegistryKey key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         //RegistryKey dimensionKey = RegistryKey.create(Registry.DIMENSION_REGISTRY, event.)
+        /*
         ArrayList<BiomeDictionary.Type> ALL_BIOMES = new ArrayList<>(BiomeDictionary.Type.getAll());
+        ArrayList<String> NOT_BIOMES = new ArrayList<>();
+        NOT_BIOMES.add("minecraft:deep_ocean");
+        NOT_BIOMES.add("minecraft:lukewarm_ocean");
+        NOT_BIOMES.add("minecraft:ocean");
+        NOT_BIOMES.add("minecraft:cold_ocean");
+        NOT_BIOMES.add("minecraft:deep_cold_ocean");
+        NOT_BIOMES.add("minecraft:deep_frozen_ocean");
+
+         */
+        // !NOT_BIOMES.contains(biomeName.toString())
 
         Set types = BiomeDictionary.getTypes(key);
         ResourceLocation biomeName = event.getName();
-        if (!types.contains(BiomeDictionary.Type.WET) && !biomeName.toString().equals("minecraft:deep_ocean") && !biomeName.toString().equals("minecraft:lukewarm_ocean") && !biomeName.toString().equals("minecraft:ocean") && !biomeName.toString().equals("soulsawakening:soul_society") || biomeName.toString().equals("soulsawakening:hueco_mundo"))
+        // hollow don't spawn in: ocean, river and soul society
+        // spawns in hueco mundo
+        if (!biomeName.toString().equals("beach") && !biomeName.toString().contains("ocean") && !biomeName.toString().contains("river") && !biomeName.toString().equals("soulsawakening:soul_society") || biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BEAST.get(), 3, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CLAW.get(), 3, 1, 1));
@@ -34,7 +47,9 @@ public class EntityGeneration {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CENTIPEDE.get(), 3, 1, 1));
 
         }
-        if (!types.contains(BiomeDictionary.Type.WET) && !types.contains(BiomeDictionary.Type.VOID) && !biomeName.toString().equals("soulsawakening:hueco_mundo"))
+        // spirits, shinigami, traders don't spawn in: ocean, river and soul society
+        // spawns in soul society
+        if (!biomeName.toString().equals("beach") && !biomeName.toString().contains("ocean") && !biomeName.toString().contains("river") && !biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.PLUS.get(), 20, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.SHINIGAMI.get(), 20, 1, 1));
