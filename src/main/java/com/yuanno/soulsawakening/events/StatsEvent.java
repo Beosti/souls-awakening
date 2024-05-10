@@ -20,10 +20,13 @@ import com.yuanno.soulsawakening.data.teleports.ITeleports;
 import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModChallenges;
+import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.*;
+import com.yuanno.soulsawakening.particles.ParticleEffect;
+import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
 import com.yuanno.soulsawakening.util.GargantaTeleporter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -34,6 +37,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -48,6 +52,7 @@ import java.util.concurrent.TimeUnit;
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class StatsEvent {
     private static ArrayList<ItemStack> soulboundItems = new ArrayList<>();
+    public static final ParticleEffect PARTICLES_WAVE = new WaveParticleEffect(1.4);
 
     @SubscribeEvent
     public static void joinWorldEvent(PlayerEvent.PlayerLoggedInEvent event)
@@ -80,13 +85,21 @@ public class StatsEvent {
             return;
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (player.getHealth() - event.getAmount() <= 0 && entityStats.getRace().equals(ModValues.HUMAN))
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        IMiscData miscData = MiscDataCapability.get(player);
+        if (player.getHealth() - event.getAmount() <= 0)
         {
-            player.heal(player.getMaxHealth() - player.getHealth());
-            entityStats.setRace(ModValues.SPIRIT);
-            ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
-            ModAdvancements.SPIRIT.trigger((ServerPlayerEntity) player);
-            World world = player.level;
+            if (entityStats.getRace().equals(ModValues.HUMAN))
+            {
+                player.heal(player.getMaxHealth() - player.getHealth());
+                entityStats.setRace(ModValues.SPIRIT);
+                ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
+                ModAdvancements.SPIRIT.trigger((ServerPlayerEntity) player);
+                miscData.setSpiritChain(400);
+            }
+
+            //World world = player.level;
+            /*
             MinecraftServer minecraftServer = world.getServer();
             Random random = new Random();
             int randomized = random.nextInt(100) + 1;
@@ -98,9 +111,48 @@ public class StatsEvent {
                     player.changeDimension(soulSociety, new GargantaTeleporter(player.blockPosition(), false));
                 }
             }
+
+             */
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-            ((ServerPlayerEntity) player).setRespawnPosition(ModDimensions.SOUL_SOCIETY, player.blockPosition(), 0, true, true);
+            PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+            PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
+
+            //((ServerPlayerEntity) player).setRespawnPosition(ModDimensions.SOUL_SOCIETY, player.blockPosition(), 0, true, true);
         }
+    }
+    @SubscribeEvent
+    public static void onChainSoul(TickEvent.PlayerTickEvent event)
+    {
+        PlayerEntity player = event.player;
+        if (player.level.isClientSide)
+            return;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (!entityStats.getRace().equals(ModValues.SPIRIT))
+            return;
+        IMiscData miscData = MiscDataCapability.get(player);
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        MinecraftServer minecraftServer = player.level.getServer();
+        ServerWorld soulSociety = minecraftServer.getLevel(ModDimensions.SOUL_SOCIETY);
+        if ((miscData.getSpiritChain() > 0 && player.tickCount % 20 == 0) && player.level != soulSociety)
+            miscData.alterSpiritChain(-1);
+        else if (miscData.getSpiritChain() <= 0)
+        {
+            PARTICLES_WAVE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
+            entityStats.setRace(ModValues.HOLLOW);
+            entityStats.setRank(ModValues.BASE);
+            ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
+            ModAdvancements.HOLLOW.trigger((ServerPlayerEntity) player);
+            miscData.setCanRenderOverlay(true);
+            abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
+            abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
+            abilityData.addUnlockedAbility(HollowRegenerationAbility.INSTANCE);
+            HollowStats hollowStats = new HollowStats();
+            entityStats.setHollowStats(hollowStats);
+            miscData.setCanRenderOverlay(true);
+        }
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+        PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
     }
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event)
@@ -123,6 +175,7 @@ public class StatsEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
         IQuestData questData = QuestDataCapability.get(player);
+        /*
         if (entityStats.getRace().equals(ModValues.HUMAN)) {
             player.heal(20);
             event.setCanceled(true);
@@ -143,8 +196,10 @@ public class StatsEvent {
             //player.setSleepingPos(player.blockPosition());
             miscData.setCanRenderOverlay(true);
         }
+
+         */
+        /*
         else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
-            event.setCanceled(true);
             entityStats.setRace(ModValues.HOLLOW);
             entityStats.setRank(ModValues.BASE);
             ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
@@ -156,6 +211,8 @@ public class StatsEvent {
             HollowStats hollowStats = new HollowStats();
             entityStats.setHollowStats(hollowStats);
         }
+
+         */
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);

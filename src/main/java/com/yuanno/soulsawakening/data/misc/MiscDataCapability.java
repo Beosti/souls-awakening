@@ -24,6 +24,7 @@ public class MiscDataCapability {
                 props.putBoolean("canrenderoverlay", instance.getCanRenderOverlay());
                 props.putInt("kan", instance.getKan());
                 props.putString("rank", instance.getRank());
+                props.putInt("spiritChain", instance.getSpiritChain());
                 return props;
             }
 
@@ -34,6 +35,7 @@ public class MiscDataCapability {
                 instance.setCanRenderOverlay(props.getBoolean("canrenderoverlay"));
                 instance.setKan(props.getInt("kan"));
                 instance.setRank(props.getString("rank"));
+                instance.setSpiritChain(props.getInt("spiritChain"));
             }
         }, () -> new MiscDataBase());
 

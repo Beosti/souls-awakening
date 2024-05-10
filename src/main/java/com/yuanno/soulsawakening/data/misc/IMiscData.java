@@ -12,4 +12,8 @@ public interface IMiscData {
     void setRank(String rank);
 
     String getRank();
+
+    void setSpiritChain(int amount);
+    void alterSpiritChain(int amount);
+    int getSpiritChain();
 }

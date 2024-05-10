@@ -285,7 +285,8 @@ public class PlayerOverviewScreen extends Screen {
         // Every race needs to have this rendered anyway
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Name: " + TextFormatting.RESET + name, leftShift, posY + 20, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + race, leftShift, posY + 40, -1);
-
+        if (this.entityStats.getRace().equals(ModValues.SPIRIT))
+            spiritRendering(matrixStack, posX, posY);
         if (this.entityStats.getRace().equals(ModValues.SHINIGAMI))
             shinigamiRendering(matrixStack, posX, posY);
         if (this.entityStats.getRace().equals(ModValues.HOLLOW))
@@ -295,6 +296,13 @@ public class PlayerOverviewScreen extends Screen {
         super.render(matrixStack, mouseX, mouseY, f);
     }
 
+    public void spiritRendering(MatrixStack matrixStack, int posX, int posY)
+    {
+        int leftShift = posX - 75;
+        int spiritChain = miscData.getSpiritChain();
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Spirit chain: " + TextFormatting.RESET + spiritChain, leftShift, posY + 60, -1);
+
+    }
     public void shinigamiRendering(MatrixStack matrixStack, int posX, int posY)
     {
         int leftShift = posX - 75;

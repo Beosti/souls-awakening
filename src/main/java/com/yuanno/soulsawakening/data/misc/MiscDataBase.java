@@ -5,6 +5,7 @@ public class MiscDataBase implements IMiscData {
     private boolean canRenderOverlay;
     private int kan;
     private String rank = "";
+    private int spiritChain;
 
     @Override
     public void setCanRenderOverlay(boolean setFlag)
@@ -43,5 +44,20 @@ public class MiscDataBase implements IMiscData {
     public String getRank()
     {
         return this.rank;
+    }
+
+    @Override
+    public void setSpiritChain(int amount) {
+        this.spiritChain = amount;
+    }
+
+    @Override
+    public void alterSpiritChain(int amount) {
+        this.spiritChain += amount;
+    }
+
+    @Override
+    public int getSpiritChain() {
+        return this.spiritChain;
     }
 }
