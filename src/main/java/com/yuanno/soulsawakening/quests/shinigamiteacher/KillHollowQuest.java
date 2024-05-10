@@ -6,6 +6,9 @@ import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
+import com.yuanno.soulsawakening.data.misc.IMiscData;
+import com.yuanno.soulsawakening.data.misc.MiscDataBase;
+import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.data.teleports.ITeleports;
 import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.entities.hollow.HollowEntity;
@@ -17,6 +20,7 @@ import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncTeleportPacket;
 import com.yuanno.soulsawakening.quests.*;
 import com.yuanno.soulsawakening.quests.objectives.KillObjective;
@@ -51,7 +55,10 @@ public class KillHollowQuest extends Quest {
         entityStats.getShinigamiStats().setZanjutsuPoints(0);
         entityStats.setReiatsuPoints(0);
         entityStats.getShinigamiStats().setClassPoints(0);
+        IMiscData miscData = MiscDataCapability.get(player);
+        miscData.setCanRenderOverlay(true);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
         return true;
     }
 

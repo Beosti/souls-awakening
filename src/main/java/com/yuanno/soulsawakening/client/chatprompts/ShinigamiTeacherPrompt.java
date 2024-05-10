@@ -58,9 +58,9 @@ public class ShinigamiTeacherPrompt extends ChatPrompt {
     {
         this.addAcceptanceDecline = false;
         this.chatPromptScreen.setText("I got another mission for you, now you're officially part of the gotei 13 you can also be paid. It's about a specific hollow.");
-        if (this.chatPromptScreen.getQuestData().hasInProgressQuest(ModQuests.RESCUE_PLUSES))
+        if (this.chatPromptScreen.getQuestData().hasInProgressQuest(ModQuests.KILL_SPECIFIC_HOLLOW))
             this.chatPromptScreen.setText("You have to go and kill a beast hollow, it walks on 4 feet and looks like a tiger.");
-        if (this.chatPromptScreen.getQuestData().isQuestComplete(ModQuests.RESCUE_PLUSES))
+        if (this.chatPromptScreen.getQuestData().isQuestComplete(ModQuests.KILL_SPECIFIC_HOLLOW))
             this.chatPromptScreen.setText("There have some money, thanks for handling that hollow. I am sure it took you some time to hunt it down and track it's location.");
         if (this.chatPromptScreen.getPage() == -1)
             this.chatPromptScreen.setText("Tracking down missions ain't for everyone I suppose");

@@ -44,7 +44,7 @@ public class SequencedString
 		String tempStr = "";
 		for (int i = 0; i < this.chars.length; i++)
 		{
-			if (this.tickCount >= this.calculateTicksNeeded(i) && this.tickCount < this.delayTicks)
+			if (this.tickCount >= this.calculateTicksNeeded(i))
 			{
 				tempStr = tempStr + this.chars[i];
 			}

@@ -8,9 +8,12 @@ import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
 import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
 import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
+import com.yuanno.soulsawakening.data.misc.IMiscData;
+import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
@@ -52,6 +55,11 @@ public class RaceCommand {
     private static int setRace(CommandSource commandSource, PlayerEntity player, String race)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
+        IMiscData miscData = MiscDataCapability.get(player);
+        if (race.equals(ModValues.SPIRIT))
+        {
+            miscData.setSpiritChain(400);
+        }
         entityStats.setRace(race);
         if (race.equals(ModValues.SHINIGAMI) && !entityStats.hasShinigamiStats())
             entityStats.setShinigamiStats(new ShinigamiStats());
@@ -63,6 +71,7 @@ public class RaceCommand {
             entityStats.setQuincyStats(new QuincyStats());
 
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
 
         commandSource.sendSuccess(new TranslationTextComponent("set race of " + player.getDisplayName().getString() + " to " + race), true);
         return 1;

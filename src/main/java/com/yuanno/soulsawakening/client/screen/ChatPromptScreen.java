@@ -102,7 +102,7 @@ public class ChatPromptScreen extends Screen {
                 break;
             }
         }
-        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 800);
+        this.message = new SequencedString(text, 345, this.font.width(text) / 2, 400);
         if (chatPrompt.getAcceptOrDecline()) {
             this.addButton(acceptanceButton);
             this.addButton(declineButton);
