@@ -70,6 +70,7 @@ public class SmallRuinStructure extends Structure<NoFeatureConfig> {
             int z = (chunkZ << 4) + 7;
             BlockPos blockpos = new BlockPos(x, 0, z);
 
+            System.out.println("Block pos center: " + blockpos);
             JigsawManager.addPieces(dynamicRegistryManager,
                     new VillageConfig(() -> dynamicRegistryManager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
                             .get(new ResourceLocation(Main.MODID, "ruins/small_ruin")),

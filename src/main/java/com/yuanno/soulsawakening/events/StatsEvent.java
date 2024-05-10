@@ -21,20 +21,28 @@ import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModChallenges;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.*;
+import com.yuanno.soulsawakening.util.GargantaTeleporter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
@@ -66,6 +74,35 @@ public class StatsEvent {
         PacketHandler.sendTo(new SSyncTeleportPacket(player.getId(), teleports), player);
     }
     @SubscribeEvent
+    public static void livingAttack(LivingDamageEvent event)
+    {
+        if (!(event.getEntityLiving() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (player.getHealth() - event.getAmount() <= 0 && entityStats.getRace().equals(ModValues.HUMAN))
+        {
+            player.heal(player.getMaxHealth() - player.getHealth());
+            entityStats.setRace(ModValues.SPIRIT);
+            ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
+            ModAdvancements.SPIRIT.trigger((ServerPlayerEntity) player);
+            World world = player.level;
+            MinecraftServer minecraftServer = world.getServer();
+            Random random = new Random();
+            int randomized = random.nextInt(100) + 1;
+            if (randomized < 50)
+            {
+                ServerWorld soulSociety = minecraftServer.getLevel(ModDimensions.SOUL_SOCIETY);
+
+                if (soulSociety != null && player.level != soulSociety) {
+                    player.changeDimension(soulSociety, new GargantaTeleporter(player.blockPosition(), false));
+                }
+            }
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+            ((ServerPlayerEntity) player).setRespawnPosition(ModDimensions.SOUL_SOCIETY, player.blockPosition(), 0, true, true);
+        }
+    }
+    @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event)
     {
         if (!(event.getEntityLiving() instanceof PlayerEntity))
@@ -87,13 +124,27 @@ public class StatsEvent {
         IMiscData miscData = MiscDataCapability.get(player);
         IQuestData questData = QuestDataCapability.get(player);
         if (entityStats.getRace().equals(ModValues.HUMAN)) {
+            player.heal(20);
+            event.setCanceled(true);
             entityStats.setRace(ModValues.SPIRIT);
             ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
             ModAdvancements.SPIRIT.trigger((ServerPlayerEntity) player);
+            World world = player.level;
+            MinecraftServer minecraftServer = world.getServer();
+            ServerWorld soulSociety = minecraftServer.getLevel(ModDimensions.SOUL_SOCIETY);
 
+            if (soulSociety != null && player.level != soulSociety) {
+                player.changeDimension(soulSociety, new GargantaTeleporter(player.blockPosition(), false));
+            }
+
+
+            //event.setCanceled(true);
+            //player.heal(20);
+            //player.setSleepingPos(player.blockPosition());
             miscData.setCanRenderOverlay(true);
         }
         else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
+            event.setCanceled(true);
             entityStats.setRace(ModValues.HOLLOW);
             entityStats.setRank(ModValues.BASE);
             ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);

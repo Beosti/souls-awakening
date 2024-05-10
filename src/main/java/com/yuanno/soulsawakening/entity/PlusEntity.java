@@ -78,8 +78,7 @@ public class PlusEntity extends CreatureEntity implements IBleach {
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
                 this.kill();
         }
-        else if (entityStats.getRace().equals(ModValues.FULLBRINGER) || entityStats.getRace().equals(ModValues.SHINIGAMI)
-                && (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) && this.level.dimension().equals(ModDimensions.HUECO_MUNDO) || this.level.dimension().equals(World.OVERWORLD))
+        else if (entityStats.getRace().equals(ModValues.SHINIGAMI) && (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) && !this.level.dimension().equals(ModDimensions.SOUL_SOCIETY))
         {
             String saviorString = selectRandomStringShinigami();
             player.sendMessage(new StringTextComponent(saviorString), Util.NIL_UUID);

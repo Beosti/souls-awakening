@@ -47,7 +47,7 @@ public class Main
         ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModAttributes.ATTRIBUTES.register(modEventBus);
-        ModStructures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+        ModStructures.register(modEventBus);
         ModEntities.ENTITIES.register(modEventBus);
         ModFeatures.register(modEventBus);
         ModBiomes.register(modEventBus);
@@ -69,9 +69,9 @@ public class Main
     {
         ModCapabilities.init();
         ModNetwork.init();
+        ModStructures.setupStructures();
         event.enqueueWork(() -> {
             ModDimensions.setupDimensions();
-            ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
         });
 

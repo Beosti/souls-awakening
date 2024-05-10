@@ -26,7 +26,7 @@ public class GargantaTeleporter implements ITeleporter {
     public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destinationWorld,
                               float yaw, Function<Boolean, Entity> repositionEntity) {
         entity = repositionEntity.apply(false);
-        double y = 61;
+        double y = currentWorld.getBlockFloorHeight(entity.blockPosition());
 
         if (!insideDimension) {
             y = thisPos.getY();
