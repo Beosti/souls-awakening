@@ -61,7 +61,6 @@ public class AbilityOverlay extends AbstractGui {
                     ResourceLocation widgetResourceLocation = new ResourceLocation(Main.MODID, "textures/widget/widget_contour.png");
                     if (!abilityToDraw.getState().equals(Ability.STATE.COOLDOWN) && !abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS)) // draw widget counter
                     {
-                        System.out.println("RENDERING READY");
                         Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
                     }
                     else if (abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS)) {

@@ -56,6 +56,8 @@ public class AbilityEvents {
         if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS)) {
             return;
         }
+        if (!ability.getState().equals(Ability.STATE.READY))
+            return;
         if ((ability instanceof IDimensionTeleportAbility))
             ((IDimensionTeleportAbility) ability).teleport(player);
         if (ability instanceof IEntityRayTrace && ((IEntityRayTrace) ability).gotTarget(player))
