@@ -39,9 +39,10 @@ public class AbilityOverlay extends AbstractGui {
         IMiscData miscData = MiscDataCapability.get(player);
         if (!miscData.getCanRenderOverlay())
             return;
+
         String race = entityStats.getRace();
 
-        if (event.getType() == RenderGameOverlayEvent.ElementType.VIGNETTE)
+        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT)
         {
             //drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "RACE: " + TextFormatting.RESET + race, 330, 20, -1);
             if ((race.equals(ModValues.SHINIGAMI) || race.equals(ModValues.FULLBRINGER)) && (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem)))
@@ -60,6 +61,7 @@ public class AbilityOverlay extends AbstractGui {
                     ResourceLocation widgetResourceLocation = new ResourceLocation(Main.MODID, "textures/widget/widget_contour.png");
                     if (!abilityToDraw.getState().equals(Ability.STATE.COOLDOWN) && !abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS)) // draw widget counter
                     {
+                        System.out.println("RENDERING READY");
                         Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
                     }
                     else if (abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS)) {

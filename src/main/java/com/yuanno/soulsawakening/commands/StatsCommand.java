@@ -107,7 +107,7 @@ public class StatsCommand {
             return 0;
         }
 
-        if (change.equals("set"))
+        if (change.equals("add"))
         {
             switch (stats)
             {
@@ -146,7 +146,7 @@ public class StatsCommand {
             commandSource.sendSuccess(new TranslationTextComponent("command.stats.changed"), true);
             return 1;
         }
-        else if (change.equals("add"))
+        else if (change.equals("set"))
         {
             switch (stats)
             {
