@@ -9,7 +9,8 @@ import net.minecraftforge.eventbus.api.Event;
 /**
  * Custom event that handles everything when an ability effectively HAPPENS
  */
-public class AbilityUseEvent extends Event {
+public class
+AbilityUseEvent extends Event {
     private PlayerEntity player;
     private Ability ability;
     public AbilityUseEvent(PlayerEntity player, Ability ability)

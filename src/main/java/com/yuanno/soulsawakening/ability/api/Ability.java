@@ -6,6 +6,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import java.io.Serializable;
+
 /**
  * Base class for all abilities, same for all (kido) spells
  *
@@ -20,6 +22,7 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     private SubCategory subCategory = null;
     private boolean isShown = true;
     private SourceElement sourceElement;
+    private IDependence dependency = (player) -> {return true;};
 
     public Ability() {
         this.setState(STATE.READY);
@@ -180,5 +183,17 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     public Category getCategory()
     {
         return this.subCategory.getCategory();
+    }
+
+    public void setDependency(IDependence dependency) {
+        this.dependency = dependency;
+    }
+    public IDependence getDependency()
+    {
+        return this.dependency;
+    }
+    public interface IDependence extends Serializable
+    {
+        boolean check(PlayerEntity player);
     }
 }

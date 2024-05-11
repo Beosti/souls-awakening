@@ -1,9 +1,7 @@
 package com.yuanno.soulsawakening.events.quincy;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.abilities.quincy.BlutStrengthAbility;
-import com.yuanno.soulsawakening.abilities.quincy.PiercingArrowAbility;
-import com.yuanno.soulsawakening.abilities.quincy.StrongArrowAbility;
+import com.yuanno.soulsawakening.abilities.quincy.*;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -14,6 +12,8 @@ import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
 import com.yuanno.soulsawakening.events.util.CustomArrowLooseEvent;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.items.DangleItem;
+import com.yuanno.soulsawakening.items.spiritweapon.GinreiKojaku;
+import com.yuanno.soulsawakening.items.spiritweapon.ReishiRodItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SOpenWeaponChoiceScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
@@ -170,9 +170,23 @@ public class QuincyEvents {
     public static void handleAbilities(PlayerEntity player, IEntityStats entityStats)
     {
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        if (!abilityData.getUnlockedAbilities().contains(BlutStrengthAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 5) {
+        if (entityStats.getQuincyStats().getBlut() == 5) {
             abilityData.addUnlockedAbility(BlutStrengthAbility.INSTANCE);
             PacketHandler.sendTo(new SOpenWeaponChoiceScreenPacket(), player);
+        }
+        else if (entityStats.getQuincyStats().getBlut() == 10)
+        {
+            if (entityStats.getQuincyStats().getSpiritWeapon() instanceof GinreiKojaku)
+                abilityData.addUnlockedAbility(StrongArrowAbility.INSTANCE);
+            if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiRodItem)
+                abilityData.addUnlockedAbility(ExplodingBobberAbility.INSTANCE);
+        }
+        else if (entityStats.getQuincyStats().getBlut() == 15)
+        {
+            if (entityStats.getQuincyStats().getSpiritWeapon() instanceof GinreiKojaku)
+                abilityData.addUnlockedAbility(PiercingArrowAbility.INSTANCE);
+            if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiRodItem)
+                abilityData.addUnlockedAbility(WeakeningBobberAbility.INSTANCE);
         }
         /*
         if (!abilityData.getUnlockedAbilities().contains(BlutStrengthAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 10)

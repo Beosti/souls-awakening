@@ -36,7 +36,8 @@ public class AbilityDataBase implements IAbilityData {
     }
     @Override
     public void addUnlockedAbility(Ability ability) {
-        this.unlockedAbilities.add(ability);
+        if (!this.unlockedAbilities.contains(ability))
+            this.unlockedAbilities.add(ability);
     }
 
     @Override

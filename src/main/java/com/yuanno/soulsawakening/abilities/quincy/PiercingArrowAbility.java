@@ -15,7 +15,7 @@ public class PiercingArrowAbility extends Ability implements IContinuousAbility,
 
     public PiercingArrowAbility()
     {
-        this.setName("Strong Arrow");
+        this.setName("Piercing Arrow");
         this.setDescription("Shoots a lightning fast reishi arrow that goes through anything");
         this.setMaxCooldown(32);
         this.setSubCategory(SubCategory.REISHI);
