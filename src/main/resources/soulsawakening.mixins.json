@@ -6,7 +6,8 @@
   "mixins": [
     "ServerPlayNetHandlerMixin",
     "PlayerEntityMixin",
-    "EntityMixin"
+    "EntityMixin",
+    "DisplayInfoMixin"
 
   ],
   "client": [
@@ -14,7 +15,9 @@
     "client.DeathScreenMixin",
     "client.GameRendererMixin",
     "client.MainMenuScreenMixin",
-    "client.SplashesMixin"
+    "client.SplashesMixin",
+    "client.AdvancementEntryGuiMixin",
+    "client.AdvancementToastMixin"
   ],
   "server": [],
   "injectors": {

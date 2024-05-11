@@ -2,7 +2,7 @@
   "parent": "soulsawakening:races/spirit",
   "display": {
     "icon": {
-      "item": "soulsawakening:reishi"
+      "ability": "soulsawakening:slashing"
     },
     "title": {
       "translate": "advancements.soulsawakening.race.hollow.title"

@@ -2,7 +2,7 @@
   "parent": "soulsawakening:races/adjucha",
   "display": {
     "icon": {
-      "item": "soulsawakening:reishi"
+      "ability": "soulsawakening:vasto_hollow"
     },
     "title": {
       "translate": "advancements.soulsawakening.race.vasto_lorde.title"

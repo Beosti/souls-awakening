@@ -2,7 +2,7 @@
   "parent": "soulsawakening:races/hollow",
   "display": {
     "icon": {
-      "item": "soulsawakening:reishi"
+      "ability": "soulsawakening:cero"
     },
     "title": {
       "translate": "advancements.soulsawakening.race.gillian.title"

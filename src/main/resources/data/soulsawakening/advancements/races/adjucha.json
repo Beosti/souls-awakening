@@ -2,7 +2,7 @@
   "parent": "soulsawakening:races/gillian",
   "display": {
     "icon": {
-      "item": "soulsawakening:reishi"
+      "ability": "soulsawakening:garganta"
     },
     "title": {
       "translate": "advancements.soulsawakening.race.adjucha.title"

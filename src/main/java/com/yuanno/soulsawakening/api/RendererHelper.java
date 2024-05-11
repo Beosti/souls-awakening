@@ -31,6 +31,20 @@ import java.util.Set;
 
 public class RendererHelper {
 
+    public static void drawAbilityIcon(Ability core, MatrixStack matrixStack, int x, int y, int z, int u, int v)
+    {
+        drawAbilityIcon(core, matrixStack, x, y, z, u, v, 1, 1, 1);
+    }
+
+    public static void drawAbilityIcon(Ability ability, MatrixStack matrixStack, int x, int y, int z, int u, int v, float red, float green, float blue)
+    {
+        String originalResourceLocation = ability.getRegistryName().toString();
+        String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
+        ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png"); // icon for the ability retrieved
+        drawIcon(resourceLocation, matrixStack, x, y, z, u, v, red, green, blue, 1);
+    }
+
+
     public static void drawIcon(ResourceLocation rs, MatrixStack matrixStack, int x, int y, int z, int u, int v)
     {
         drawIcon(rs, matrixStack, x, y, z, u, v, 1, 1, 1, 1);
