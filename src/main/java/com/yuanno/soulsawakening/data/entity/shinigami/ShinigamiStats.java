@@ -9,7 +9,8 @@ public class ShinigamiStats {
     private int classLevel = 0;
     private int classPoints = 0;
     private int classExperience = 0;
-
+    private String zanpakutoName = "";
+    private String zanpakutoCommand = "";
 
     public void setClassLevel(int classLevel)
     {
@@ -92,6 +93,24 @@ public class ShinigamiStats {
         return this.hohoPoints;
     }
 
+    public String getZanpakutoName()
+    {
+        return this.zanpakutoName;
+    }
+    public void setZanpakutoName(String name)
+    {
+        this.zanpakutoName = name;
+    }
+
+    public String getZanpakutoCommand()
+    {
+        return this.zanpakutoCommand;
+    }
+    public void setZanpakutoCommand(String command)
+    {
+        this.zanpakutoCommand = command;
+    }
+
     public CompoundNBT save()
     {
         CompoundNBT compoundNBT = new CompoundNBT();
@@ -101,6 +120,9 @@ public class ShinigamiStats {
         compoundNBT.putInt("classLevel", this.getClassLevel());
         compoundNBT.putInt("classPoints", this.getClassPoints());
         compoundNBT.putInt("classExperience", this.getClassExperience());
+        compoundNBT.putString("zanpakutoName", this.getZanpakutoName());
+        compoundNBT.putString("zanpakutoCommand", this.getZanpakutoCommand());
+
         return compoundNBT;
     }
 
@@ -113,5 +135,9 @@ public class ShinigamiStats {
         this.classLevel = compoundNBT.getInt("classLevel");
         this.classPoints = compoundNBT.getInt("classPoints");
         this.classExperience = compoundNBT.getInt("classExperience");
+
+        this.zanpakutoName = compoundNBT.getString("zanpakutoName");
+        this.zanpakutoCommand = compoundNBT.getString("zanpakutoCommand");
+
     }
 }

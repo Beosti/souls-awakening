@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.client.chatprompts;
 
 import com.yuanno.soulsawakening.client.chatprompts.api.ChatPrompt;
+import com.yuanno.soulsawakening.client.screen.ZanpakutoNameScreen;
 import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -78,6 +79,7 @@ public class ShinigamiTeacherPrompt extends ChatPrompt {
             this.chatPromptScreen.getPlayer().sendMessage(new TranslationTextComponent("You can now increase your stats in the player overview screen and learn from other teachers."), Util.NIL_UUID);
             this.chatPromptScreen.getQuestData().getQuest(ModQuests.KILLHOLLOW).setInProgress(false);
             PacketHandler.sendToServer(new CSyncGiveQuestRewardPacket(ModQuests.KILLHOLLOW));
+            ZanpakutoNameScreen.open();
         }
         if (this.chatPromptScreen.getText().equals("Here's a blade called a 'zanpakuto', right now it's just an asauchi(without spirit) due to you not being aware of the spirit inside. You can press alt+right click with zanpakuto to go and back to the human world. Kill a hollow and I'll make you a shinigami.")) {
             this.chatPromptScreen.getQuestData().addInProgressQuest(ModQuests.KILLHOLLOW);

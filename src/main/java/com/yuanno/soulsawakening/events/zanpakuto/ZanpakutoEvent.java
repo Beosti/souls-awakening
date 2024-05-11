@@ -38,6 +38,8 @@ import com.yuanno.soulsawakening.events.util.ZanpakutoChangeEvent;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SOpenChallengeScreenPacket;
+import com.yuanno.soulsawakening.networking.server.SOpenCommandScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -144,6 +146,7 @@ public class ZanpakutoEvent {
         String element = zanpakutoItem.getTag().getString("zanpakutoElement");
         if (element.isEmpty())
         {
+            PacketHandler.sendTo(new SOpenCommandScreenPacket(), event.getPlayer());
             World world = event.getPlayer().level;
             Map<String, Integer> elementalPointsHash = new HashMap<>();
 
@@ -221,6 +224,7 @@ public class ZanpakutoEvent {
             }
             abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);
             ModAdvancements.SHIKAI.trigger((ServerPlayerEntity) event.getPlayer());
+
             PacketHandler.sendTo(new SSyncAbilityDataPacket(event.getPlayer().getId(), abilityData), event.getPlayer());
 
         }
@@ -228,6 +232,10 @@ public class ZanpakutoEvent {
         String state = zanpakutoItem.getTag().getString("zanpakutoState");
         if (state.equals(ModValues.STATE.SEALED.name()))
         {
+            String command = entityStats.getShinigamiStats().getZanpakutoCommand();
+            String name = entityStats.getShinigamiStats().getZanpakutoName();
+            if (!command.isEmpty() && !name.isEmpty())
+                event.getPlayer().sendMessage(new StringTextComponent(command.toUpperCase() + " " + name.toUpperCase()), Util.NIL_UUID);
             CompoundNBT tagCompound = zanpakutoItem.getTag();
             tagCompound.putString("zanpakutoState", ModValues.STATE.SHIKAI.name());
             zanpakutoItem.setTag(tagCompound);
