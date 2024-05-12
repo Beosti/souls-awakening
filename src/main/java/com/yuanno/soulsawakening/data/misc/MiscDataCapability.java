@@ -22,9 +22,11 @@ public class MiscDataCapability {
             {
                 CompoundNBT props = new CompoundNBT();
                 props.putBoolean("canrenderoverlay", instance.getCanRenderOverlay());
+                props.putBoolean("canRenderRaceOverlay", instance.getRenderRaceOverlay());
                 props.putInt("kan", instance.getKan());
                 props.putString("rank", instance.getRank());
                 props.putInt("spiritChain", instance.getSpiritChain());
+
                 return props;
             }
 
@@ -33,6 +35,7 @@ public class MiscDataCapability {
             {
                 CompoundNBT props = (CompoundNBT) nbt;
                 instance.setCanRenderOverlay(props.getBoolean("canrenderoverlay"));
+                instance.setRenderRaceOverlay(props.getBoolean("canRenderRaceOverlay"));
                 instance.setKan(props.getInt("kan"));
                 instance.setRank(props.getString("rank"));
                 instance.setSpiritChain(props.getInt("spiritChain"));

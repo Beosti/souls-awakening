@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.data.misc;
 public class MiscDataBase implements IMiscData {
 
     private boolean canRenderOverlay;
+    private boolean renderRaceOverlay;
     private int kan;
     private String rank = "";
     private int spiritChain;
@@ -59,5 +60,17 @@ public class MiscDataBase implements IMiscData {
     @Override
     public int getSpiritChain() {
         return this.spiritChain;
+    }
+
+    @Override
+    public void setRenderRaceOverlay(boolean overlay)
+    {
+        this.renderRaceOverlay = overlay;
+    }
+
+    @Override
+    public boolean getRenderRaceOverlay()
+    {
+        return this.renderRaceOverlay;
     }
 }

@@ -16,4 +16,8 @@ public interface IMiscData {
     void setSpiritChain(int amount);
     void alterSpiritChain(int amount);
     int getSpiritChain();
+
+    void setRenderRaceOverlay(boolean overlay);
+
+    boolean getRenderRaceOverlay();
 }

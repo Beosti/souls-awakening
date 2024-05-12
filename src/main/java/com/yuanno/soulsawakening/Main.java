@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening;
 
 import com.yuanno.soulsawakening.client.ClientHandler;
+import com.yuanno.soulsawakening.client.overlay.InformationOverlay;
 import com.yuanno.soulsawakening.client.overlay.KidoOverlay;
 import com.yuanno.soulsawakening.client.overlay.AbilityOverlay;
 import com.yuanno.soulsawakening.commands.ability.AbilityArgument;
@@ -87,6 +88,7 @@ public class Main
         ItemProperties.register();
         MinecraftForge.EVENT_BUS.register(new AbilityOverlay());
         MinecraftForge.EVENT_BUS.register(new KidoOverlay());
+        MinecraftForge.EVENT_BUS.register(new InformationOverlay());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

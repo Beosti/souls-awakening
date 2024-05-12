@@ -1,6 +1,15 @@
 {
-  "keys.souls.awakening": "Souls Awakening gui",
-  "keys.soulsawakening.info_card": "Info card",
+  "keys.soulsawakening.gui": "Souls Awakening gui",
+  "keys.soulsawakening.combat": "Souls Awakening combat",
+
+  "keys.soulsawakening.info_card": "Open info card screen",
+  "keys.soulsawakening.zanpakuto_state": "Next zanpakuto state",
+  "keys.soulsawakening.use_spell": "Use spell",
+  "keys.soulsawakening.config": "Open config screen",
+
+  "keys.soulsawakening.enabled": "Enabled",
+  "keys.soulsawakening.disabled": "Disabled",
+
 
   "itemGroup.soulsawakeningModTabBlocks": "Souls awakening blocks",
   "itemGroup.soulsawakeningModTabMisc": "Souls awakening misc",

@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.client.screen.VisualOptionScreen;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
@@ -27,14 +28,17 @@ public class ModKeyBinds {
     public static KeyBinding infoCard;
     public static KeyBinding zanpakutoStateNext;
     public static KeyBinding useSpell;
+    public static KeyBinding config;
     public static void init()
     {
         infoCard = new KeyBinding("keys.soulsawakening.info_card", GLFW.GLFW_KEY_T, "keys.soulsawakening.gui");
         ClientRegistry.registerKeyBinding(infoCard);
-        zanpakutoStateNext = new KeyBinding("keys.soalsawakening.zanpakuto_state", GLFW.GLFW_KEY_V, "keys.soulsawakening.zanpakuto");
+        zanpakutoStateNext = new KeyBinding("keys.soulsawakening.zanpakuto_state", GLFW.GLFW_KEY_V, "keys.soulsawakening.combat");
         ClientRegistry.registerKeyBinding(zanpakutoStateNext);
-        useSpell = new KeyBinding("keys.soulsawakening.use_spell", GLFW.GLFW_KEY_R, "keys.soulsawakening.spells");
+        useSpell = new KeyBinding("keys.soulsawakening.use_spell", GLFW.GLFW_KEY_R, "keys.soulsawakening.combat");
         ClientRegistry.registerKeyBinding(useSpell);
+        config = new KeyBinding("keys.soulsawakening.config", GLFW.GLFW_KEY_B, "keys.soulsawakening.gui");
+        ClientRegistry.registerKeyBinding(config);
 
     }
 
@@ -80,6 +84,12 @@ public class ModKeyBinds {
             IAbilityData abilityData = AbilityDataCapability.get(player);
             if (!abilityData.getAbilitiesInBar().isEmpty())
                 PacketHandler.sendToServer(new CUseSpellPacket(abilityData.getSelectionAbility()));
+        }
+        if (config.isDown())
+        {
+            if(Minecraft.getInstance().screen != null)
+                return;
+            VisualOptionScreen.open();
         }
     }
 
