@@ -33,11 +33,15 @@ public class AbilityEvents {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
+        if (!ability.getDependency().check(player))
+            return;
+
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (ability instanceof IContinuousAbility)
         {
+            System.out.println(player);
             if (ability.getState().equals(Ability.STATE.READY)) {
-                ((IContinuousAbility) ability).startContinuity(player, ability);
+                //((IContinuousAbility) ability).startContinuity(player, ability);
                 ability.setState(Ability.STATE.CONTINUOUS);
                 PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             }
@@ -53,6 +57,8 @@ public class AbilityEvents {
     {
         Ability ability = event.getAbility();
         PlayerEntity player = event.getPlayer();
+        if (!ability.getDependency().check(player))
+            return;
         if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS)) {
             return;
         }

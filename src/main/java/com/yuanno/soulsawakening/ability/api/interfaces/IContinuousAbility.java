@@ -31,6 +31,9 @@ public interface IContinuousAbility {
     default void startContinuity(PlayerEntity player, Ability ability)
     {
         startContinuity(player);
+        AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
+        MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
+
     }
     default boolean startContinuity(PlayerEntity player)
     {

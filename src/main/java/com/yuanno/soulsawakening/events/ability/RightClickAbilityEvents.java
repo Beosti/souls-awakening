@@ -109,6 +109,8 @@ public class RightClickAbilityEvents {
         });
         for (int i = 0; i < unlockedAbilities.size(); i++) {
             Ability ability = unlockedAbilities.get(i);
+            if (!ability.getDependency().check(player))
+                continue;
             if (!(ability instanceof IRightClickAbility)) // check if the ability is a right click ability
                 continue;
             if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
@@ -130,9 +132,16 @@ public class RightClickAbilityEvents {
                 continue;
             if ((ability instanceof IEntityRayTrace) && event.getDistance() > (((IEntityRayTrace) ability).getDistance()))
                 continue;
-            AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
+            if (!(ability instanceof IContinuousAbility)) // this is mostly there so the continuous logic can be handled by the ability itself to decide when it stops
+            {
+                AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
+                MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
+            }
+            else
+            {
+                ((IContinuousAbility) ability).startContinuity(player, ability);
+            }
             AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, ability);
-            MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
             if (!(ability instanceof IReleaseArrow))
                 MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
             AbilityUseEvent.Post abilityUseEventPost;

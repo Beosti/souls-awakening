@@ -22,7 +22,7 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     private SubCategory subCategory = null;
     private boolean isShown = true;
     private SourceElement sourceElement;
-    private IDependence dependency = (player) -> {return true;};
+    public IDependence dependency = (player) -> {return true;};
 
     public Ability() {
         this.setState(STATE.READY);
@@ -104,7 +104,7 @@ public class Ability extends ForgeRegistryEntry<Ability> {
         return this.isShown;
     }
     public enum STATE {
-        COOLDOWN, READY, CONTINUOUS
+        COOLDOWN, READY, CONTINUOUS, UNUSABLE
     }
 
     public CompoundNBT save() {

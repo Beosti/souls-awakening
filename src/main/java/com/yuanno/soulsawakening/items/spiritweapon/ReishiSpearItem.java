@@ -1,6 +1,10 @@
 package com.yuanno.soulsawakening.items.spiritweapon;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.abilities.quincy.SpearThrustAbility;
+import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
+import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModAttributes;
@@ -48,6 +52,32 @@ public class ReishiSpearItem extends TridentItem {
         {
             tooltip.add(new TranslationTextComponent("§6Hold " + "§eSHIFT " + "§6" + "for more Information!"));
         }
+    }
+
+    @Override
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        stack.hurtAndBreak(0, target, (p_220048_0_) -> {
+            p_220048_0_.broadcastBreakEvent(EquipmentSlotType.MAINHAND);
+        });
+        if (attacker instanceof PlayerEntity)
+        {
+            PlayerEntity player = (PlayerEntity) attacker;
+            if (!player.level.isClientSide)
+            {
+                IAbilityData abilityData = AbilityDataCapability.get(player);
+                for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
+                {
+                    Ability ability = abilityData.getUnlockedAbilities().get(i);
+                    if (!(ability instanceof SpearThrustAbility))
+                        continue;
+                    SpearThrustAbility spearThrustAbility = (SpearThrustAbility) ability;
+                    if (!spearThrustAbility.getState().equals(Ability.STATE.CONTINUOUS))
+                        continue;
+                    spearThrustAbility.endContinuity(player, ability);
+                }
+            }
+        }
+        return true;
     }
 
     @Mod.EventBusSubscriber(modid = Main.MODID)

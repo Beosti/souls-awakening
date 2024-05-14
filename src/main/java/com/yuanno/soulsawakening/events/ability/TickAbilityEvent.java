@@ -33,7 +33,10 @@ public class TickAbilityEvent {
             if (ability instanceof IContinuousAbility)
             {
                 if (ability.getState().equals(Ability.STATE.CONTINUOUS)) {
-                    ((IContinuousAbility) ability).duringContinuity(player, ability);
+                    if (ability.getDependency().check(player))
+                        ((IContinuousAbility) ability).duringContinuity(player, ability);
+                    else
+                        ((IContinuousAbility) ability).endContinuity(player, ability);
                 }
             }
             if (!(ability instanceof IPassiveAbility))
