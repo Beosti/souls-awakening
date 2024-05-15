@@ -1,23 +1,15 @@
-package com.yuanno.soulsawakening.abilities.quincy;
+package com.yuanno.soulsawakening.abilities.quincy.spear;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
-import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModItems;
-import com.yuanno.soulsawakening.init.ModValues;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 
-import java.util.UUID;
-
 public class SpearThrustAbility extends Ability implements IContinuousAbility, IRightClickAbility {
     public static final SpearThrustAbility INSTANCE = new SpearThrustAbility();
-    // todo make it work with effects instead of mod attribute
     public SpearThrustAbility()
     {
         this.setName("Spear Thrust");

@@ -2,7 +2,6 @@ package com.yuanno.soulsawakening.effects;
 
 import com.yuanno.soulsawakening.api.ModEffect;
 import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.BindParticleEffect;
 import net.minecraft.entity.LivingEntity;
@@ -10,13 +9,14 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
-import net.minecraftforge.common.ForgeMod;
+import org.w3c.dom.Attr;
 
-public class SpearThrustEffect extends ModEffect {
+public class SpearStrikeEffect extends ModEffect {
 
-    public SpearThrustEffect() {
+    public SpearStrikeEffect() {
         super(EffectType.HARMFUL, 0);
-        this.addAttributeModifier(ModAttributes.ATTACK_RANGE.get(), "3ee75eda-1211-11ef-9262-0242ac120002", 5, AttributeModifier.Operation.ADDITION);
+        this.addAttributeModifier(Attributes.MOVEMENT_SPEED, "9b497848-12d4-11ef-9262-0242ac120002", -0.1, AttributeModifier.Operation.ADDITION);
+        this.addAttributeModifier(Attributes.ARMOR, "7d409958-12d4-11ef-9262-0242ac120002", -3, AttributeModifier.Operation.ADDITION);
     }
 
     @Override

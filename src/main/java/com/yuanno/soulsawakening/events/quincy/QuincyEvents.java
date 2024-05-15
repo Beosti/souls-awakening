@@ -2,6 +2,10 @@ package com.yuanno.soulsawakening.events.quincy;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.abilities.quincy.*;
+import com.yuanno.soulsawakening.abilities.quincy.rod.ExplodingBobberAbility;
+import com.yuanno.soulsawakening.abilities.quincy.rod.WeakeningBobberAbility;
+import com.yuanno.soulsawakening.abilities.quincy.spear.SpearStrikeAbility;
+import com.yuanno.soulsawakening.abilities.quincy.spear.SpearThrustAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -14,6 +18,7 @@ import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.items.DangleItem;
 import com.yuanno.soulsawakening.items.spiritweapon.GinreiKojaku;
 import com.yuanno.soulsawakening.items.spiritweapon.ReishiRodItem;
+import com.yuanno.soulsawakening.items.spiritweapon.ReishiSpearItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SOpenWeaponChoiceScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
@@ -21,7 +26,6 @@ import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.monster.MonsterEntity;
@@ -180,6 +184,8 @@ public class QuincyEvents {
                 abilityData.addUnlockedAbility(StrongArrowAbility.INSTANCE);
             if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiRodItem)
                 abilityData.addUnlockedAbility(ExplodingBobberAbility.INSTANCE);
+            if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiSpearItem)
+                abilityData.addUnlockedAbility(SpearStrikeAbility.INSTANCE);
         }
         else if (entityStats.getQuincyStats().getBlut() == 15)
         {
@@ -187,6 +193,8 @@ public class QuincyEvents {
                 abilityData.addUnlockedAbility(PiercingArrowAbility.INSTANCE);
             if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiRodItem)
                 abilityData.addUnlockedAbility(WeakeningBobberAbility.INSTANCE);
+            if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiSpearItem)
+                abilityData.addUnlockedAbility(SpearThrustAbility.INSTANCE);
         }
         /*
         if (!abilityData.getUnlockedAbilities().contains(BlutStrengthAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 10)

@@ -1,8 +1,8 @@
 package com.yuanno.soulsawakening.entity.misc;
 
 import com.yuanno.soulsawakening.abilities.AbilityHelper;
-import com.yuanno.soulsawakening.abilities.quincy.ExplodingBobberAbility;
-import com.yuanno.soulsawakening.abilities.quincy.WeakeningBobberAbility;
+import com.yuanno.soulsawakening.abilities.quincy.rod.ExplodingBobberAbility;
+import com.yuanno.soulsawakening.abilities.quincy.rod.WeakeningBobberAbility;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.ExplosionAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;

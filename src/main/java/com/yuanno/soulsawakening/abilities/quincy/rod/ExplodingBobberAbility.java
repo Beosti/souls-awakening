@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.abilities.quincy;
+package com.yuanno.soulsawakening.abilities.quincy.rod;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;

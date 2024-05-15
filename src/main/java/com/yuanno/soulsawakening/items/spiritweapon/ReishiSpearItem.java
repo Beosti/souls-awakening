@@ -1,13 +1,15 @@
 package com.yuanno.soulsawakening.items.spiritweapon;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.abilities.quincy.SpearThrustAbility;
+import com.yuanno.soulsawakening.abilities.quincy.spear.SpearStrikeAbility;
+import com.yuanno.soulsawakening.abilities.quincy.spear.SpearThrustAbility;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.init.ModAttributes;
+import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModItemGroup;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.client.gui.screen.Screen;
@@ -19,6 +21,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.TridentItem;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -68,12 +71,21 @@ public class ReishiSpearItem extends TridentItem {
                 for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
                 {
                     Ability ability = abilityData.getUnlockedAbilities().get(i);
-                    if (!(ability instanceof SpearThrustAbility))
-                        continue;
-                    SpearThrustAbility spearThrustAbility = (SpearThrustAbility) ability;
-                    if (!spearThrustAbility.getState().equals(Ability.STATE.CONTINUOUS))
-                        continue;
-                    spearThrustAbility.endContinuity(player, ability);
+                    if (ability instanceof SpearThrustAbility) {
+                        SpearThrustAbility spearThrustAbility = (SpearThrustAbility) ability;
+                        if (!spearThrustAbility.getState().equals(Ability.STATE.CONTINUOUS))
+                            continue;
+
+                        spearThrustAbility.endContinuity(player, ability);
+                    }
+                    if (ability instanceof SpearStrikeAbility) {
+                        SpearStrikeAbility spearStrikeAbility = (SpearStrikeAbility) ability;
+                        if (!spearStrikeAbility.getState().equals(Ability.STATE.CONTINUOUS))
+                            continue;
+                        target.addEffect(new EffectInstance(ModEffects.SPEAR_STRIKE.get(), 120 ,0));
+                        spearStrikeAbility.endContinuity(player, ability);
+
+                    }
                 }
             }
         }

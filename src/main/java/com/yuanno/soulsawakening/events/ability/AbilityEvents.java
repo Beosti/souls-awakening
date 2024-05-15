@@ -39,7 +39,6 @@ public class AbilityEvents {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (ability instanceof IContinuousAbility)
         {
-            System.out.println(player);
             if (ability.getState().equals(Ability.STATE.READY)) {
                 //((IContinuousAbility) ability).startContinuity(player, ability);
                 ability.setState(Ability.STATE.CONTINUOUS);
