@@ -48,4 +48,8 @@ public interface IContinuousAbility {
     {
         return false;
     }
+    default int getMaxTimer()
+    {
+        return -1;
+    }
 }

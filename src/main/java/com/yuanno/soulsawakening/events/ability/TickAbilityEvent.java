@@ -5,12 +5,8 @@ import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IPassiveAbility;
 import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRepeater;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
-import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,7 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class TickAbilityEvent {
-    private float continueTime;
+    private static float continueTime;
     @SubscribeEvent
     public static void onTickEventAbility(LivingEvent.LivingUpdateEvent event)
     {
@@ -33,10 +29,14 @@ public class TickAbilityEvent {
             if (ability instanceof IContinuousAbility)
             {
                 if (ability.getState().equals(Ability.STATE.CONTINUOUS)) {
-                    if (ability.getDependency().check(player))
+                    if (ability.getDependency().check(player) && (((IContinuousAbility) ability).getMaxTimer() == -1 || ability.getTimer() < ((IContinuousAbility) ability).getMaxTimer())) {
+                        ability.alterTimer((int) 1);
                         ((IContinuousAbility) ability).duringContinuity(player, ability);
-                    else
+                    }
+                    else {
+                        ability.setTimer(0);
                         ((IContinuousAbility) ability).endContinuity(player, ability);
+                    }
                 }
             }
             if (!(ability instanceof IPassiveAbility))

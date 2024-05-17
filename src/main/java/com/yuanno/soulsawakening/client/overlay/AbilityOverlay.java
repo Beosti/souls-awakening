@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.client.overlay;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
@@ -65,6 +66,25 @@ public class AbilityOverlay extends AbstractGui {
                     }
                     else if (abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS)) {
                         Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 0, 0, 1.0f);
+                        if (abilityToDraw instanceof IContinuousAbility)
+                        {
+                            if (((IContinuousAbility) abilityToDraw).getMaxTimer() == -1)
+                                continue;
+                            int timer = ((IContinuousAbility) abilityToDraw).getMaxTimer() - abilityToDraw.getTimer();
+                            Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 0, 0, 1.0f);
+                            MatrixStack matrixStack = event.getMatrixStack();
+                            matrixStack.pushPose();
+                            matrixStack.scale(0.5f, 0.5f, 0.5f);
+                            matrixStack.translate(1, 1, 1);
+                            int stringWidth = Minecraft.getInstance().font.width(String.valueOf(timer));
+
+                            int posX = (int) ((28 - 1 - (stringWidth / 5)) / 0.5f);
+                            Beapi.drawStringWithBorder(Minecraft.getInstance().font, matrixStack, TextFormatting.WHITE + "" + timer, posX, (int) ((26 + i * 20) / 0.5), 0);
+                            matrixStack.popPose();
+                            /*
+                            Code for the visuals of timer
+                             */
+                        }
                     }
                     else // draw widget during cooldown + cooldown counter
                         {

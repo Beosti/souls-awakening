@@ -2,6 +2,8 @@ package com.yuanno.soulsawakening.events.quincy;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.abilities.quincy.*;
+import com.yuanno.soulsawakening.abilities.quincy.bow.PiercingArrowAbility;
+import com.yuanno.soulsawakening.abilities.quincy.bow.StrongArrowAbility;
 import com.yuanno.soulsawakening.abilities.quincy.rod.ExplodingBobberAbility;
 import com.yuanno.soulsawakening.abilities.quincy.rod.WeakeningBobberAbility;
 import com.yuanno.soulsawakening.abilities.quincy.spear.SpearStrikeAbility;

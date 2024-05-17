@@ -1,11 +1,12 @@
-package com.yuanno.soulsawakening.abilities.quincy;
+package com.yuanno.soulsawakening.abilities.quincy.bow;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IReleaseArrow;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
-import com.yuanno.soulsawakening.entities.projectiles.quincy.BigReishiArrow;
 import com.yuanno.soulsawakening.entities.projectiles.quincy.PiercingReishiArrow;
+import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
@@ -19,6 +20,7 @@ public class PiercingArrowAbility extends Ability implements IContinuousAbility,
         this.setDescription("Shoots a lightning fast reishi arrow that goes through anything");
         this.setMaxCooldown(32);
         this.setSubCategory(SubCategory.REISHI);
+        this.dependency = player -> AbilityDependencies.itemDependence(player, ModItems.GINREI_KOJAKU.get());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.quincy.spear;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
@@ -15,16 +16,8 @@ public class SpearThrustAbility extends Ability implements IContinuousAbility, I
         this.setName("Spear Thrust");
         this.setDescription("The next attack you will do with your spear will have way more range");
         this.setMaxCooldown(16);
-        this.dependency = this::dependence;
+        this.dependency = player -> AbilityDependencies.itemDependence(player, ModItems.SPEAR_REISHI.get());
         this.setSubCategory(SubCategory.REISHI);
-    }
-
-    public boolean dependence(PlayerEntity player)
-    {
-        if (player.getMainHandItem().getItem().asItem().equals(ModItems.SPEAR_REISHI.get()))
-            return true;
-        else
-            return false;
     }
 
     @Override

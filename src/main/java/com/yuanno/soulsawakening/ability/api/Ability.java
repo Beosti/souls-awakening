@@ -16,13 +16,13 @@ public class Ability extends ForgeRegistryEntry<Ability> {
     private String name;
     private String description;
     private double cooldown;
-    private boolean isReady = true;
     private double maxCooldown;
     private STATE state;
     private SubCategory subCategory = null;
     private boolean isShown = true;
     private SourceElement sourceElement;
     public IDependence dependency = (player) -> {return true;};
+    private int timer;
 
     public Ability() {
         this.setState(STATE.READY);
@@ -41,14 +41,6 @@ public class Ability extends ForgeRegistryEntry<Ability> {
             this.alterCooldown(- 1);
     }
 
-    public boolean isReady()
-    {
-        return this.isReady;
-    }
-    public void isReadySet(boolean isReady)
-    {
-        this.isReady = isReady;
-    }
     public String getName() {
         return name;
     }
@@ -84,6 +76,17 @@ public class Ability extends ForgeRegistryEntry<Ability> {
         this.cooldown = cooldown;
     }
 
+    public int getTimer() {
+        return this.timer;
+    }
+    public void alterTimer(int amount)
+    {
+        this.timer += amount;
+    }
+    public void setTimer(int amount)
+    {
+        this.timer = amount;
+    }
     public STATE getState()
     {
         return this.state;
@@ -116,6 +119,8 @@ public class Ability extends ForgeRegistryEntry<Ability> {
 
         compoundNBT.putString("state", this.getState().toString());
 
+        compoundNBT.putInt("timer", this.getTimer());
+
         return compoundNBT;
     }
 
@@ -127,6 +132,8 @@ public class Ability extends ForgeRegistryEntry<Ability> {
         int maxCooldown = (int) (compoundNBT.getDouble("maxcooldown"));
         this.setMaxCooldown(maxCooldown);
         this.setState(Ability.STATE.valueOf(compoundNBT.getString("state")));
+
+        this.setTimer(compoundNBT.getInt("timer"));
     }
 
     public enum Category {

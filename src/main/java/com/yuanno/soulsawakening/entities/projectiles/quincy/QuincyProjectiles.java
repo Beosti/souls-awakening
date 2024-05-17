@@ -25,6 +25,9 @@ public class QuincyProjectiles {
     public static final RegistryObject<EntityType<PiercingReishiArrow>> PIERCING_REISHI_ARROW = Beapi.registerEntityType("piercing_reishi_arrow", () -> Beapi.createEntityType(PiercingReishiArrow::new)
             .sized(1.5f, 1.5f)
             .build(Main.MODID + ":piercing_reishi_arrow"));
+    public static final RegistryObject<EntityType<ReishiSlashProjectile>> REISHI_SLASH = Beapi.registerEntityType("reishi_slash", () -> Beapi.createEntityType(ReishiSlashProjectile::new)
+            .sized(0.7f, 0.1f)
+            .build(Main.MODID + ":reishi_slash"));
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -36,6 +39,8 @@ public class QuincyProjectiles {
                 .setColor("#ADD8E6").setScale(1.5f, 1.5f, 1.7f));
         RenderingRegistry.registerEntityRenderingHandler(PIERCING_REISHI_ARROW.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
                 .setColor("#ADD8E6").setScale(0.35f, 0.35f, 1.7f));
+        RenderingRegistry.registerEntityRenderingHandler(REISHI_SLASH.get(), new AbilityProjectileRenderer.Factory(new CubeModel())
+                .setColor("#ADD8E6").setScale(0.7f, 0.1f, 1f));
 
     }
 }
