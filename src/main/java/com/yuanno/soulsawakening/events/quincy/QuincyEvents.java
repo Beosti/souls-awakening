@@ -8,6 +8,8 @@ import com.yuanno.soulsawakening.abilities.quincy.rod.ExplodingBobberAbility;
 import com.yuanno.soulsawakening.abilities.quincy.rod.WeakeningBobberAbility;
 import com.yuanno.soulsawakening.abilities.quincy.spear.SpearStrikeAbility;
 import com.yuanno.soulsawakening.abilities.quincy.spear.SpearThrustAbility;
+import com.yuanno.soulsawakening.abilities.quincy.sword.SwordConcentrationAbility;
+import com.yuanno.soulsawakening.abilities.quincy.sword.SwordSlashAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -21,6 +23,7 @@ import com.yuanno.soulsawakening.items.DangleItem;
 import com.yuanno.soulsawakening.items.spiritweapon.GinreiKojaku;
 import com.yuanno.soulsawakening.items.spiritweapon.ReishiRodItem;
 import com.yuanno.soulsawakening.items.spiritweapon.ReishiSpearItem;
+import com.yuanno.soulsawakening.items.spiritweapon.ReishiSwordItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SOpenWeaponChoiceScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
@@ -188,6 +191,8 @@ public class QuincyEvents {
                 abilityData.addUnlockedAbility(ExplodingBobberAbility.INSTANCE);
             if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiSpearItem)
                 abilityData.addUnlockedAbility(SpearStrikeAbility.INSTANCE);
+            if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiSwordItem)
+                abilityData.addUnlockedAbility(SwordConcentrationAbility.INSTANCE);
         }
         else if (entityStats.getQuincyStats().getBlut() == 15)
         {
@@ -197,6 +202,8 @@ public class QuincyEvents {
                 abilityData.addUnlockedAbility(WeakeningBobberAbility.INSTANCE);
             if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiSpearItem)
                 abilityData.addUnlockedAbility(SpearThrustAbility.INSTANCE);
+            if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiSwordItem)
+                abilityData.addUnlockedAbility(SwordSlashAbility.INSTANCE);
         }
         /*
         if (!abilityData.getUnlockedAbilities().contains(BlutStrengthAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 10)

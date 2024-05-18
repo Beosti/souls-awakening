@@ -66,9 +66,9 @@ public class WeaponChoiceScreen extends Screen {
 
         addWeaponButton(50, 50, ModItems.FISHING_ROD_REISHI.get());
         addWeaponButton(100, 50, ModItems.SPEAR_REISHI.get());
-        addWeaponButton(150, 50, ModItems.TRIDENT_REISHI.get());
-        addWeaponButton(200, 50, ModItems.SWORD_REISHI.get());
-        addWeaponButton(250, 50, ModItems.GINREI_KOJAKU.get());
+        //addWeaponButton(150, 50, ModItems.TRIDENT_REISHI.get());
+        addWeaponButton(150, 50, ModItems.SWORD_REISHI.get());
+        addWeaponButton(200, 50, ModItems.GINREI_KOJAKU.get());
 
     }
 
