@@ -18,6 +18,7 @@ public class ModEffects {
     public static final RegistryObject<Effect> HAINAWA = EFFECTS.register("hainawa", HainawaEffect::new);
     public static final RegistryObject<Effect> SPEAR_THRUST = EFFECTS.register("spear_thrust", SpearThrustEffect::new);
     public static final RegistryObject<Effect> SPEAR_STRIKE = EFFECTS.register("spear_strike", SpearStrikeEffect::new);
+    public static final RegistryObject<Effect> SWORD_CONCENTRATION = EFFECTS.register("sword_concentration", SwordConcentrationEffect::new);
     public static final RegistryObject<Effect> IN_EVENT = EFFECTS.register("in_event", InEventEffect::new);
 
     public static void register(IEventBus eventBus) {

@@ -32,8 +32,11 @@ import java.awt.*;
 public class AbilityOverlay extends AbstractGui {
 
     @SubscribeEvent
-    public void renderStatsOverlay(RenderGameOverlayEvent.Post event)
-    {
+    public void renderStatsOverlay(RenderGameOverlayEvent.Post event) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.TEXT) {
+            return;
+        }
+
         ClientPlayerEntity player = Minecraft.getInstance().player;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         IAbilityData abilityData = AbilityDataCapability.get(player);
@@ -42,66 +45,57 @@ public class AbilityOverlay extends AbstractGui {
             return;
 
         String race = entityStats.getRace();
+        if ((race.equals(ModValues.SHINIGAMI) || race.equals(ModValues.FULLBRINGER)) && (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem))) {
+            return;
+        }
 
-        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT)
-        {
-            //drawString(event.getMatrixStack(), Minecraft.getInstance().font, TextFormatting.BOLD + "RACE: " + TextFormatting.RESET + race, 330, 20, -1);
-            if ((race.equals(ModValues.SHINIGAMI) || race.equals(ModValues.FULLBRINGER)) && (!(player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem)))
-                return;
-            for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++) // goes through unlocked abilities to draw each one
-            {
-                if (!abilityData.getUnlockedAbilities().get(i).getCategory().equals(Ability.Category.KIDO))
-                {
-                    Color iconColor = Beapi.hexToRGB("#FFFFFF");
-                    Ability abilityToDraw = abilityData.getUnlockedAbilities().get(i); // ability to draw retrieved
+        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++) {
+            Ability abilityToDraw = abilityData.getUnlockedAbilities().get(i);
+            if (!abilityToDraw.getCategory().equals(Ability.Category.KIDO)) {
+                int iconX = 20;
+                int iconY = 20 + i * 20;
 
-                    String originalResourceLocation = abilityToDraw.getRegistryName().toString();
-                    String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
-                    ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png"); // icon for the ability retrieved
-                    Beapi.drawIcon(resourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f); // draw icon
-                    ResourceLocation widgetResourceLocation = new ResourceLocation(Main.MODID, "textures/widget/widget_contour.png");
-                    if (!abilityToDraw.getState().equals(Ability.STATE.COOLDOWN) && !abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS)) // draw widget counter
-                    {
-                        Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                // Drawing the ability icon first
+                Color iconColor = Beapi.hexToRGB("#FFFFFF");
+                String originalResourceLocation = abilityToDraw.getRegistryName().toString();
+                String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
+                ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
+                Beapi.drawIcon(resourceLocation, iconX, iconY, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+
+                // Drawing the widget on top of the icon
+                ResourceLocation widgetResourceLocation = new ResourceLocation(Main.MODID, "textures/widget/widget_contour.png");
+                if (abilityToDraw.getState().equals(Ability.STATE.COOLDOWN)) {
+                    Beapi.drawIcon(widgetResourceLocation, iconX, iconY, 1, 16, 16, 1.0f, 0, 0); // Red color for cooldown
+                } else if (abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS)) {
+                    Beapi.drawIcon(widgetResourceLocation, iconX, iconY, 1, 16, 16, 0, 0, 1.0f); // Blue color for continuous
+                } else {
+                    Beapi.drawIcon(widgetResourceLocation, iconX, iconY, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f); // Default color
+                }
+
+                // Drawing the timers on top of the widget
+                MatrixStack matrixStack = event.getMatrixStack();
+
+                if (abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS) && abilityToDraw instanceof IContinuousAbility) {
+                    if (((IContinuousAbility) abilityToDraw).getMaxTimer() != -1) {
+                        int timer = ((IContinuousAbility) abilityToDraw).getMaxTimer() - abilityToDraw.getTimer();
+                        drawTimer(matrixStack, timer, iconX, iconY, i);
                     }
-                    else if (abilityToDraw.getState().equals(Ability.STATE.CONTINUOUS)) {
-                        Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 0, 0, 1.0f);
-                        if (abilityToDraw instanceof IContinuousAbility)
-                        {
-                            if (((IContinuousAbility) abilityToDraw).getMaxTimer() == -1)
-                                continue;
-                            int timer = ((IContinuousAbility) abilityToDraw).getMaxTimer() - abilityToDraw.getTimer();
-                            Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 0, 0, 1.0f);
-                            MatrixStack matrixStack = event.getMatrixStack();
-                            matrixStack.pushPose();
-                            matrixStack.scale(0.5f, 0.5f, 0.5f);
-                            matrixStack.translate(1, 1, 1);
-                            int stringWidth = Minecraft.getInstance().font.width(String.valueOf(timer));
-
-                            int posX = (int) ((28 - 1 - (stringWidth / 5)) / 0.5f);
-                            Beapi.drawStringWithBorder(Minecraft.getInstance().font, matrixStack, TextFormatting.WHITE + "" + timer, posX, (int) ((26 + i * 20) / 0.5), 0);
-                            matrixStack.popPose();
-                            /*
-                            Code for the visuals of timer
-                             */
-                        }
-                    }
-                    else // draw widget during cooldown + cooldown counter
-                        {
-                        int cooldown = (int) abilityToDraw.getCooldown();
-                        Beapi.drawIcon(widgetResourceLocation, 20, 20 + i * 20, 1, 16, 16, 1.0f, 0, 0);
-                            MatrixStack matrixStack = event.getMatrixStack();
-                            matrixStack.pushPose();
-                        matrixStack.scale(0.5f, 0.5f, 0.5f);
-                        matrixStack.translate(1, 1, 1);
-                        int stringWidth = Minecraft.getInstance().font.width(String.valueOf(cooldown));
-
-                        int posX = (int) ((28 - 1 - (stringWidth / 5)) / 0.5f);
-                        Beapi.drawStringWithBorder(Minecraft.getInstance().font, matrixStack, TextFormatting.WHITE + "" + cooldown, posX, (int) ((26 + i * 20) / 0.5), 0);
-                            matrixStack.popPose();
-                        }
+                } else if (abilityToDraw.getState().equals(Ability.STATE.COOLDOWN)) {
+                    int cooldown = (int) abilityToDraw.getCooldown();
+                    drawTimer(matrixStack, cooldown, iconX, iconY, i);
                 }
             }
         }
     }
+
+    private void drawTimer(MatrixStack matrixStack, int timer, int iconX, int iconY, int index) {
+        matrixStack.pushPose();
+        matrixStack.scale(0.5f, 0.5f, 0.5f);
+        matrixStack.translate(1, 1, 1000); // Move the text to a higher z-level
+        int stringWidth = Minecraft.getInstance().font.width(String.valueOf(timer));
+        int posX = (int) ((28 - 1 - (stringWidth / 5)) / 0.5f);
+        Beapi.drawStringWithBorder(Minecraft.getInstance().font, matrixStack, TextFormatting.WHITE + "" + timer, posX, (int) ((26 + index * 20) / 0.5), 0);
+        matrixStack.popPose();
+    }
+
 }

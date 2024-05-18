@@ -8,10 +8,15 @@ import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
 import com.yuanno.soulsawakening.entities.projectiles.quincy.ReishiSlashProjectile;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
+
+import java.util.UUID;
 
 public class SwordConcentrationAbility extends Ability implements IRightClickAbility, IContinuousAbility {
     public static final SwordConcentrationAbility INSTANCE = new SwordConcentrationAbility();
+    AttributeModifier damageModifier = new AttributeModifier(UUID.fromString("7aeefd7e-14fb-11ef-9262-0242ac120002"), "Sword Concentration", 5, AttributeModifier.Operation.ADDITION);
 
     public SwordConcentrationAbility()
     {
@@ -34,13 +39,16 @@ public class SwordConcentrationAbility extends Ability implements IRightClickAbi
         return 120;
     }
 
-    @Override
-    public boolean endContinuity(PlayerEntity player) {
-        return IContinuousAbility.super.endContinuity(player);
-    }
 
     @Override
     public boolean startContinuity(PlayerEntity player) {
-        return IContinuousAbility.super.startContinuity(player);
+        player.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(damageModifier);
+        return true;
+    }
+
+    @Override
+    public boolean endContinuity(PlayerEntity player) {
+        player.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(damageModifier);
+        return true;
     }
 }

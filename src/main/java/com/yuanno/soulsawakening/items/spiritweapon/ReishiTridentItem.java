@@ -67,7 +67,7 @@ public class ReishiTridentItem extends TridentItem {
         }
 
         @SubscribeEvent
-        public static void onAttackWithRod(LivingDamageEvent event) {
+        public static void onAttackWithTrident(LivingDamageEvent event) {
             if (event.getEntityLiving() != null && !event.getEntityLiving().level.isClientSide) {
                 if (event.getSource().getDirectEntity() != null) {
                     if (!(event.getSource().getDirectEntity() instanceof LivingEntity))
