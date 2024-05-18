@@ -4,7 +4,6 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -15,17 +14,18 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class ClawEntity extends HollowEntity implements IBleach {
+public class GolemEntity extends HollowEntity implements IBleach {
 
-    public ClawEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
+    public GolemEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = ModValues.WATER;
+        this.element = ModValues.DARK;
     }
 
     @Override
@@ -37,14 +37,24 @@ public class ClawEntity extends HollowEntity implements IBleach {
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillagerEntity.class, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PlusEntity.class, false));
-
         this.goalSelector.addGoal(4, new ImprovedMeleeAttackGoal(this, 1, true));
-
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D, 0.0F));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 4));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
 
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity p_70652_1_) {
+        boolean flag = super.doHurtTarget(p_70652_1_);
+        if (flag && this.getMainHandItem().isEmpty() && p_70652_1_ instanceof LivingEntity) {
+            float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(Effects.POISON, 140 * (int)f));
+        }
+
+        return flag;
     }
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes()
@@ -75,6 +85,8 @@ public class ClawEntity extends HollowEntity implements IBleach {
     public boolean isSensitiveToWater() {
         return false;
     }
+
+
 
     @Override
     @Nullable

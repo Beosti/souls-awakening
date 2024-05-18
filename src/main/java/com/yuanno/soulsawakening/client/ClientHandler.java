@@ -25,11 +25,11 @@ public class ClientHandler {
 
     public static void onSetup()
     {
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CENTIPEDE.get(), new CentipedeRenderer.Factory());
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CLAW.get(), new ClawRenderer.Factory());
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.JET.get(), new JetRenderer.Factory());
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.BULK.get(), new BulkRenderer.Factory());
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.BEAST.get(), new BeastRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.GOLEM.get(), new GolemRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPIDER.get(), new SpiderRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.THORNS.get(), new ThornsRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.FLYING.get(), new FlyingRenderer.Factory());
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.APE.get(), new ApeRenderer.Factory());
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.PLUS.get(), new PlusRenderer.Factory());
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.SHINIGAMI.get(), new ShinigamiRenderer.Factory());

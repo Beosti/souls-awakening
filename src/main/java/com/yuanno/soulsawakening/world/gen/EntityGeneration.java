@@ -1,9 +1,6 @@
 package com.yuanno.soulsawakening.world.gen;
 
-import com.google.common.collect.Lists;
 import com.yuanno.soulsawakening.init.ModEntities;
-import com.yuanno.soulsawakening.init.world.ModBiomes;
-import com.yuanno.soulsawakening.init.world.ModDimensions;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -12,7 +9,6 @@ import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 public class EntityGeneration {
@@ -40,11 +36,11 @@ public class EntityGeneration {
         // spawns in hueco mundo
         if (!biomeName.toString().equals("beach") && !biomeName.toString().contains("ocean") && !biomeName.toString().contains("river") && !biomeName.toString().equals("minecraft:the_void") && !biomeName.toString().equals("soulsawakening:soul_society") || biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BEAST.get(), 3, 1, 1));
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CLAW.get(), 3, 1, 1));
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.JET.get(), 3, 1, 1));
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.BULK.get(), 3, 1, 1));
-            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.CENTIPEDE.get(), 3, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.APE.get(), 3, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.SPIDER.get(), 3, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.THORNS.get(), 3, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.FLYING.get(), 3, 1, 1));
+            event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.GOLEM.get(), 3, 1, 1));
 
         }
         // spirits, shinigami, traders don't spawn in: ocean, river and soul society

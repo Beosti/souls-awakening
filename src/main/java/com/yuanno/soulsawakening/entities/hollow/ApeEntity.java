@@ -18,8 +18,8 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BeastEntity extends HollowEntity implements IBleach {
-    public BeastEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
+public class ApeEntity extends HollowEntity implements IBleach {
+    public ApeEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
         this.element = ModValues.FIRE;
     }

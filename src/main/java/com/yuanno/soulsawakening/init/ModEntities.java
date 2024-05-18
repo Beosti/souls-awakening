@@ -18,36 +18,36 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Main.MODID);
 
-    public static final RegistryObject<EntityType<CentipedeEntity>> CENTIPEDE = ENTITIES
-            .register("centipede",
-                    () -> EntityType.Builder.of(CentipedeEntity::new, EntityClassification.CREATURE)
+    public static final RegistryObject<EntityType<GolemEntity>> GOLEM = ENTITIES
+            .register("golem",
+                    () -> EntityType.Builder.of(GolemEntity::new, EntityClassification.CREATURE)
                             .sized(1.3f, 2f)
                             .setTrackingRange(5)
-                            .build(new ResourceLocation(Main.MODID, "centipede").toString()));
-    public static final RegistryObject<EntityType<ClawEntity>> CLAW = ENTITIES
-            .register("claw",
-                    () -> EntityType.Builder.of(ClawEntity::new, EntityClassification.CREATURE)
+                            .build(new ResourceLocation(Main.MODID, "golem").toString()));
+    public static final RegistryObject<EntityType<SpiderEntity>> SPIDER = ENTITIES
+            .register("spider",
+                    () -> EntityType.Builder.of(SpiderEntity::new, EntityClassification.CREATURE)
                             .sized(2f, 2f)
                             .setTrackingRange(5)
-                            .build(new ResourceLocation(Main.MODID, "claw").toString()));
-    public static final RegistryObject<EntityType<JetEntity>> JET = ENTITIES
-            .register("jet",
-                    () -> EntityType.Builder.of(JetEntity::new, EntityClassification.CREATURE)
+                            .build(new ResourceLocation(Main.MODID, "spider").toString()));
+    public static final RegistryObject<EntityType<ThornsEntity>> THORNS = ENTITIES
+            .register("thorns",
+                    () -> EntityType.Builder.of(ThornsEntity::new, EntityClassification.CREATURE)
                             .sized(2f, 2f)
                             .setTrackingRange(5)
-                            .build(new ResourceLocation(Main.MODID, "jet").toString()));
-    public static final RegistryObject<EntityType<BulkEntity>> BULK = ENTITIES
-            .register("bulk",
-                    () -> EntityType.Builder.of(BulkEntity::new, EntityClassification.CREATURE)
+                            .build(new ResourceLocation(Main.MODID, "thorns").toString()));
+    public static final RegistryObject<EntityType<FlyingEntity>> FLYING = ENTITIES
+            .register("flying",
+                    () -> EntityType.Builder.of(FlyingEntity::new, EntityClassification.CREATURE)
                             .sized(2f, 2f)
                             .setTrackingRange(5)
-                            .build(new ResourceLocation(Main.MODID, "bulk").toString()));
-    public static final RegistryObject<EntityType<BeastEntity>> BEAST = ENTITIES
-            .register("beast",
-                    () -> EntityType.Builder.of(BeastEntity::new, EntityClassification.CREATURE)
+                            .build(new ResourceLocation(Main.MODID, "flying").toString()));
+    public static final RegistryObject<EntityType<ApeEntity>> APE = ENTITIES
+            .register("ape",
+                    () -> EntityType.Builder.of(ApeEntity::new, EntityClassification.CREATURE)
                             .sized(2f, 2f)
                             .setTrackingRange(5)
-                            .build(new ResourceLocation(Main.MODID, "beast").toString()));
+                            .build(new ResourceLocation(Main.MODID, "ape").toString()));
     public static final RegistryObject<EntityType<PlusEntity>> PLUS = ENTITIES
             .register("plus",
                     () -> EntityType.Builder.of(PlusEntity::new, EntityClassification.CREATURE)

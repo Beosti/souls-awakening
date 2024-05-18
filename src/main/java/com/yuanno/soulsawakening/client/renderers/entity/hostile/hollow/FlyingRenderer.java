@@ -2,8 +2,8 @@ package com.yuanno.soulsawakening.client.renderers.entity.hostile.hollow;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entities.hollow.BulkEntity;
-import com.yuanno.soulsawakening.models.hollow.BulkModel;
+import com.yuanno.soulsawakening.entities.hollow.FlyingEntity;
+import com.yuanno.soulsawakening.models.hollow.FlyingModel;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -14,33 +14,33 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 @OnlyIn(Dist.CLIENT)
-public class BulkRenderer extends MobRenderer<BulkEntity, BulkModel<BulkEntity>> {
+public class FlyingRenderer extends MobRenderer<FlyingEntity, FlyingModel<FlyingEntity>> {
 
     protected static final ResourceLocation TEXTURE =
-            new ResourceLocation(Main.MODID, "");
+            new ResourceLocation(Main.MODID, "textures/entities/hostile/flyingtexture.png");
 
-    public BulkRenderer(EntityRendererManager rendererManager)
+    public FlyingRenderer(EntityRendererManager rendererManager)
     {
-        super(rendererManager, new BulkModel(), 1f);
+        super(rendererManager, new FlyingModel(), 1f);
     }
 
     @Override
-    public void render(BulkEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight)
+    public void render(FlyingEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight)
     {
         super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
     }
 
-    public static class Factory implements IRenderFactory<BulkEntity>
+    public static class Factory implements IRenderFactory<FlyingEntity>
     {
         @Override
-        public EntityRenderer<? super BulkEntity> createRenderFor(EntityRendererManager manager)
+        public EntityRenderer<? super FlyingEntity> createRenderFor(EntityRendererManager manager)
         {
-            return new BulkRenderer(manager);
+            return new FlyingRenderer(manager);
         }
     }
 
     @Override
-    public ResourceLocation getTextureLocation(BulkEntity entity)
+    public ResourceLocation getTextureLocation(FlyingEntity entity)
     {
         return TEXTURE;
     }

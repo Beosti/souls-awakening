@@ -2,8 +2,8 @@ package com.yuanno.soulsawakening.client.renderers.entity.hostile.hollow;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.entities.hollow.JetEntity;
-import com.yuanno.soulsawakening.models.hollow.JetModel;
+import com.yuanno.soulsawakening.entities.hollow.ThornsEntity;
+import com.yuanno.soulsawakening.models.hollow.ThornsModel;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -14,33 +14,33 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 @OnlyIn(Dist.CLIENT)
-public class JetRenderer extends MobRenderer<JetEntity, JetModel<JetEntity>> {
+public class ThornsRenderer extends MobRenderer<ThornsEntity, ThornsModel<ThornsEntity>> {
 
     protected static final ResourceLocation TEXTURE =
-            new ResourceLocation(Main.MODID, "");
+            new ResourceLocation(Main.MODID, "textures/entities/hostile/thornstexture.png");
 
-    public JetRenderer(EntityRendererManager rendererManager)
+    public ThornsRenderer(EntityRendererManager rendererManager)
     {
-        super(rendererManager, new JetModel(), 1f);
+        super(rendererManager, new ThornsModel(), 1f);
     }
 
     @Override
-    public void render(JetEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight)
+    public void render(ThornsEntity entity, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int packedLight)
     {
         super.render(entity, entityYaw, partialTicks, matrixStack, buffer, packedLight);
     }
 
-    public static class Factory implements IRenderFactory<JetEntity>
+    public static class Factory implements IRenderFactory<ThornsEntity>
     {
         @Override
-        public EntityRenderer<? super JetEntity> createRenderFor(EntityRendererManager manager)
+        public EntityRenderer<? super ThornsEntity> createRenderFor(EntityRendererManager manager)
         {
-            return new JetRenderer(manager);
+            return new ThornsRenderer(manager);
         }
     }
 
     @Override
-    public ResourceLocation getTextureLocation(JetEntity entity)
+    public ResourceLocation getTextureLocation(ThornsEntity entity)
     {
         return TEXTURE;
     }

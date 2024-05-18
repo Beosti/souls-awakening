@@ -21,9 +21,9 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class BulkEntity extends HollowEntity implements IBleach {
+public class FlyingEntity extends HollowEntity implements IBleach {
 
-    public BulkEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
+    public FlyingEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
         this.element = ModValues.NORMAL;
     }

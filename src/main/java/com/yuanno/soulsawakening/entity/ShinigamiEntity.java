@@ -4,9 +4,9 @@ import com.google.common.base.Predicates;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.entities.hollow.IBleach;
+import com.yuanno.soulsawakening.entities.hollow.ThornsEntity;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackShinigamiGoal;
 import com.yuanno.soulsawakening.entities.hollow.HollowEntity;
-import com.yuanno.soulsawakening.entities.hollow.JetEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
@@ -67,7 +67,7 @@ public class ShinigamiEntity extends CreatureEntity implements IBleach {
 
         this.goalSelector.addGoal(3, new LookRandomlyGoal(this));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, HollowEntity.class, false));
-        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, JetEntity.class, false));
+        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, ThornsEntity.class, false));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, true, factionScope));
         this.targetSelector.addGoal(7, new LeapAtTargetGoal(this, 0.4f));
 

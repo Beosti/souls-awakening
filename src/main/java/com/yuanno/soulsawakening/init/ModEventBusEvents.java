@@ -17,11 +17,11 @@ public class ModEventBusEvents {
     public static void registerEntityAttributes(EntityAttributeCreationEvent event)
     {
         //MOBS
-        event.put(ModEntities.CENTIPEDE.get(), CentipedeEntity.setCustomAttributes().build());
-        event.put(ModEntities.CLAW.get(), ClawEntity.setCustomAttributes().build());
-        event.put(ModEntities.JET.get(), JetEntity.setCustomAttributes().build());
-        event.put(ModEntities.BULK.get(), BulkEntity.setCustomAttributes().build());
-        event.put(ModEntities.BEAST.get(), BeastEntity.setCustomAttributes().build());
+        event.put(ModEntities.GOLEM.get(), GolemEntity.setCustomAttributes().build());
+        event.put(ModEntities.SPIDER.get(), SpiderEntity.setCustomAttributes().build());
+        event.put(ModEntities.THORNS.get(), ThornsEntity.setCustomAttributes().build());
+        event.put(ModEntities.FLYING.get(), FlyingEntity.setCustomAttributes().build());
+        event.put(ModEntities.APE.get(), ApeEntity.setCustomAttributes().build());
         event.put(ModEntities.PLUS.get(), PlusEntity.setCustomAttributes().build());
         event.put(ModEntities.SHINIGAMI.get(), ShinigamiEntity.setCustomAttributes().build());
         event.put(ModEntities.TRADER.get(), TraderEntity.setCustomAttributes().build());
