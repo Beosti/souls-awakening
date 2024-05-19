@@ -279,12 +279,16 @@ public class PlayerOverviewScreen extends Screen {
         int posY = (this.height - 256) / 2;
         String name = this.player.getName().getString();
         String race = entityStats.getRace();
+        String rank = entityStats.getRank();
         int leftShift = posX - 75;
         this.renderBackground(matrixStack);
 
         // Every race needs to have this rendered anyway
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Name: " + TextFormatting.RESET + name, leftShift, posY + 20, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + race, leftShift, posY + 40, -1);
+        if (!rank.isEmpty())
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Rank: " + TextFormatting.RESET + rank, leftShift + 80 + rank.length(), posY + 40, -1);
+
         if (this.entityStats.getRace().equals(ModValues.SPIRIT))
             spiritRendering(matrixStack, posX, posY);
         if (this.entityStats.getRace().equals(ModValues.SHINIGAMI))

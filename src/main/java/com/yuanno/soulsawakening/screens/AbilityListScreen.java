@@ -176,7 +176,7 @@ public class AbilityListScreen extends Screen {
             StringBuilder fullDescription = new StringBuilder(name + "\n" + "§lDescription§r: " + abilityHovering.getDescription() + "\n");
             //extraInfo.append("\n" + "press §lSHIFT§r for more information");
             if (abilityHovering.getMaxCooldown() != 0)
-                fullDescription.append("§lCooldown§r: " + abilityHovering.getMaxCooldown() / 20 + "\n");
+                fullDescription.append("§lCooldown§r: " + abilityHovering.getMaxCooldown() + " seconds" + " / " + abilityHovering.getMaxCooldown() * 20 + " ticks" + "\n");
             String activation_type = "";
             if (abilityHovering instanceof IAttackAbility)
                 activation_type = "on-hit";

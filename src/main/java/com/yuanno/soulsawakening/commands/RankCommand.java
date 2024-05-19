@@ -38,9 +38,15 @@ public class RankCommand {
     private static final SuggestionProvider<CommandSource> SUGGEST_SET = (source, builder) -> {
         List<String> suggestions = new ArrayList<>();
 
-        suggestions.addAll(ModValues.rankHollow);
+        for (int i = 0; i < ModValues.rankHollow.size(); i++)
+        {
+            suggestions.add(ModValues.rankHollow.get(i).replace(" ", ""));
+        }
 
-        suggestions.addAll(ModValues.rankShinigami);
+        for (int i = 0; i < ModValues.rankShinigami.size(); i++)
+        {
+            suggestions.add(ModValues.rankShinigami.get(i).replace(" ", ""));
+        }
 
         return ISuggestionProvider.suggest(suggestions.stream(), builder);
     };
@@ -48,17 +54,33 @@ public class RankCommand {
     private static int setRace(CommandSource commandSource, PlayerEntity player, String rank)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (ModValues.rankShinigami.contains(rank) && !entityStats.getRace().equals(ModValues.SHINIGAMI))
+        if (containsIgnoringSpaces(ModValues.rankShinigami, rank) && entityStats.getRace().equals(ModValues.SHINIGAMI))
+        {
+            entityStats.setRank(findOriginalStringIgnoringSpaces(ModValues.rankShinigami, rank));
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+
+            commandSource.sendSuccess(new TranslationTextComponent("command.rank.success"), true);
+            return 1;
+        }
+        else if (!entityStats.getRace().equals(ModValues.SHINIGAMI) && !containsIgnoringSpaces(ModValues.rankHollow, rank))
         {
             commandSource.sendSuccess(new TranslationTextComponent("command.rank.not_shinigami"), true);
             return 0;
         }
-        else if (ModValues.rankHollow.contains(rank) && !entityStats.getRank().equals(ModValues.HOLLOW))
+        if (containsIgnoringSpaces(ModValues.rankHollow, rank) && entityStats.getRace().equals(ModValues.HOLLOW))
+        {
+            entityStats.setRank(findOriginalStringIgnoringSpaces(ModValues.rankHollow, rank));
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+
+            commandSource.sendSuccess(new TranslationTextComponent("command.rank.success"), true);
+            return 1;
+        }
+        else if (!entityStats.getRace().equals(ModValues.HOLLOW) && !containsIgnoringSpaces(ModValues.rankShinigami, rank))
         {
             commandSource.sendSuccess(new TranslationTextComponent("command.rank.not_hollow"), true);
             return 0;
+
         }
-        entityStats.setRank(rank);
 
 
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
@@ -66,4 +88,32 @@ public class RankCommand {
         commandSource.sendSuccess(new TranslationTextComponent("command.rank.success"), true);
         return 1;
     }
+
+    public static boolean containsIgnoringSpaces(List<String> list, String target) {
+        // Remove spaces from the target string
+        String targetNoSpaces = target.replace(" ", "");
+
+        for (String item : list) {
+            // Remove spaces from the current list item
+            String itemNoSpaces = item.replace(" ", "");
+
+            // Compare the strings ignoring spaces
+            if (itemNoSpaces.equals(targetNoSpaces)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String findOriginalStringIgnoringSpaces(List<String> list, String target) {
+        String targetNoSpaces = target.replace(" ", "");
+        for (String item : list) {
+            String itemNoSpaces = item.replace(" ", "");
+            if (itemNoSpaces.equals(targetNoSpaces)) {
+                return item; // Return the original string with spaces
+            }
+        }
+        return null; // Return null if no match is found
+    }
+
 }
