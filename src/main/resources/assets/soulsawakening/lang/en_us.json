@@ -167,5 +167,7 @@
   "command.rank.success": "Changed rank",
 
   "command.stats.changed": "Succesfully changed the stat!",
-  "command.general.input_false": "Not a valid input!"
+  "command.general.input_false": "Not a valid input!",
+
+  "hollow.mutation_point.text": "§0Gained a mutation point"
 }

@@ -24,7 +24,11 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.network.play.server.STitlePacket;
 import net.minecraft.network.play.server.SUpdateHealthPacket;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentUtils;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -103,8 +107,23 @@ public class HollowEvents {
     static void handleHollowDeath(LivingEntity livingEntity, LivingEntity attacker)
     {
         String rank = ((IBleach) livingEntity).getRank();
-        if (rank.equals(ModValues.BASE))
+        if (rank.equals(ModValues.BASE)) {
             EntityStatsCapability.get(attacker).getHollowStats().alterMutationPoints(1);
+            if (attacker instanceof PlayerEntity)
+            {
+                PlayerEntity player = (PlayerEntity) attacker;
+                try
+                {
+                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
+                    ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("hollow.mutation_point.text", "Gained a mutation point"), player, 0);
+                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();;
+                }
+            }
+        }
         if (attacker instanceof PlayerEntity)
             PacketHandler.sendTo(new SSyncEntityStatsPacket(attacker.getId(), EntityStatsCapability.get(attacker)), ((PlayerEntity)attacker));
     }
