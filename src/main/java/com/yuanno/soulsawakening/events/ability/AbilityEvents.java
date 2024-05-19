@@ -110,6 +110,8 @@ public class AbilityEvents {
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
             return;
+        if (!ability.getState().equals(Ability.STATE.CONTINUOUS) && !ability.getState().equals(Ability.STATE.READY))
+            return;
         if (ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player)))
             return;
         IAbilityData abilityData = AbilityDataCapability.get(player);
