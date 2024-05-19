@@ -14,7 +14,7 @@ public class SoulSocietyKeyAbility extends Ability implements IRightClickAbility
     {
         this.setName("Soul Society Key");
         this.setDescription("Opens up a door and teleports you from and to soul society");
-        this.setMaxCooldown(500);
+        this.setMaxCooldown(50);
         this.setSubCategory(SubCategory.SEALED);
     }
 

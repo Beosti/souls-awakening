@@ -44,7 +44,7 @@ public class ThornsEntity extends HollowEntity implements IBleach {
         super(p_i48575_1_, p_i48575_2_);
         //this.moveControl = new ThornsEntity.MoveHelperController(this);
         //this.lookControl = new ThornsEntity.LookHelperController(this);
-        this.element = ModValues.WIND;
+        this.element = ModValues.FIRE;
     }
     public static AttributeModifierMap.MutableAttribute setCustomAttributes()
     {
@@ -54,6 +54,7 @@ public class ThornsEntity extends HollowEntity implements IBleach {
                 .add(Attributes.MAX_HEALTH, 25)
                 .add(Attributes.FOLLOW_RANGE, 20)
                 .add(Attributes.MOVEMENT_SPEED, 0.285)
+                .add(ModAttributes.ATTACK_RANGE.get(), 0.5)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
 
     }
@@ -69,7 +70,19 @@ public class ThornsEntity extends HollowEntity implements IBleach {
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 4));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
     }
+    public boolean hurt(DamageSource damageSource, float p_70097_2_) {
+        boolean flag = super.hurt(damageSource, p_70097_2_);
+        if (damageSource.getDirectEntity() != null)
+        {
+            if (damageSource.getDirectEntity() instanceof LivingEntity)
+            {
+                LivingEntity livingEntity = (LivingEntity) damageSource.getDirectEntity();
+                livingEntity.hurt(damageSource, 2);
+            }
+        }
 
+        return flag;
+    }
     public void die(DamageSource source)
     {
         super.die(source);

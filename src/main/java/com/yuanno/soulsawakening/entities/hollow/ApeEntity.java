@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 public class ApeEntity extends HollowEntity implements IBleach {
     public ApeEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = ModValues.FIRE;
+        this.element = ModValues.NORMAL;
     }
 
     @Override
@@ -48,10 +48,10 @@ public class ApeEntity extends HollowEntity implements IBleach {
         return MobEntity.createMobAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 5)
                 .add(Attributes.ARMOR, 10)
-                .add(Attributes.MAX_HEALTH, 25)
+                .add(Attributes.MAX_HEALTH, 30)
                 .add(Attributes.FOLLOW_RANGE, 20)
-                .add(Attributes.MOVEMENT_SPEED, 0.285)
-                .add(ModAttributes.ATTACK_RANGE.get(), 0.3)
+                .add(Attributes.MOVEMENT_SPEED, 0.295)
+                .add(ModAttributes.ATTACK_RANGE.get(), 0.5)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
 
     }

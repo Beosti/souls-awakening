@@ -50,8 +50,7 @@ public class GolemEntity extends HollowEntity implements IBleach {
     public boolean doHurtTarget(Entity p_70652_1_) {
         boolean flag = super.doHurtTarget(p_70652_1_);
         if (flag && this.getMainHandItem().isEmpty() && p_70652_1_ instanceof LivingEntity) {
-            float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(Effects.POISON, 140 * (int)f));
+            p_70652_1_.setDeltaMovement(p_70652_1_.getDeltaMovement().add(0.0, 0.4000000059604645, 0.0));
         }
 
         return flag;
@@ -65,6 +64,7 @@ public class GolemEntity extends HollowEntity implements IBleach {
                 .add(Attributes.MAX_HEALTH, 25)
                 .add(Attributes.FOLLOW_RANGE, 20)
                 .add(Attributes.MOVEMENT_SPEED, 0.285)
+                .add(ModAttributes.ATTACK_RANGE.get(), 0.5)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
 
     }

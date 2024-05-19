@@ -12,6 +12,8 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -43,7 +45,16 @@ public class SpiderEntity extends HollowEntity implements IBleach {
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
 
     }
+    @Override
+    public boolean doHurtTarget(Entity p_70652_1_) {
+        boolean flag = super.doHurtTarget(p_70652_1_);
+        if (flag && this.getMainHandItem().isEmpty() && p_70652_1_ instanceof LivingEntity) {
+            float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(Effects.POISON, 140 * (int)f));
+        }
 
+        return flag;
+    }
     public static AttributeModifierMap.MutableAttribute setCustomAttributes()
     {
         return MobEntity.createMobAttributes()
@@ -52,6 +63,7 @@ public class SpiderEntity extends HollowEntity implements IBleach {
                 .add(Attributes.MAX_HEALTH, 25)
                 .add(Attributes.FOLLOW_RANGE, 20)
                 .add(Attributes.MOVEMENT_SPEED, 0.285)
+                .add(ModAttributes.ATTACK_RANGE.get(), 0.5)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
 
     }

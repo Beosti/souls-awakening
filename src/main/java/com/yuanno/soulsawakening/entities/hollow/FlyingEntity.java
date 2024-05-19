@@ -4,7 +4,6 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -14,7 +13,6 @@ import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -25,7 +23,7 @@ public class FlyingEntity extends HollowEntity implements IBleach {
 
     public FlyingEntity(EntityType<? extends CreatureEntity> p_i48575_1_, World p_i48575_2_) {
         super(p_i48575_1_, p_i48575_2_);
-        this.element = ModValues.NORMAL;
+        this.element = ModValues.WIND;
     }
 
     @Override
@@ -60,11 +58,13 @@ public class FlyingEntity extends HollowEntity implements IBleach {
     public static AttributeModifierMap.MutableAttribute setCustomAttributes()
     {
         return MobEntity.createMobAttributes()
-                .add(Attributes.ATTACK_DAMAGE, 5)
+                .add(Attributes.ATTACK_DAMAGE, 7)
                 .add(Attributes.ARMOR, 10)
-                .add(Attributes.MAX_HEALTH, 25)
+                .add(Attributes.MAX_HEALTH, 35)
                 .add(Attributes.FOLLOW_RANGE, 20)
                 .add(Attributes.MOVEMENT_SPEED, 0.285)
+                .add(Attributes.ATTACK_KNOCKBACK, 1)
+                .add(ModAttributes.ATTACK_RANGE.get(), 0.5)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
 
     }
