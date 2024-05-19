@@ -20,6 +20,11 @@ Besides the basic comments in the code there is no documentation at the moment.
 
 - [@Beosti](https://github.com/Ziroxis)
 
+## Contributors
+- [@Kaiyo]()
+
+## Honorable Mentions
+- [@Wynd](https://github.com/Wynd)
 
 ## Contributing
 You can always contribute by making a pull request like so:
