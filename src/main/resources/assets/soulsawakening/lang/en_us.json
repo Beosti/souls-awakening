@@ -170,5 +170,7 @@
   "command.general.input_false": "Not a valid input!",
 
   "hollow.mutation_point.text": "§7Gained a mutation point",
-  "hollow.hollow_point.text": "§fGained a hollow point"
+  "hollow.hollow_point.text": "§fGained a hollow point",
+  "quincy.quincy_point.text": "§bGained a class point",
+  "shinigami.shinigami_point.text": "§0Gained a class point"
 }

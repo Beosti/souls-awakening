@@ -11,16 +11,25 @@ import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
+import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
+import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.STitlePacket;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityPredicates;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentUtils;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
@@ -129,6 +138,38 @@ public class ShinigamiEntity extends CreatureEntity implements IBleach {
                 .add(Attributes.MOVEMENT_SPEED, 0.28)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
 
+    }
+
+    @Override
+    public void die(DamageSource source)
+    {
+        super.die(source);
+
+        if (!(source.getEntity() instanceof PlayerEntity))
+            return;
+
+        PlayerEntity player = (PlayerEntity) source.getEntity();
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (!entityStats.getRace().equals(ModValues.HOLLOW))
+            return;
+        int chancePercentage = 50;
+
+        Random random = new Random();
+        int randomNumber = random.nextInt(100) + 1;
+        if (randomNumber <= chancePercentage) {
+            entityStats.getHollowStats().alterMutationPoints(1);
+            try
+            {
+                ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
+                ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("hollow.mutation_point.text", "§7Gained a mutation point"), player, 0);
+                ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+        }
     }
 
     @Override

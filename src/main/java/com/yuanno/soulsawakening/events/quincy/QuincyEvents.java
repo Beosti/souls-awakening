@@ -37,8 +37,12 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.STitlePacket;
 import net.minecraft.network.play.server.SUpdateHealthPacket;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentUtils;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -130,9 +134,23 @@ public class QuincyEvents {
                 killerStats.getQuincyStats().alterClassExperience(amount);
                 killerStats.getQuincyStats().alterMaxClassExperience(50);
                 killerStats.getQuincyStats().alterClassPoints(1);
+                if (killerLivingEntity instanceof PlayerEntity) {
+                    PlayerEntity player = (PlayerEntity) killerLivingEntity;
+                    try
+                    {
+                        ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
+                        ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("quincy.quincy_point.text", "§bGained a class point"), player, 0);
+                        ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();;
+                    }
+
+
+                    PacketHandler.sendTo(new SSyncEntityStatsPacket(killerLivingEntity.getId(), killerStats), (PlayerEntity) killerLivingEntity);
+                }
             }
-            if (killerLivingEntity instanceof PlayerEntity)
-                PacketHandler.sendTo(new SSyncEntityStatsPacket(killerLivingEntity.getId(), killerStats), (PlayerEntity) killerLivingEntity);
         }
     }
     @SubscribeEvent

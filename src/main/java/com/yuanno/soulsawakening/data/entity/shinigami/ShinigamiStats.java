@@ -6,26 +6,13 @@ public class ShinigamiStats {
     private double zanjutsuPoints = 0;
     private double hakudaPoints = 0;
     private double hohoPoints = 0;
-    private int classLevel = 0;
     private int classPoints = 0;
     private int classExperience = 0;
+    private int maxClassExperience = 0;
     private String zanpakutoName = "";
     private String zanpakutoCommand = "";
 
-    public void setClassLevel(int classLevel)
-    {
-        this.classLevel = classLevel;
-    }
 
-    public void alterClassLevel(int alterLevel)
-    {
-        this.classLevel += alterLevel;
-    }
-
-    public int getClassLevel()
-    {
-        return this.classLevel;
-    }
 
     public void setClassPoints(int classPoints)
     {
@@ -50,6 +37,19 @@ public class ShinigamiStats {
     public void alterClassExperience(int alterExperience)
     {
         this.classExperience += alterExperience;
+    }
+
+    public void setMaxClassExperience(int amount)
+    {
+        this.maxClassExperience = amount;
+    }
+    public int getMaxClassExperience()
+    {
+        return this.maxClassExperience;
+    }
+    public void alterMaxClassExperience(int amount)
+    {
+        this.maxClassExperience += amount;
     }
 
     public int getClassExperience()
@@ -117,9 +117,9 @@ public class ShinigamiStats {
         compoundNBT.putDouble("zanjutsu", this.getZanjutsuPoints());
         compoundNBT.putDouble("hakuda", this.getHakudaPoints());
         compoundNBT.putDouble("hoho", this.getHohoPoints());
-        compoundNBT.putInt("classLevel", this.getClassLevel());
         compoundNBT.putInt("classPoints", this.getClassPoints());
         compoundNBT.putInt("classExperience", this.getClassExperience());
+        compoundNBT.putInt("classExperienceMax", this.getMaxClassExperience());
         compoundNBT.putString("zanpakutoName", this.getZanpakutoName());
         compoundNBT.putString("zanpakutoCommand", this.getZanpakutoCommand());
 
@@ -132,9 +132,9 @@ public class ShinigamiStats {
         this.hakudaPoints = compoundNBT.getDouble("hakuda");
         this.hohoPoints = compoundNBT.getDouble("hoho");
 
-        this.classLevel = compoundNBT.getInt("classLevel");
         this.classPoints = compoundNBT.getInt("classPoints");
         this.classExperience = compoundNBT.getInt("classExperience");
+        this.maxClassExperience = compoundNBT.getInt("classExperienceMax");
 
         this.zanpakutoName = compoundNBT.getString("zanpakutoName");
         this.zanpakutoCommand = compoundNBT.getString("zanpakutoCommand");

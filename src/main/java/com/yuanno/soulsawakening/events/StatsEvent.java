@@ -98,26 +98,10 @@ public class StatsEvent {
                 miscData.setSpiritChain(400);
             }
 
-            //World world = player.level;
-            /*
-            MinecraftServer minecraftServer = world.getServer();
-            Random random = new Random();
-            int randomized = random.nextInt(100) + 1;
-            if (randomized < 50)
-            {
-                ServerWorld soulSociety = minecraftServer.getLevel(ModDimensions.SOUL_SOCIETY);
-
-                if (soulSociety != null && player.level != soulSociety) {
-                    player.changeDimension(soulSociety, new GargantaTeleporter(player.blockPosition(), false));
-                }
-            }
-
-             */
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
             PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
 
-            //((ServerPlayerEntity) player).setRespawnPosition(ModDimensions.SOUL_SOCIETY, player.blockPosition(), 0, true, true);
         }
     }
     @SubscribeEvent
@@ -175,44 +159,7 @@ public class StatsEvent {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         IMiscData miscData = MiscDataCapability.get(player);
         IQuestData questData = QuestDataCapability.get(player);
-        /*
-        if (entityStats.getRace().equals(ModValues.HUMAN)) {
-            player.heal(20);
-            event.setCanceled(true);
-            entityStats.setRace(ModValues.SPIRIT);
-            ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
-            ModAdvancements.SPIRIT.trigger((ServerPlayerEntity) player);
-            World world = player.level;
-            MinecraftServer minecraftServer = world.getServer();
-            ServerWorld soulSociety = minecraftServer.getLevel(ModDimensions.SOUL_SOCIETY);
 
-            if (soulSociety != null && player.level != soulSociety) {
-                player.changeDimension(soulSociety, new GargantaTeleporter(player.blockPosition(), false));
-            }
-
-
-            //event.setCanceled(true);
-            //player.heal(20);
-            //player.setSleepingPos(player.blockPosition());
-            miscData.setCanRenderOverlay(true);
-        }
-
-         */
-        /*
-        else if (entityStats.getRace().equals(ModValues.SPIRIT)) {
-            entityStats.setRace(ModValues.HOLLOW);
-            entityStats.setRank(ModValues.BASE);
-            ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
-            ModAdvancements.HOLLOW.trigger((ServerPlayerEntity) player);
-            miscData.setCanRenderOverlay(true);
-            abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
-            abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
-            abilityData.addUnlockedAbility(HollowRegenerationAbility.INSTANCE);
-            HollowStats hollowStats = new HollowStats();
-            entityStats.setHollowStats(hollowStats);
-        }
-
-         */
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
@@ -231,7 +178,6 @@ public class StatsEvent {
         miscData.setCanRenderOverlay(true);
         miscData.setKan(0);
         challengesData.addChallenge(ModChallenges.BASIC_SHINIGAMI.get());
-        //challengesData.addChallenge(ModChallenges.SEATED20_SHINIGAMI.get());
         ModAdvancements.OVERWORLD.trigger((ServerPlayerEntity) player);
 
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
