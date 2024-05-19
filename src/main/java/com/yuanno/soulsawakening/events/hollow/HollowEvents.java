@@ -108,14 +108,14 @@ public class HollowEvents {
     {
         String rank = ((IBleach) livingEntity).getRank();
         if (rank.equals(ModValues.BASE)) {
-            EntityStatsCapability.get(attacker).getHollowStats().alterMutationPoints(1);
+            EntityStatsCapability.get(attacker).getHollowStats().alterHollowPoints(1);
             if (attacker instanceof PlayerEntity)
             {
                 PlayerEntity player = (PlayerEntity) attacker;
                 try
                 {
                     ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
-                    ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("hollow.mutation_point.text", "Gained a mutation point"), player, 0);
+                    ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("hollow.hollow_point.text", "Gained a hollow point"), player, 0);
                     ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
                 }
                 catch (Exception e)

@@ -169,5 +169,6 @@
   "command.stats.changed": "Succesfully changed the stat!",
   "command.general.input_false": "Not a valid input!",
 
-  "hollow.mutation_point.text": "§0Gained a mutation point"
+  "hollow.mutation_point.text": "§7Gained a mutation point",
+  "hollow.hollow_point.text": "§fGained a hollow point"
 }
