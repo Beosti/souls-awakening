@@ -96,7 +96,7 @@ public class ShinigamiTeacherPrompt extends ChatPrompt {
             this.chatPromptScreen.getQuestData().addInProgressQuest(ModQuests.RESCUE_PLUSES);
             PacketHandler.sendToServer(new CSyncQuestDataPacket(this.chatPromptScreen.getQuestData()));
         }
-        if (this.chatPromptScreen.getText().equals("Amazing, you'll have to find the 'beast' hollow in the overworld. It's a hollow on 4 feet that walks around and is quite fast. It looks like a tiger. Kill it and come back for your reward!"))
+        if (this.chatPromptScreen.getText().equals("Amazing, you'll have to find the 'ape' hollow in the overworld. It's a hollow on 4 feet that walks around and is quite fast. It looks like a tiger. Kill it and come back for your reward!"))
         {
             this.chatPromptScreen.getQuestData().addInProgressQuest(ModQuests.KILL_SPECIFIC_HOLLOW);
             PacketHandler.sendToServer(new CSyncQuestDataPacket(this.chatPromptScreen.getQuestData()));

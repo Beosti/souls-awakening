@@ -29,7 +29,7 @@ public class KillSpecificHollowQuest extends Quest {
        return target instanceof ApeEntity;
     });
 
-    private Objective objective = new KillObjective("Kill a beast hollow", "Kill one beast hollow", 1, HOLLOW_CHECK);
+    private Objective objective = new KillObjective("Kill an ape hollow", "Kill one ape hollow", 1, HOLLOW_CHECK);
 
     public KillSpecificHollowQuest()
     {
