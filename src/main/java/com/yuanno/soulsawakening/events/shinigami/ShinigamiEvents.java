@@ -32,6 +32,7 @@ public class ShinigamiEvents {
     @SubscribeEvent
     public static void onKillHollow(LivingDeathEvent event)
     {
+        // TODO if doing a challenge you don't get points
         int amountToChange;
         LivingEntity killedEntity = event.getEntityLiving();
         IEntityStats killedEntityStats = EntityStatsCapability.get(killedEntity);

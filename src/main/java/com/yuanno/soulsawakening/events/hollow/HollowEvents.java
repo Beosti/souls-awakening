@@ -93,6 +93,7 @@ public class HollowEvents {
             if (!EntityStatsCapability.get(attacker).hasHollowStats())
                 return;
             LivingEntity livingEntity = event.getEntityLiving();
+            // TODO if doing a challenge you don't get points
             if (!(livingEntity instanceof IBleach))
                 return;
             if (((IBleach) livingEntity).getRace().equals(ModValues.HOLLOW))
@@ -158,7 +159,6 @@ public class HollowEvents {
     }
     static void handleSpiritDeath(LivingEntity livingEntity, LivingEntity attacker)
     {
-        System.out.println("KILLED SPIRIT");
         IEntityStats entityStats = EntityStatsCapability.get(attacker);
         PlayerEntity player = (PlayerEntity) attacker;
         Random random = new Random();

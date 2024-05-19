@@ -95,6 +95,7 @@ public class QuincyEvents {
     @SubscribeEvent
     public static void onKillHollow(LivingDeathEvent event)
     {
+        // TODO if doing a challenge you don't get points
         int amountToChange;
         if (EntityStatsCapability.get(event.getEntityLiving()).getRace().equals(ModValues.HOLLOW))
             amountToChange = 150;
