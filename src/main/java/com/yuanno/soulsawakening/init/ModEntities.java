@@ -21,25 +21,25 @@ public class ModEntities {
     public static final RegistryObject<EntityType<GolemEntity>> GOLEM = ENTITIES
             .register("golem",
                     () -> EntityType.Builder.of(GolemEntity::new, EntityClassification.CREATURE)
-                            .sized(1.3f, 2f)
+                            .sized(1.3f, 4f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "golem").toString()));
     public static final RegistryObject<EntityType<SpiderEntity>> SPIDER = ENTITIES
             .register("spider",
                     () -> EntityType.Builder.of(SpiderEntity::new, EntityClassification.CREATURE)
-                            .sized(2f, 2f)
+                            .sized(3f, 2f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "spider").toString()));
     public static final RegistryObject<EntityType<ThornsEntity>> THORNS = ENTITIES
             .register("thorns",
                     () -> EntityType.Builder.of(ThornsEntity::new, EntityClassification.CREATURE)
-                            .sized(2f, 2f)
+                            .sized(2f, 4f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "thorns").toString()));
     public static final RegistryObject<EntityType<FlyingEntity>> FLYING = ENTITIES
             .register("flying",
                     () -> EntityType.Builder.of(FlyingEntity::new, EntityClassification.CREATURE)
-                            .sized(2f, 2f)
+                            .sized(2f, 3f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "flying").toString()));
     public static final RegistryObject<EntityType<ApeEntity>> APE = ENTITIES
@@ -51,7 +51,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<PlusEntity>> PLUS = ENTITIES
             .register("plus",
                     () -> EntityType.Builder.of(PlusEntity::new, EntityClassification.CREATURE)
-                            .sized(1f, 2f)
+                            .sized(1f, 1.6f)
                             .setTrackingRange(5)
                             .build(new ResourceLocation(Main.MODID, "plus").toString()));
     public static final RegistryObject<EntityType<ShinigamiEntity>> SHINIGAMI = ENTITIES

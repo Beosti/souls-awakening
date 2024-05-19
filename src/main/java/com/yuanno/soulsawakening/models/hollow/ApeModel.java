@@ -6,10 +6,12 @@ package com.yuanno.soulsawakening.models.hollow;// Made with Blockbench 4.2.4
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.yuanno.soulsawakening.entities.hollow.ApeEntity;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
-public class ApeModel<T extends ApeEntity> extends EntityModel<T> {
+public class ApeModel<T extends ApeEntity> extends BipedModel<T> {
 	private final ModelRenderer Minecraft_Placeholder;
 	private final ModelRenderer MinecraftLeftLeg;
 	private final ModelRenderer MinecraftRightLeg;
@@ -46,6 +48,7 @@ public class ApeModel<T extends ApeEntity> extends EntityModel<T> {
 	private final ModelRenderer rightfoot;
 
 	public ApeModel() {
+		super(0, 0, 200, 200);
 		texWidth = 200;
 		texHeight = 200;
 
@@ -253,7 +256,15 @@ public class ApeModel<T extends ApeEntity> extends EntityModel<T> {
 
 	@Override
 	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
+		super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+		this.headsection1.xRot = headPitch * ((float)Math.PI / 180F);
+		this.headsection1.yRot = netHeadYaw * ((float)Math.PI / 180F);
+		this.rightarm.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leftarm.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.rightleg.xRot = MathHelper.cos(limbSwing * 0.3662F) * 1.4F * limbSwingAmount;
+		this.leftleg.xRot = MathHelper.cos(limbSwing * 0.3662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.lowerrightleg.xRot = MathHelper.cos(limbSwing * 0.06662F) * 1.4F * limbSwingAmount;
+		this.lowerleftleg.xRot = MathHelper.cos(limbSwing * 0.06662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 	}
 
 

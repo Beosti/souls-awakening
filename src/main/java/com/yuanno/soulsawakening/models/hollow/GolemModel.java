@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.yuanno.soulsawakening.entities.hollow.GolemEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 public class GolemModel<T extends GolemEntity> extends EntityModel<T> {
 	private final ModelRenderer Minecraft_Placeholder;
@@ -232,16 +233,14 @@ public class GolemModel<T extends GolemEntity> extends EntityModel<T> {
 	}
 	@Override
 	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		/*
-		this.Poot3Left_r1.xRot = MathHelper.cos(limbSwing * 0.03662F) * 1.4F * limbSwingAmount;
-		this.Poot2Left_r1.xRot = MathHelper.cos(limbSwing * 0.03662F) * 1.4F * limbSwingAmount;
-		this.Poot5Left_r1.xRot = MathHelper.cos(limbSwing * 0.03662F) * 1.4F * limbSwingAmount;
-
-		this.Poot2Right_r1.xRot = MathHelper.cos(limbSwing * 0.03662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-		this.Poot3Right_r1.xRot = MathHelper.cos(limbSwing * 0.03662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-		this.Poot4Right_r1.xRot = MathHelper.cos(limbSwing * 0.03662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-
-		 */
+		this.headsection1.xRot = headPitch * ((float)Math.PI / 180F);
+		this.headsection1.yRot = netHeadYaw * ((float)Math.PI / 180F);
+		this.rightarm.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leftarm.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.upperrightleg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+		this.upperleftleg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1F * limbSwingAmount;
+		this.lowerrightleg.xRot = -1 + MathHelper.cos(limbSwing * 0.66662F) * 1.2F * limbSwingAmount;
+		this.lowerleftleg.xRot = -1 + MathHelper.cos(limbSwing * 0.66662F + (float)Math.PI) * 1.2F * limbSwingAmount;
 
 	}
 
@@ -249,7 +248,7 @@ public class GolemModel<T extends GolemEntity> extends EntityModel<T> {
 	@Override
 	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
 	{
-		Minecraft_Placeholder.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		//Minecraft_Placeholder.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		bodysection1.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		upperleftleg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		upperrightleg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);

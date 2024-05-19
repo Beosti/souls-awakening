@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.yuanno.soulsawakening.entities.hollow.FlyingEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 public class FlyingModel<T extends FlyingEntity> extends EntityModel<T> {
 	private final ModelRenderer Minecraft_Placeholder;
@@ -320,17 +321,24 @@ public class FlyingModel<T extends FlyingEntity> extends EntityModel<T> {
 
 	@Override
 	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		/*
-
-		 */
-
+		//super.setupAnim(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        this.headsection1.xRot = headPitch * ((float)Math.PI / 180F);
+		this.headsection1.yRot = netHeadYaw * ((float)Math.PI / 180F);
+		this.rightarm.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leftarm.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.rightleg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+		this.leftleg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1F * limbSwingAmount;
+		this.lowerrightleg.xRot = MathHelper.cos(limbSwing * 0.03662F) * 0.6F * limbSwingAmount;
+		this.lowerleftleg.xRot = MathHelper.cos(limbSwing * 0.03662F + (float)Math.PI) * 0.6F * limbSwingAmount;
+		//this.rightfoot.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		//this.leftfoot.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 	}
 
 
 	@Override
 	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
 	{
-		Minecraft_Placeholder.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		//Minecraft_Placeholder.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		bodysection1.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		leftleg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 		rightleg.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);

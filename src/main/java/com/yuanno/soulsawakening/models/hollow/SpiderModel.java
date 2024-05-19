@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.yuanno.soulsawakening.entities.hollow.SpiderEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.util.math.MathHelper;
 
 public class SpiderModel<T extends SpiderEntity> extends EntityModel<T> {
 	private final ModelRenderer Minecraft_Placeholder;
@@ -256,9 +257,16 @@ public class SpiderModel<T extends SpiderEntity> extends EntityModel<T> {
 
 	@Override
 	public void setupAnim(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		/*
+		this.headsection1.xRot = headPitch * ((float)Math.PI / 180F);
+		this.headsection1.yRot = netHeadYaw * ((float)Math.PI / 180F);
+		this.rightendleg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1F * limbSwingAmount;
+		this.bottomrightendleg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.rightfrontleg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.rightmiddleleg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+		this.leftendleg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 0.6F * limbSwingAmount;
+		this.leftfrontleg.xRot = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+		this.leftmiddleleg.xRot = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
 
-		 */
 
 	}
 

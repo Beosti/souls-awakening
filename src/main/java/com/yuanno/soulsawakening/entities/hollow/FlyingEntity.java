@@ -49,10 +49,10 @@ public class FlyingEntity extends HollowEntity implements IBleach {
     @Override
     public boolean doHurtTarget(Entity p_70652_1_) {
         boolean flag = super.doHurtTarget(p_70652_1_);
-        if (flag && this.getMainHandItem().isEmpty() && p_70652_1_ instanceof LivingEntity) {
-            float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-            ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(ModEffects.HOLLOW_ACID.get(), 140 * (int)f));
-        }
+        //if (flag && this.getMainHandItem().isEmpty() && p_70652_1_ instanceof LivingEntity) {
+        //    float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+        //    ((LivingEntity)p_70652_1_).addEffect(new EffectInstance(ModEffects.HOLLOW_ACID.get(), 140 * (int)f));
+        //}
 
         return flag;
     }
