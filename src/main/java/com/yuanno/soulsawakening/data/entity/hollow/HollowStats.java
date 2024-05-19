@@ -72,7 +72,7 @@ public class HollowStats {
     }
     public void alterAgility(int amount)
     {
-        this.agility = amount;
+        this.agility += amount;
     }
 
     public CompoundNBT save()

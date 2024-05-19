@@ -6,6 +6,7 @@ import com.yuanno.soulsawakening.ability.api.interfaces.*;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
+import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.LivingEntity;
@@ -35,6 +36,8 @@ public class AbilityEvents {
             return;
         if (!ability.getDependency().check(player))
             return;
+        if (player.hasEffect(ModEffects.IN_EVENT.get()))
+            return;
 
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (ability instanceof IContinuousAbility)
@@ -56,6 +59,8 @@ public class AbilityEvents {
     {
         Ability ability = event.getAbility();
         PlayerEntity player = event.getPlayer();
+        if (player.hasEffect(ModEffects.IN_EVENT.get()))
+            return;
         if (!ability.getDependency().check(player))
             return;
         if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS)) {
@@ -109,6 +114,8 @@ public class AbilityEvents {
         Ability ability = event.getAbility();
         PlayerEntity player = event.getPlayer();
         if (player.level.isClientSide)
+            return;
+        if (player.hasEffect(ModEffects.IN_EVENT.get()))
             return;
         if (!ability.getState().equals(Ability.STATE.CONTINUOUS) && !ability.getState().equals(Ability.STATE.READY))
             return;
