@@ -7,6 +7,9 @@ import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.networking.PacketHandler;
+import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
 import com.yuanno.soulsawakening.quests.Objective;
 import com.yuanno.soulsawakening.quests.Quest;
 import com.yuanno.soulsawakening.quests.QuestReward;
@@ -23,6 +26,7 @@ public class RescuePlusesQuest extends Quest {
     {
         IMiscData miscData = MiscDataCapability.get(player);
         miscData.setRank(ModValues.NON_OFFICER);
+        PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
         return true;
     }
 
