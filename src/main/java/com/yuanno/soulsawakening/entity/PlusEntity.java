@@ -21,6 +21,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.play.server.STitlePacket;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
@@ -28,6 +29,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextComponentUtils;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.Random;
@@ -74,27 +76,7 @@ public class PlusEntity extends CreatureEntity implements IBleach {
         this.lookAt(player, 1, 1);
         IEntityStats entityStats = EntityStatsCapability.get(player);
         if (entityStats.getRace().equals(ModValues.HOLLOW))
-        {
-            String killerString = selectRandomStringHollow();
-            player.sendMessage(new StringTextComponent(killerString), Util.NIL_UUID);
-            Random randomSpecial = new Random();
-            int extraHollowPoints = randomSpecial.nextInt(10) + 1;
-            if (extraHollowPoints < 4) {
-                entityStats.getHollowStats().alterMutationPoints(1);
-                try
-                {
-                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
-                    ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("hollow.mutation_point.text", "§7Gained a mutation point"), player, 0);
-                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-                PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-            }
-            this.kill();
-        }
+            this.hurt(DamageSource.playerAttack(player), Float.MAX_VALUE);
         else if (entityStats.getRace().equals(ModValues.SHINIGAMI) && (player.getMainHandItem().getItem().asItem() instanceof ZanpakutoItem) && !this.level.dimension().equals(ModDimensions.SOUL_SOCIETY))
         {
             String saviorString = selectRandomStringShinigami();

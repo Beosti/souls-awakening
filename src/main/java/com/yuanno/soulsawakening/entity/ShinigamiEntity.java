@@ -141,38 +141,6 @@ public class ShinigamiEntity extends CreatureEntity implements IBleach {
     }
 
     @Override
-    public void die(DamageSource source)
-    {
-        super.die(source);
-
-        if (!(source.getEntity() instanceof PlayerEntity))
-            return;
-
-        PlayerEntity player = (PlayerEntity) source.getEntity();
-        IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (!entityStats.getRace().equals(ModValues.HOLLOW))
-            return;
-        int chancePercentage = 50;
-
-        Random random = new Random();
-        int randomNumber = random.nextInt(100) + 1;
-        if (randomNumber <= chancePercentage) {
-            entityStats.getHollowStats().alterMutationPoints(1);
-            try
-            {
-                ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
-                ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("hollow.mutation_point.text", "§7Gained a mutation point"), player, 0);
-                ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-            PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-        }
-    }
-
-    @Override
     @Nullable
     public ILivingEntityData finalizeSpawn(IServerWorld world, DifficultyInstance difficulty, SpawnReason reason, @Nullable ILivingEntityData spawnData, @Nullable CompoundNBT dataTag)
     {
