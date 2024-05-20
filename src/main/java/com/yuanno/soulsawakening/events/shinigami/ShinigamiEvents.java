@@ -46,6 +46,8 @@ public class ShinigamiEvents {
             return;
         if (event.getSource().getDirectEntity() != null)
         {
+            if (event.getSource().getDirectEntity().level.getBiome(event.getSource().getDirectEntity().blockPosition()).getRegistryName().toString().equals("minecraft:the_void"))
+                event.setCanceled(true);
             Entity killerEntity;
             if (event.getSource().getDirectEntity() instanceof AbilityProjectileEntity)
             {

@@ -88,6 +88,8 @@ public class HollowEvents {
         if (event.getEntityLiving() != null && event.getSource().getDirectEntity() != null && !event.getEntityLiving().level.isClientSide && event.getSource().getDirectEntity() instanceof LivingEntity)
         {
             LivingEntity attacker = (LivingEntity) event.getSource().getDirectEntity();
+            if (event.getSource().getDirectEntity().level.getBiome(event.getSource().getDirectEntity().blockPosition()).getRegistryName().toString().equals("minecraft:the_void"))
+                event.setCanceled(true);
             if (!EntityStatsCapability.get(attacker).getRace().equals(ModValues.HOLLOW))
                 return;
             if (!EntityStatsCapability.get(attacker).hasHollowStats())

@@ -95,7 +95,6 @@ public class QuincyEvents {
     @SubscribeEvent
     public static void onKillHollow(LivingDeathEvent event)
     {
-        // TODO if doing a challenge you don't get points
         int amountToChange;
         if (EntityStatsCapability.get(event.getEntityLiving()).getRace().equals(ModValues.HOLLOW))
             amountToChange = 150;
@@ -108,6 +107,8 @@ public class QuincyEvents {
             return;
         if (event.getSource().getDirectEntity() != null)
         {
+            if (event.getSource().getDirectEntity().level.getBiome(event.getSource().getDirectEntity().blockPosition()).getRegistryName().toString().equals("minecraft:the_void"))
+                event.setCanceled(true);
             Entity killerEntity;
             if (event.getSource().getDirectEntity() instanceof AbilityProjectileEntity)
             {
