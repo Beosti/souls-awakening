@@ -4,8 +4,10 @@ import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.events.util.CustomArrowLooseEvent;
 import com.yuanno.soulsawakening.init.ModEffects;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.living.LivingDestroyBlockEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -16,6 +18,8 @@ public class ChallengeEvents {
     @SubscribeEvent
     public static void onDestroyBlock(BlockEvent.BreakEvent event)
     {
+        PlayerEntity player = event.getPlayer();
+        //player.giveExperienceLevels(4);
         if (event.getPlayer().level.getBiome(event.getPlayer().blockPosition()).getRegistryName().toString().equals("minecraft:the_void"))
             event.setCanceled(true);
     }

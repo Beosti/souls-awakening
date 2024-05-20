@@ -14,6 +14,12 @@ public interface IEntityStats {
     String getRank();
     boolean hasRank();
 
+    void setStackedExperience(int amount);
+
+    void alterStackedExperience(int amount);
+
+    int getStackedExperience();
+
     void setShinigamiStats(ShinigamiStats shinigamiStats);
     boolean hasShinigamiStats();
     ShinigamiStats getShinigamiStats();

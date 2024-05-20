@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.events.shinigami;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.events.ExperienceEvent;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -17,6 +18,7 @@ import net.minecraft.network.play.server.STitlePacket;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -65,31 +67,42 @@ public class ShinigamiEvents {
             LivingEntity killerLivingEntity = (LivingEntity) killerEntity;
             if (!EntityStatsCapability.get(killerLivingEntity).getRace().equals(ModValues.SHINIGAMI) || !EntityStatsCapability.get(killerLivingEntity).hasShinigamiStats())
                 return;
-            IEntityStats killerStats = EntityStatsCapability.get(killerLivingEntity);
-            killerStats.getShinigamiStats().alterClassExperience(amountToChange);
-            if (killerStats.getShinigamiStats().getClassExperience() >= killerStats.getShinigamiStats().getMaxClassExperience())
-            {
-                int amount = killerStats.getShinigamiStats().getMaxClassExperience() - killerStats.getShinigamiStats().getClassExperience();
-                killerStats.getShinigamiStats().setClassExperience(0);
-                killerStats.getShinigamiStats().alterClassExperience(amount);
-                killerStats.getShinigamiStats().alterMaxClassExperience(50);
-                killerStats.getShinigamiStats().alterClassPoints(1);
-                if (killerLivingEntity instanceof PlayerEntity) {
-                    PlayerEntity player = (PlayerEntity) killerLivingEntity;
-                    try
-                    {
-                        ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
-                        ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("shinigami.shinigami_point.text", "§0Gained a class point"), player, 0);
-                        ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();;
-                    }
+            ExperienceEvent experienceEvent = new ExperienceEvent(killerLivingEntity, amountToChange);
+            MinecraftForge.EVENT_BUS.post(experienceEvent);
+        }
+    }
 
-
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(killerLivingEntity.getId(), killerStats), (PlayerEntity) killerLivingEntity);
+    @SubscribeEvent
+    public static void onExperienceChange(ExperienceEvent experienceEvent)
+    {
+        LivingEntity killerLivingEntity = experienceEvent.getEntityLiving();
+        IEntityStats killerStats = EntityStatsCapability.get(killerLivingEntity);
+        if (!killerStats.hasShinigamiStats())
+            return;
+        int amountToChange = experienceEvent.getAmount();
+        killerStats.getShinigamiStats().alterClassExperience(amountToChange);
+        if (killerStats.getShinigamiStats().getClassExperience() >= killerStats.getShinigamiStats().getMaxClassExperience())
+        {
+            int amount = killerStats.getShinigamiStats().getMaxClassExperience() - killerStats.getShinigamiStats().getClassExperience();
+            killerStats.getShinigamiStats().setClassExperience(0);
+            killerStats.getShinigamiStats().alterClassExperience(amount);
+            killerStats.getShinigamiStats().alterMaxClassExperience(50);
+            killerStats.getShinigamiStats().alterClassPoints(1);
+            if (killerLivingEntity instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) killerLivingEntity;
+                try
+                {
+                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
+                    ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("shinigami.shinigami_point.text", "§0Gained a class point"), player, 0);
+                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
                 }
+                catch (Exception e)
+                {
+                    e.printStackTrace();;
+                }
+
+
+                PacketHandler.sendTo(new SSyncEntityStatsPacket(killerLivingEntity.getId(), killerStats), (PlayerEntity) killerLivingEntity);
             }
         }
     }

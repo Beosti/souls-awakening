@@ -15,6 +15,7 @@ import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
+import com.yuanno.soulsawakening.events.ExperienceEvent;
 import com.yuanno.soulsawakening.events.UpdateStatEvent;
 import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
 import com.yuanno.soulsawakening.events.util.CustomArrowLooseEvent;
@@ -43,6 +44,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentUtils;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -75,6 +77,9 @@ public class QuincyEvents {
                 quincyStats.setMaxClassExperience(100);
                 entityStats.setQuincyStats(quincyStats);
                 quincyStats.setSpiritWeapon(ModItems.KOJAKU.get());
+                System.out.println(entityStats.getStackedExperience());
+                ExperienceEvent experienceEvent = new ExperienceEvent(player, entityStats.getStackedExperience());
+                MinecraftForge.EVENT_BUS.post(experienceEvent);
                 PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
             }
             if (!entityStats.getRace().equals(ModValues.QUINCY))
@@ -108,7 +113,7 @@ public class QuincyEvents {
         if (event.getSource().getDirectEntity() != null)
         {
             if (event.getSource().getDirectEntity().level.getBiome(event.getSource().getDirectEntity().blockPosition()).getRegistryName().toString().equals("minecraft:the_void"))
-                event.setCanceled(true);
+                return;
             Entity killerEntity;
             if (event.getSource().getDirectEntity() instanceof AbilityProjectileEntity)
             {
@@ -127,31 +132,41 @@ public class QuincyEvents {
             if (!EntityStatsCapability.get(killerLivingEntity).getRace().equals(ModValues.QUINCY) || !EntityStatsCapability.get(killerLivingEntity).hasQuincyStats())
                 return;
 
-            IEntityStats killerStats = EntityStatsCapability.get(killerLivingEntity);
-            killerStats.getQuincyStats().alterClassExperience(amountToChange);
-            if (killerStats.getQuincyStats().getClassExperience() >= killerStats.getQuincyStats().getMaxClassExperience())
-            {
-                int amount = killerStats.getQuincyStats().getMaxClassExperience() - killerStats.getQuincyStats().getClassExperience();
-                killerStats.getQuincyStats().setExperiencePoints(0);
-                killerStats.getQuincyStats().alterClassExperience(amount);
-                killerStats.getQuincyStats().alterMaxClassExperience(50);
-                killerStats.getQuincyStats().alterClassPoints(1);
-                if (killerLivingEntity instanceof PlayerEntity) {
-                    PlayerEntity player = (PlayerEntity) killerLivingEntity;
-                    try
-                    {
-                        ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
-                        ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("quincy.quincy_point.text", "§bGained a class point"), player, 0);
-                        ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();;
-                    }
-
-
-                    PacketHandler.sendTo(new SSyncEntityStatsPacket(killerLivingEntity.getId(), killerStats), (PlayerEntity) killerLivingEntity);
+            ExperienceEvent experienceEvent = new ExperienceEvent(killerLivingEntity, amountToChange);
+            MinecraftForge.EVENT_BUS.post(experienceEvent);
+        }
+    }
+    @SubscribeEvent
+    public static void onExperienceChange(ExperienceEvent event)
+    {
+        LivingEntity killerLivingEntity = event.getEntityLiving();
+        IEntityStats killerStats = EntityStatsCapability.get(killerLivingEntity);
+        int amountToChange = event.getAmount();
+        if (!killerStats.hasQuincyStats())
+            return;
+        killerStats.getQuincyStats().alterClassExperience(amountToChange);
+        if (killerStats.getQuincyStats().getClassExperience() >= killerStats.getQuincyStats().getMaxClassExperience())
+        {
+            int amount = killerStats.getQuincyStats().getMaxClassExperience() - killerStats.getQuincyStats().getClassExperience();
+            killerStats.getQuincyStats().setExperiencePoints(0);
+            killerStats.getQuincyStats().alterClassExperience(amount);
+            killerStats.getQuincyStats().alterMaxClassExperience(50);
+            killerStats.getQuincyStats().alterClassPoints(1);
+            if (killerLivingEntity instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) killerLivingEntity;
+                try
+                {
+                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
+                    ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("quincy.quincy_point.text", "§bGained a class point"), player, 0);
+                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
                 }
+                catch (Exception e)
+                {
+                    e.printStackTrace();;
+                }
+
+
+                PacketHandler.sendTo(new SSyncEntityStatsPacket(killerLivingEntity.getId(), killerStats), (PlayerEntity) killerLivingEntity);
             }
         }
     }

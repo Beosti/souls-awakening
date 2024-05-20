@@ -55,6 +55,7 @@ public class KillHollowQuest extends Quest {
         entityStats.getShinigamiStats().setZanjutsuPoints(0);
         entityStats.setReiatsuPoints(0);
         entityStats.getShinigamiStats().setClassPoints(0);
+        entityStats.getShinigamiStats().alterClassExperience(entityStats.getStackedExperience());
         IMiscData miscData = MiscDataCapability.get(player);
         miscData.setCanRenderOverlay(true);
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);

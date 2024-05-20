@@ -26,6 +26,7 @@ public class EntityStatsCapability {
                 CompoundNBT props = new CompoundNBT();
                 props.putString("race", instance.getRace());
                 props.putString("rank", instance.getRank());
+                props.putInt("stackedExperience", instance.getStackedExperience());
                 if (instance.getRace().equals(ModValues.SHINIGAMI) && instance.hasShinigamiStats())
                     props.put("shinigami", instance.getShinigamiStats().save());
                 if (instance.getRace().equals(ModValues.HOLLOW) && instance.hasHollowStats())
@@ -44,6 +45,7 @@ public class EntityStatsCapability {
                 CompoundNBT props = (CompoundNBT) nbt;
                 instance.setRace(props.getString("race"));
                 instance.setRank(props.getString("rank"));
+                instance.setStackedExperience(props.getInt("stackedExperience"));
                 if (props.getString("race").equals(ModValues.SHINIGAMI)) {
                     CompoundNBT compoundNBT = props.getCompound("shinigami");
                     ShinigamiStats shinigamiStats = new ShinigamiStats();

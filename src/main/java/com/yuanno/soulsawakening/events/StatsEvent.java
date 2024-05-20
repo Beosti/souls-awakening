@@ -41,6 +41,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -132,6 +133,7 @@ public class StatsEvent {
             abilityData.addUnlockedAbility(HollowRegenerationAbility.INSTANCE);
             HollowStats hollowStats = new HollowStats();
             entityStats.setHollowStats(hollowStats);
+            //entityStats.getHollowStats().altermut
             miscData.setCanRenderOverlay(true);
         }
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
@@ -166,6 +168,17 @@ public class StatsEvent {
         PacketHandler.sendTo(new SSyncQuestDataPacket(player.getId(), questData), player);
     }
 
+    @SubscribeEvent
+    public static void onExperienceGain(PlayerXpEvent.XpChange event)
+    {
+        PlayerEntity player = event.getPlayer();
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (!entityStats.getRace().equals(ModValues.HUMAN))
+            return;
+        int amountToGive = event.getAmount() * 5;
+        entityStats.alterStackedExperience(amountToGive);
+        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
+    }
     public static void statsHandling(PlayerEntity player)
     {
         IEntityStats entityStats = EntityStatsCapability.get(player);

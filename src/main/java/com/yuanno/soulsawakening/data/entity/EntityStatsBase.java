@@ -8,6 +8,7 @@ public class EntityStatsBase implements IEntityStats {
 
     private String race = "";
     private String rank = "";
+    private int stackedExperience;
     private double reiatsuPoints;
     private ShinigamiStats shinigamiStats;
     private HollowStats hollowStats;
@@ -47,6 +48,24 @@ public class EntityStatsBase implements IEntityStats {
     public boolean hasRank()
     {
         return !rank.isEmpty();
+    }
+
+    @Override
+    public void setStackedExperience(int amount)
+    {
+        this.stackedExperience = amount;
+    }
+
+    @Override
+    public void alterStackedExperience(int amount)
+    {
+        this.stackedExperience += amount;
+    }
+
+    @Override
+    public int getStackedExperience()
+    {
+        return this.stackedExperience;
     }
 
     @Override
