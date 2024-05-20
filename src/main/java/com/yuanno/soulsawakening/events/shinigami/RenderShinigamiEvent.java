@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.events.shinigami;
 
 import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.client.renderers.overlay.HollowModelRenderer;
 import com.yuanno.soulsawakening.client.renderers.overlay.ZanpakutoOverlayRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -27,7 +28,6 @@ public class RenderShinigamiEvent {
                 EntityRenderer entityRenderer = entry.getValue();
                 if (entityRenderer instanceof LivingRenderer) {
                     LivingRenderer renderer = (LivingRenderer) entityRenderer;
-
                     renderer.addLayer(new ZanpakutoOverlayRenderer(renderer));
 
 

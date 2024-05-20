@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.events.hollow;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.abilities.hollow.CeroAbility;
 import com.yuanno.soulsawakening.abilities.hollow.GargantaAbility;
+import com.yuanno.soulsawakening.client.renderers.overlay.HollowModelRenderer;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -13,11 +14,13 @@ import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.models.hollow.ApeModel;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -29,6 +32,7 @@ import net.minecraft.network.play.server.SUpdateHealthPacket;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentUtils;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,6 +49,17 @@ public class HollowEvents {
     public static final ParticleEffect PARTICLES_WAVE_VASTO = new WaveParticleEffect(1.8);
 
 
+    @SubscribeEvent
+    public static void onHollowModelRendering(RenderPlayerEvent.Pre event)
+    {
+        PlayerEntity player = event.getPlayer();
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (entityStats.getRace().equals(ModValues.HOLLOW) && entityStats.getRank().equals(ModValues.BASE)) {
+            //HollowModelRenderer.render(event.getMatrixStack(), event.getBuffers(), event.getLight(), event.getEntityLiving(), 0, 0, 0, 0, 0, 0);
+            //player.
+            //event.setCanceled(true);
+        }
+    }
     /**
      * Updated all the hollow stat that needs to be updated if used in the player overview screen
      * @param event
