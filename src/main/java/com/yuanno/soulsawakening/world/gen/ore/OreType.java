@@ -6,7 +6,7 @@ import net.minecraftforge.common.util.Lazy;
 
 public enum OreType {
 
-    REISHI_ORE(Lazy.of(ModBlocks.REISHI_ORE), 3, 25, 50);
+    REISHI_ORE(Lazy.of(ModBlocks.REISHI_ORE), 3, 10, 50);
 
     private final Lazy<Block> block;
     private final int maxVeinSize;
