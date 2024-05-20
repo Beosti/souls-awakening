@@ -51,9 +51,9 @@ public class ThornsEntity extends HollowEntity implements IBleach {
         return MobEntity.createMobAttributes()
                 .add(Attributes.ATTACK_DAMAGE, 5)
                 .add(Attributes.ARMOR, 10)
-                .add(Attributes.MAX_HEALTH, 25)
-                .add(Attributes.FOLLOW_RANGE, 20)
-                .add(Attributes.MOVEMENT_SPEED, 0.285)
+                .add(Attributes.MAX_HEALTH, 35)
+                .add(Attributes.FOLLOW_RANGE, 75)
+                .add(Attributes.MOVEMENT_SPEED, 0.305)
                 .add(ModAttributes.ATTACK_RANGE.get(), 0.5)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
 
