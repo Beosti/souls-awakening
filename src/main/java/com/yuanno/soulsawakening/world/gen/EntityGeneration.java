@@ -34,7 +34,7 @@ public class EntityGeneration {
         ResourceLocation biomeName = event.getName();
         // hollow don't spawn in: ocean, river and soul society
         // spawns in hueco mundo
-        if (!biomeName.toString().equals("beach") && !biomeName.toString().contains("ocean") && !biomeName.toString().contains("river") && !biomeName.toString().equals("minecraft:the_void") && !biomeName.toString().equals("soulsawakening:soul_society") || biomeName.toString().equals("soulsawakening:hueco_mundo"))
+        if (!biomeName.toString().equals("beach") && !biomeName.toString().contains("ocean") && !biomeName.toString().contains("river") && !biomeName.toString().equals("minecraft:the_void") && !biomeName.toString().equals("soulsawakening:soul_society") && !biomeName.toString().equals("soulsawakening:soul_society_shadow") || biomeName.toString().equals("soulsawakening:hueco_mundo"))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.APE.get(), 3, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.SPIDER.get(), 3, 1, 1));
@@ -45,7 +45,7 @@ public class EntityGeneration {
         }
         // spirits, shinigami, traders don't spawn in: ocean, river and soul society
         // spawns in soul society
-        if (!biomeName.toString().equals("beach") && !biomeName.toString().contains("ocean") && !biomeName.toString().contains("river") && !biomeName.toString().equals("minecraft:the_void") && !biomeName.toString().equals("soulsawakening:hueco_mundo"))
+        if (!biomeName.toString().equals("beach") && !biomeName.toString().contains("ocean") && !biomeName.toString().contains("river") && !biomeName.toString().equals("minecraft:the_void") && !biomeName.toString().equals("soulsawakening:hueco_mundo") && !biomeName.toString().equals("soulsawakening:soul_society_shadow"))
         {
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.PLUS.get(), 20, 1, 1));
             event.getSpawns().addSpawn(EntityClassification.CREATURE, new MobSpawnInfo.Spawners(ModEntities.SHINIGAMI.get(), 20, 1, 1));

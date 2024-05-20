@@ -1,0 +1,12 @@
+{
+  "type": "soulsawakening:soul_society_shadow",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": -2048856837,
+    "settings": "minecraft:overworld",
+    "biome_source": {
+      "type": "minecraft:fixed",
+      "biome": "soulsawakening:soul_society_shadow"
+    }
+  }
+}

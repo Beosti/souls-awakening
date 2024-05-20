@@ -58,6 +58,8 @@ public class GargantaTeleporter implements ITeleporter {
                 ModAdvancements.HUECO_MUNDO.trigger((ServerPlayerEntity) player);
             else if (destinationWorld.dimension() == ModDimensions.SOUL_SOCIETY)
                 ModAdvancements.SOUL_SOCIETY.trigger((ServerPlayerEntity) player);
+            else if (destinationWorld.dimension() == ModDimensions.SOUL_SOCIETY_SHADOW)
+                ModAdvancements.SOUL_SOCIETY_SHADOW.trigger((ServerPlayerEntity) player);
         }
         //entity.teleportTo(destinationPos.getX(), destinationWorld.getHeightmapPos(Heightmap.Type.WORLD_SURFACE_WG, oldPos).getY(), destinationPos.getZ());
 

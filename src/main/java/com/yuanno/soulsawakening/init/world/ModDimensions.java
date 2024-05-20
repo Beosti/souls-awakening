@@ -13,6 +13,8 @@ public class ModDimensions {
             new ResourceLocation(Main.MODID, "hueco_mundo"));
     public static RegistryKey<World> SOUL_SOCIETY = RegistryKey.create(Registry.DIMENSION_REGISTRY,
             new ResourceLocation(Main.MODID, "soul_society"));
+    public static RegistryKey<World> SOUL_SOCIETY_SHADOW = RegistryKey.create(Registry.DIMENSION_REGISTRY,
+            new ResourceLocation(Main.MODID, "soul_society_shadow"));
     /*
     public static RegistryKey<World> TEST = RegistryKey.create(Registry.DIMENSION_REGISTRY,
             new ResourceLocation(Main.MODID, "test"));

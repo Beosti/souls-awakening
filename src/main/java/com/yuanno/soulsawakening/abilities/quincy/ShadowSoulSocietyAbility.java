@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.abilities.hollow;
+package com.yuanno.soulsawakening.abilities.quincy;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
@@ -10,14 +10,14 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class GargantaAbility extends Ability implements IRightClickAbility, ISelfEffect {
-    public static final GargantaAbility INSTANCE = new GargantaAbility();
-    public GargantaAbility()
+public class ShadowSoulSocietyAbility extends Ability implements IRightClickAbility, ISelfEffect {
+    public static final ShadowSoulSocietyAbility INSTANCE = new ShadowSoulSocietyAbility();
+    public ShadowSoulSocietyAbility()
     {
-        this.setName("Garganta");
-        this.setDescription("Teleports to and from Hueco Mundo");
+        this.setName("Shadow Soul Society Key");
+        this.setDescription("Teleports to and from the shadow of soul society");
         this.setMaxCooldown(50);
-        this.setSubCategory(SubCategory.ADJUCHA);
+        this.setSubCategory(SubCategory.REISHI);
     }
 
     @Override
@@ -27,16 +27,16 @@ public class GargantaAbility extends Ability implements IRightClickAbility, ISel
         MinecraftServer minecraftServer = world.getServer();
         if (minecraftServer == null)
             return;
-        if (world.dimension() == ModDimensions.HUECO_MUNDO) {
+        if (world.dimension() == ModDimensions.SOUL_SOCIETY_SHADOW) {
             ServerWorld overWorld = minecraftServer.getLevel(World.OVERWORLD);
             if (overWorld != null) {
                 player.changeDimension(overWorld, new GargantaTeleporter(player.blockPosition(), false));
                 return;
             }
         } else {
-            ServerWorld huecoMundo = minecraftServer.getLevel(ModDimensions.HUECO_MUNDO);
-            if (huecoMundo != null) {
-                player.changeDimension(huecoMundo, new GargantaTeleporter(player.blockPosition(), true));
+            ServerWorld shadowSociety = minecraftServer.getLevel(ModDimensions.SOUL_SOCIETY_SHADOW);
+            if (shadowSociety != null) {
+                player.changeDimension(shadowSociety, new GargantaTeleporter(player.blockPosition(), true));
 
                 return;
             }
@@ -49,4 +49,8 @@ public class GargantaAbility extends Ability implements IRightClickAbility, ISel
         return true;
     }
 
+    @Override
+    public boolean getAlt() {
+        return true;
+    }
 }

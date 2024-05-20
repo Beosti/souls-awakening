@@ -1,0 +1,28 @@
+{
+  "parent": "soulsawakening:dimensions/root",
+  "display": {
+    "icon": {
+      "ability": "soulsawakening:shadow_soul_society_key"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.dimensions.soul_society_shadow.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.dimensions.soul_society_shadow.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "soul_society_shadow": {
+      "trigger": "soulsawakening:soul_society_shadow"
+    }
+  },
+  "requirements": [
+    [
+      "soul_society_shadow"
+    ]
+  ]
+}

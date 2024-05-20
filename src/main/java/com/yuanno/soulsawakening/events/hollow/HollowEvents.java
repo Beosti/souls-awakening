@@ -110,8 +110,9 @@ public class HollowEvents {
             if (!EntityStatsCapability.get(attacker).hasHollowStats())
                 return;
             LivingEntity livingEntity = event.getEntityLiving();
-            // TODO if doing a challenge you don't get points
             if (!(livingEntity instanceof IBleach))
+                return;
+            if (!(livingEntity instanceof PlayerEntity))
                 return;
             if (((IBleach) livingEntity).getRace().equals(ModValues.HOLLOW))
                 handleHollowDeath(livingEntity, attacker);

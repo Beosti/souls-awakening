@@ -93,9 +93,11 @@
   "advancements.soulsawakening.dimensions.soul_society.title": "Soul society",
   "advancements.soulsawakening.dimensions.soul_society.description": "Welcome... to my soul society",
 
-  "advancements.soulsawakening.dimensions.hueco_mundo.title": "Hueco Mundo",
+  "advancements.soulsawakening.dimensions.hueco_mundo.title": "Hueco mundo",
   "advancements.soulsawakening.dimensions.hueco_mundo.description": "An endless dead desert...",
 
+  "advancements.soulsawakening.dimensions.soul_society_shadow.title": "Soul society shadow",
+  "advancements.soulsawakening.dimensions.souls_society_shadow.description": "Welcome to the shadow of soul society",
 
   "challenge.message.start_title": "Starting Challenge",
   "challenge.message.start_subtitle": "Please wait",
@@ -164,6 +166,8 @@
 
   "command.rank.not_shinigami": "Need to be a shinigami for this!",
   "command.rank.not_hollow": "Need to be a hollow for this!",
+  "command.rank.not_quincy": "Need to be a quincy for this!",
+
   "command.rank.success": "Changed rank",
 
   "command.stats.changed": "Succesfully changed the stat!",

@@ -87,7 +87,6 @@ public class WeaponChoiceScreen extends Screen {
             entityStats.getQuincyStats().setSpiritWeapon(item);
             PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
             PacketHandler.sendToServer(new CSAchievementSpiritWeaponPacket());
-            this.init();
             this.onClose();
         });
         itemButton.active = true;

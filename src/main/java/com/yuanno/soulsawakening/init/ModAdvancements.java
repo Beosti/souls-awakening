@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.init;
 import com.yuanno.soulsawakening.achievements.*;
 import com.yuanno.soulsawakening.achievements.dimensions.HuecoMundoTrigger;
 import com.yuanno.soulsawakening.achievements.dimensions.OverworldTrigger;
+import com.yuanno.soulsawakening.achievements.dimensions.SoulSocietyShadowTrigger;
 import com.yuanno.soulsawakening.achievements.dimensions.SoulSocietyTrigger;
 import com.yuanno.soulsawakening.achievements.hollow.AdjuchaTrigger;
 import com.yuanno.soulsawakening.achievements.hollow.GillianTrigger;
@@ -32,6 +33,7 @@ public class ModAdvancements {
     public static final OverworldTrigger OVERWORLD = new OverworldTrigger();
     public static final HuecoMundoTrigger HUECO_MUNDO = new HuecoMundoTrigger();
     public static final SoulSocietyTrigger SOUL_SOCIETY = new SoulSocietyTrigger();
+    public static final SoulSocietyShadowTrigger SOUL_SOCIETY_SHADOW = new SoulSocietyShadowTrigger();
 
     public static void register(IEventBus eventBus)
     {
@@ -50,5 +52,6 @@ public class ModAdvancements {
         CriteriaTriggers.register(OVERWORLD);
         CriteriaTriggers.register(HUECO_MUNDO);
         CriteriaTriggers.register(SOUL_SOCIETY);
+        CriteriaTriggers.register(SOUL_SOCIETY_SHADOW);
     }
 }

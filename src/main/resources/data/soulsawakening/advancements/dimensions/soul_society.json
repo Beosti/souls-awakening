@@ -2,7 +2,7 @@
   "parent": "soulsawakening:dimensions/root",
   "display": {
     "icon": {
-      "item": "soulsawakening:reishi_bricks"
+      "ability": "soulsawakening:soul_society_key"
     },
     "title": {
       "translate": "advancements.soulsawakening.dimensions.soul_society.title"

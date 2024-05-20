@@ -2,7 +2,7 @@
   "parent": "soulsawakening:dimensions/root",
   "display": {
     "icon": {
-      "item": "soulsawakening:hollow_sand"
+      "ability": "soulsawakening:garganta"
     },
     "title": {
       "translate": "advancements.soulsawakening.dimensions.hueco_mundo.title"

@@ -195,6 +195,8 @@ public class QuincyEvents {
         if (!(event.getEntityLiving() instanceof PlayerEntity))
             return;
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        if (player.level.isClientSide)
+            return;
         IEntityStats entityStats = EntityStatsCapability.get(player);
         if (!entityStats.getRace().equals(ModValues.QUINCY))
             return;
@@ -216,6 +218,7 @@ public class QuincyEvents {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         if (entityStats.getQuincyStats().getBlut() == 5) {
             abilityData.addUnlockedAbility(BlutStrengthAbility.INSTANCE);
+            abilityData.addUnlockedAbility(ShadowSoulSocietyAbility.INSTANCE);
             PacketHandler.sendTo(new SOpenWeaponChoiceScreenPacket(), player);
         }
         else if (entityStats.getQuincyStats().getBlut() == 10)
@@ -240,13 +243,6 @@ public class QuincyEvents {
             if (entityStats.getQuincyStats().getSpiritWeapon() instanceof ReishiSwordItem)
                 abilityData.addUnlockedAbility(SwordSlashAbility.INSTANCE);
         }
-        /*
-        if (!abilityData.getUnlockedAbilities().contains(BlutStrengthAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 10)
-            abilityData.addUnlockedAbility(BlutStrengthAbility.INSTANCE);
-        if (!abilityData.getUnlockedAbilities().contains(PiercingArrowAbility.INSTANCE) && entityStats.getQuincyStats().getBlut() == 15)
-            abilityData.addUnlockedAbility(PiercingArrowAbility.INSTANCE);
-
-         */
         PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
     }
 

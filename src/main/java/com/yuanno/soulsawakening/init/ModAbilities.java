@@ -54,6 +54,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.*;
+import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -75,7 +76,7 @@ public class ModAbilities {
     public static final Ability[] SHINIGAMI = new Ability[] {SoulSocietyKeyAbility.INSTANCE};
     public static final Ability[] HADO = new Ability[] {ShoAbility.INSTANCE, ByakuraiAbility.INSTANCE, ShakkahoAbility.INSTANCE, TsuzuriRaidenAbility.INSTANCE};
     public static final Ability[] BAKUDO = new Ability[] {SaiAbility.INSTANCE, HainawaAbility.INSTANCE, SekiAbility.INSTANCE};
-    public static final Ability[] QUINCY = new Ability[] {StrongArrowAbility.INSTANCE, PiercingArrowAbility.INSTANCE, BlutStrengthAbility.INSTANCE, ExplodingBobberAbility.INSTANCE, WeakeningBobberAbility.INSTANCE, SpearThrustAbility.INSTANCE, SpearStrikeAbility.INSTANCE, SwordSlashAbility.INSTANCE, SwordConcentrationAbility.INSTANCE};
+    public static final Ability[] QUINCY = new Ability[] {StrongArrowAbility.INSTANCE, PiercingArrowAbility.INSTANCE, BlutStrengthAbility.INSTANCE, ExplodingBobberAbility.INSTANCE, WeakeningBobberAbility.INSTANCE, SpearThrustAbility.INSTANCE, SpearStrikeAbility.INSTANCE, SwordSlashAbility.INSTANCE, SwordConcentrationAbility.INSTANCE, ShadowSoulSocietyAbility.INSTANCE};
     public static void register(IEventBus eventBus)
     {
         registerAbilities(DARK_ZANPAKUTO);

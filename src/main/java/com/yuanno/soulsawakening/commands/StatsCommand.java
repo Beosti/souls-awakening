@@ -26,6 +26,7 @@ public class StatsCommand {
 
     static ArrayList<String> shinigami = new ArrayList<>();
     static ArrayList<String> hollow = new ArrayList<>();
+    static ArrayList<String> quincy = new ArrayList<>();
 
     public static void register(CommandDispatcher<CommandSource> dispatcher)
     {
@@ -58,14 +59,23 @@ public class StatsCommand {
 
         suggestions.add("reiatsu");
 
+        suggestions.add("class");
+        shinigami.add("class");
+        quincy.add("class");
+
         suggestions.add("zanjutsu");
         shinigami.add("zanjutsu");
         suggestions.add("hoho");
         shinigami.add("hoho");
         suggestions.add("hakuda");
         shinigami.add("hakuda");
-        suggestions.add("class");
-        shinigami.add("class");
+
+        suggestions.add("blut");
+        quincy.add("blut");
+        suggestions.add("hirenkyaku");
+        quincy.add("hirenkyaku");
+        suggestions.add("constitution");
+        quincy.add("constitution");
 
         suggestions.add("hollow");
         hollow.add("hollow");
@@ -96,14 +106,19 @@ public class StatsCommand {
             return 1;
         }
 
-        if (shinigami.contains(stats) && !race.equals(ModValues.SHINIGAMI))
+        if (shinigami.contains(stats) && !hollow.contains(stats) && !quincy.contains(stats) && !race.equals(ModValues.SHINIGAMI))
         {
             commandSource.sendSuccess(new TranslationTextComponent("command.rank.not_shinigami"), true);
             return 0;
         }
-        else if (hollow.contains(stats) && !race.equals(ModValues.HOLLOW))
+        else if (hollow.contains(stats) && !shinigami.contains(stats) && !quincy.contains(stats) && !race.equals(ModValues.HOLLOW))
         {
             commandSource.sendSuccess(new TranslationTextComponent("command.rank.not_hollow"), true);
+            return 0;
+        }
+        else if (quincy.contains(stats) && !shinigami.contains(stats) && !hollow.contains(stats) && !race.equals(ModValues.QUINCY))
+        {
+            commandSource.sendSuccess(new TranslationTextComponent("command.rank.not_quincy"), true);
             return 0;
         }
 
@@ -121,7 +136,10 @@ public class StatsCommand {
                     entityStats.getShinigamiStats().alterHakudaPoints(amount);
                     break;
                 case ("class"):
-                    entityStats.getShinigamiStats().alterClassPoints(amount);
+                    if (entityStats.hasShinigamiStats())
+                        entityStats.getShinigamiStats().alterClassPoints(amount);
+                    else if (entityStats.hasQuincyStats())
+                        entityStats.getQuincyStats().alterClassPoints(amount);
                     break;
                 case ("hollow"):
                     entityStats.getHollowStats().alterHollowPoints(amount);
