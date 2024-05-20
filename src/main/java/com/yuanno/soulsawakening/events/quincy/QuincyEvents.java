@@ -216,8 +216,7 @@ public class QuincyEvents {
         if (entityStats.getQuincyStats().getBlut() == 5) {
             abilityData.addUnlockedAbility(BlutStrengthAbility.INSTANCE);
             abilityData.addUnlockedAbility(ShadowSoulSocietyAbility.INSTANCE);
-            // TODO fix
-            if (entityStats.getQuincyStats().getSpiritWeapon().getRegistryName().equals(ModItems.KOJAKU.get().getRegistryName()))
+            if (entityStats.getQuincyStats().getSpiritWeapon() instanceof KojakuItem)
                 PacketHandler.sendTo(new SOpenWeaponChoiceScreenPacket(), player);
         }
         else if (entityStats.getQuincyStats().getBlut() == 10)

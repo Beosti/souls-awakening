@@ -10,6 +10,7 @@ import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
 import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
+import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -67,8 +68,10 @@ public class RaceCommand {
             entityStats.setHollowStats(new HollowStats());
             entityStats.setRank(ModValues.BASE);
         }
-        if (race.equals(ModValues.QUINCY) && !entityStats.hasQuincyStats())
+        if (race.equals(ModValues.QUINCY) && !entityStats.hasQuincyStats()) {
             entityStats.setQuincyStats(new QuincyStats());
+            entityStats.getQuincyStats().setSpiritWeapon(ModItems.KOJAKU.get());
+        }
 
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
         PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
