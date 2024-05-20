@@ -21,10 +21,7 @@ import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
 import com.yuanno.soulsawakening.events.util.CustomArrowLooseEvent;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.items.DangleItem;
-import com.yuanno.soulsawakening.items.spiritweapon.GinreiKojaku;
-import com.yuanno.soulsawakening.items.spiritweapon.ReishiRodItem;
-import com.yuanno.soulsawakening.items.spiritweapon.ReishiSpearItem;
-import com.yuanno.soulsawakening.items.spiritweapon.ReishiSwordItem;
+import com.yuanno.soulsawakening.items.spiritweapon.*;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SOpenWeaponChoiceScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
@@ -219,7 +216,9 @@ public class QuincyEvents {
         if (entityStats.getQuincyStats().getBlut() == 5) {
             abilityData.addUnlockedAbility(BlutStrengthAbility.INSTANCE);
             abilityData.addUnlockedAbility(ShadowSoulSocietyAbility.INSTANCE);
-            PacketHandler.sendTo(new SOpenWeaponChoiceScreenPacket(), player);
+            // TODO fix
+            if (entityStats.getQuincyStats().getSpiritWeapon().getRegistryName().equals(ModItems.KOJAKU.get().getRegistryName()))
+                PacketHandler.sendTo(new SOpenWeaponChoiceScreenPacket(), player);
         }
         else if (entityStats.getQuincyStats().getBlut() == 10)
         {

@@ -96,6 +96,12 @@ public class WeaponChoiceScreen extends Screen {
     }
 
     @Override
+    public void onClose() {
+        System.out.println("CLOSED");
+        super.onClose();
+    }
+
+    @Override
     public void render(MatrixStack matrixStack, int x, int y, float f)
     {
         this.renderBackground(matrixStack);
