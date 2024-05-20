@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import java.io.Serializable;
 
 /**
- * Base class for all abilities, same for all (kido) spells
+ * Base class for all abilities
  *
  */
 public class Ability extends ForgeRegistryEntry<Ability> {

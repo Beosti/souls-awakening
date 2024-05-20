@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.wind;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.IDuringCooldownAbility;
+import com.yuanno.soulsawakening.ability.api.interfaces.IDuringCooldownAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
 import com.yuanno.soulsawakening.api.AbilityDamageSource;
