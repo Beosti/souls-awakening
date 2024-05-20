@@ -1,24 +1,27 @@
 package com.yuanno.soulsawakening.abilities.quincy;
 
 import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
-public class BlutStrengthAbility extends Ability implements IRightClickAbility, ISelfEffect {
+public class BlutStrengthAbility extends Ability implements IRightClickAbility, IContinuousAbility {
     public static final BlutStrengthAbility INSTANCE = new BlutStrengthAbility();
-    public static final EffectInstance DAMAGE_BOOST = new EffectInstance(Effects.DAMAGE_BOOST, 400, 1);
-    public static final EffectInstance ATTACK_SPEED = new EffectInstance(Effects.DIG_SPEED, 400, 1);
-    public static final EffectInstance MOVEMENT_SPEED = new EffectInstance(Effects.MOVEMENT_SPEED, 400, 1);
 
-    List<EffectInstance> effectInstances = new ArrayList<>(
-            Arrays.asList(DAMAGE_BOOST, ATTACK_SPEED, MOVEMENT_SPEED)
-    );
+    AttributeModifier damageModifier = new AttributeModifier(UUID.fromString("009a2b14-16e2-11ef-9262-0242ac120002"), "Blut damage", 5, AttributeModifier.Operation.ADDITION);
+    AttributeModifier attackSpeedModifier = new AttributeModifier(UUID.fromString("fe7e8186-16e1-11ef-9262-0242ac120002"), "Blut attack speed", 1, AttributeModifier.Operation.ADDITION);
+    AttributeModifier movementSpeedModifier = new AttributeModifier(UUID.fromString("fbb32fc4-16e1-11ef-9262-0242ac120002"), "Blut movement", 0.2, AttributeModifier.Operation.ADDITION);
+
     public BlutStrengthAbility()
     {
         this.setName("Blut Strength");
@@ -28,7 +31,24 @@ public class BlutStrengthAbility extends Ability implements IRightClickAbility, 
     }
 
     @Override
-    public ArrayList<EffectInstance> getEffectInstances() {
-        return (ArrayList<EffectInstance>) effectInstances;
+    public int getMaxTimer() {
+        return 400;
+    }
+
+    @Override
+    public boolean startContinuity(PlayerEntity player) {
+        player.getAttribute(Attributes.ATTACK_DAMAGE).addTransientModifier(damageModifier);
+        player.getAttribute(Attributes.ATTACK_SPEED).addTransientModifier(attackSpeedModifier);
+        player.getAttribute(Attributes.MOVEMENT_SPEED).addTransientModifier(movementSpeedModifier);
+        return true;
+    }
+
+    @Override
+    public boolean endContinuity(PlayerEntity player) {
+        player.getAttribute(Attributes.ATTACK_DAMAGE).removeModifier(damageModifier);
+        player.getAttribute(Attributes.ATTACK_SPEED).removeModifier(attackSpeedModifier);
+        player.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(movementSpeedModifier);
+
+        return true;
     }
 }

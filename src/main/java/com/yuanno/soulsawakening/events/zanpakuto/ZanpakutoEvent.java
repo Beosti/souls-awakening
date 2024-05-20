@@ -262,8 +262,8 @@ public class ZanpakutoEvent {
             return ModValues.HEAL;
         else if (elementCounts.get(ModValues.NORMAL) >= 2 && elementCounts.get(ModValues.DARK) >= 2)
             return ModValues.LUNAR;
-        else if (elementCounts.get(ModValues.WIND) >= 2 && elementCounts.get(ModValues.NORMAL) >= 2)
-            return ModValues.SHINSO;
+        //else if (elementCounts.get(ModValues.WIND) >= 2 && elementCounts.get(ModValues.NORMAL) >= 2)
+        //    return ModValues.SHINSO;
         // Initialize variables to track the most probable element and its probability
         String mostProbableElement = null;
         double maxProbability = 0.0;

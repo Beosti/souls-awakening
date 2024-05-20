@@ -52,6 +52,8 @@ public class RightClickAbilityEvents {
         PacketHandler.sendToServer(new CRightClickEmptyPacket());
     }
 
+    // TODO when using a targeted ability to entity you also use self abilities fix that
+
     @SubscribeEvent
     public static void onRightClickInteraction(PlayerInteractEvent.EntityInteract event)
     {
@@ -70,7 +72,7 @@ public class RightClickAbilityEvents {
     }
 
     @SubscribeEvent
-    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event)
+    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event, PlayerInteractEvent.EntityInteract eventSecond)
     {
         if (event.getPlayer().level.isClientSide)
             return;
@@ -145,7 +147,6 @@ public class RightClickAbilityEvents {
             if (!(ability instanceof IReleaseArrow))
                 MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
             AbilityUseEvent.Post abilityUseEventPost;
-            // todo make the target also pass by this event
             if (ability instanceof IEntityRayTrace)
                 abilityUseEventPost = new AbilityUseEvent.Post(player, ability, ((IEntityRayTrace) ability).getLivingEntity(player));
             else

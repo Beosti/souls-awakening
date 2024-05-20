@@ -80,8 +80,9 @@ public class AbilityEvents {
             ((IBlockRayTrace) ability).onBlockRayTrace(player, ability);
         if (ability instanceof IParticleEffect)
             ((IParticleEffect) ability).spawnParticles(player);
-        if (ability instanceof ISelfEffect)
+        if (ability instanceof ISelfEffect) {
             ((ISelfEffect) ability).applyEffect(player, ability);
+        }
         if (ability instanceof IAttackAbility)
         {
             LivingEntity target = event.getTarget();
