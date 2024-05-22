@@ -72,7 +72,7 @@ public class RightClickAbilityEvents {
     }
 
     @SubscribeEvent
-    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event, PlayerInteractEvent.EntityInteract eventSecond)
+    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event)
     {
         if (event.getPlayer().level.isClientSide)
             return;
