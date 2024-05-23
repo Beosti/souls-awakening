@@ -2,6 +2,9 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.items.*;
+import com.yuanno.soulsawakening.items.armor.shinigami.ShinigamiChestItem;
+import com.yuanno.soulsawakening.items.armor.shinigami.ShinigamiPantsItem;
+import com.yuanno.soulsawakening.items.armor.shinigami.ShinigamiSandalsItem;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.items.misc.ReishiItem;
 import com.yuanno.soulsawakening.items.misc.ReishiIngotItem;
@@ -36,4 +39,8 @@ public class ModItems {
     public static final RegistryObject<Item> TRIDENT_REISHI = ITEMS.register("trident_reishi", ReishiTridentItem::new);
     public static final RegistryObject<Item> SWORD_REISHI = ITEMS.register("sword_reishi", ReishiSwordItem::new);
 
+    // ARMORS
+    public static final RegistryObject<Item> SHINIGAMI_SANDALS = ITEMS.register("shinigami_sandals", ShinigamiSandalsItem::new);
+    public static final RegistryObject<Item> SHINIGAMI_PANTS = ITEMS.register("shinigami_pants", ShinigamiPantsItem::new);
+    public static final RegistryObject<Item> SHINIGAMI_CHEST = ITEMS.register("shinigami_chest", ShinigamiChestItem::new);
 }
