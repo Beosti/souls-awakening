@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.data.entity;
 import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
 import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
 import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
+import com.yuanno.soulsawakening.init.ModValues;
 
 public class EntityStatsBase implements IEntityStats {
 
@@ -129,5 +130,27 @@ public class EntityStatsBase implements IEntityStats {
     @Override
     public QuincyStats getQuincyStats() {
         return this.quincyStats;
+    }
+
+    @Override
+    public int getSpeedStat()
+    {
+        if (this.race.equals(ModValues.HOLLOW))
+        {
+            HollowStats hollowStats = this.hollowStats;
+            return hollowStats.getAgility();
+        }
+        else if (this.race.equals(ModValues.SHINIGAMI) || this.race.equals(ModValues.FULLBRINGER))
+        {
+            ShinigamiStats shinigamiStats = this.shinigamiStats;
+            return (int) shinigamiStats.getHohoPoints();
+        }
+        else if (this.race.equals(ModValues.QUINCY))
+        {
+            QuincyStats quincyStats = this.quincyStats;
+            return quincyStats.getHirenkyaku();
+        }
+        else
+            return 0;
     }
 }

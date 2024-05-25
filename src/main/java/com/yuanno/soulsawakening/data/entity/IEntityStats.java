@@ -39,4 +39,6 @@ public interface IEntityStats {
     boolean hasQuincyStats();
 
     QuincyStats getQuincyStats();
+
+    int getSpeedStat();
 }

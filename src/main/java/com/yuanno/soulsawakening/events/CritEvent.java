@@ -8,21 +8,29 @@ import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Random;
+
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class CritEvent {
 
     @SubscribeEvent
     public static void onCrit(CriticalHitEvent event)
     {
-        if (event.getEntityLiving().level.isClientSide)
+        if (event.getTarget().level.isClientSide)
             return;
         IEntityStats entityStats = EntityStatsCapability.get(event.getEntityLiving());
-        int speedStat = entityStats.get
-        System.out.println("CRIT LANDED");
-        System.out.println("Target: " + event.getTarget());
-        System.out.println("Attacker: " + event.getEntityLiving());
-        System.out.println("Current modifier: " + event.getDamageModifier());
-        System.out.println("Old modifier: " + event.getOldDamageModifier());
-        event.setResult(Event.Result.DENY);
+        int speedStat = entityStats.getSpeedStat();
+        int critChance = (int) speedStat / 2;
+        int critDamage = speedStat;
+        Random random = new Random();
+        int chance = random.nextInt(100) + 1;
+        if (chance < critChance)
+        {
+            event.setDamageModifier(critDamage);
+            event.setResult(Event.Result.ALLOW);
+        }
+        else {
+            event.setResult(Event.Result.DENY);
+        }
     }
 }
