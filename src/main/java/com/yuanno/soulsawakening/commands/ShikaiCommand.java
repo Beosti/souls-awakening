@@ -76,7 +76,7 @@ public class ShikaiCommand {
         suggestions.add(ModValues.ELEMENT.POISON.name());
         suggestions.add(ModValues.ELEMENT.WATER.name());
         suggestions.add(ModValues.ELEMENT.WIND.name());
-        suggestions.add(ModValues.ELEMENT.SHINSO.name());
+        //suggestions.add(ModValues.ELEMENT.SHINSO.name());
 
         return ISuggestionProvider.suggest(suggestions.stream(), builder);
     };

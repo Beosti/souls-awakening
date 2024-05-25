@@ -5,9 +5,13 @@ import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
+import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
+import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
+import com.yuanno.soulsawakening.init.ModConfig;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.client.*;
@@ -57,12 +61,21 @@ public class PlayerOverviewScreen extends Screen {
         int posY = (this.height - 256) / 2;
         int leftShift = posX - 75;
 
-        if (entityStats.getRace().equals(ModValues.SHINIGAMI))
-            handleShinigamiInit();
-        if (entityStats.getRace().equals(ModValues.HOLLOW))
+        if (entityStats.getRace().equals(ModValues.SHINIGAMI)) {
+            ShinigamiStats shinigamiStats = entityStats.getShinigamiStats();
+            int totalPoints = (int) (shinigamiStats.getHakudaPoints() + shinigamiStats.getHohoPoints() + shinigamiStats.getHohoPoints() + entityStats.getReiatsuPoints());
+            if (ModConfig.stat_limit.get() > totalPoints)
+                handleShinigamiInit();
+        }
+        if (entityStats.getRace().equals(ModValues.HOLLOW)) {
             handleHollowInit();
-        if (entityStats.getRace().equals(ModValues.QUINCY))
-            handleQuincyInit();
+        }
+        if (entityStats.getRace().equals(ModValues.QUINCY)) {
+            QuincyStats quincyStats = entityStats.getQuincyStats();
+            int totalPoints = (int) (quincyStats.getBlut() + quincyStats.getHirenkyaku() + quincyStats.getConstitution() + entityStats.getReiatsuPoints());
+            if (ModConfig.stat_limit.get() > totalPoints)
+                handleQuincyInit();
+        }
         this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 252, posY + 117, 60, 20, new TranslationTextComponent("Challenges"), b ->
         {
             PacketHandler.sendToServer(new COpenChallengeScreenPacket());
@@ -146,54 +159,58 @@ public class PlayerOverviewScreen extends Screen {
         int posY = (this.height - 256) / 2;
         int leftShift = posX + 120;
 
-        // reiatsu point
-        this.addButton(new Button(leftShift - 75, posY + 104, 8, 8, new TranslationTextComponent("+"), b ->
-        {
-            entityStats.getHollowStats().alterMutationPoints(-1);
-            entityStats.alterReiatsuPoints(1);
-            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
-            this.init();
-        }, ((button, matrixStack, mouseX, mouseY) ->
-        {
-            if (button.isHovered())
-                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.reiatsu.button"), mouseX, mouseY);
-        }))).active = this.entityStats.getHollowStats().getMutationPoints() > 0;
-        // constitution point
-        this.addButton(new Button(leftShift - 75, posY + 59, 8, 8, new TranslationTextComponent("+"), b ->
-        {
-            entityStats.getHollowStats().alterMutationPoints(-1);
-            entityStats.getHollowStats().alterConstitution(1);
-            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
-            this.init();
-        }, ((button, matrixStack, mouseX, mouseY) ->
-        {
-            if (button.isHovered())
-                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.constitution.button"), mouseX, mouseY);
-        }))).active = this.entityStats.getHollowStats().getMutationPoints() > 0;
-        // hierro point
-        this.addButton(new Button(leftShift - 75, posY + 74, 8, 8, new TranslationTextComponent("+"), b ->
-        {
-            entityStats.getHollowStats().alterMutationPoints(-1);
-            entityStats.getHollowStats().alterHierro(1);
-            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
-            this.init();
-        }, ((button, matrixStack, mouseX, mouseY) ->
-        {
-            if (button.isHovered())
-                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.hierro.button"), mouseX, mouseY);
-        }))).active = this.entityStats.getHollowStats().getMutationPoints() > 0;
-        // agility point
-        this.addButton(new Button(leftShift - 75, posY + 89, 8, 8, new TranslationTextComponent("+"), b ->
-        {
-            entityStats.getHollowStats().alterMutationPoints(-1);
-            entityStats.getHollowStats().alterAgility(1);
-            PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
-            this.init();
-        }, ((button, matrixStack, mouseX, mouseY) ->
-        {
-            if (button.isHovered())
-                this.renderTooltip(matrixStack, new TranslationTextComponent("gui.agility.button"), mouseX, mouseY);
-        }))).active = this.entityStats.getHollowStats().getMutationPoints() > 0;
+        HollowStats hollowStats = entityStats.getHollowStats();
+        int totalPoints = (int) (hollowStats.getAgility() + hollowStats.getConstitution() + hollowStats.getHierro() + entityStats.getReiatsuPoints());
+        if (ModConfig.stat_limit.get() > totalPoints)
+        {// reiatsu point
+            this.addButton(new Button(leftShift - 75, posY + 104, 8, 8, new TranslationTextComponent("+"), b ->
+            {
+                entityStats.getHollowStats().alterMutationPoints(-1);
+                entityStats.alterReiatsuPoints(1);
+                PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+                this.init();
+            }, ((button, matrixStack, mouseX, mouseY) ->
+            {
+                if (button.isHovered())
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("gui.reiatsu.button"), mouseX, mouseY);
+            }))).active = this.entityStats.getHollowStats().getMutationPoints() > 0;
+            // constitution point
+            this.addButton(new Button(leftShift - 75, posY + 59, 8, 8, new TranslationTextComponent("+"), b ->
+            {
+                entityStats.getHollowStats().alterMutationPoints(-1);
+                entityStats.getHollowStats().alterConstitution(1);
+                PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+                this.init();
+            }, ((button, matrixStack, mouseX, mouseY) ->
+            {
+                if (button.isHovered())
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("gui.constitution.button"), mouseX, mouseY);
+            }))).active = this.entityStats.getHollowStats().getMutationPoints() > 0;
+            // hierro point
+            this.addButton(new Button(leftShift - 75, posY + 74, 8, 8, new TranslationTextComponent("+"), b ->
+            {
+                entityStats.getHollowStats().alterMutationPoints(-1);
+                entityStats.getHollowStats().alterHierro(1);
+                PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+                this.init();
+            }, ((button, matrixStack, mouseX, mouseY) ->
+            {
+                if (button.isHovered())
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("gui.hierro.button"), mouseX, mouseY);
+            }))).active = this.entityStats.getHollowStats().getMutationPoints() > 0;
+            // agility point
+            this.addButton(new Button(leftShift - 75, posY + 89, 8, 8, new TranslationTextComponent("+"), b ->
+            {
+                entityStats.getHollowStats().alterMutationPoints(-1);
+                entityStats.getHollowStats().alterAgility(1);
+                PacketHandler.sendToServer(new CSyncentityStatsPacket(entityStats));
+                this.init();
+            }, ((button, matrixStack, mouseX, mouseY) ->
+            {
+                if (button.isHovered())
+                    this.renderTooltip(matrixStack, new TranslationTextComponent("gui.agility.button"), mouseX, mouseY);
+            }))).active = this.entityStats.getHollowStats().getMutationPoints() > 0;
+        }
 
 
         // evolution button
@@ -213,7 +230,7 @@ public class PlayerOverviewScreen extends Screen {
             {
                 this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution.active"), mouseX, mouseY);
             }
-        })).active = entityStats.getHollowStats().getHollowPoints() >= 50 && !(entityStats.getRank().equals(ModValues.VASTO_LORDE));
+        })).active = entityStats.getHollowStats().getHollowPoints() >= ModConfig.hollow_evolution.get() && !(entityStats.getRank().equals(ModValues.VASTO_LORDE));
     }
 
     void handleQuincyInit()

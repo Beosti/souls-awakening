@@ -132,16 +132,18 @@ public class ZanpakutoEvent {
             event.getPlayer().sendMessage(new StringTextComponent("Cannot reach shikai in this state!"), Util.NIL_UUID);
             return;
         }
-
-        if (entityStats.getShinigamiStats().getZanjutsuPoints() < 20) {
-            event.getPlayer().sendMessage(new StringTextComponent("Need to have at least 20 Zanjutsu points!"), Util.NIL_UUID);
+        if (entityStats.getShinigamiStats().getZanjutsuPoints() < ModConfig.zanpakuto_zanjutsu.get()) {
+            String zanpakutoZanjutsuMessageString = String.format("Need to have at least %s Zanjutsu points!", ModConfig.zanpakuto_zanjutsu.get());
+            event.getPlayer().sendMessage(new StringTextComponent(zanpakutoZanjutsuMessageString), Util.NIL_UUID);
             return;
         }
-        int elementalPoints = zanpakutoItem.getTag().getInt("element");
-        if (elementalPoints < 5)
+        if (ModConfig.zanpakuto_unlock.get().equals(ModConfig.ModConfigValues.KILLHOLLOW))
         {
-            event.getPlayer().sendMessage(new StringTextComponent("Need to have at least 5 elemental points! You get them by killing hollows"), Util.NIL_UUID);
-            return;
+            int elementalPoints = zanpakutoItem.getTag().getInt("element");
+            if (elementalPoints < 5) {
+                event.getPlayer().sendMessage(new StringTextComponent("Need to have at least 5 elemental points! You get them by killing hollows"), Util.NIL_UUID);
+                return;
+            }
         }
         String element = zanpakutoItem.getTag().getString("zanpakutoElement");
         if (element.isEmpty())
@@ -165,7 +167,13 @@ public class ZanpakutoEvent {
             int firePoints = zanpakutoItem.getTag().getInt(ModValues.FIRE);
             elementalPointsHash.put(ModValues.FIRE, firePoints);
 
-            String elementChosen = calculateMostProbableElement(elementalPointsHash);
+            String elementChosen;
+            if (ModConfig.zanpakuto_unlock.get().equals(ModConfig.ModConfigValues.KILLHOLLOW))
+                elementChosen = calculateMostProbableElement(elementalPointsHash);
+            else if (ModConfig.zanpakuto_unlock.get().equals(ModConfig.ModConfigValues.RANDOM))
+                elementChosen = ModValues.ELEMENT.getRandomElementString();
+            else
+                elementChosen = ModValues.ELEMENT.getRandomElementString();
             CompoundNBT tagCompound = zanpakutoItem.getTag();
             tagCompound.putString("zanpakutoElement", elementChosen.toUpperCase());
             zanpakutoItem.setTag(tagCompound);

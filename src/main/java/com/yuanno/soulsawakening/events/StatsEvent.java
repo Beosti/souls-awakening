@@ -18,10 +18,7 @@ import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.data.teleports.ITeleports;
 import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
-import com.yuanno.soulsawakening.init.ModAdvancements;
-import com.yuanno.soulsawakening.init.ModChallenges;
-import com.yuanno.soulsawakening.init.ModParticleTypes;
-import com.yuanno.soulsawakening.init.ModValues;
+import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.*;
@@ -96,7 +93,7 @@ public class StatsEvent {
                 entityStats.setRace(ModValues.SPIRIT);
                 ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
                 ModAdvancements.SPIRIT.trigger((ServerPlayerEntity) player);
-                miscData.setSpiritChain(400);
+                miscData.setSpiritChain(ModConfig.spirit_chain.get());
             }
 
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);

@@ -72,7 +72,7 @@ public class ModValues {
 
     public static final int MAX_DIFFICULTY_STARS = 15;
     public enum ELEMENT {
-        NONE, DARK, FIRE, HEAL, LIGHTNING, LUNAR, NORMAL, POISON, WATER, WIND, SHINSO;
+        NONE, DARK, FIRE, HEAL, LIGHTNING, LUNAR, NORMAL, POISON, WATER, WIND;
 
         public static ELEMENT getRandomElement() {
             Random random = new Random();
@@ -85,6 +85,19 @@ public class ModValues {
             } while (elements[index] == NONE);
 
             return elements[index];
+        }
+
+        public static String getRandomElementString() {
+            Random random = new Random();
+            ELEMENT[] elements = values();
+
+            // Exclude NONE from the random selection
+            int index;
+            do {
+                index = random.nextInt(elements.length);
+            } while (elements[index] == NONE);
+
+            return elements[index].toString().toLowerCase();
         }
     }
 
