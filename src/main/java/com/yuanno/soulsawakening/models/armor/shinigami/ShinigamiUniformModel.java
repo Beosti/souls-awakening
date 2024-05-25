@@ -13,7 +13,7 @@ public class ShinigamiUniformModel<T extends LivingEntity> extends BipedModel<T>
 	private final ModelRenderer shinigamiuniform;
 	private final ModelRenderer shinigamiuniformhead;
 	private final ModelRenderer shinigamiuniformbody;
-	private final ModelRenderer belt;
+	private final ModelRenderer shinigamiuniformbelt;
 	private final ModelRenderer leftbandsection1;
 	private final ModelRenderer leftbandsection2;
 	private final ModelRenderer leftbandsection3;
@@ -34,7 +34,7 @@ public class ShinigamiUniformModel<T extends LivingEntity> extends BipedModel<T>
 
 		shinigamiuniform = new ModelRenderer(this);
 		shinigamiuniform.setPos(0.0F, 24.0F, 0.0F);
-		
+
 
 		shinigamiuniformhead = new ModelRenderer(this);
 		shinigamiuniformhead.setPos(0.0F, -24.0F, 0.0F);
@@ -46,14 +46,14 @@ public class ShinigamiUniformModel<T extends LivingEntity> extends BipedModel<T>
 		shinigamiuniform.addChild(shinigamiuniformbody);
 		shinigamiuniformbody.texOffs(100, 94).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, 0.3F, false);
 
-		belt = new ModelRenderer(this);
-		belt.setPos(0.0F, -0.25F, 0.0F);
-		shinigamiuniformbody.addChild(belt);
-		belt.texOffs(100, 88).addBox(-4.0F, 11.0F, -2.0F, 8.0F, 1.0F, 4.0F, 0.33F, false);
+		shinigamiuniformbelt = new ModelRenderer(this);
+		shinigamiuniformbelt.setPos(0.0F, -24.25F, 0.0F);
+		shinigamiuniform.addChild(shinigamiuniformbelt);
+		shinigamiuniformbelt.texOffs(100, 88).addBox(-4.0F, 11.0F, -2.0F, 8.0F, 1.0F, 4.0F, 0.33F, false);
 
 		leftbandsection1 = new ModelRenderer(this);
 		leftbandsection1.setPos(1.1F, 11.25F, -2.325F);
-		belt.addChild(leftbandsection1);
+		shinigamiuniformbelt.addChild(leftbandsection1);
 		setRotationAngle(leftbandsection1, -0.1309F, 0.0F, -0.0873F);
 		leftbandsection1.texOffs(113, 79).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 2.0F, 0.0F, 0.0F, false);
 
@@ -71,7 +71,7 @@ public class ShinigamiUniformModel<T extends LivingEntity> extends BipedModel<T>
 
 		rightbandsection1 = new ModelRenderer(this);
 		rightbandsection1.setPos(-1.1F, 11.25F, -2.325F);
-		belt.addChild(rightbandsection1);
+		shinigamiuniformbelt.addChild(rightbandsection1);
 		setRotationAngle(rightbandsection1, -0.1309F, 0.0F, 0.0873F);
 		rightbandsection1.texOffs(107, 79).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 2.0F, 0.0F, 0.0F, true);
 
@@ -115,8 +115,7 @@ public class ShinigamiUniformModel<T extends LivingEntity> extends BipedModel<T>
 		shinigamiuniformrightboot = new ModelRenderer(this);
 		shinigamiuniformrightboot.setPos(-1.9F, -12.0F, 0.0F);
 		shinigamiuniform.addChild(shinigamiuniformrightboot);
-		shinigamiuniformrightboot.texOffs(77, 77).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.26F, false);
-	}
+		shinigamiuniformrightboot.texOffs(77, 77).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, 0.26F, false);	}
 
 	@Override
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
