@@ -53,14 +53,21 @@ public class TradingScreen extends Screen {
         super.init();
         int posX = this.width / 2;
         int posY = this.height / 2;
-        addBuyButton(posX - 45, posY - 73, Items.DIAMOND, 150);
-        addBuyButton(posX - 45, posY - 55, Items.IRON_INGOT, 10);
-        addBuyButton(posX - 45, posY - 37, Items.COAL, 1);
-        addBuyButton(posX - 45, posY - 19, Items.GOLD_INGOT, 20);
-        addBuyButton(posX + 105, posY - 73, ModItems.REISHI_INGOT.get(), 100);
-        addBuyButton(posX + 105, posY - 55, ModItems.DANGLE.get(), 175);
-        addBuyButton(posX + 105, posY - 37, ModItems.SHINAI.get(), 15);
-        addBuyButton(posX + 105, posY - 19, ModItems.REISHI.get(), 30);
+        addBuyButton(posX - 125, posY - 93, Items.DIAMOND, 150);
+        addBuyButton(posX - 125, posY - 75, Items.IRON_INGOT, 10);
+        addBuyButton(posX - 125, posY - 57, Items.COAL, 1);
+        addBuyButton(posX - 125, posY - 39, Items.GOLD_INGOT, 20);
+        addBuyButton(posX - 25, posY - 93, ModItems.REISHI_INGOT.get(), 100);
+        addBuyButton(posX - 25, posY - 75, ModItems.DANGLE.get(), 175);
+        addBuyButton(posX - 25, posY - 57, ModItems.SHINAI.get(), 15);
+        addBuyButton(posX - 25, posY - 39, ModItems.REISHI.get(), 30);
+        addBuyButton(posX + 75, posY - 93, ModItems.CAPTAIN_CAPE.get(), 100);
+        addBuyButton(posX + 75, posY - 75, ModItems.SHINIGAMI_CHEST.get(), 175);
+        addBuyButton(posX + 75, posY - 57, ModItems.SHINIGAMI_PANTS.get(), 100);
+        addBuyButton(posX + 75, posY - 39, ModItems.SHINIGAMI_SANDALS.get(), 75);
+        addBuyButton(posX + 175, posY - 93, ModItems.ROGUE_CAPE.get(), 150);
+        addBuyButton(posX + 175, posY - 75, ModItems.ROGUE_CHEST.get(), 200);
+
 
         //System.out.println(buttons);
     }

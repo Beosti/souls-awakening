@@ -25,7 +25,7 @@ public class ModItemGroup {
     public static final ItemGroup SOULS_AWAKENING_ARMOR = new ItemGroup("soulsawakeningModTabArmors") {
         @Override
         public ItemStack makeIcon() {
-            return new ItemStack(ModItems.REISHI.get());
+            return new ItemStack(ModItems.ROGUE_CHEST.get());
         }
     };
 }

@@ -2,6 +2,9 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.items.*;
+import com.yuanno.soulsawakening.items.armor.rogue.RogueCapeItem;
+import com.yuanno.soulsawakening.items.armor.rogue.RogueChestItem;
+import com.yuanno.soulsawakening.items.armor.shinigami.CaptainCapeItem;
 import com.yuanno.soulsawakening.items.armor.shinigami.ShinigamiChestItem;
 import com.yuanno.soulsawakening.items.armor.shinigami.ShinigamiPantsItem;
 import com.yuanno.soulsawakening.items.armor.shinigami.ShinigamiSandalsItem;
@@ -40,7 +43,13 @@ public class ModItems {
     public static final RegistryObject<Item> SWORD_REISHI = ITEMS.register("sword_reishi", ReishiSwordItem::new);
 
     // ARMORS
+    // shinigami
     public static final RegistryObject<Item> SHINIGAMI_SANDALS = ITEMS.register("shinigami_sandals", ShinigamiSandalsItem::new);
     public static final RegistryObject<Item> SHINIGAMI_PANTS = ITEMS.register("shinigami_pants", ShinigamiPantsItem::new);
     public static final RegistryObject<Item> SHINIGAMI_CHEST = ITEMS.register("shinigami_chest", ShinigamiChestItem::new);
+    public static final RegistryObject<Item> CAPTAIN_CAPE = ITEMS.register("captain_cape", CaptainCapeItem::new);
+    // rogue
+    public static final RegistryObject<Item> ROGUE_CHEST = ITEMS.register("rogue_chest", RogueChestItem::new);
+    public static final RegistryObject<Item> ROGUE_CAPE = ITEMS.register("rogue_cape", RogueCapeItem::new);
+
 }
