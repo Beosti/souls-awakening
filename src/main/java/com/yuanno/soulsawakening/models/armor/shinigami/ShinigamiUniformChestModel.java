@@ -16,9 +16,6 @@ public class ShinigamiUniformChestModel<T extends LivingEntity> extends BipedMod
 	private final ModelRenderer shinigamiuniformrightarm;
 	private final ModelRenderer shinigamiuniformleftarm;
 
-
-
-
 	public ShinigamiUniformChestModel() {
         super(1);
         texWidth = 128;
