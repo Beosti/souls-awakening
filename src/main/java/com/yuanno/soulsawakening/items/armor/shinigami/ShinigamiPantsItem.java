@@ -37,7 +37,6 @@ public class ShinigamiPantsItem extends ArmorItem {
     @Nullable
     public String getArmorTexture(ItemStack itemStack, Entity entity, EquipmentSlotType equipmentSlotType, String string)
     {
-        // TODO the issue might be that the chest and leggings texture is "empty" for the side that checks the legs, check the new textures
         return String.format("%s:textures/armor/shinigami/shinigami_pants_texture.png", Main.MODID);
     }
 }
