@@ -24,44 +24,13 @@ public class CritEvent {
         int randomizer = random.nextInt(100) + 1;
         IEntityStats entityStats = EntityStatsCapability.get(event.getEntityLiving());
         int speedStat = (int) entityStats.getSpeedStat();
-        if (randomizer <= 50)
+        if (randomizer <= speedStat)
         {
-            event.setDamageModifier(5);
+            event.setDamageModifier(1  + ((float) speedStat /10));
             event.setResult(Event.Result.ALLOW);
         }
         else
             event.setResult(Event.Result.DENY);
-/*
-
-        System.out.println(event.getOldDamageModifier());
-        System.out.println(event.getDamageModifier());
-        /*
-        IEntityStats entityStats = EntityStatsCapability.get(event.getEntityLiving());
-        int speedStat = entityStats.getSpeedStat();
-        int critChance = (int) speedStat / 2;
-        int critDamage = speedStat;
-        Random random = new Random();
-        int chance = random.nextInt(100) + 1;
-        if (chance < critChance)
-        {
-            event.setDamageModifier(critDamage);
-            event.setResult(Event.Result.ALLOW);
-        }
-        else {
-            event.setResult(Event.Result.DENY);
-        }
-        System.out.println("New modifier: " + event.getDamageModifier());
-        System.out.println("Old modifier: " + event.getOldDamageModifier());
-
-*/
-        if (event.getTarget() instanceof LivingEntity)
-        {
-            LivingEntity livingEntity = (LivingEntity) event.getTarget();
-            System.out.println(livingEntity.getHealth());
-        }
-
-
-
     }
 
 }
