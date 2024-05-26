@@ -22,4 +22,10 @@ public class ModItemGroup {
             return new ItemStack(ModItems.ZANPAKUTO.get());
         }
     };
+    public static final ItemGroup SOULS_AWAKENING_ARMOR = new ItemGroup("soulsawakeningModTabArmors") {
+        @Override
+        public ItemStack makeIcon() {
+            return new ItemStack(ModItems.ROGUE_CHEST.get());
+        }
+    };
 }

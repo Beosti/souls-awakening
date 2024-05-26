@@ -18,7 +18,7 @@ public abstract class MiscItem extends Item {
     private String colorCode;
     public MiscItem(Rarity rarity)
     {
-        super(new Properties().rarity(rarity).tab(ModItemGroup.SOULS_AWAKENINGS_MISC));
+        super(new Properties().rarity(rarity).tab(ModItemGroup.SOULS_AWAKENINGS_MISC).stacksTo(64));
     }
 
     public MiscItem(Properties properties) {

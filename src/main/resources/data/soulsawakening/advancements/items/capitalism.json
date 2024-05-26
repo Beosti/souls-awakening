@@ -1,0 +1,28 @@
+{
+  "parent": "soulsawakening:items/kan",
+  "display": {
+    "icon": {
+      "item": "soulsawakening:kan"
+    },
+    "title": {
+      "translate": "advancements.soulsawakening.items.capitalism.title"
+    },
+    "description": {
+      "translate": "advancements.soulsawakening.items.capitalism.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": {
+    "capitalism": {
+      "trigger": "soulsawakening:capitalism"
+    }
+  },
+  "requirements": [
+    [
+      "capitalism"
+    ]
+  ]
+}

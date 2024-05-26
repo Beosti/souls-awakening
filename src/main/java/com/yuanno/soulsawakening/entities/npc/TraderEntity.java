@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.entities.npc;
 
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
+import com.yuanno.soulsawakening.init.ModAdvancements;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SOpenTradingScreenPacket;
@@ -11,6 +12,7 @@ import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -43,6 +45,7 @@ public class TraderEntity extends CreatureEntity {
         if (!player.level.isClientSide) {
             this.lookAt(player, 1, 1);
             PacketHandler.sendTo(new SOpenTradingScreenPacket(), player);
+            ModAdvancements.CAPITALISM.trigger((ServerPlayerEntity) player);
         }
         return ActionResultType.PASS;
     }

@@ -14,9 +14,11 @@
   "itemGroup.soulsawakeningModTabBlocks": "Souls awakening blocks",
   "itemGroup.soulsawakeningModTabMisc": "Souls awakening misc",
   "itemGroup.soulsawakeningModTabWeapons": "Souls awakening weapons",
+  "itemGroup.soulsawakeningModTabArmors": "Souls awakening armors",
 
   "item.soulsawakening.reishi": "Reishi",
   "item.soulsawakening.reishi_ingot": "Reishi ingot",
+  "item.soulsawakening.kan": "Kan",
 
   "item.soulsawakening.zanpakuto": "Zanpakuto",
   "item.soulsawakening.zanpakuto_wakizashi": "Zanpakuto: Wakizashi",
@@ -28,6 +30,19 @@
   "item.soulsawakening.spear_reishi": "Reishi Spear",
   "item.soulsawakening.trident_reishi": "Reishi Trident",
   "item.soulsawakening.sword_reishi": "Reishi Sword",
+
+  "item.soulsawakening.shinigami_chest": "Shinigami chest",
+  "item.soulsawakening.shinigami_pants": "Shinigami pants",
+  "item.soulsawakening.shinigami_sandals": "Shinigami sandals",
+
+  "item.soulsawakening.rogue_cape": "Rogue cape",
+  "item.soulsawakening.rogue_chest": "Rogue chest",
+
+  "item.soulsawakening.captain_cape": "Captain cape",
+
+  "item.soulsawakening.quincy_chest": "Quincy chest",
+  "item.soulsawakening.quincy_pants": "Quincy pants",
+  "item.soulsawakening.quincy_boots": "Quincy boots",
 
   "gui.soulsawakening.tree": "Skill tree",
   "gui.soulsawakening.hollow_tree": "Hollow",
@@ -98,6 +113,15 @@
 
   "advancements.soulsawakening.dimensions.soul_society_shadow.title": "Soul society shadow",
   "advancements.soulsawakening.dimensions.soul_society_shadow.description": "Welcome to the shadow of soul society",
+
+  "advancements.soulsawakening.items.kan.title": "The new currency",
+  "advancements.soulsawakening.items.kan.description": "What the hell are emeralds?",
+
+  "advancements.soulsawakening.items.clothing.title": "New clothing!",
+  "advancements.soulsawakening.items.clothing.description": "Drippy? Is that the word they use nowadays?",
+
+  "advancements.soulsawakening.items.capitalism.title": "Capitalism!",
+  "advancements.soulsawakening.items.capitalism.description": "You know... every system got its flaws...",
 
   "challenge.message.start_title": "Starting Challenge",
   "challenge.message.start_subtitle": "Please wait",
