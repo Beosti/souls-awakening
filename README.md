@@ -2,7 +2,8 @@
 # Souls Awakening
 Minecraft mod based on the anime/manga of the author Tite Kubo called "Bleach".
 
-
+## Explanation
+For overall explanation of the gameplay working of the mod please refer to the [gameplay](./GAMEPLAY.md) explanation.
 
 
 
@@ -14,7 +15,6 @@ https://discord.gg/wpKYdRqsaD
 
 
 Besides the basic comments in the code there is no documentation at the moment.
-
 
 ## Authors
 
