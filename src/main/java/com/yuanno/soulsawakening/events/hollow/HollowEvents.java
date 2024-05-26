@@ -112,7 +112,7 @@ public class HollowEvents {
             LivingEntity livingEntity = event.getEntityLiving();
             if (!(livingEntity instanceof IBleach))
                 return;
-            if (!(livingEntity instanceof PlayerEntity))
+            if (!(attacker instanceof PlayerEntity))
                 return;
             if (((IBleach) livingEntity).getRace().equals(ModValues.HOLLOW))
                 handleHollowDeath(livingEntity, attacker);
@@ -152,27 +152,25 @@ public class HollowEvents {
         int randomNumber = random.nextInt(100) + 1;
         int chancePercentage = 0;
         if (rank.equals(ModValues.NON_OFFICER))
-            chancePercentage = 25;
+            chancePercentage = 35;
         IEntityStats entityStats = EntityStatsCapability.get(attacker);
         PlayerEntity player = (PlayerEntity) attacker;
         if (attacker instanceof PlayerEntity) {
+            if (chancePercentage >= randomNumber)
             {
-                if (chancePercentage > randomNumber)
+                entityStats.getHollowStats().alterMutationPoints(1);
+                try
                 {
-                    entityStats.getHollowStats().alterMutationPoints(1);
-                    try
-                    {
-                        ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
-                        ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("hollow.mutation_point.text", "§7Gained a mutation point"), player, 0);
-                        ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
+                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(3, 10, 3));
+                    ITextComponent titleComponent = TextComponentUtils.updateForEntity(player.createCommandSourceStack(), new TranslationTextComponent("hollow.mutation_point.text", "§7Gained a mutation point"), player, 0);
+                    ((ServerPlayerEntity) player).connection.send(new STitlePacket(STitlePacket.Type.ACTIONBAR, titleComponent));
                 }
-                PacketHandler.sendTo(new SSyncEntityStatsPacket(attacker.getId(), EntityStatsCapability.get(attacker)), ((PlayerEntity) attacker));
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(attacker.getId(), EntityStatsCapability.get(attacker)), ((PlayerEntity) attacker));
         }
     }
     static void handleSpiritDeath(LivingEntity livingEntity, LivingEntity attacker)
@@ -181,11 +179,12 @@ public class HollowEvents {
         PlayerEntity player = (PlayerEntity) attacker;
         Random random = new Random();
         int randomNumber = random.nextInt(100) + 1;
-        int chancePercentage = 25;
+        int chancePercentage = 35;
         if (attacker instanceof PlayerEntity) {
+            System.out.println("SPIRIT DEATH");
+
+            if (chancePercentage >= randomNumber)
             {
-                if (chancePercentage > randomNumber)
-                {
                     entityStats.getHollowStats().alterMutationPoints(1);
                     try
                     {
@@ -197,9 +196,9 @@ public class HollowEvents {
                     {
                         e.printStackTrace();
                     }
-                }
-                PacketHandler.sendTo(new SSyncEntityStatsPacket(attacker.getId(), EntityStatsCapability.get(attacker)), ((PlayerEntity) attacker));
             }
+            PacketHandler.sendTo(new SSyncEntityStatsPacket(attacker.getId(), EntityStatsCapability.get(attacker)), ((PlayerEntity) attacker));
+
         }
     }
 
