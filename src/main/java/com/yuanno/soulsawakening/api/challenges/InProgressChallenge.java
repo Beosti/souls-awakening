@@ -78,6 +78,7 @@ public class InProgressChallenge {
 		{
 			owner.heal(owner.getMaxHealth() - owner.getHealth());
 			ChallengesWorldData.get().stopChallenge(this);
+			owner.removeEffect(ModEffects.PASSIF.get());
 		}
 
 		if (this.phase == Phase.RUN || this.phase == Phase.END) {
