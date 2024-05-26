@@ -73,6 +73,13 @@ public class InProgressChallenge {
 		 * Check as frequently as possible if the challengers are dead and if so, clean
 		 * the arena and set it up for destruction
 		 */
+
+		if (owner.hasEffect(ModEffects.PASSIF.get()))
+		{
+			owner.heal(owner.getMaxHealth() - owner.getHealth());
+			ChallengesWorldData.get().stopChallenge(this);
+		}
+
 		if (this.phase == Phase.RUN || this.phase == Phase.END) {
 			if (this.group.isEmpty()) {
 				this.cleanupArena(false);

@@ -1,8 +1,9 @@
 # Gameplay
 
 ## Vanilla changes
-
-
+### Critical hits
+Critical hits have been (partially) removed. They know depend on the 'speed' stat of each race. Humans and spirits can thus not land critical hits.
+Quincy: Hirenkyaku; Hollow: Agility; Shinigami: Hoho;
 ## Races
 ### General explanation
 There are currently 3 races you can acquire throughout your game when you start as human. With an 'in-between' race for 2 of them.

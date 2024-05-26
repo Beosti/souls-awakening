@@ -20,6 +20,7 @@ public class ModEffects {
     public static final RegistryObject<Effect> SPEAR_STRIKE = EFFECTS.register("spear_strike", SpearStrikeEffect::new);
     public static final RegistryObject<Effect> SWORD_CONCENTRATION = EFFECTS.register("sword_concentration", SwordConcentrationEffect::new);
     public static final RegistryObject<Effect> IN_EVENT = EFFECTS.register("in_event", InEventEffect::new);
+    public static final RegistryObject<Effect> PASSIF = EFFECTS.register("passive", PassiveEffect::new);
 
     public static void register(IEventBus eventBus) {
         EFFECTS.register(eventBus);

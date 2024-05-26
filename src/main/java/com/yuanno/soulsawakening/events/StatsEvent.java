@@ -87,7 +87,7 @@ public class StatsEvent {
         IMiscData miscData = MiscDataCapability.get(player);
         if (player.getHealth() - event.getAmount() <= 0)
         {
-            if (entityStats.getRace().equals(ModValues.HUMAN))
+            if (entityStats.getRace().equals(ModValues.HUMAN) && !player.level.getBiome(player.blockPosition()).getRegistryName().toString().equals("minecraft:the_void"))
             {
                 player.heal(player.getMaxHealth() - player.getHealth());
                 entityStats.setRace(ModValues.SPIRIT);

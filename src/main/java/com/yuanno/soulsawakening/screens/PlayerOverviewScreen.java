@@ -363,7 +363,7 @@ public class PlayerOverviewScreen extends Screen {
         int agility = this.entityStats.getHollowStats().getAgility();
         int reiatsuPoints = (int) Math.floor(this.entityStats.getReiatsuPoints());
 
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Contitution points: " + TextFormatting.RESET + constitution, leftShift, posY + 60, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Constitution points: " + TextFormatting.RESET + constitution, leftShift, posY + 60, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Hierro points: " + TextFormatting.RESET + hierro, leftShift, posY + 75, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Agility points: " + TextFormatting.RESET + agility, leftShift, posY + 90, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
