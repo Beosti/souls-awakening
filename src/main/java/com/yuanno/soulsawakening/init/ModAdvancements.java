@@ -35,6 +35,9 @@ public class ModAdvancements {
     public static final SoulSocietyTrigger SOUL_SOCIETY = new SoulSocietyTrigger();
     public static final SoulSocietyShadowTrigger SOUL_SOCIETY_SHADOW = new SoulSocietyShadowTrigger();
 
+    public static final ClothingTrigger CLOTHING = new ClothingTrigger();
+    public static final CapitalismTrigger CAPITALISM = new CapitalismTrigger();
+
     public static void register(IEventBus eventBus)
     {
         CriteriaTriggers.register(SHINIGAMI);
@@ -48,6 +51,9 @@ public class ModAdvancements {
         CriteriaTriggers.register(QUINCY);
         CriteriaTriggers.register(SPIRIT_WEAPON);
         CriteriaTriggers.register(SHIKAI);
+
+        CriteriaTriggers.register(CLOTHING);
+        CriteriaTriggers.register(CAPITALISM);
 
         CriteriaTriggers.register(OVERWORLD);
         CriteriaTriggers.register(HUECO_MUNDO);

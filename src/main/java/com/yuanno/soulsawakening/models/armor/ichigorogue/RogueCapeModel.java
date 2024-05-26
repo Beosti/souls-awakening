@@ -9,13 +9,13 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 
-public class RogueCloakModel<T extends LivingEntity> extends BipedModel<T> {
+public class RogueCapeModel<T extends LivingEntity> extends BipedModel<T> {
 	private final ModelRenderer cloak;
 	private final ModelRenderer leftshoulder;
 	private final ModelRenderer rightshoulder;
 	private final ModelRenderer cape;
 
-	public RogueCloakModel() {
+	public RogueCapeModel() {
         super(1);
         texWidth = 128;
 		texHeight = 128;

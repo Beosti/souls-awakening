@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
@@ -14,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -27,6 +29,7 @@ public class TradingScreen extends Screen {
     private PlayerEntity player;
     private IMiscData miscData;
     //private final ResourceLocation background = new ResourceLocation(Main.MODID, "textures/gui/widget_contour_cooldown.png");
+    ResourceLocation resourceLocation = new ResourceLocation(Main.MODID + ":textures/items/kan.png");
 
     ArrayList<NoTextureButton> buttons = new ArrayList<>();
 
@@ -116,7 +119,9 @@ public class TradingScreen extends Screen {
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
         int leftShift = posX - 20;
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan, leftShift, posY + 160, -1);
+        String kan = TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + amountKan;
+        drawString(matrixStack, this.font, kan, leftShift, posY + 170, -1);
+        Beapi.drawIcon(resourceLocation, leftShift - this.minecraft.font.width(kan) - 5, posY + 60, 1, 16, 16, 256, 256, 256);
 
 
 

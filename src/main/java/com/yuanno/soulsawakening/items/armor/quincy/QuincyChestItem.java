@@ -1,9 +1,10 @@
-package com.yuanno.soulsawakening.items.armor.shinigami;
+package com.yuanno.soulsawakening.items.armor.quincy;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.init.ModArmorMaterials;
 import com.yuanno.soulsawakening.init.ModItemGroup;
 import com.yuanno.soulsawakening.items.CustomArmorItem;
+import com.yuanno.soulsawakening.models.armor.quincy.QuincyUniformChestModel;
 import com.yuanno.soulsawakening.models.armor.shinigami.ShinigamiUniformChestModel;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
@@ -17,11 +18,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
-public class ShinigamiChestItem extends CustomArmorItem {
+public class QuincyChestItem extends CustomArmorItem {
 
-    public ShinigamiChestItem() {
-        super(ModArmorMaterials.REISHI_CLOTH, EquipmentSlotType.CHEST, new Properties().stacksTo(1).rarity(Rarity.RARE).tab(ModItemGroup.SOULS_AWAKENING_ARMOR));
-        this.miscItemInformation = "Chest piece that a certain faction wears";
+    public QuincyChestItem() {
+        super(ModArmorMaterials.REISHI_CLOTH, EquipmentSlotType.CHEST, new Properties().stacksTo(1).rarity(Rarity.UNCOMMON).tab(ModItemGroup.SOULS_AWAKENING_ARMOR));
+        this.miscItemInformation = "Chest piece that a long forgotten race wore... kinda looks like a military uniform";
     }
 
     @Override
@@ -29,7 +30,7 @@ public class ShinigamiChestItem extends CustomArmorItem {
     @Nullable
     public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default)
     {
-        A armorModel = (A) new ShinigamiUniformChestModel<>();
+        A armorModel = (A) new QuincyUniformChestModel<>();
 
         return armorModel;
     }
@@ -38,6 +39,6 @@ public class ShinigamiChestItem extends CustomArmorItem {
     @Nullable
     public String getArmorTexture(ItemStack itemStack, Entity entity, EquipmentSlotType equipmentSlotType, String string)
     {
-        return String.format("%s:textures/armor/shinigami/shinigami_chest_texture.png", Main.MODID);
+        return String.format("%s:textures/armor/quincy/quincy_chest_texture.png", Main.MODID);
     }
 }

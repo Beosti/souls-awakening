@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.yuanno.soulsawakening.Main;
+import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -17,6 +19,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -34,6 +37,7 @@ public class PlayerOverviewScreen extends Screen {
     private IEntityStats entityStats;
     private final IMiscData miscData;
     private Minecraft mc;
+    ResourceLocation resourceLocation = new ResourceLocation(Main.MODID + ":textures/items/kan.png");
     protected PlayerOverviewScreen() {
         super(new StringTextComponent(""));
         this.mc = Minecraft.getInstance();
@@ -324,7 +328,10 @@ public class PlayerOverviewScreen extends Screen {
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 120, -1);
         leftShift = posX + 180;
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan(), leftShift, posY + 170, -1);
+        String kan = TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan();
+        drawString(matrixStack, this.font, kan, leftShift, posY + 170, -1);
+        Beapi.drawIcon(resourceLocation, leftShift - mc.font.width(kan) - 5, posY + 60, 1, 16, 16, 0, 0, 0);
+
     }
 
     public void hollowRendering(MatrixStack matrixStack, int posX, int posY, int mouseX, int mouseY)
