@@ -2,6 +2,7 @@ package com.yuanno.soulsawakening.events.shinigami;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.client.renderers.overlay.HollowModelRenderer;
+import com.yuanno.soulsawakening.client.renderers.overlay.SoulChainOverlayRenderer;
 import com.yuanno.soulsawakening.client.renderers.overlay.ZanpakutoOverlayRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class RenderShinigamiEvent {
 
     @SubscribeEvent
-    public static void onSwordRender(FMLClientSetupEvent event)
+    public static void onOverlayRenderer(FMLClientSetupEvent event)
     {
         event.enqueueWork(() -> {
             Minecraft mc = Minecraft.getInstance();
@@ -29,8 +30,7 @@ public class RenderShinigamiEvent {
                 if (entityRenderer instanceof LivingRenderer) {
                     LivingRenderer renderer = (LivingRenderer) entityRenderer;
                     renderer.addLayer(new ZanpakutoOverlayRenderer(renderer));
-
-
+                    renderer.addLayer(new SoulChainOverlayRenderer(renderer));
                 }
             }
 
@@ -38,7 +38,7 @@ public class RenderShinigamiEvent {
                 PlayerRenderer renderer = entry.getValue();
 
                 renderer.addLayer(new ZanpakutoOverlayRenderer(renderer));
-
+                renderer.addLayer(new SoulChainOverlayRenderer(renderer));
             }
         });
     }
