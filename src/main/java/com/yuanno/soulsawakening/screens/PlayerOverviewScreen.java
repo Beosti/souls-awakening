@@ -13,6 +13,7 @@ import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
+import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModConfig;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
@@ -318,6 +319,15 @@ public class PlayerOverviewScreen extends Screen {
             hollowRendering(matrixStack, posX, posY, mouseX, mouseY);
         if (this.entityStats.getRace().equals(ModValues.QUINCY))
             quincyRendering(matrixStack, posX, posY, mouseX, mouseY);
+
+        ModifiableAttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
+        ModifiableAttributeInstance attackDamage = player.getAttribute(Attributes.ATTACK_DAMAGE);
+        ModifiableAttributeInstance resistance = player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get());
+        leftShift += 180;
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Max Health: " + TextFormatting.RESET + maxHealth.getBaseValue(), leftShift, posY + 40, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + attackDamage.getBaseValue(), leftShift, posY + 55, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Damage resistance: " + TextFormatting.RESET + resistance.getBaseValue(), leftShift, posY + 70, -1);
+
         super.render(matrixStack, mouseX, mouseY, f);
     }
 

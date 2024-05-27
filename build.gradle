@@ -26,7 +26,7 @@ import groovy.json.JsonOutput
 import java.text.DecimalFormat
 
 def shortHash = 'git rev-parse --short HEAD'.execute().in.text.trim()
-version = '1.0'
+version = '0.1.0'
 group = 'com.yuanno.soulsawakening' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "soulsawakening"
 
