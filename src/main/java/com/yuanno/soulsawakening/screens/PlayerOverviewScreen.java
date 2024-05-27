@@ -327,6 +327,10 @@ public class PlayerOverviewScreen extends Screen {
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Max Health: " + TextFormatting.RESET + maxHealth.getBaseValue(), leftShift, posY + 40, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + attackDamage.getBaseValue(), leftShift, posY + 55, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Damage resistance: " + TextFormatting.RESET + resistance.getBaseValue(), leftShift, posY + 70, -1);
+        String critChance = entityStats.getSpeedStat() + "%";
+        String damageModifier = 1 + ((float) entityStats.getSpeedStat() / 10) + " X damage";
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Crit chance: " + TextFormatting.RESET + critChance, leftShift, posY + 85, -1);
+        drawString(matrixStack, this.font, TextFormatting.BOLD + "Crit modifier: " + TextFormatting.RESET + damageModifier, leftShift, posY + 100, -1);
 
         super.render(matrixStack, mouseX, mouseY, f);
     }
