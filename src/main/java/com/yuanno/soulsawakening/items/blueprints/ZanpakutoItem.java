@@ -64,7 +64,20 @@ public class ZanpakutoItem extends SwordItem {
     public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (Screen.hasShiftDown() && stack.getTag().getString("spirit").isEmpty())
         {
-            tooltip.add(new TranslationTextComponent("§6A blade made out of spiritual material"));
+            tooltip.add(new TranslationTextComponent("§6A blade made out of spiritual material"));int elementalPoints = stack.getTag().getInt("element");
+            tooltip.add(new StringTextComponent("Elemental points: " + elementalPoints));
+
+            int normalPoints = stack.getTag().getInt(ModValues.NORMAL);
+            tooltip.add(new StringTextComponent("§7normal: " + normalPoints));
+            int poisonPoints = stack.getTag().getInt(ModValues.DARK);
+            tooltip.add(new StringTextComponent("§8dark: " + poisonPoints));
+            int waterPoints = stack.getTag().getInt(ModValues.WATER);
+            tooltip.add(new StringTextComponent("§bwater: " + waterPoints));
+            int airPoints = stack.getTag().getInt(ModValues.WIND);
+            tooltip.add(new StringTextComponent("§aair: " + airPoints));
+            int firePoints = stack.getTag().getInt(ModValues.FIRE);
+            tooltip.add(new StringTextComponent("§cfire: " + firePoints));
+
         }
         else if (!Screen.hasShiftDown() && stack.getTag().getString("spirit").isEmpty())
         {

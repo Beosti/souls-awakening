@@ -168,8 +168,8 @@
 
   "gui.evolution.tooltip": "Consume all your hollow points to evolve, resetting the extra damage on certain abilities",
   "gui.evolution.active": "You need 50 hollow points to evolve.",
-  "gui.mutation_point.tooltip": "You gain mutation points by killing other hollows. Those mutation points you can spend somewhere.",
-  "gui.evolution_point.tooltip": "You gain evolution points by killing pluses and shinigami.",
+  "gui.mutation_point.tooltip": "You gain mutation points by killing shinigami and pluses. Those mutation points you can spend somewhere.",
+  "gui.evolution_point.tooltip": "You gain evolution points by killing hollows.",
 
   "gui.constitution_point.tooltip": "This stat has an effect on the max health of the player",
   "gui.blut_points.tooltip": "The manipulation of flow of reishi throughout the blood vessels of a quincy. This stat has an effect on your attack damage and resistance attribute. But also the abilities you acquire",

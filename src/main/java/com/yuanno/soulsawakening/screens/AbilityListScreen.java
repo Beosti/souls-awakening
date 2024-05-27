@@ -43,6 +43,10 @@ public class AbilityListScreen extends Screen {
     ArrayList<Ability> gillianAbilities = new ArrayList<>();
     ArrayList<Ability> adjuchaAbilities = new ArrayList<>();
     ArrayList<Ability> vastolordeAbilities = new ArrayList<>();
+
+    ArrayList<Ability> blutAbilities = new ArrayList<>();
+    ArrayList<Ability> spiritAbilities = new ArrayList<>();
+    ArrayList<Ability> shadowAbilities = new ArrayList<>();
     protected AbilityListScreen() {
         super(new StringTextComponent(""));
         this.player = Minecraft.getInstance().player;
@@ -90,6 +94,28 @@ public class AbilityListScreen extends Screen {
                     }
                 }
                 this.page = 2;
+            }));
+        }
+        if (SoulsHelper.hasCategoryAbility(this.player, Ability.Category.QUINCY))
+        {
+            this.addButton(new TexturedIconButton(ModResources.QUINCY_ICON, posX, posY + 20, 32, 32, new TranslationTextComponent(""), button ->
+            {
+                if (this.page == 3)
+                    return;
+                for (Ability ability : abilities) {
+                    switch (ability.getSubCategory()) {
+                        case SHADOW:
+                            shadowAbilities.add(ability);
+                            break;
+                        case BLUT:
+                            blutAbilities.add(ability);
+                            break;
+                        case SPIRIT_WEAPON:
+                            spiritAbilities.add(ability);
+                            break;
+                    }
+                }
+                this.page = 3;
             }));
         }
     }
@@ -168,6 +194,40 @@ public class AbilityListScreen extends Screen {
                 entries.add(i, entry);
             }
         }
+        if (page == 3)
+        {
+            Beapi.drawStringWithBorder(this.font, matrixStack, "Shadow abilities: ", posX + 40, posY + 40, -1);
+            Beapi.drawStringWithBorder(this.font, matrixStack, "Blut abilities: ", posX + 40, posY + 87, -1);
+            Beapi.drawStringWithBorder(this.font, matrixStack, "Spirit weapon abilities: ", posX + 40, posY + 124, -1);
+
+            for (int i = 0; i < shadowAbilities.size(); i++)
+            {
+                String originalResourceLocation = shadowAbilities.get(i).getRegistryName().toString();
+                String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
+                ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
+                Beapi.drawIcon(resourceLocation, posX + 40 + (35 * i), posY + 60, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                Entry entry = new Entry(shadowAbilities.get(i), posX + 40 + (35 * i), posY + 60);
+                entries.add(i, entry);
+            }
+            for (int i = 0; i < blutAbilities.size(); i++)
+            {
+                String originalResourceLocation = blutAbilities.get(i).getRegistryName().toString();
+                String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
+                ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
+                Beapi.drawIcon(resourceLocation, posX + 40 + (35 * i), posY + 101, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                Entry entry = new Entry(blutAbilities.get(i), posX + 40 + (35 * i), posY + 107);
+                entries.add(i, entry);
+            }
+            for (int i = 0; i < spiritAbilities.size(); i++)
+            {
+                String originalResourceLocation = spiritAbilities.get(i).getRegistryName().toString();
+                String formattedResourceLocation = originalResourceLocation.replaceAll("_", "").replaceAll("soulsawakening:", "");
+                ResourceLocation resourceLocation = new ResourceLocation(Main.MODID, "textures/ability/" + formattedResourceLocation + ".png");
+                Beapi.drawIcon(resourceLocation, posX + 40 + (35 * i), posY + 140, 1, 16, 16, iconColor.getRed() / 255.0f, iconColor.getGreen() / 255.0f, iconColor.getBlue() / 255.0f);
+                Entry entry = new Entry(spiritAbilities.get(i), posX + 40 + (35 * i), posY + 140);
+                entries.add(i, entry);
+            }
+        }
 
         if (isMouseOver(x, y))
         {
@@ -184,8 +244,15 @@ public class AbilityListScreen extends Screen {
                 activation_type = "spell";
             if (abilityHovering instanceof IPassiveAbility)
                 activation_type = "passive";
-            if (abilityHovering instanceof IRightClickAbility)
-                activation_type = "right click";
+            if (abilityHovering instanceof IRightClickAbility) {
+                activation_type = "right-click";
+                if (((IRightClickAbility) abilityHovering).getControl())
+                    activation_type += " + control";
+                else if (((IRightClickAbility) abilityHovering).getShift())
+                    activation_type += " + shift";
+                else if (((IRightClickAbility) abilityHovering).getAlt())
+                    activation_type += " + left alt";
+            }
             if (abilityHovering instanceof IEntityRayTrace)
                 activation_type = "right click an entity, in range of  " + ((IEntityRayTrace) abilityHovering).getDistance() + " blocks away";
             if (abilityHovering instanceof IBlockRayTrace)

@@ -24,7 +24,7 @@ public class SwordConcentrationAbility extends Ability implements IRightClickAbi
         this.setDescription("Concentrates more reishi into your sword, making it deal more damage");
         this.setMaxCooldown(16);
         this.dependency = player -> AbilityDependencies.itemDependence(player, ModItems.SWORD_REISHI.get());
-        this.setSubCategory(SubCategory.REISHI);
+        this.setSubCategory(SubCategory.SPIRIT_WEAPON);
     }
 
 

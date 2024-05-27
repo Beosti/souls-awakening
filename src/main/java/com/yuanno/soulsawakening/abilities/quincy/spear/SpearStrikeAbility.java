@@ -14,7 +14,7 @@ public class SpearStrikeAbility extends Ability implements IContinuousAbility, I
         this.setDescription("The next attack will cause your opponent to lose movement speed and armor for a while");
         this.setMaxCooldown(16);
         this.dependency = this::dependence;
-        this.setSubCategory(SubCategory.REISHI);
+        this.setSubCategory(SubCategory.SPIRIT_WEAPON);
     }
 
     public boolean dependence(PlayerEntity player)

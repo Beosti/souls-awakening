@@ -14,7 +14,7 @@ public class WeakeningBobberAbility extends Ability implements IContinuousAbilit
         this.setName("Weakening Bobber");
         this.setDescription("The next bobber that you ");
         this.setMaxCooldown(16);
-        this.setSubCategory(SubCategory.REISHI);
+        this.setSubCategory(SubCategory.SPIRIT_WEAPON);
         this.dependency = player -> AbilityDependencies.itemDependence(player, ModItems.FISHING_ROD_REISHI.get());
     }
 

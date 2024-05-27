@@ -20,4 +20,8 @@ public interface IRightClickAbility {
     {
         return false;
     }
+    default boolean getControl()
+    {
+        return false;
+    }
 }

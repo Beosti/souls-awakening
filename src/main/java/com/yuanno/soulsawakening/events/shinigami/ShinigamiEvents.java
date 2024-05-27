@@ -171,13 +171,6 @@ public class ShinigamiEvents {
         handleHakuda(player, entityStats);
         //handleBlut(player, entityStats);
     }
-
-    public static void handleHakuda(PlayerEntity player, IEntityStats entityStats)
-    {
-        ModifiableAttributeInstance healthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
-        healthAttribute.setBaseValue(20 + entityStats.getShinigamiStats().getHakudaPoints());
-        ((ServerPlayerEntity) player).connection.send(new SUpdateHealthPacket(player.getHealth(), player.getFoodData().getFoodLevel(), player.getFoodData().getSaturationLevel()));
-    }
     /**
      * Adds zanjutsu tooltip to all the swords
      * @param event
@@ -200,5 +193,11 @@ public class ShinigamiEvents {
                 event.getToolTip().add(damageBonus);
             }
         }
+    }
+    public static void handleHakuda(PlayerEntity player, IEntityStats entityStats)
+    {
+        ModifiableAttributeInstance healthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
+        healthAttribute.setBaseValue(20 + entityStats.getShinigamiStats().getHakudaPoints());
+        ((ServerPlayerEntity) player).connection.send(new SUpdateHealthPacket(player.getHealth(), player.getFoodData().getFoodLevel(), player.getFoodData().getSaturationLevel()));
     }
 }

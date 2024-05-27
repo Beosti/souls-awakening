@@ -128,6 +128,9 @@ public class RightClickAbilityEvents {
             if (rightClickEmptyAbility.getAlt() ^ InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_ALT)) {
                 continue;
             }
+            if (rightClickEmptyAbility.getControl() ^ InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_CONTROL)) {
+                continue;
+            }
             if (player.isCrouching() ^ rightClickEmptyAbility.getShift())
                 continue;
             if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
@@ -139,9 +142,14 @@ public class RightClickAbilityEvents {
                 AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
                 MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
             }
-            else
+            else if (!ability.getState().equals(Ability.STATE.CONTINUOUS) && ability.getState().equals(Ability.STATE.READY))
             {
                 ((IContinuousAbility) ability).startContinuity(player, ability);
+            }
+            else
+            {
+                ((IContinuousAbility) ability).endContinuity(player, ability);
+                return;
             }
             AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, ability);
             if (!(ability instanceof IReleaseArrow))

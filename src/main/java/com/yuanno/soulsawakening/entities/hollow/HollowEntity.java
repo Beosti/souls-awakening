@@ -36,11 +36,12 @@ public class HollowEntity extends CreatureEntity {
         if (!entityStats.getRace().equals(ModValues.SHINIGAMI) && !entityStats.getRace().equals(ModValues.FULLBRINGER))
             return;
         ItemStack zanpakutoItem = player.getMainHandItem();
-        int chancePercentage = 5;
+        int chancePercentage = 50;
 
         Random random = new Random();
         int randomNumber = random.nextInt(100) + 1;
         if (randomNumber <= chancePercentage) {
+            System.out.println("CALLED");
             addPoint(zanpakutoItem, this.element);
         }
     }

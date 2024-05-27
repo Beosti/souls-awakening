@@ -19,7 +19,7 @@ public class PiercingArrowAbility extends Ability implements IContinuousAbility,
         this.setName("Piercing Arrow");
         this.setDescription("Shoots a lightning fast reishi arrow that goes through anything");
         this.setMaxCooldown(32);
-        this.setSubCategory(SubCategory.REISHI);
+        this.setSubCategory(SubCategory.SPIRIT_WEAPON);
         this.dependency = player -> AbilityDependencies.itemDependence(player, ModItems.GINREI_KOJAKU.get());
     }
 

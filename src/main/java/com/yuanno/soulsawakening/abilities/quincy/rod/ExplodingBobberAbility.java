@@ -14,7 +14,7 @@ public class ExplodingBobberAbility extends Ability implements IContinuousAbilit
         this.setName("Exploding Bobber");
         this.setDescription("The next bobber that you land on an entity or block explodes");
         this.setMaxCooldown(16);
-        this.setSubCategory(SubCategory.REISHI);
+        this.setSubCategory(SubCategory.SPIRIT_WEAPON);
         this.dependency = player -> AbilityDependencies.itemDependence(player, ModItems.FISHING_ROD_REISHI.get());
     }
 

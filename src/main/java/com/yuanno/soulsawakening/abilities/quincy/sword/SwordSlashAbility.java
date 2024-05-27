@@ -18,7 +18,7 @@ public class SwordSlashAbility extends Ability implements IShootAbility, IRightC
         this.setDescription("Shoots a short range air slash");
         this.setMaxCooldown(16);
         this.dependency = player -> AbilityDependencies.itemDependence(player, ModItems.SWORD_REISHI.get());
-        this.setSubCategory(SubCategory.REISHI);
+        this.setSubCategory(SubCategory.SPIRIT_WEAPON);
     }
 
 

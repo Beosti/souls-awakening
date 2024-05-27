@@ -310,7 +310,10 @@ public class PlayerOverviewScreen extends Screen {
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + race, leftShift, posY + 40, -1);
         if (!rank.isEmpty())
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Rank: " + TextFormatting.RESET + rank, leftShift + 80 + rank.length(), posY + 40, -1);
-
+        String kanString = TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan();
+        drawString(matrixStack, this.font, kanString, leftShift, posY + 170, -1);
+        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(kanString) && mouseY >= posY + 170 && mouseY <= posY + 170 + this.mc.font.lineHeight)
+            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.kan.tooltip"), mouseX, mouseY);
         if (this.entityStats.getRace().equals(ModValues.SPIRIT))
             spiritRendering(matrixStack, posX, posY);
         if (this.entityStats.getRace().equals(ModValues.SHINIGAMI))
@@ -358,10 +361,6 @@ public class PlayerOverviewScreen extends Screen {
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Hoho points: " + TextFormatting.RESET + hohoPoints, leftShift, posY + 90, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 120, -1);
-        leftShift = posX + 180;
-        String kan = TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan();
-        drawString(matrixStack, this.font, kan, leftShift, posY + 170, -1);
-        Beapi.drawIcon(resourceLocation, leftShift - mc.font.width(kan) - 5, posY + 60, 1, 16, 16, 0, 0, 0);
 
     }
 
@@ -423,10 +422,6 @@ public class PlayerOverviewScreen extends Screen {
         if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(classPointString) && mouseY >= posY + 120 && mouseY <= posY + 120 + this.mc.font.lineHeight)
             this.renderTooltip(matrixStack, new TranslationTextComponent("gui.class_point.tooltip"), mouseX, mouseY);
         leftShift = posX + 180;
-        String kanString = TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan();
-        drawString(matrixStack, this.font, kanString, leftShift, posY + 170, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(kanString) && mouseY >= posY + 170 && mouseY <= posY + 170 + this.mc.font.lineHeight)
-            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.kan.tooltip"), mouseX, mouseY);
     }
 
     @Override

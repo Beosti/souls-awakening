@@ -27,7 +27,12 @@ public class BlutStrengthAbility extends Ability implements IRightClickAbility, 
         this.setName("Blut Strength");
         this.setDescription("Get a big buff due to your blut for 20 seconds");
         this.setMaxCooldown(60);
-        this.setSubCategory(SubCategory.REISHI);
+        this.setSubCategory(SubCategory.BLUT);
+    }
+
+    @Override
+    public boolean getControl() {
+        return true;
     }
 
     @Override

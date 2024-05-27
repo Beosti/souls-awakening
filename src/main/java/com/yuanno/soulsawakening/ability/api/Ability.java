@@ -157,6 +157,9 @@ public class Ability extends ForgeRegistryEntry<Ability> {
         BAKUDO(Category.KIDO),
         HADO(Category.KIDO),
         KAIDO(Category.KIDO),
+        BLUT(Category.QUINCY),
+        SPIRIT_WEAPON(Category.QUINCY),
+        SHADOW(Category.QUINCY),
         REISHI(Category.QUINCY);
         private Category category;
         SubCategory(Category category)

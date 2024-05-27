@@ -27,6 +27,8 @@ import com.yuanno.soulsawakening.networking.server.SOpenWeaponChoiceScreenPacket
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -46,6 +48,7 @@ import net.minecraftforge.event.entity.item.ItemTossEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class QuincyEvents {
@@ -74,7 +77,6 @@ public class QuincyEvents {
                 quincyStats.setMaxClassExperience(100);
                 entityStats.setQuincyStats(quincyStats);
                 quincyStats.setSpiritWeapon(ModItems.KOJAKU.get());
-                System.out.println(entityStats.getStackedExperience());
                 ExperienceEvent experienceEvent = new ExperienceEvent(player, entityStats.getStackedExperience());
                 MinecraftForge.EVENT_BUS.post(experienceEvent);
                 PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
@@ -83,7 +85,7 @@ public class QuincyEvents {
                 return;
             hasDangle = true;
         }
-        if (hasDangle && player.getMainHandItem().isEmpty())
+        if (hasDangle && player.getMainHandItem().isEmpty() && !InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_ALT) && !InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_CONTROL))
         {
             player.setItemInHand(Hand.MAIN_HAND, new ItemStack(entityStats.getQuincyStats().getSpiritWeapon()));
         }

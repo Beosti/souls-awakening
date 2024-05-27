@@ -19,7 +19,7 @@ public class StrongArrowAbility extends Ability implements IContinuousAbility, I
         this.setName("Strong Arrow");
         this.setDescription("Shoots a bigger reishi arrow when this ability is active");
         this.setMaxCooldown(12);
-        this.setSubCategory(SubCategory.REISHI);
+        this.setSubCategory(SubCategory.SPIRIT_WEAPON);
         this.dependency = player -> AbilityDependencies.itemDependence(player, ModItems.GINREI_KOJAKU.get());
     }
 

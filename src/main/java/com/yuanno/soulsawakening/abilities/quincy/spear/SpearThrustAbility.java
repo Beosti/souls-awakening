@@ -17,7 +17,7 @@ public class SpearThrustAbility extends Ability implements IContinuousAbility, I
         this.setDescription("The next attack you will do with your spear will have way more range");
         this.setMaxCooldown(16);
         this.dependency = player -> AbilityDependencies.itemDependence(player, ModItems.SPEAR_REISHI.get());
-        this.setSubCategory(SubCategory.REISHI);
+        this.setSubCategory(SubCategory.SPIRIT_WEAPON);
     }
 
     @Override
