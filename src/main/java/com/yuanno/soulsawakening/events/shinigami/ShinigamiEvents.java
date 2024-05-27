@@ -4,17 +4,21 @@ import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.events.ExperienceEvent;
+import com.yuanno.soulsawakening.events.UpdateStatEvent;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.SwordItem;
 import net.minecraft.network.play.server.STitlePacket;
+import net.minecraft.network.play.server.SUpdateHealthPacket;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -153,6 +157,27 @@ public class ShinigamiEvents {
         PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
     }
 
+    @SubscribeEvent
+    public static void onShinigamiStat(UpdateStatEvent event)
+    {
+        if (!(event.getEntityLiving() instanceof PlayerEntity))
+            return;
+        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        if (player.level.isClientSide)
+            return;
+        IEntityStats entityStats = EntityStatsCapability.get(player);
+        if (!entityStats.getRace().equals(ModValues.SHINIGAMI))
+            return;
+        handleHakuda(player, entityStats);
+        //handleBlut(player, entityStats);
+    }
+
+    public static void handleHakuda(PlayerEntity player, IEntityStats entityStats)
+    {
+        ModifiableAttributeInstance healthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
+        healthAttribute.setBaseValue(20 + entityStats.getShinigamiStats().getHakudaPoints());
+        ((ServerPlayerEntity) player).connection.send(new SUpdateHealthPacket(player.getHealth(), player.getFoodData().getFoodLevel(), player.getFoodData().getSaturationLevel()));
+    }
     /**
      * Adds zanjutsu tooltip to all the swords
      * @param event

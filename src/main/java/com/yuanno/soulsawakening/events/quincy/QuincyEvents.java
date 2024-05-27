@@ -187,7 +187,7 @@ public class QuincyEvents {
             PacketHandler.sendTo(new SSyncEntityStatsPacket(event.getEntityLiving().getId(), looseEntity), (PlayerEntity) event.getEntityLiving());
     }
     @SubscribeEvent
-    public static void onUpdateHollowStat(UpdateStatEvent event)
+    public static void updateQuincyStat(UpdateStatEvent event)
     {
         if (!(event.getEntityLiving() instanceof PlayerEntity))
             return;
