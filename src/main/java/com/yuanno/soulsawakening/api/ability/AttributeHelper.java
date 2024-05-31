@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.api;
+package com.yuanno.soulsawakening.api.ability;
 
 import com.yuanno.soulsawakening.init.ModAttributes;
 import net.minecraft.entity.LivingEntity;

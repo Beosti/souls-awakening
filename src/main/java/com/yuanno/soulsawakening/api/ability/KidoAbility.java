@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.api;
+package com.yuanno.soulsawakening.api.ability;
 
 public class KidoAbility extends Ability {
     private String incantation = "";

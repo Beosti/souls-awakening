@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.api;
+package com.yuanno.soulsawakening.api.ability;
 
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.FrameType;

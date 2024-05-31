@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.api;
+package com.yuanno.soulsawakening.api.ability;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;

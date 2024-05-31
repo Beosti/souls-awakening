@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.api;
+package com.yuanno.soulsawakening.api.ability;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
