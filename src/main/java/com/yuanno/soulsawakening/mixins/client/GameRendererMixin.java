@@ -1,7 +1,9 @@
 package com.yuanno.soulsawakening.mixins.client;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.yuanno.soulsawakening.ability.api.AttributeHelper;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.AttributeHelper;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.GameRenderer;

@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.api.interfaces;
+package com.yuanno.soulsawakening.api.ability.interfaces;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;

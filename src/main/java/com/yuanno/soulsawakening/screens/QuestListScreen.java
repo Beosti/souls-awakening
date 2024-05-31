@@ -1,7 +1,8 @@
 package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
 import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.quests.Objective;

@@ -1,9 +1,8 @@
 package com.yuanno.soulsawakening.abilities.quincy.spear;
 
 import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModItems;
 import net.minecraft.entity.player.PlayerEntity;

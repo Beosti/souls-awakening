@@ -1,11 +1,7 @@
 package com.yuanno.soulsawakening.abilities.shinso;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
-import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.entities.projectiles.lunar.LunarCrescentProjectile;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.entities.projectiles.shinso.WideBladeProjectile;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;
 import net.minecraft.entity.player.PlayerEntity;

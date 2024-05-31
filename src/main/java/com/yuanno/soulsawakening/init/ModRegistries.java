@@ -1,7 +1,8 @@
 package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.api.challenges.ChallengeCore;
 import com.yuanno.soulsawakening.quests.Quest;
 import net.minecraft.util.ResourceLocation;

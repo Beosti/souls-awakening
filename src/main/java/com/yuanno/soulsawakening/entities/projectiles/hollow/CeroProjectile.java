@@ -1,6 +1,5 @@
 package com.yuanno.soulsawakening.entities.projectiles.hollow;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.hollow.CeroProjectileParticleEffect;
 import com.yuanno.soulsawakening.projectiles.AbilityProjectileEntity;

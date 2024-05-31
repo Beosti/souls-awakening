@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.data.ability;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 
 import java.util.ArrayList;
 import java.util.List;

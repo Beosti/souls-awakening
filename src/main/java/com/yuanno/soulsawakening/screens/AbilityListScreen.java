@@ -2,8 +2,8 @@ package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.ability.api.*;
-import com.yuanno.soulsawakening.ability.api.interfaces.*;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.RendererHelper;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;

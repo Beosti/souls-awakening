@@ -1,6 +1,7 @@
 package com.yuanno.soulsawakening.init;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;

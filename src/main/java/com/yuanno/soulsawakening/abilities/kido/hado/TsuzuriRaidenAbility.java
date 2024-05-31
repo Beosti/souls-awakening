@@ -1,9 +1,7 @@
 package com.yuanno.soulsawakening.abilities.kido.hado;
 
-import com.yuanno.soulsawakening.ability.api.KidoAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IAttackAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
+import com.yuanno.soulsawakening.api.ability.KidoAbility;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.ModEffects;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.init.ModTags;

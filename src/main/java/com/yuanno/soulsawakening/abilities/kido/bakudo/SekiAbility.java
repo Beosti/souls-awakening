@@ -1,8 +1,8 @@
 package com.yuanno.soulsawakening.abilities.kido.bakudo;
 
-import com.yuanno.soulsawakening.ability.api.KidoAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IGetHitAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.KidoAbility;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 

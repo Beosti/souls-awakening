@@ -1,10 +1,10 @@
 package com.yuanno.soulsawakening.events.ability;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IPassiveAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IDuringCooldownAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.IContinuousAbility;
+import com.yuanno.soulsawakening.api.ability.interfaces.IDuringCooldownAbility;
+import com.yuanno.soulsawakening.api.ability.interfaces.IPassiveAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,10 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.heal;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.ParticleEffect;

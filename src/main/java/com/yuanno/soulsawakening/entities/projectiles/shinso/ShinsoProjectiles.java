@@ -1,8 +1,8 @@
 package com.yuanno.soulsawakening.entities.projectiles.shinso;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.ability.api.AbilityProjectileRenderer;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.api.ability.AbilityProjectileRenderer;
 import com.yuanno.soulsawakening.client.renderers.entity.projectile.StretchingProjectileRenderer;
 import com.yuanno.soulsawakening.models.CubeModel;
 import net.minecraft.entity.EntityType;

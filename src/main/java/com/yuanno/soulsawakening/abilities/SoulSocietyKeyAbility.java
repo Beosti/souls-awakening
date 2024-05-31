@@ -1,8 +1,7 @@
 package com.yuanno.soulsawakening.abilities;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IDimensionTeleportAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.world.World;

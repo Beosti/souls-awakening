@@ -1,9 +1,10 @@
 package com.yuanno.soulsawakening.events.ability;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.KidoAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.*;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.KidoAbility;
+import com.yuanno.soulsawakening.api.ability.interfaces.IContinuousAbility;
+import com.yuanno.soulsawakening.api.ability.interfaces.IEntityRayTrace;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;

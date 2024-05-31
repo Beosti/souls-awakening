@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.data.ability;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IPassiveAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.entity.LivingEntity;
 
 import java.util.ArrayList;

@@ -1,8 +1,7 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IEntityRayTrace;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.api.AbilityDamageSource;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;

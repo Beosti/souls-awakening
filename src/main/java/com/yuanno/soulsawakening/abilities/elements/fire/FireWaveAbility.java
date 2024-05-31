@@ -1,10 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.fire;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IWaveAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.api.SourceElement;
 import com.yuanno.soulsawakening.api.SourceType;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;

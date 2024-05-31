@@ -2,8 +2,9 @@ package com.yuanno.soulsawakening.mixins;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.AbilityDisplayInfo;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.AbilityDisplayInfo;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.item.ItemStack;

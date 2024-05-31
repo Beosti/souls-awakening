@@ -1,6 +1,6 @@
 package com.yuanno.soulsawakening.helpers;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import net.minecraft.entity.player.PlayerEntity;

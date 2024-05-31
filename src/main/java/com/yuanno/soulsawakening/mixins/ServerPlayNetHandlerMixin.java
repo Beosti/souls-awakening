@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening.mixins;
 
-import com.yuanno.soulsawakening.ability.api.AttributeHelper;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.AttributeHelper;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.play.IServerPlayNetHandler;
 import net.minecraft.network.play.ServerPlayNetHandler;

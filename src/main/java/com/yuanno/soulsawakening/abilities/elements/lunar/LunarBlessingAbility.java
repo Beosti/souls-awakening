@@ -1,13 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.lunar;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IContinuousAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IEntityRayTrace;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
-import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import net.minecraft.entity.LivingEntity;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;

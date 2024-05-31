@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.api.interfaces;
+package com.yuanno.soulsawakening.api.ability.interfaces;
 
 import com.yuanno.soulsawakening.events.ability.TickAbilityEvent;
 import net.minecraft.entity.player.PlayerEntity;

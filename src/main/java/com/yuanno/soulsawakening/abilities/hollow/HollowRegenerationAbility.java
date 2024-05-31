@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IPassiveAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.hollow.HollowRegenerationParticleEffect;
 import net.minecraft.entity.player.PlayerEntity;

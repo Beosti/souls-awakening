@@ -1,8 +1,7 @@
 package com.yuanno.soulsawakening.abilities.hollow;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.ISelfEffect;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.util.GargantaTeleporter;
 import net.minecraft.entity.player.PlayerEntity;

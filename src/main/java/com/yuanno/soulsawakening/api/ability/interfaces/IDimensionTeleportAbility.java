@@ -1,4 +1,4 @@
-package com.yuanno.soulsawakening.ability.api.interfaces;
+package com.yuanno.soulsawakening.api.ability.interfaces;
 
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.util.GargantaTeleporter;

@@ -1,9 +1,8 @@
 package com.yuanno.soulsawakening.entities.projectiles.lunar;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.ability.api.AbilityProjectileRenderer;
 import com.yuanno.soulsawakening.api.Beapi;
-import com.yuanno.soulsawakening.entities.projectiles.fire.FireBallProjectile;
+import com.yuanno.soulsawakening.api.ability.AbilityProjectileRenderer;
 import com.yuanno.soulsawakening.models.CubeModel;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.api.distmarker.Dist;

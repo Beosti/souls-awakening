@@ -1,11 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.shadow;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IAttackAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IParticleEffect;
-import com.yuanno.soulsawakening.api.SourceElement;
-import com.yuanno.soulsawakening.api.SourceType;
-import com.yuanno.soulsawakening.init.ModDamageSource;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.HoveringParticleEffect;

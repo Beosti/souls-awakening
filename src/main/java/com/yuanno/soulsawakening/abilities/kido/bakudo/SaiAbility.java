@@ -1,12 +1,8 @@
 package com.yuanno.soulsawakening.abilities.kido.bakudo;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.KidoAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IEntityRayTrace;
-import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
-import com.yuanno.soulsawakening.api.Beapi;
-import com.yuanno.soulsawakening.api.ModEffect;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.KidoAbility;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.effects.SaiEffect;

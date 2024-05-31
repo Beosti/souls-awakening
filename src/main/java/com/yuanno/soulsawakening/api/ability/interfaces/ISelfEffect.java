@@ -1,6 +1,6 @@
-package com.yuanno.soulsawakening.ability.api.interfaces;
+package com.yuanno.soulsawakening.api.ability.interfaces;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
+import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.events.api.CustomInteractionEvent;
 import com.yuanno.soulsawakening.events.ability.RightClickAbilityEvents;
 import net.minecraft.entity.player.PlayerEntity;

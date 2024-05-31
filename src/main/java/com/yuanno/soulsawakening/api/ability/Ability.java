@@ -1,7 +1,7 @@
 package com.yuanno.soulsawakening.api.ability;
 
-import com.yuanno.soulsawakening.ability.api.interfaces.IPunchAbility;
 import com.yuanno.soulsawakening.api.SourceElement;
+import com.yuanno.soulsawakening.api.ability.interfaces.IPunchAbility;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;

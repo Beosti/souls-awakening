@@ -1,8 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.water;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IEntityRayTrace;
-import com.yuanno.soulsawakening.ability.api.interfaces.IRightClickAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

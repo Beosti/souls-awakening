@@ -1,9 +1,7 @@
 package com.yuanno.soulsawakening.abilities.elements.poison;
 
-import com.yuanno.soulsawakening.ability.api.Ability;
-import com.yuanno.soulsawakening.ability.api.interfaces.IAttackAbility;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 

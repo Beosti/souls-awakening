@@ -1,7 +1,9 @@
 package com.yuanno.soulsawakening.mixins;
 
 import com.google.common.base.Strings;
-import com.yuanno.soulsawakening.ability.api.AttributeHelper;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.AttributeHelper;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.Pose;

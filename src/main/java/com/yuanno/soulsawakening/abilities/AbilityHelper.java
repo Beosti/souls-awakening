@@ -1,6 +1,6 @@
 package com.yuanno.soulsawakening.abilities;
 
-import com.yuanno.soulsawakening.ability.api.ExplosionAbility;
+import com.yuanno.soulsawakening.api.ability.ExplosionAbility;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 

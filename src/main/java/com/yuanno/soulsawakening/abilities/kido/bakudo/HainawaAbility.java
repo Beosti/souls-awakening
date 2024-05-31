@@ -1,8 +1,8 @@
 package com.yuanno.soulsawakening.abilities.kido.bakudo;
 
-import com.yuanno.soulsawakening.ability.api.KidoAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IReiatsuAbility;
-import com.yuanno.soulsawakening.ability.api.interfaces.IShootAbility;
+import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.KidoAbility;
+import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entities.projectiles.kido.bakuro.HainawaProjectile;
 import com.yuanno.soulsawakening.entities.projectiles.kido.hado.ByakuraiProjectile;
