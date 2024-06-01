@@ -36,7 +36,6 @@ public class ModItems {
     public static final RegistryObject<Item> REISHI_INGOT = ITEMS.register("reishi_ingot", ReishiIngotItem::new);
     public static final RegistryObject<Item> KAN = ITEMS.register("kan", KanItem::new);
 
-    // test
     // WEAPONS
     public static final RegistryObject<Item> ZANPAKUTO = ITEMS.register("zanpakuto", ZanpakutoItem::new);
     public static final RegistryObject<Item> ZANPAKUTO_WAKIZASHI = ITEMS.register("zanpakuto_wakizashi", ZanpakutoWakizashiItem::new);
