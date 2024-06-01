@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.items.*;
 import com.yuanno.soulsawakening.items.armor.quincy.QuincyBootsItem;
 import com.yuanno.soulsawakening.items.armor.quincy.QuincyChestItem;
+import com.yuanno.soulsawakening.items.armor.quincy.QuincyCloakItem;
 import com.yuanno.soulsawakening.items.armor.quincy.QuincyPantsItem;
 import com.yuanno.soulsawakening.items.armor.rogue.RogueCapeItem;
 import com.yuanno.soulsawakening.items.armor.rogue.RogueChestItem;
@@ -57,6 +58,7 @@ public class ModItems {
     public static final RegistryObject<Item> ROGUE_CHEST = ITEMS.register("rogue_chest", RogueChestItem::new);
     public static final RegistryObject<Item> ROGUE_CAPE = ITEMS.register("rogue_cape", RogueCapeItem::new);
     // quincy
+    public static final RegistryObject<Item> QUINCY_ROBE = ITEMS.register("quincy_robe", QuincyCloakItem::new);
     public static final RegistryObject<Item> QUINCY_CHEST = ITEMS.register("quincy_chest", QuincyChestItem::new);
     public static final RegistryObject<Item> QUINCY_PANTS = ITEMS.register("quincy_pants", QuincyPantsItem::new);
     public static final RegistryObject<Item> QUINCY_BOOTS = ITEMS.register("quincy_boots", QuincyBootsItem::new);

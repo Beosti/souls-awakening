@@ -3,8 +3,6 @@ package com.yuanno.soulsawakening.models.armor.quincy;// Made with Blockbench 4.
 // Paste this class into your mod and generate all required imports
 
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
@@ -24,8 +22,8 @@ public class QuincyUniformModel<T extends LivingEntity> extends BipedModel<T> {
 	private final ModelRenderer quincyuniformbelt;
 
 	public QuincyUniformModel() {
-        super(1);
-        texWidth = 128;
+		super(1);
+		texWidth = 128;
 		texHeight = 128;
 		
 		quincyuniform = new ModelRenderer(this);
@@ -92,18 +90,27 @@ public class QuincyUniformModel<T extends LivingEntity> extends BipedModel<T> {
 		quincyuniformbelt.texOffs(72, 62).addBox(-1.0F, -1.0F, -2.5F, 2.0F, 2.0F, 1.0F, 0.2F, false);
 	}
 
+	/*
 	@Override
-	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
-		super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+		//previously the render function, render code was moved to a method below
 	}
 
 	@Override
-	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
-		this.quincyuniform.copyFrom(this.body);
-		this.quincyuniform.render(matrixStack, buffer, packedLight, packedOverlay);
+	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+		MinecraftPlayerModel.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		quincyuniform.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+		modelRenderer.rotateAngleX = x;
+		modelRenderer.rotateAngleY = y;
+		modelRenderer.rotateAngleZ = z;
+	}
+
+	 */
+	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z)
+	{
 		modelRenderer.xRot = x;
 		modelRenderer.yRot = y;
 		modelRenderer.zRot = z;

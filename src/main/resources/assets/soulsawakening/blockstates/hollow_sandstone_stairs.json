@@ -1,0 +1,44 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "HollowSandstoneStairs",
+		"particle": "HollowSandstoneStairs"
+	},
+	"elements": [
+		{
+			"name": "hollowsandstonestairs1",
+			"from": [0, 0, 0],
+			"to": [16, 8, 16],
+			"faces": {
+				"north": {"uv": [2, 2, 4, 3], "texture": "#0"},
+				"east": {"uv": [0, 2, 2, 3], "texture": "#0"},
+				"south": {"uv": [6, 2, 8, 3], "texture": "#0"},
+				"west": {"uv": [4, 2, 6, 3], "texture": "#0"},
+				"up": {"uv": [4, 2, 2, 0], "texture": "#0"},
+				"down": {"uv": [6, 0, 4, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonestairs2",
+			"from": [0, 8, 8],
+			"to": [16, 16, 16],
+			"faces": {
+				"north": {"uv": [2, 4.125, 4, 5.125], "texture": "#0"},
+				"east": {"uv": [1, 4.125, 2, 5.125], "texture": "#0"},
+				"south": {"uv": [5, 4.125, 7, 5.125], "texture": "#0"},
+				"west": {"uv": [4, 4.125, 5, 5.125], "texture": "#0"},
+				"up": {"uv": [4, 4.125, 2, 3.125], "texture": "#0"},
+				"down": {"uv": [6, 3.125, 4, 4.125], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "hollowsandstonestairs",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

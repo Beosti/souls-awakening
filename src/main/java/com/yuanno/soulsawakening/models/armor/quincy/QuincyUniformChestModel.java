@@ -17,6 +17,7 @@ public class QuincyUniformChestModel<T extends LivingEntity> extends BipedModel<
 	private final ModelRenderer quincyuniformbodybackrobe;
 	private final ModelRenderer quincyuniformleftarm;
 	private final ModelRenderer quincyuniformrightarm;
+	private final ModelRenderer quincyuniformbelt;
 
 	public QuincyUniformChestModel() {
         super(1);
@@ -25,7 +26,13 @@ public class QuincyUniformChestModel<T extends LivingEntity> extends BipedModel<
 		
 		quincyuniform = new ModelRenderer(this);
 		quincyuniform.setPos(0.0F, 24.0F, 0.0F);
-		
+
+		quincyuniformbelt = new ModelRenderer(this);
+		quincyuniformbelt.setPos(0.0F, -13.75F, 0.0F);
+		quincyuniform.addChild(quincyuniformbelt);
+		setRotationAngle(quincyuniformbelt, 0.0F, 0.0F, 0.0436F);
+		quincyuniformbelt.texOffs(61, 67).addBox(-4.5F, -1.0F, -2.5F, 9.0F, 2.0F, 5.0F, 0.0F, false);
+		quincyuniformbelt.texOffs(72, 62).addBox(-1.0F, -1.0F, -2.5F, 2.0F, 2.0F, 1.0F, 0.2F, false);
 
 		quincyuniformhead = new ModelRenderer(this);
 		quincyuniformhead.setPos(0.0F, -24.0F, 0.0F);
@@ -79,7 +86,9 @@ public class QuincyUniformChestModel<T extends LivingEntity> extends BipedModel<
 		this.quincyuniformbodybackrobe.render(matrixStack, buffer, packedLight, packedOverlay);
 		this.quincyuniformbodyfrontrobe.copyFrom(this.body);
 		this.quincyuniformbodyfrontrobe.render(matrixStack, buffer, packedLight, packedOverlay);
-
+		this.quincyuniformbelt.copyFrom(this.body);
+		this.quincyuniformbelt.setPos(0, 11, 0);
+		this.quincyuniformbelt.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
