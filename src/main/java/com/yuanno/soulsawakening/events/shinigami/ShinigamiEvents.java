@@ -38,7 +38,6 @@ public class ShinigamiEvents {
     @SubscribeEvent
     public static void onKillHollow(LivingDeathEvent event)
     {
-        // TODO if doing a challenge you don't get points
         int amountToChange;
         LivingEntity killedEntity = event.getEntityLiving();
         IEntityStats killedEntityStats = EntityStatsCapability.get(killedEntity);
@@ -196,6 +195,8 @@ public class ShinigamiEvents {
     }
     public static void handleHakuda(PlayerEntity player, IEntityStats entityStats)
     {
+        ModifiableAttributeInstance attackAddedAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
+        attackAddedAttribute.setBaseValue(1 + entityStats.getShinigamiStats().getHakudaPoints() * 0.05);
         ModifiableAttributeInstance healthAttribute = player.getAttribute(Attributes.MAX_HEALTH);
         healthAttribute.setBaseValue(20 + entityStats.getShinigamiStats().getHakudaPoints());
         ((ServerPlayerEntity) player).connection.send(new SUpdateHealthPacket(player.getHealth(), player.getFoodData().getFoodLevel(), player.getFoodData().getSaturationLevel()));

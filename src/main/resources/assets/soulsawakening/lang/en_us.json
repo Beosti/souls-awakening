@@ -153,6 +153,20 @@
   "ability.message.no_target": "No target found",
   "ability.message.reiatsu_target": "The target has too much reiatsu presssure to be affected!",
 
+  "gui.chain_faith.string": "Chain of faith: ",
+  "gui.chain_faith.tooltip": "Chain that binds your soul to your body, if the timer is up it'll transform you in a hollow",
+
+  "gui.zanjutsu.string": "Zanjutsu: ",
+  "gui.zanjutsu.tooltip": "How strong a shinigami with a blade, has an impact on damage with your sword and certain abilities.",
+  "gui.hakuda.string": "Hakuda: ",
+  "gui.hakuda.tooltip": "The art of fighting without weapons for a shinigami and physical strength, has impact on your health and",
+  "gui.hoho.string": "Hoho: ",
+  "gui.hoho.tooltip": "Chain that binds your soul to your body, if the timer is up it'll transform you in a hollow",
+  "gui.reiatsu.string": "Reiatsu: ",
+  "gui.reiatsu.tooltip": "Chain that binds your soul to your body, if the timer is up it'll transform you in a hollow",
+  "gui.class.string": "Class points: ",
+  "gui.class.tooltip": "Chain that binds your soul to your body, if the timer is up it'll transform you in a hollow",
+
   "gui.reiatsu.button": "Makes reiatsu-based abilities, also makes you more resistant against those.",
   "gui.reiatsu_quincy.button": "Makes your spirit weapon stronger and get more resilience against reiatsu based attacks.",
   "gui.hoho.button": "Increases your attack speed, crit chance and improves hoho-based abilities.",
@@ -188,6 +202,7 @@
   "gui.crit_mod.string": "Crit modifier: ",
   "gui.crit_mod.tooltip": "Value of the multiplier when attacking with a crit. The multiplier will multiply with your base damage (and possible weapon damage)",
 
+  "gui.kan.string": "Kan: ",
   "gui.kan.tooltip": "The money and currency in the spirit realm used by hollows, quincies and shinigami alike. You can spend them in a shop of your liking spawned around the world",
 
   "command.quest.progress": "Already have that quest in progress!",

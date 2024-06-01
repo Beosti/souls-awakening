@@ -209,7 +209,7 @@ public class QuincyEvents {
         ModifiableAttributeInstance damageReductionAttribute = player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get());
         damageReductionAttribute.setBaseValue(0 + entityStats.getQuincyStats().getBlut() * 0.02);
         ModifiableAttributeInstance attackAddedAttribute = player.getAttribute(Attributes.ATTACK_DAMAGE);
-        attackAddedAttribute.setBaseValue(1 + entityStats.getQuincyStats().getBlut() * 0.02);
+        attackAddedAttribute.setBaseValue(1 + entityStats.getQuincyStats().getBlut() * 0.10);
         handleAbilities(player, entityStats);
     }
     public static void handleAbilities(PlayerEntity player, IEntityStats entityStats)

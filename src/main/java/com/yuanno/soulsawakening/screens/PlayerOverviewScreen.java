@@ -309,14 +309,13 @@ public class PlayerOverviewScreen extends Screen {
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Race: " + TextFormatting.RESET + race, leftShift, posY + 40, -1);
         if (!rank.isEmpty())
             drawString(matrixStack, this.font, TextFormatting.BOLD + "Rank: " + TextFormatting.RESET + rank, leftShift + 80 + rank.length(), posY + 40, -1);
-        String kanString = TextFormatting.BOLD + "Kan: " + TextFormatting.RESET + miscData.getKan();
-        drawString(matrixStack, this.font, kanString, leftShift, posY + 170, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(kanString) && mouseY >= posY + 170 && mouseY <= posY + 170 + this.mc.font.lineHeight)
-            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.kan.tooltip"), mouseX, mouseY);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.kan.string").withStyle(TextFormatting.BOLD), miscData.getKan() + "", new TranslationTextComponent("gui.kan.tooltip"),
+                leftShift, posY + 170);
         if (this.entityStats.getRace().equals(ModValues.SPIRIT))
-            spiritRendering(matrixStack, posX, posY);
+            spiritRendering(matrixStack, posX, posY, mouseX, mouseY);
         if (this.entityStats.getRace().equals(ModValues.SHINIGAMI))
-            shinigamiRendering(matrixStack, posX, posY);
+            shinigamiRendering(matrixStack, posX, posY, mouseX, mouseY);
         if (this.entityStats.getRace().equals(ModValues.HOLLOW))
             hollowRendering(matrixStack, posX, posY, mouseX, mouseY);
         if (this.entityStats.getRace().equals(ModValues.QUINCY))
@@ -348,14 +347,15 @@ public class PlayerOverviewScreen extends Screen {
         super.render(matrixStack, mouseX, mouseY, f);
     }
 
-    public void spiritRendering(MatrixStack matrixStack, int posX, int posY)
+    public void spiritRendering(MatrixStack matrixStack, int posX, int posY, int mouseX, int mouseY)
     {
         int leftShift = posX - 75;
         int spiritChain = miscData.getSpiritChain();
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Spirit chain: " + TextFormatting.RESET + spiritChain, leftShift, posY + 60, -1);
-
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.chain_faith.string").withStyle(TextFormatting.BOLD), spiritChain + "", new TranslationTextComponent("gui.chain_faith.tooltip"),
+                leftShift, posY + 60);
     }
-    public void shinigamiRendering(MatrixStack matrixStack, int posX, int posY)
+    public void shinigamiRendering(MatrixStack matrixStack, int posX, int posY, int mouseX, int mouseY)
     {
         int leftShift = posX - 75;
 
@@ -366,7 +366,21 @@ public class PlayerOverviewScreen extends Screen {
         int reiatsuPoints = (int) Math.floor(entityStats.getReiatsuPoints());
 
 
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Zanjutsu points: " + TextFormatting.RESET + zanjutsuPoints, leftShift, posY + 60, -1);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.zanjutsu.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.zanjutsu.tooltip"),
+                leftShift, posY + 60);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.hakuda.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.hakuda.tooltip"),
+                leftShift, posY + 75);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.hoho.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.hoho.tooltip"),
+                leftShift, posY + 90);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.reiatsu.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.reiatsu.tooltip"),
+                leftShift, posY + 105);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.class.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.class.tooltip"),
+                leftShift, posY + 135);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Hakuda points: " + TextFormatting.RESET + hakuPoints, leftShift, posY + 75, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Hoho points: " + TextFormatting.RESET + hohoPoints, leftShift, posY + 90, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
