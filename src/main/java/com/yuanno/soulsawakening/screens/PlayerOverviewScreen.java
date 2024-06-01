@@ -381,7 +381,6 @@ public class PlayerOverviewScreen extends Screen {
         RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
                 new TranslationTextComponent("gui.class.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.class.tooltip"),
                 leftShift, posY + 135);
-        System.out.println("TEST");
     }
 
     public void hollowRendering(MatrixStack matrixStack, int posX, int posY, int mouseX, int mouseY)
