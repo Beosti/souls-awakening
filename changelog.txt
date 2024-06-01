@@ -1,12 +1,18 @@
+# Changelog
+
 ## additions
 - shinigami's now get base attack damage increase if putting stats in hakuda
 - quincy robe
 ### lots of small QoL changes to the player review screen
+
 ## changes
 - 1 blut point = 0.02 extra base damage -> 1 blut point = 0.1 extra base damage
+
 ## fixed
 ## fixed
 - quincy pants not rendering when put on
+- test
 
 ## misc
 ## misc
+
