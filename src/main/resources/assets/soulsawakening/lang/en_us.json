@@ -177,6 +177,17 @@
   "gui.hirenkyaku.tooltip": "The speed stat for quincies, more resistance against speed-based abilities, better crit chance",
   "gui.class_point.tooltip": "The experience you've gathered as a quincy you can spend on chosen stats, you can acquire more by killing hollows and vanilla mobs",
 
+  "gui.max_health.string": "Max Health: ",
+  "gui.max_health.tooltip": "Amount of max health you can have",
+  "gui.base_damage.string": "Base damage: ",
+  "gui.base_damage.tooltip": "Damage without weapon",
+  "gui.damage_resistance.string": "Damage resistance: ",
+  "gui.damage_resistance.tooltip": "Amount of incoming damage nullified",
+  "gui.crit_chance.string": "Crit chance: ",
+  "gui.crit_chance.tooltip": "Chance of a critical hit happening when attacking an entity",
+  "gui.crit_mod.string": "Crit modifier: ",
+  "gui.crit_mod.tooltip": "Value of the multiplier when attacking with a crit. The multiplier will multiply with your base damage (and possible weapon damage)",
+
   "gui.kan.tooltip": "The money and currency in the spirit realm used by hollows, quincies and shinigami alike. You can spend them in a shop of your liking spawned around the world",
 
   "command.quest.progress": "Already have that quest in progress!",

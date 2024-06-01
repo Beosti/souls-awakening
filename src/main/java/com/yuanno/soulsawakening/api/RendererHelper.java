@@ -6,29 +6,69 @@ import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.fonts.Font;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.text.ITextProperties;
-import net.minecraft.util.text.LanguageMap;
-import net.minecraft.util.text.Style;
+import net.minecraft.util.text.*;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 
 import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
+/**
+    Helper class for anything rendering on the screen in guis etc.
+ */
 public class RendererHelper {
 
+    /**
+     * Added methods for if you want a two part string with different styles for example:
+     * (bold) max health: (normal) [amount]
+     * @param secondTextScreen -> second text you want attached option for ITextComponent for translation or normal string
+     */
+    public static void drawTwoStringWithTooltip(Screen screen, int mouseX, int mouseY, MatrixStack matrixStack, FontRenderer fontRenderer, ITextComponent textScreen, String secondTextScreen, ITextComponent tooltipScreen, int posX, int posY)
+    {
+        drawStringWithTooltip(screen, mouseX, mouseY, matrixStack, fontRenderer, textScreen, tooltipScreen, posX, posY);
+        AbstractGui.drawString(matrixStack, fontRenderer, secondTextScreen, posX + screen.getMinecraft().font.width(textScreen), posY, -1);
+    }
+    public static void drawTwoStringWithTooltip(Screen screen, int mouseX, int mouseY, MatrixStack matrixStack, FontRenderer fontRenderer, ITextComponent textScreen, ITextComponent secondTextScreen, ITextComponent tooltipScreen, int posX, int posY)
+    {
+        drawStringWithTooltip(screen, mouseX, mouseY, matrixStack, fontRenderer, textScreen, tooltipScreen, posX, posY);
+        AbstractGui.drawString(matrixStack, fontRenderer, secondTextScreen, posX + screen.getMinecraft().font.width(textScreen), posY, -1);
+    }
+    /**
+     * Makes a string on the screen with a custom tooltip
+     * @param screen -> screen you're currently working in
+     * @param mouseX -> mouseposition X; needed for: check if your mouse hovering over the string, rendering it at your mousecoords
+     * @param mouseY -> mouseposition Y; needed for: check if your mouse hovering over the string, rendering it at your mousecoords
+     * @param matrixStack -> always needed to render anything in minecraft
+     * @param fontRenderer -> font of your stuff
+     * @param textScreen -> text on the screen, done in ITextComponent for translations
+     * @param tooltipScreen -> text for the tooltip, done in ITextComponent for translations
+     * @param posX -> position X on the screen to put the string
+     * @param posY -> position Y on the screen to put the string
+     */
+    public static void drawStringWithTooltip(Screen screen, int mouseX, int mouseY, MatrixStack matrixStack, FontRenderer fontRenderer, ITextComponent textScreen, ITextComponent tooltipScreen, int posX, int posY)
+    {
+        AbstractGui.drawString(matrixStack, fontRenderer, textScreen, posX, posY, -1);
+        if (mouseX >= posX && mouseX <= posX + screen.getMinecraft().font.width(textScreen) && mouseY >= posY && mouseY <= posY + screen.getMinecraft().font.lineHeight)
+            screen.renderTooltip(matrixStack, tooltipScreen, mouseX, mouseY);
+    }
     public static void drawAbilityIcon(Ability core, MatrixStack matrixStack, int x, int y, int z, int u, int v)
     {
         drawAbilityIcon(core, matrixStack, x, y, z, u, v, 1, 1, 1);

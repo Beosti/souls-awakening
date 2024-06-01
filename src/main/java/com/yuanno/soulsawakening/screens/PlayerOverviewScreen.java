@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.screens;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.api.Beapi;
+import com.yuanno.soulsawakening.api.RendererHelper;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -25,9 +26,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -326,17 +325,26 @@ public class PlayerOverviewScreen extends Screen {
         ModifiableAttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
         ModifiableAttributeInstance attackDamage = player.getAttribute(Attributes.ATTACK_DAMAGE);
         ModifiableAttributeInstance resistance = player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get());
-        leftShift += 180;
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Max Health: " + TextFormatting.RESET + maxHealth.getBaseValue(), leftShift, posY + 40, -1);
-        //if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(HollowPointsString) && mouseY >= posY + 140 && mouseY <= posY + 140 + this.mc.font.lineHeight)
-         //   this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution_point.tooltip"), mouseX, mouseY);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + attackDamage.getBaseValue(), leftShift, posY + 55, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Damage resistance: " + TextFormatting.RESET + resistance.getBaseValue(), leftShift, posY + 70, -1);
-        String critChance = entityStats.getSpeedStat() + "%";
-        String damageModifier = 1 + ((float) entityStats.getSpeedStat() / 10) + " X damage";
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Crit chance: " + TextFormatting.RESET + critChance, leftShift, posY + 85, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Crit modifier: " + TextFormatting.RESET + damageModifier, leftShift, posY + 100, -1);
+        leftShift += 240;
 
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.max_health.string").withStyle(TextFormatting.BOLD), "" + maxHealth.getBaseValue(), new TranslationTextComponent("gui.max_health.tooltip"),
+                leftShift, posY + 40);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.base_damage.string").withStyle(TextFormatting.BOLD), "" + attackDamage.getBaseValue(), new TranslationTextComponent("gui.base_damage.tooltip"),
+                leftShift, posY + 55);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.damage_resistance.string").withStyle(TextFormatting.BOLD), "" + resistance.getBaseValue() * 100 + "%", new TranslationTextComponent("gui.damage_resistance.tooltip"),
+                leftShift, posY + 70);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.damage_resistance.string").withStyle(TextFormatting.BOLD), "" + resistance.getBaseValue() * 100 + "%", new TranslationTextComponent("gui.damage_resistance.tooltip"),
+                leftShift, posY + 70);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.crit_chance.string").withStyle(TextFormatting.BOLD), entityStats.getSpeedStat() + "%", new TranslationTextComponent("gui.crit_chance.tooltip"),
+                leftShift, posY + 85);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.crit_mod.string").withStyle(TextFormatting.BOLD), 1 + ((float) entityStats.getSpeedStat() / 10) + "", new TranslationTextComponent("gui.crit_mod.tooltip"),
+                leftShift, posY + 100);
         super.render(matrixStack, mouseX, mouseY, f);
     }
 
