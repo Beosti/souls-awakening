@@ -328,6 +328,8 @@ public class PlayerOverviewScreen extends Screen {
         ModifiableAttributeInstance resistance = player.getAttribute(ModAttributes.DAMAGE_REDUCTION.get());
         leftShift += 180;
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Max Health: " + TextFormatting.RESET + maxHealth.getBaseValue(), leftShift, posY + 40, -1);
+        //if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(HollowPointsString) && mouseY >= posY + 140 && mouseY <= posY + 140 + this.mc.font.lineHeight)
+         //   this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution_point.tooltip"), mouseX, mouseY);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Base damage: " + TextFormatting.RESET + attackDamage.getBaseValue(), leftShift, posY + 55, -1);
         drawString(matrixStack, this.font, TextFormatting.BOLD + "Damage resistance: " + TextFormatting.RESET + resistance.getBaseValue(), leftShift, posY + 70, -1);
         String critChance = entityStats.getSpeedStat() + "%";
