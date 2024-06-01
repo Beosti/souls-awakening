@@ -157,15 +157,41 @@
   "gui.chain_faith.tooltip": "Chain that binds your soul to your body, if the timer is up it'll transform you in a hollow",
 
   "gui.zanjutsu.string": "Zanjutsu: ",
-  "gui.zanjutsu.tooltip": "How strong a shinigami with a blade, has an impact on damage with your sword and certain abilities.",
+  "gui.zanjutsu.tooltip": "How strong a shinigami is with a blade, has an impact on damage with your sword and certain abilities.",
   "gui.hakuda.string": "Hakuda: ",
-  "gui.hakuda.tooltip": "The art of fighting without weapons for a shinigami and physical strength, has impact on your health and",
+  "gui.hakuda.tooltip": "The art of fighting without weapons for a shinigami and physical strength, has impact on your health and base damage",
   "gui.hoho.string": "Hoho: ",
-  "gui.hoho.tooltip": "Chain that binds your soul to your body, if the timer is up it'll transform you in a hollow",
-  "gui.reiatsu.string": "Reiatsu: ",
-  "gui.reiatsu.tooltip": "Chain that binds your soul to your body, if the timer is up it'll transform you in a hollow",
+  "gui.hoho.tooltip": "Speed stat for shinigami, has an impact on your crit chance and crit modifier",
   "gui.class.string": "Class points: ",
-  "gui.class.tooltip": "Chain that binds your soul to your body, if the timer is up it'll transform you in a hollow",
+  "gui.class.tooltip": "Points you gain by killing hollows and quests, you can spend these points in a stat",
+
+  "gui.constitution.string": "Constitution: ",
+  "gui.constitution.tooltip": "The strength of your body as a hollow, has impact on your health and regeneration.",
+  "gui.hierro.string": "Hierro: ",
+  "gui.hierro.tooltip": "The strength of your outter skin. Reduces incoming damage",
+  "gui.agility.string": "Agility: ",
+  "gui.agility.tooltip": "Speed stat for hollows, has an impact on crit chance and the crit multiplier",
+  "gui.mutation_point.string": "Mutation points: ",
+  "gui.mutation_point.tooltip": "You gain mutation points by killing shinigami and pluses. Those mutation points you can spend somewhere.",
+  "gui.evolution_point.string": "Evolution points: ",
+  "gui.evolution_point.tooltip": "You gain evolution points by killing hollows.",
+
+  "gui.blut.string": "Blut points: ",
+  "gui.blut.tooltip": "The manipulation of flow of reishi throughout the blood vessels of a quincy. This stat has an effect on your attack damage and resistance attribute. But also the abilities you acquire",
+  "gui.constitution_quincy.string": "Constritution: ",
+  "gui.constitution_quincy.tooltip": "This stat has an effect on the max health of the player",
+  "gui.reiatsu_point.string": "Reiatsu: ",
+  "gui.hirenkyaku.string": "Hirenkyaku: ",
+  "gui.hirenkyaku.tooltip": "The speed stat for quincies, more resistance against speed-based abilities, better crit chance",
+  "gui.class_point.string": "Class points: ",
+  "gui.class_point.tooltip": "The experience you've gathered as a quincy you can spend on chosen stats, you can acquire more by killing hollows and vanilla mobs",
+
+
+  "gui.reiatsu.string": "Reiatsu: ",
+  "gui.reiatsu_shinigami.tooltip": "For a shinigami has impact on the kido potential and kido resistance",
+  "gui.reiatsu_hollow.tooltip": "Resistance of reishi based abilities and potency of reishi based abilities you use",
+  "gui.reiatsu_quincy.tooltip": "The manipulation and control of ambient reishi for quincies is related to this stat. You can increase this stat naturally by using your spirit weapon",
+
 
   "gui.reiatsu.button": "Makes reiatsu-based abilities, also makes you more resistant against those.",
   "gui.reiatsu_quincy.button": "Makes your spirit weapon stronger and get more resilience against reiatsu based attacks.",
@@ -182,14 +208,6 @@
 
   "gui.evolution.tooltip": "Consume all your hollow points to evolve, resetting the extra damage on certain abilities",
   "gui.evolution.active": "You need 50 hollow points to evolve.",
-  "gui.mutation_point.tooltip": "You gain mutation points by killing shinigami and pluses. Those mutation points you can spend somewhere.",
-  "gui.evolution_point.tooltip": "You gain evolution points by killing hollows.",
-
-  "gui.constitution_point.tooltip": "This stat has an effect on the max health of the player",
-  "gui.blut_points.tooltip": "The manipulation of flow of reishi throughout the blood vessels of a quincy. This stat has an effect on your attack damage and resistance attribute. But also the abilities you acquire",
-  "gui.reiatsu_point.tooltip": "The manipulation and control of ambient reishi for quincies is related to this stat, increasing it will mean more resistance against reishi based attacks and better stats for your spirit weapon created by ambient reishi. You can increase this stat naturally by using your spirit weapon",
-  "gui.hirenkyaku.tooltip": "The speed stat for quincies, more resistance against speed-based abilities, better crit chance",
-  "gui.class_point.tooltip": "The experience you've gathered as a quincy you can spend on chosen stats, you can acquire more by killing hollows and vanilla mobs",
 
   "gui.max_health.string": "Max Health: ",
   "gui.max_health.tooltip": "Amount of max health you can have",

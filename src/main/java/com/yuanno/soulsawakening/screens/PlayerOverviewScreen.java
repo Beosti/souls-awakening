@@ -376,16 +376,11 @@ public class PlayerOverviewScreen extends Screen {
                 new TranslationTextComponent("gui.hoho.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.hoho.tooltip"),
                 leftShift, posY + 90);
         RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
-                new TranslationTextComponent("gui.reiatsu.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.reiatsu.tooltip"),
+                new TranslationTextComponent("gui.reiatsu.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.reiatsu_shinigami.tooltip"),
                 leftShift, posY + 105);
         RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
                 new TranslationTextComponent("gui.class.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.class.tooltip"),
                 leftShift, posY + 135);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Hakuda points: " + TextFormatting.RESET + hakuPoints, leftShift, posY + 75, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Hoho points: " + TextFormatting.RESET + hohoPoints, leftShift, posY + 90, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints, leftShift, posY + 120, -1);
-
     }
 
     public void hollowRendering(MatrixStack matrixStack, int posX, int posY, int mouseX, int mouseY)
@@ -400,19 +395,25 @@ public class PlayerOverviewScreen extends Screen {
         int agility = this.entityStats.getHollowStats().getAgility();
         int reiatsuPoints = (int) Math.floor(this.entityStats.getReiatsuPoints());
 
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Constitution points: " + TextFormatting.RESET + constitution, leftShift, posY + 60, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Hierro points: " + TextFormatting.RESET + hierro, leftShift, posY + 75, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Agility points: " + TextFormatting.RESET + agility, leftShift, posY + 90, -1);
-        drawString(matrixStack, this.font, TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints, leftShift, posY + 105, -1);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.constitution.string").withStyle(TextFormatting.BOLD), constitution + "", new TranslationTextComponent("gui.constitution.tooltip"),
+                leftShift, posY + 60);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.hierro.string").withStyle(TextFormatting.BOLD), hierro + "", new TranslationTextComponent("gui.hierro.tooltip"),
+                leftShift, posY + 75);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.agility.string").withStyle(TextFormatting.BOLD), agility + "", new TranslationTextComponent("gui.agility.tooltip"),
+                leftShift, posY + 90);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.reiatsu.string").withStyle(TextFormatting.BOLD), reiatsuPoints + "", new TranslationTextComponent("gui.reiatsu_hollow.tooltip"),
+                leftShift, posY + 105);
 
-        String mutationPointsString = TextFormatting.BOLD + "Mutation points: " + TextFormatting.RESET + mutationPoints;
-        drawString(matrixStack, this.font, mutationPointsString, leftShift, posY + 125, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(mutationPointsString) && mouseY >= posY + 125 && mouseY <= posY + 125 + this.mc.font.lineHeight)
-            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.mutation_point.tooltip"), mouseX, mouseY);
-        String HollowPointsString = TextFormatting.BOLD + "Hollow points: " + TextFormatting.RESET + hollowPoints;
-        drawString(matrixStack, this.font, HollowPointsString, leftShift, posY + 140, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(HollowPointsString) && mouseY >= posY + 140 && mouseY <= posY + 140 + this.mc.font.lineHeight)
-            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution_point.tooltip"), mouseX, mouseY);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.mutation_point.string").withStyle(TextFormatting.BOLD), mutationPoints + "", new TranslationTextComponent("gui.mutation_point.tooltip"),
+                leftShift, posY + 125);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.evolution_point.string").withStyle(TextFormatting.BOLD), hollowPoints + "", new TranslationTextComponent("gui.evolution_point.tooltip"),
+                leftShift, posY + 140);
     }
 
     public void quincyRendering(MatrixStack matrixStack, int posX, int posY, int mouseX, int mouseY)
@@ -425,27 +426,21 @@ public class PlayerOverviewScreen extends Screen {
         int hirenkyaku = entityStats.getQuincyStats().getHirenkyaku();
         int reiatsuPoints = (int) entityStats.getReiatsuPoints();
 
-        String blutPoints = TextFormatting.BOLD + "Blut points: "  + TextFormatting.RESET + blut;
-        drawString(matrixStack, this.font, blutPoints, leftShift, posY + 60, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(blutPoints) && mouseY >= posY + 60 && mouseY <= posY + 60 + this.mc.font.lineHeight)
-            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.blut_points.tooltip"), mouseX, mouseY);
-        String constitutionPoints = TextFormatting.BOLD + "Constitution points: " + TextFormatting.RESET + constitution;
-        drawString(matrixStack, this.font, constitutionPoints, leftShift, posY + 75, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(constitutionPoints) && mouseY >= posY + 75 && mouseY <= posY + 75 + this.mc.font.lineHeight)
-            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.constitution_point.tooltip"), mouseX, mouseY);
-        String hirenkyakuPoints = TextFormatting.BOLD + "Hirenkyaku points: " + TextFormatting.RESET + hirenkyaku;
-        drawString(matrixStack, this.font, hirenkyakuPoints, leftShift, posY + 90, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(hirenkyakuPoints) && mouseY >= posY + 90 && mouseY <= posY + 90 + this.mc.font.lineHeight)
-            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.hirenkyaku.tooltip"), mouseX, mouseY);
-        String reiatsuPointsString = TextFormatting.BOLD + "Reiatsu points: " + TextFormatting.RESET + reiatsuPoints;
-        drawString(matrixStack, this.font, reiatsuPointsString, leftShift, posY + 105, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(reiatsuPointsString) && mouseY >= posY + 105 && mouseY <= posY + 105 + this.mc.font.lineHeight)
-            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.reiatsu_point.tooltip"), mouseX, mouseY);
-        String classPointString = TextFormatting.BOLD + "Class points: " + TextFormatting.RESET + classPoints;
-        drawString(matrixStack, this.font, classPointString, leftShift, posY + 120, -1);
-        if (mouseX >= leftShift && mouseX <= leftShift + this.mc.font.width(classPointString) && mouseY >= posY + 120 && mouseY <= posY + 120 + this.mc.font.lineHeight)
-            this.renderTooltip(matrixStack, new TranslationTextComponent("gui.class_point.tooltip"), mouseX, mouseY);
-        leftShift = posX + 180;
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.blut.string").withStyle(TextFormatting.BOLD), blut + "", new TranslationTextComponent("gui.blut.tooltip"),
+                leftShift, posY + 60);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.constitution_quincy.string").withStyle(TextFormatting.BOLD), constitution + "", new TranslationTextComponent("gui.constitution_quincy.tooltip"),
+                leftShift, posY + 75);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.hirenkyaku.string").withStyle(TextFormatting.BOLD), hirenkyaku + "", new TranslationTextComponent("gui.hirenkyaku.tooltip"),
+                leftShift, posY + 90);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.reiatsu.string").withStyle(TextFormatting.BOLD), reiatsuPoints + "", new TranslationTextComponent("gui.reiatsu_quincy.tooltip"),
+                leftShift, posY + 105);
+        RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
+                new TranslationTextComponent("gui.class_point.string").withStyle(TextFormatting.BOLD), classPoints + "", new TranslationTextComponent("gui.class_point.tooltip"),
+                leftShift, posY + 135);
     }
 
     @Override
