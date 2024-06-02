@@ -1,31 +1,8 @@
 {
-	"credit": "Made with Blockbench",
-	"texture_size": [128, 128],
+	"parent": "minecraft:block/slab",
 	"textures": {
-		"0": "soulsawakening:blocks/hollow_sandstone_slab",
-		"particle": "soulsawakening:blocks/hollow_sandstone_slab"
-	},
-	"elements": [
-		{
-			"name": "hollowsandstoneslab",
-			"from": [0, 0, 0],
-			"to": [16, 8, 16],
-			"faces": {
-				"north": {"uv": [2, 2, 4, 3], "texture": "#0"},
-				"east": {"uv": [0, 2, 2, 3], "texture": "#0"},
-				"south": {"uv": [6, 2, 8, 3], "texture": "#0"},
-				"west": {"uv": [4, 2, 6, 3], "texture": "#0"},
-				"up": {"uv": [4, 2, 2, 0], "texture": "#0"},
-				"down": {"uv": [6, 0, 4, 2], "texture": "#0"}
-			}
-		}
-	],
-	"groups": [
-		{
-			"name": "hollowsandstoneslab",
-			"origin": [8, 8, 8],
-			"color": 0,
-			"children": [0]
-		}
-	]
+		"bottom": "soulsawakening:blocks/hollow_sandstone_top",
+		"top": "soulsawakening:blocks/hollow_sandstone_top",
+		"side": "soulsawakening:blocks/hollow_sandstone"
+	}
 }

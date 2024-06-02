@@ -1,9 +1,13 @@
 {
 	"variants": {
-		"": [
-			{
-				"model": "soulsawakening:block/hollow_sandstone_slab"
-			}
-		]
+		"type=bottom": {
+			"model": "soulsawakening:block/hollow_sandstone_slab"
+		},
+		"type=double": {
+			"model": "soulsawakening:block/hollow_sandstone"
+		},
+		"type=top": {
+			"model": "soulsawakening:block/hollow_sandstone_top"
+		}
 	}
 }
