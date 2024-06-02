@@ -7,13 +7,7 @@
 - everything you hover has a tooltip
 - tooltips got changed for more clarifications
 - races that did not have tooltips have it now
-### test
-- this
-- is
-- a
-- test
-- for git
-- hooks
+
 
 ## changes
 - 1 blut point = 0.02 extra base damage -> 1 blut point = 0.1 extra base damage

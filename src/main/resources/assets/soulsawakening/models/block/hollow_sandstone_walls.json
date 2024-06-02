@@ -1,0 +1,235 @@
+{
+	"credit": "Made with Blockbench",
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "soulsawakening:blocks/hollow_sandstone_walls",
+		"particle": "soulsawakening:blocks/hollow_sandstone_walls"
+	},
+	"elements": [
+		{
+			"name": "hollowsandstonewallpost",
+			"from": [4, 0, 4],
+			"to": [12, 16, 12],
+			"faces": {
+				"north": {"uv": [1, 14, 2, 16], "texture": "#0"},
+				"east": {"uv": [0, 14, 1, 16], "texture": "#0"},
+				"south": {"uv": [3, 14, 4, 16], "texture": "#0"},
+				"west": {"uv": [2, 14, 3, 16], "texture": "#0"},
+				"up": {"uv": [2, 14, 1, 13], "texture": "#0"},
+				"down": {"uv": [3, 13, 2, 14], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwall1",
+			"from": [5, 0, 0],
+			"to": [11, 16, 5],
+			"faces": {
+				"north": {"uv": [4.25, 10.875, 5, 12.875], "texture": "#0"},
+				"east": {"uv": [3.625, 10.875, 4.25, 12.875], "texture": "#0"},
+				"south": {"uv": [5.625, 10.875, 6.375, 12.875], "texture": "#0"},
+				"west": {"uv": [5, 10.875, 5.625, 12.875], "texture": "#0"},
+				"up": {"uv": [5, 10.875, 4.25, 10.25], "texture": "#0"},
+				"down": {"uv": [5.75, 10.25, 5, 10.875], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwall2",
+			"from": [5, 0, 11],
+			"to": [11, 16, 16],
+			"faces": {
+				"north": {"uv": [4.25, 10.875, 5, 12.875], "texture": "#0"},
+				"east": {"uv": [3.625, 10.875, 4.25, 12.875], "texture": "#0"},
+				"south": {"uv": [5.625, 10.875, 6.375, 12.875], "texture": "#0"},
+				"west": {"uv": [5, 10.875, 5.625, 12.875], "texture": "#0"},
+				"up": {"uv": [5, 10.875, 4.25, 10.25], "texture": "#0"},
+				"down": {"uv": [5.75, 10.25, 5, 10.875], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwall3",
+			"from": [11, 0, 5],
+			"to": [16, 16, 11],
+			"faces": {
+				"north": {"uv": [1.5, 10.875, 2.125, 12.875], "texture": "#0"},
+				"east": {"uv": [0.75, 10.875, 1.5, 12.875], "texture": "#0"},
+				"south": {"uv": [2.875, 10.875, 3.5, 12.875], "texture": "#0"},
+				"west": {"uv": [2.125, 10.875, 2.875, 12.875], "texture": "#0"},
+				"up": {"uv": [2.125, 10.875, 1.5, 10.125], "texture": "#0"},
+				"down": {"uv": [2.75, 10.125, 2.125, 10.875], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwall4",
+			"from": [0, 0, 5],
+			"to": [5, 16, 11],
+			"faces": {
+				"north": {"uv": [1.5, 10.875, 2.125, 12.875], "texture": "#0"},
+				"east": {"uv": [0.75, 10.875, 1.5, 12.875], "texture": "#0"},
+				"south": {"uv": [2.875, 10.875, 3.5, 12.875], "texture": "#0"},
+				"west": {"uv": [2.125, 10.875, 2.875, 12.875], "texture": "#0"},
+				"up": {"uv": [2.125, 10.875, 1.5, 10.125], "texture": "#0"},
+				"down": {"uv": [2.75, 10.125, 2.125, 10.875], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwallcenter",
+			"from": [5, 0, 5],
+			"to": [11, 16, 11],
+			"faces": {
+				"north": {"uv": [7.25, 10.875, 8, 12.875], "texture": "#0"},
+				"east": {"uv": [6.5, 10.875, 7.25, 12.875], "texture": "#0"},
+				"south": {"uv": [8.75, 10.875, 9.5, 12.875], "texture": "#0"},
+				"west": {"uv": [8, 10.875, 8.75, 12.875], "texture": "#0"},
+				"up": {"uv": [8, 10.875, 7.25, 10.125], "texture": "#0"},
+				"down": {"uv": [8.75, 10.125, 8, 10.875], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwall1",
+			"from": [5, 0, 0],
+			"to": [11, 14, 5],
+			"faces": {
+				"north": {"uv": [4.25, 8.25, 5, 10], "texture": "#0"},
+				"east": {"uv": [3.625, 8.25, 4.25, 10], "texture": "#0"},
+				"south": {"uv": [5.625, 8.25, 6.375, 10], "texture": "#0"},
+				"west": {"uv": [5, 8.25, 5.625, 10], "texture": "#0"},
+				"up": {"uv": [5, 8.25, 4.25, 7.625], "texture": "#0"},
+				"down": {"uv": [5.75, 7.625, 5, 8.25], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwall2",
+			"from": [5, 0, 11],
+			"to": [11, 14, 16],
+			"faces": {
+				"north": {"uv": [4.25, 8.25, 5, 10], "texture": "#0"},
+				"east": {"uv": [3.625, 8.25, 4.25, 10], "texture": "#0"},
+				"south": {"uv": [5.625, 8.25, 6.375, 10], "texture": "#0"},
+				"west": {"uv": [5, 8.25, 5.625, 10], "texture": "#0"},
+				"up": {"uv": [5, 8.25, 4.25, 7.625], "texture": "#0"},
+				"down": {"uv": [5.75, 7.625, 5, 8.25], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwall3",
+			"from": [11, 0, 5],
+			"to": [16, 14, 11],
+			"faces": {
+				"north": {"uv": [1.5, 8.25, 2.125, 10], "texture": "#0"},
+				"east": {"uv": [0.75, 8.25, 1.5, 10], "texture": "#0"},
+				"south": {"uv": [2.875, 8.25, 3.5, 10], "texture": "#0"},
+				"west": {"uv": [2.125, 8.25, 2.875, 10], "texture": "#0"},
+				"up": {"uv": [2.125, 8.25, 1.5, 7.5], "texture": "#0"},
+				"down": {"uv": [2.75, 7.5, 2.125, 8.25], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwall4",
+			"from": [0, 0, 5],
+			"to": [5, 14, 11],
+			"faces": {
+				"north": {"uv": [1.5, 8.25, 2.125, 10], "texture": "#0"},
+				"east": {"uv": [0.75, 8.25, 1.5, 10], "texture": "#0"},
+				"south": {"uv": [2.875, 8.25, 3.5, 10], "texture": "#0"},
+				"west": {"uv": [2.125, 8.25, 2.875, 10], "texture": "#0"},
+				"up": {"uv": [2.125, 8.25, 1.5, 7.5], "texture": "#0"},
+				"down": {"uv": [2.75, 7.5, 2.125, 8.25], "texture": "#0"}
+			}
+		},
+		{
+			"name": "hollowsandstonetallwallcenter",
+			"from": [5, 0, 5],
+			"to": [11, 14, 11],
+			"faces": {
+				"north": {"uv": [7.25, 8.25, 8, 10], "texture": "#0"},
+				"east": {"uv": [6.5, 8.25, 7.25, 10], "texture": "#0"},
+				"south": {"uv": [8.75, 8.25, 9.5, 10], "texture": "#0"},
+				"west": {"uv": [8, 8.25, 8.75, 10], "texture": "#0"},
+				"up": {"uv": [8, 8.25, 7.25, 7.5], "texture": "#0"},
+				"down": {"uv": [8.75, 7.5, 8, 8.25], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "hollowsandstonewallpost",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0]
+		},
+		{
+			"name": "hollowsandstonetallwalls",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "hollowsandstonetallwall1",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [1]
+				},
+				{
+					"name": "hollowsandstonetallwall2",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [2]
+				},
+				{
+					"name": "hollowsandstonetallwall3",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [3]
+				},
+				{
+					"name": "hollowsandstonetallwall4",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [4]
+				},
+				{
+					"name": "hollowsandstonetallwallcenter",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [5]
+				}
+			]
+		},
+		{
+			"name": "hollowsandstoneshortwalls",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [
+				{
+					"name": "hollowsandstoneshortwall1",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [6]
+				},
+				{
+					"name": "hollowsandstoneshortwall2",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [7]
+				},
+				{
+					"name": "hollowsandstoneshortwall3",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [8]
+				},
+				{
+					"name": "hollowsandstoneshortwall4",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [9]
+				},
+				{
+					"name": "hollowsandstoneshortwallcenter",
+					"origin": [8, 8, 8],
+					"color": 0,
+					"children": [10]
+				}
+			]
+		}
+	]
+}

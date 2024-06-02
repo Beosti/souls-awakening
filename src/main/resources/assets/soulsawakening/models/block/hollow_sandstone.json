@@ -2,12 +2,12 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [128, 128],
 	"textures": {
-		"0": "soulsawakening:blocks/hollow_sand",
-		"particle": "soulsawakening:blocks/hollow_sand"
+		"0": "soulsawakening:blocks/hollow_sandstone",
+		"particle": "soulsawakening:blocks/hollow_sandstone"
 	},
 	"elements": [
 		{
-			"name": "hollowsand",
+			"name": "hollowsandstone",
 			"from": [0, 0, 0],
 			"to": [16, 16, 16],
 			"faces": {
@@ -22,7 +22,7 @@
 	],
 	"groups": [
 		{
-			"name": "hollowsand",
+			"name": "hollowsandstone",
 			"origin": [8, 8, 8],
 			"color": 0,
 			"children": [0]

@@ -2,9 +2,7 @@ package com.yuanno.soulsawakening.init;
 
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.blocks.HollowSandBlock;
-import com.yuanno.soulsawakening.blocks.ReishiBricksBlock;
-import com.yuanno.soulsawakening.blocks.ReishiOreBlock;
+import com.yuanno.soulsawakening.blocks.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -25,7 +23,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> REISHI_ORE = registerBlock("reishi_ore", ReishiOreBlock::new);
     public static final RegistryObject<Block> HOLLOW_SAND = registerBlock("hollow_sand", HollowSandBlock::new);
     public static final RegistryObject<Block> REISHI_BRICKS = registerBlock("reishi_bricks", ReishiBricksBlock::new);
-
+    public static final RegistryObject<Block> HOLLOW_SANDSTONE = registerBlock("hollow_sandstone", HollowSandStoneBlock::new);
+    public static final RegistryObject<Block> HOLLOW_SANDSTONE_SLAB = registerBlock("hollow_sandstone_slab", HollowSandStoneSlabBlock::new);
+    public static final RegistryObject<Block> HOLLOW_SANDSTONE_STAIRS = registerBlock("hollow_sandstone_stairs", HollowSandStoneStairsBlock::new);
+    public static final RegistryObject<Block> HOLLOW_SANDSTONE_WALLS = registerBlock("hollow_sandstone_walls", HollowSandStoneWallsBlock::new);
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
