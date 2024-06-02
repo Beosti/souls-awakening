@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "soulsawakening:hollow_sandstone"
+      }
+    ]
+  },
+  "result": {
+    "item": "soulsawakening:hollow_sandstone_slab",
+    "count": 6
+  }
+}

@@ -53,6 +53,10 @@
   "block.soulsawakening.reishi_ore": "Reishi Ore",
   "block.soulsawakening.hollow_sand": "Hollow Sand",
   "block.soulsawakening.reishi_bricks": "Reishi Bricks",
+  "block.soulsawakening.hollow_sandstone": "Hollow Sandstone",
+  "block.soulsawakening.hollow_sandstone_slab": "Hollow Sandstone Slab",
+  "block.soulsawakening.hollow_sandstone_stairs": "Hollow Sandstone Stairs",
+  "block.soulsawakening.hollow_sandstone_walls": "Hollow Sandstone Walls",
 
   "entity.soulsawakening.centipede": "Hollow Centipede",
 

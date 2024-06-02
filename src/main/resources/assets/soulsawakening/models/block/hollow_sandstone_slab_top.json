@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/slab_top",
   "textures": {
-    "bottom": "soulsawakening:blocks/sandstone_bottom",
-    "top": "soulsawakening:blocks/sandstone_top",
-    "side": "soulsawakening:blocks/sandstone"
+    "bottom": "soulsawakening:blocks/hollow_sandstone_bottom",
+    "top": "soulsawakening:blocks/hollow_sandstone_top",
+    "side": "soulsawakening:blocks/hollow_sandstone"
   }
 }
