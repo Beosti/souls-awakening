@@ -2,7 +2,8 @@
 
 ## additions
 - shinigami's now get base attack damage increase if putting stats in hakuda
-- quincy robe
+- quincy cape
+- config for follow range of hollows
 ### lots of small QoL changes to the player review screen
 - everything you hover has a tooltip
 - tooltips got changed for more clarifications
@@ -12,7 +13,7 @@
 - hollow sandstone slab
 - hollow sandstone stairs
 - hollow sandstone walls
-- config for follow range of hollows
+
 
 ## changes
 - 1 blut point = 0.02 extra base damage -> 1 blut point = 0.1 extra base damage
@@ -22,4 +23,6 @@
 - quincy pants not rendering when put on
 
 ## misc
+- refactored a lot of code (mostly api)
+- added documentation
 
