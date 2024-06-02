@@ -20,6 +20,7 @@ public class ModConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> PLUS_RATE;
     public static final ForgeConfigSpec.ConfigValue<Integer> SHINIGAMI_RATE;
     public static final ForgeConfigSpec.ConfigValue<Integer> TRADER_RATE;
+    public static final ForgeConfigSpec.ConfigValue<Integer> HOLLOW_FOLLOWRANGE;
 
 
     static {
@@ -44,6 +45,8 @@ public class ModConfig {
         PLUS_RATE = BUILDER.comment("Spawn rate for pluses").define("Spawn rate: pluses", 20);
         SHINIGAMI_RATE = BUILDER.comment("Spawn rate for shinigami").define("Spawn rate: shinigami", 20);
         TRADER_RATE = BUILDER.comment("Spawn rate for traders").define("Spawn rate: traders", 10);
+
+        HOLLOW_FOLLOWRANGE = BUILDER.comment("Range hollows will follow and find entities for").define("Follow range for hollows", 50);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

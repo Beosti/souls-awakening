@@ -4,6 +4,7 @@ import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.entity.PlusEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
+import com.yuanno.soulsawakening.init.ModConfig;
 import com.yuanno.soulsawakening.init.ModValues;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -61,7 +62,7 @@ public class SpiderEntity extends HollowEntity implements IBleach {
                 .add(Attributes.ATTACK_DAMAGE, 5)
                 .add(Attributes.ARMOR, 10)
                 .add(Attributes.MAX_HEALTH, 25)
-                .add(Attributes.FOLLOW_RANGE, 75)
+                .add(Attributes.FOLLOW_RANGE, ModConfig.HOLLOW_FOLLOWRANGE.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.305)
                 .add(ModAttributes.ATTACK_RANGE.get(), 0.5)
                 .add(ModAttributes.FALL_RESISTANCE.get(), 50);
