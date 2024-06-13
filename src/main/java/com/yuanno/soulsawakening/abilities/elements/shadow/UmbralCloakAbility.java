@@ -11,7 +11,7 @@ public class UmbralCloakAbility extends Ability implements IRightClickAbility, I
     public UmbralCloakAbility()
     {
         this.setName("Umbral Cloak");
-        this.setMaxCooldown(16);
+        this.setMaxCooldown(20);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

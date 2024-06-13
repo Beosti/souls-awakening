@@ -8,7 +8,6 @@ import com.yuanno.soulsawakening.particles.api.HoveringParticleEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 
 public class DarkStepAbility extends Ability implements IRightClickAbility, IBlockRayTrace, IParticleEffect {
     public static final DarkStepAbility INSTANCE = new DarkStepAbility();
