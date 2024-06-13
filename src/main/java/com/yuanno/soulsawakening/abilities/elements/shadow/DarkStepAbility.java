@@ -16,7 +16,7 @@ public class DarkStepAbility extends Ability implements IRightClickAbility, IBlo
     public DarkStepAbility()
     {
         this.setName("Dark Step");
-        this.setMaxCooldown(4);
+        this.setMaxCooldown(6);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

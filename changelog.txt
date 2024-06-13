@@ -4,6 +4,7 @@
 
 ## changes
 - have to use alt + right click for dark step
+- default darkstep cooldown 4 -> 6
 
 ## fixed
 

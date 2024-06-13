@@ -5,12 +5,9 @@ import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
 import com.yuanno.soulsawakening.particles.ParticleEffect;
 import com.yuanno.soulsawakening.particles.api.HoveringParticleEffect;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
 
 public class ShadowAttackAbility extends Ability implements IAttackAbility, IParticleEffect {
     public static final ShadowAttackAbility INSTANCE = new ShadowAttackAbility();

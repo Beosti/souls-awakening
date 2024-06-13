@@ -15,6 +15,7 @@ import com.yuanno.soulsawakening.abilities.elements.normal.NormalBuffAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.AdrenalineCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.DarkBallAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.DarkStepAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.ShadowAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.UmbralCloakAbility;
@@ -183,7 +184,10 @@ public class ZanpakutoEvent {
             {
                 case ("DARK"):
                     abilityData.addUnlockedAbility(DarkStepAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(ShadowAttackAbility.INSTANCE);
+                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get() < entityStats.getReiatsuPoints())
+                        abilityData.addUnlockedAbility(DarkBallAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(ShadowAttackAbility.INSTANCE);
                     abilityData.addUnlockedAbility(UmbralCloakAbility.INSTANCE);
                     break;
                 case ("FIRE"):
