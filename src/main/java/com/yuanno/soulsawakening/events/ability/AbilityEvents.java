@@ -74,6 +74,8 @@ public class AbilityEvents {
             ((IEntityRayTrace) ability).onEntityRayTrace(player, ability);
         if (ability instanceof IShootAbility)
             ((IShootAbility) ability).onUse(player, ability);
+        if (ability instanceof ISummonAbility)
+            ((ISummonAbility) ability).onSummon(player, ability);
         if (ability instanceof IWaveAbility)
             ((IWaveAbility) ability).onWave(player, ability);
         if (ability instanceof IBlockRayTrace)
