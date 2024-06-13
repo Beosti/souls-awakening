@@ -100,7 +100,6 @@ public class ModAbilities {
     private static void registerAbilities(Ability[] abilities)
     {
         Arrays.stream(abilities).filter(Objects::nonNull).forEach(abl -> registerAbility(abl));
-
     }
 
     public static <T extends Ability> Ability registerAbility(Ability ability)
