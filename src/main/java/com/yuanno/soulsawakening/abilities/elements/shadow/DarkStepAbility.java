@@ -21,6 +21,11 @@ public class DarkStepAbility extends Ability implements IRightClickAbility, IBlo
     }
 
     @Override
+    public boolean getAlt() {
+        return true;
+    }
+
+    @Override
     public int getDistance()
     {
         return 12;

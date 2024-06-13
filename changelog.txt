@@ -3,6 +3,7 @@
 ## additions
 
 ## changes
+- have to use alt + right click for dark step
 
 ## fixed
 

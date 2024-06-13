@@ -12,6 +12,7 @@ import com.yuanno.soulsawakening.abilities.elements.lunar.LunarWaveAbility;
 import com.yuanno.soulsawakening.abilities.elements.normal.NormalBuffAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.AdrenalineCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.DarkBallAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.DarkStepAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.ShadowAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.UmbralCloakAbility;
@@ -63,7 +64,7 @@ import java.util.Objects;
 public class ModAbilities {
 
     public static final DeferredRegister<Ability> ABILITIES = DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
-    public static final Ability[] DARK_ZANPAKUTO = new Ability[] {DarkStepAbility.INSTANCE, ShadowAttackAbility.INSTANCE, UmbralCloakAbility.INSTANCE};
+    public static final Ability[] DARK_ZANPAKUTO = new Ability[] {DarkStepAbility.INSTANCE, ShadowAttackAbility.INSTANCE, UmbralCloakAbility.INSTANCE, DarkBallAbility.INSTANCE};
     public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
     public static final Ability[] HEAL_ZANPAKUTO = new Ability[] {HealingTouchingAbility.INSTANCE, RevitilazingAuraAbility.INSTANCE, SelfHealingAbility.INSTANCE};
     public static final Ability[] THUNDER_ZANPAKUTO = new Ability[] {ThunderStepAbility.INSTANCE, ThunderAttackAbility.INSTANCE, ThunderStrikeAbility.INSTANCE};
