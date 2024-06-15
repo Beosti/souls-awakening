@@ -9,14 +9,14 @@
 - have to use alt + right click for dark step
 - default darkstep cooldown 4 -> 6
 - default cooldown umbral cloak 16 -> 20
+- when having the 'proving yourself' quest as a spirit in the overworld your spirit chain does not diminish this is the quest to become a shinigami
 
 ## fixed
+- class points not working for quincy when switching races or something along those lines
 ### player overview screen bugs
 - points not properly rendering for quincy
 - button overlap for hollows
 - points not properly rendering for shinigami
-### stat point command not fixing properly
-- class points not working for quincy when switching races or something along those lines
 
 ## misc
 

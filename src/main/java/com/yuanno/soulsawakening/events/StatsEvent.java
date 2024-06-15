@@ -50,7 +50,6 @@ import java.util.concurrent.TimeUnit;
 @Mod.EventBusSubscriber(modid = Main.MODID)
 public class StatsEvent {
     private static ArrayList<ItemStack> soulboundItems = new ArrayList<>();
-    public static final ParticleEffect PARTICLES_WAVE = new WaveParticleEffect(1.4);
 
     @SubscribeEvent
     public static void joinWorldEvent(PlayerEvent.PlayerLoggedInEvent event)
@@ -101,41 +100,6 @@ public class StatsEvent {
             PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
 
         }
-    }
-    @SubscribeEvent
-    public static void onChainSoul(TickEvent.PlayerTickEvent event)
-    {
-        PlayerEntity player = event.player;
-        if (player.level.isClientSide)
-            return;
-        IEntityStats entityStats = EntityStatsCapability.get(player);
-        if (!entityStats.getRace().equals(ModValues.SPIRIT))
-            return;
-        IMiscData miscData = MiscDataCapability.get(player);
-        IAbilityData abilityData = AbilityDataCapability.get(player);
-        MinecraftServer minecraftServer = player.level.getServer();
-        ServerWorld soulSociety = minecraftServer.getLevel(ModDimensions.SOUL_SOCIETY);
-        if ((miscData.getSpiritChain() > 0 && player.tickCount % 20 == 0) && player.level != soulSociety)
-            miscData.alterSpiritChain(-1);
-        else if (miscData.getSpiritChain() <= 0)
-        {
-            PARTICLES_WAVE.spawn(player.level, player.getX(), player.getY(), player.getZ(), 0, 0, 0, ModParticleTypes.HOLLOW.get());
-            entityStats.setRace(ModValues.HOLLOW);
-            entityStats.setRank(ModValues.BASE);
-            ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
-            ModAdvancements.HOLLOW.trigger((ServerPlayerEntity) player);
-            miscData.setCanRenderOverlay(true);
-            abilityData.addUnlockedAbility(SlashAbility.INSTANCE);
-            abilityData.addUnlockedAbility(BiteAbility.INSTANCE);
-            abilityData.addUnlockedAbility(HollowRegenerationAbility.INSTANCE);
-            HollowStats hollowStats = new HollowStats();
-            entityStats.setHollowStats(hollowStats);
-            //entityStats.getHollowStats().altermut
-            miscData.setCanRenderOverlay(true);
-        }
-        PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);
-        PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-        PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
     }
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event)
