@@ -166,7 +166,8 @@ public class PlayerOverviewScreen extends Screen {
         HollowStats hollowStats = entityStats.getHollowStats();
         int totalPoints = (int) (hollowStats.getAgility() + hollowStats.getConstitution() + hollowStats.getHierro() + entityStats.getReiatsuPoints());
         if (ModConfig.stat_limit.get() > totalPoints)
-        {// reiatsu point
+        {
+            // reiatsu point
             this.addButton(new Button(leftShift - 75, posY + 104, 8, 8, new TranslationTextComponent("+"), b ->
             {
                 entityStats.getHollowStats().alterMutationPoints(-1);
@@ -218,7 +219,7 @@ public class PlayerOverviewScreen extends Screen {
 
 
         // evolution button
-        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift - 180, posY + 160, 95, 16, new TranslationTextComponent("gui.evolution.button"), b -> {
+        this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift - 180, posY + 150, 95, 16, new TranslationTextComponent("gui.evolution.button"), b -> {
             PacketHandler.sendToServer(new CHollowEvolutionPacket());
             this.init();
             this.onClose();
@@ -370,16 +371,16 @@ public class PlayerOverviewScreen extends Screen {
                 new TranslationTextComponent("gui.zanjutsu.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.zanjutsu.tooltip"),
                 leftShift, posY + 60);
         RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
-                new TranslationTextComponent("gui.hakuda.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.hakuda.tooltip"),
+                new TranslationTextComponent("gui.hakuda.string").withStyle(TextFormatting.BOLD), hakuPoints + "", new TranslationTextComponent("gui.hakuda.tooltip"),
                 leftShift, posY + 75);
         RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
-                new TranslationTextComponent("gui.hoho.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.hoho.tooltip"),
+                new TranslationTextComponent("gui.hoho.string").withStyle(TextFormatting.BOLD), hohoPoints + "", new TranslationTextComponent("gui.hoho.tooltip"),
                 leftShift, posY + 90);
         RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
-                new TranslationTextComponent("gui.reiatsu.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.reiatsu_shinigami.tooltip"),
+                new TranslationTextComponent("gui.reiatsu.string").withStyle(TextFormatting.BOLD), reiatsuPoints + "", new TranslationTextComponent("gui.reiatsu_shinigami.tooltip"),
                 leftShift, posY + 105);
         RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
-                new TranslationTextComponent("gui.class.string").withStyle(TextFormatting.BOLD), zanjutsuPoints + "", new TranslationTextComponent("gui.class.tooltip"),
+                new TranslationTextComponent("gui.class.string").withStyle(TextFormatting.BOLD), classPoints + "", new TranslationTextComponent("gui.class.tooltip"),
                 leftShift, posY + 135);
     }
 

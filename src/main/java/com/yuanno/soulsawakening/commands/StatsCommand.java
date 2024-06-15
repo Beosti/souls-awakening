@@ -6,6 +6,8 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.entity.quincy.QuincyStats;
+import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncEntityStatsPacket;
@@ -136,10 +138,26 @@ public class StatsCommand {
                     entityStats.getShinigamiStats().alterHakudaPoints(amount);
                     break;
                 case ("class"):
-                    if (entityStats.hasShinigamiStats())
+                if (entityStats.getRace().equals(ModValues.SHINIGAMI))
+                {
+                    if (!entityStats.hasShinigamiStats()) {
+                        ShinigamiStats shinigamiStats = new ShinigamiStats();
+                        shinigamiStats.alterClassPoints(amount);
+                        entityStats.setShinigamiStats(shinigamiStats);
+                    } else
                         entityStats.getShinigamiStats().alterClassPoints(amount);
-                    else if (entityStats.hasQuincyStats())
+                }
+                else if (entityStats.getRace().equals(ModValues.QUINCY))
+                {
+                    if (!entityStats.hasQuincyStats())
+                    {
+                        QuincyStats quincyStats = new QuincyStats();
+                        quincyStats.alterClassPoints(amount);
+                        entityStats.setQuincyStats(quincyStats);
+                    }
+                    else
                         entityStats.getQuincyStats().alterClassPoints(amount);
+                }
                     break;
                 case ("hollow"):
                     entityStats.getHollowStats().alterHollowPoints(amount);
