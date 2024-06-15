@@ -15,10 +15,7 @@ import com.yuanno.soulsawakening.abilities.elements.normal.NormalBuffAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.AdrenalineCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
-import com.yuanno.soulsawakening.abilities.elements.shadow.DarkBallAbility;
-import com.yuanno.soulsawakening.abilities.elements.shadow.DarkStepAbility;
-import com.yuanno.soulsawakening.abilities.elements.shadow.ShadowAttackAbility;
-import com.yuanno.soulsawakening.abilities.elements.shadow.UmbralCloakAbility;
+import com.yuanno.soulsawakening.abilities.elements.shadow.*;
 import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStepAbility;
 import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStrikeAbility;
@@ -183,7 +180,10 @@ public class ZanpakutoEvent {
             switch (uppercasedElement)
             {
                 case ("DARK"):
-                    abilityData.addUnlockedAbility(DarkStepAbility.INSTANCE);
+                    if (entityStats.getSpeedStat() > entityStats.getReiatsuPoints())
+                        abilityData.addUnlockedAbility(DarkStepAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(ShadowCloneAbility.INSTANCE);
                     if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get() < entityStats.getReiatsuPoints())
                         abilityData.addUnlockedAbility(DarkBallAbility.INSTANCE);
                     else

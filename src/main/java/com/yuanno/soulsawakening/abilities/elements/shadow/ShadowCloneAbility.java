@@ -3,21 +3,18 @@ package com.yuanno.soulsawakening.abilities.elements.shadow;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.api.ability.interfaces.ISummonAbility;
-import com.yuanno.soulsawakening.entity.CloneEntity;
+import com.yuanno.soulsawakening.entities.summons.shadowsummons.ShadowCloneEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class ShadowCloneAbility extends Ability implements IRightClickAbility, ISummonAbility {
-
     public static final ShadowCloneAbility INSTANCE = new ShadowCloneAbility();
 
     public ShadowCloneAbility()
     {
         this.setName("Shadow Clone");
-        this.setDescription("Spawns a bunch of shadow clones to confuse the enemy");
-        this.setMaxCooldown(16);
+        this.setDescription("Creates a few shadow clones attacking your enemies");
+        this.setCooldown(12);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 
@@ -28,7 +25,6 @@ public class ShadowCloneAbility extends Ability implements IRightClickAbility, I
 
     @Override
     public Entity getSummon(PlayerEntity player) {
-        CloneEntity cloneEntity = new CloneEntity(EntityType., player.level);
-        return cloneEntity;
+        return new ShadowCloneEntity(player.level);
     }
 }

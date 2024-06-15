@@ -1,6 +1,9 @@
 # Changelog
 
 ## additions
+- every playthrough won't have the same abilities for shinigami when you unlock shikai depending on your stats -or not- you might get other abilities
+- dark ball ability
+- shadow clone ability
 
 ## changes
 - have to use alt + right click for dark step

@@ -5,6 +5,8 @@ import com.yuanno.soulsawakening.entities.npc.BakudoTeacherEntity;
 import com.yuanno.soulsawakening.entities.npc.KidoTeacherEntity;
 import com.yuanno.soulsawakening.entities.npc.TraderEntity;
 import com.yuanno.soulsawakening.entities.npc.ShinigamiTeacherEntity;
+import com.yuanno.soulsawakening.entities.summons.shadowsummons.ShadowCloneEntity;
+import com.yuanno.soulsawakening.entities.summons.shadowsummons.ShadowSummons;
 import com.yuanno.soulsawakening.entity.*;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -22,6 +24,7 @@ public class ModEventBusEvents {
         event.put(ModEntities.THORNS.get(), ThornsEntity.setCustomAttributes().build());
         event.put(ModEntities.FLYING.get(), FlyingEntity.setCustomAttributes().build());
         event.put(ModEntities.APE.get(), ApeEntity.setCustomAttributes().build());
+        event.put(ShadowSummons.SHADOW_CLONE.get(), ShadowCloneEntity.setCustomAttributes().build());
         event.put(ModEntities.PLUS.get(), PlusEntity.setCustomAttributes().build());
         event.put(ModEntities.SHINIGAMI.get(), ShinigamiEntity.setCustomAttributes().build());
         event.put(ModEntities.TRADER.get(), TraderEntity.setCustomAttributes().build());

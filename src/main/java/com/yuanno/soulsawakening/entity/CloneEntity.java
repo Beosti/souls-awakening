@@ -43,6 +43,7 @@ public class CloneEntity extends CreatureEntity {
     @Override
     protected void registerGoals()
     {
+        super.registerGoals();
 
         Predicate<Entity> factionScope = getEnemyFactions(this);
 
