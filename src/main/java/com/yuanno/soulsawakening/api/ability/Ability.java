@@ -1,7 +1,6 @@
 package com.yuanno.soulsawakening.api.ability;
 
 import com.yuanno.soulsawakening.api.SourceElement;
-import com.yuanno.soulsawakening.api.ability.interfaces.IPunchAbility;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -34,8 +33,6 @@ public class Ability extends ForgeRegistryEntry<Ability> {
             return;
         if (this.getCooldown() <= 0 && !this.getState().equals(STATE.READY)) {
             this.setState(STATE.READY);
-            if (this instanceof IPunchAbility)
-                ((IPunchAbility) this).startContinuity(player);
         }
         else if (this.state.equals(STATE.COOLDOWN))
             this.alterCooldown(- 1);

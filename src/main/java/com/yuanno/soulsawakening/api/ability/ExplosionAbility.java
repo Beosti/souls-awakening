@@ -213,7 +213,6 @@ public class ExplosionAbility extends Explosion
 	public void doExplosion()
 	{
 		boolean flag = this.exploder != null && this.exploder instanceof PlayerEntity;
-		System.out.println(flag);
 		if (!flag || (this.heightDifference > 0 && this.exploder != null && this.exploder.getY() - this.heightDifference > this.explosionY))
 			return;
 		Set<BlockPos> set = Sets.newHashSet();

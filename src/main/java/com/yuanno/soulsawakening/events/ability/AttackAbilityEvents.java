@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.events.ability;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.IAttackAbility;
+import com.yuanno.soulsawakening.api.ability.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
@@ -32,10 +33,15 @@ public class AttackAbilityEvents {
                 PlayerEntity player = (PlayerEntity) event.getSource().getDirectEntity().getEntity();
                 if (player.level.isClientSide)
                     return;
+
                 IAbilityData abilityData = AbilityDataCapability.get(player);
                 for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++) {
                     Ability ability = abilityData.getUnlockedAbilities().get(i);
                     if (!(ability instanceof IAttackAbility)) // check if the ability is a right click ability
+                        continue;
+                    if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS))
+                        continue;
+                    else if (!(ability instanceof IContinuousAbility) && !((IAttackAbility) ability).getPassive() && ability.getState().equals(Ability.STATE.READY))
                         continue;
                     if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
                     {

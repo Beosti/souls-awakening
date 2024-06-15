@@ -11,6 +11,7 @@ import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -66,7 +67,7 @@ public class AbilityEvents {
         if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS)) {
             return;
         }
-        if (!ability.getState().equals(Ability.STATE.READY))
+        if (!(ability instanceof IContinuousAbility) && !ability.getState().equals(Ability.STATE.READY))
             return;
         if ((ability instanceof IDimensionTeleportAbility))
             ((IDimensionTeleportAbility) ability).teleport(player);
@@ -88,7 +89,21 @@ public class AbilityEvents {
         if (ability instanceof IAttackAbility)
         {
             LivingEntity target = event.getTarget();
-            ((IAttackAbility) ability).activateBack(player, target, ability);
+            if (target != null) {
+                System.out.println("player: " + event.getPlayer());
+                System.out.println("ability: " + event.getAbility());
+                System.out.println("target: " + event.getTarget());
+                ((IAttackAbility) ability).activateBack(player, target, ability);
+
+                if (!((IAttackAbility) ability).getPassive()) {
+                    AbilityUseEvent.Post abilityUseEvent = new AbilityUseEvent.Post(player, ability);
+                    MinecraftForge.EVENT_BUS.post(abilityUseEvent);
+                }
+
+
+            }
+            else
+                return;
         }
         if (ability instanceof IGetHitAbility)
         {

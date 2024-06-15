@@ -3,6 +3,7 @@ package com.yuanno.soulsawakening.init;
 import com.yuanno.soulsawakening.BeRegistry;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.abilities.SoulSocietyKeyAbility;
+import com.yuanno.soulsawakening.abilities.elements.fire.*;
 import com.yuanno.soulsawakening.abilities.elements.heal.HealingTouchingAbility;
 import com.yuanno.soulsawakening.abilities.elements.heal.RevitilazingAuraAbility;
 import com.yuanno.soulsawakening.abilities.elements.heal.SelfHealingAbility;
@@ -39,21 +40,13 @@ import com.yuanno.soulsawakening.abilities.quincy.spear.SpearStrikeAbility;
 import com.yuanno.soulsawakening.abilities.quincy.spear.SpearThrustAbility;
 import com.yuanno.soulsawakening.abilities.quincy.sword.SwordConcentrationAbility;
 import com.yuanno.soulsawakening.abilities.quincy.sword.SwordSlashAbility;
-import com.yuanno.soulsawakening.abilities.shinso.LongRangeAbility;
-import com.yuanno.soulsawakening.abilities.shinso.ShootAbility;
-import com.yuanno.soulsawakening.abilities.shinso.WideShootAbility;
 import com.yuanno.soulsawakening.api.ability.Ability;
-import com.yuanno.soulsawakening.api.ability.interfaces.*;
-import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
-import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
-import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.api.Beapi;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.*;
-import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -62,7 +55,7 @@ public class ModAbilities {
 
     public static final DeferredRegister<Ability> ABILITIES = DeferredRegister.create(ModRegistries.ABILITIES, Main.MODID);
     public static final Ability[] DARK_ZANPAKUTO = new Ability[] {DarkStepAbility.INSTANCE, ShadowAttackAbility.INSTANCE, UmbralCloakAbility.INSTANCE, DarkBallAbility.INSTANCE, ShadowCloneAbility.INSTANCE};
-    public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE};
+    public static final Ability[] FIRE_ZANPAKUTO = new Ability[] {FireAttackAbility.INSTANCE, FireWaveAbility.INSTANCE, FireBallAbility.INSTANCE, FireCoatAbility.INSTANCE, FireProwessAbility.INSTANCE};
     public static final Ability[] HEAL_ZANPAKUTO = new Ability[] {HealingTouchingAbility.INSTANCE, RevitilazingAuraAbility.INSTANCE, SelfHealingAbility.INSTANCE};
     public static final Ability[] THUNDER_ZANPAKUTO = new Ability[] {ThunderStepAbility.INSTANCE, ThunderAttackAbility.INSTANCE, ThunderStrikeAbility.INSTANCE};
     public static final Ability[] LUNAR_ZANPAKUTO = new Ability[] {LunarBlessingAbility.INSTANCE, LunarCrescentAbility.INSTANCE, LunarWaveAbility.INSTANCE};
@@ -71,7 +64,6 @@ public class ModAbilities {
     public static final Ability[] WATER_ZANPAKUTO = new Ability[] {AquaSlashAbility.INSTANCE, TidalWaveAbility.INSTANCE, WaterPrisonAbility.INSTANCE};
     public static final Ability[] WIND_ZANPAKUTO = new Ability[] {GaleForceAbility.INSTANCE, WhirldWindDanceAbility.INSTANCE, WindAttackAbility.INSTANCE};
     public static final Ability[] HOLLOW = new Ability[] {SlashAbility.INSTANCE, BiteAbility.INSTANCE, CeroAbility.INSTANCE, HollowRegenerationAbility.INSTANCE, GargantaAbility.INSTANCE, VastoHollowAbility.INSTANCE};
-    public static final Ability[] SHINSO = new Ability[] {LongRangeAbility.INSTANCE, ShootAbility.INSTANCE, WideShootAbility.INSTANCE};
     public static final Ability[] SHINIGAMI = new Ability[] {SoulSocietyKeyAbility.INSTANCE};
     public static final Ability[] HADO = new Ability[] {ShoAbility.INSTANCE, ByakuraiAbility.INSTANCE, ShakkahoAbility.INSTANCE, TsuzuriRaidenAbility.INSTANCE};
     public static final Ability[] BAKUDO = new Ability[] {SaiAbility.INSTANCE, HainawaAbility.INSTANCE, SekiAbility.INSTANCE};
@@ -88,7 +80,6 @@ public class ModAbilities {
         registerAbilities(WATER_ZANPAKUTO);
         registerAbilities(WIND_ZANPAKUTO);
         registerAbilities(HOLLOW);
-        registerAbilities(SHINSO);
         registerAbilities(HADO);
         registerAbilities(BAKUDO);
         registerAbilities(SHINIGAMI);

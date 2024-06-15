@@ -25,9 +25,6 @@ import com.yuanno.soulsawakening.abilities.elements.water.WaterPrisonAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
-import com.yuanno.soulsawakening.abilities.shinso.LongRangeAbility;
-import com.yuanno.soulsawakening.abilities.shinso.ShootAbility;
-import com.yuanno.soulsawakening.abilities.shinso.WideShootAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -36,7 +33,6 @@ import com.yuanno.soulsawakening.events.util.ZanpakutoChangeEvent;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
 import com.yuanno.soulsawakening.networking.PacketHandler;
-import com.yuanno.soulsawakening.networking.server.SOpenChallengeScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SOpenCommandScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
 import net.minecraft.entity.LivingEntity;
@@ -228,11 +224,6 @@ public class ZanpakutoEvent {
                     abilityData.addUnlockedAbility(WhirldWindDanceAbility.INSTANCE);
                     abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
                     break;
-                case ("SHINSO"):
-                    abilityData.addUnlockedAbility(ShootAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(WideShootAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(LongRangeAbility.INSTANCE);
-
             }
             abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);
             ModAdvancements.SHIKAI.trigger((ServerPlayerEntity) event.getPlayer());

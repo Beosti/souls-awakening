@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening.api.ability.interfaces;
 
 import com.yuanno.soulsawakening.api.ability.Ability;
+import com.yuanno.soulsawakening.api.ability.ExplosionAbility;
+import com.yuanno.soulsawakening.particles.CommonExplosionParticleEffect;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -23,6 +25,21 @@ public interface IAttackAbility {
             target.setSecondsOnFire(secondsOnFire());
         if (addedEffect() != null && !target.hasEffect(addedEffect().getEffect()))
             target.addEffect(addedEffect());
+        if (getExplosion())
+        {
+            if (!player.level.isClientSide)
+            {
+                ExplosionAbility explosionAbility = new ExplosionAbility(player, player.level, target.getX(), target.getY(), target.getZ(), 3);
+                explosionAbility.setStaticDamage(5);
+                explosionAbility.setExplosionSound(true);
+                explosionAbility.setDamageOwner(false);
+                explosionAbility.setDestroyBlocks(false);
+                explosionAbility.setFireAfterExplosion(false);
+                explosionAbility.setSmokeParticles(new CommonExplosionParticleEffect(3));
+                explosionAbility.setDamageEntities(true);
+                explosionAbility.doExplosion();
+            }
+        }
     };
 
     default int secondsOnFire()
@@ -33,5 +50,15 @@ public interface IAttackAbility {
     default EffectInstance addedEffect()
     {
         return null;
+    }
+
+    default boolean getPassive()
+    {
+        return true;
+    }
+
+    default boolean getExplosion()
+    {
+        return false;
     }
 }
