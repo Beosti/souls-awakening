@@ -5,12 +5,7 @@ import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 public class LunarBlessingAbility extends Ability implements IRightClickAbility, IContinuousAbility {
@@ -22,7 +17,7 @@ public class LunarBlessingAbility extends Ability implements IRightClickAbility,
     {
         this.setName("Lunar Blessing");
         this.setDescription("Grants you buffs");
-        this.setMaxCooldown(20);
+        this.setMaxCooldown(30);
         this.setSubCategory(SubCategory.SHIKAI);
     }
 
@@ -41,5 +36,15 @@ public class LunarBlessingAbility extends Ability implements IRightClickAbility,
         player.getAttribute(Attributes.MOVEMENT_SPEED).removeModifier(movementSpeedModifier);
 
         return true;
+    }
+
+    @Override
+    public boolean getShift() {
+        return true;
+    }
+
+    @Override
+    public int getMaxTimer() {
+        return 400;
     }
 }

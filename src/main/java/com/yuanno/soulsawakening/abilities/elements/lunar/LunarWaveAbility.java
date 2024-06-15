@@ -46,8 +46,7 @@ public class LunarWaveAbility extends Ability implements IRightClickAbility, IWa
     }
 
     @Override
-    public boolean getShift()
-    {
+    public boolean getControl() {
         return true;
     }
 

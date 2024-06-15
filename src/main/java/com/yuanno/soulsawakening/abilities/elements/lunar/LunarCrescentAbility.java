@@ -24,12 +24,6 @@ public class LunarCrescentAbility extends Ability implements IRightClickAbility,
 
 
     @Override
-    public boolean getShift()
-    {
-        return false;
-    }
-
-    @Override
     public float addedVariable(PlayerEntity player) {
         return (float) EntityStatsCapability.get(player).getReiatsuPoints()/2;
     }

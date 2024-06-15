@@ -6,10 +6,11 @@
 - shadow clone ability
 
 ## changes
-- have to use alt + right click for dark step
+- changed overall activation way (keys) for certain abilities, just check them out in game
 - default darkstep cooldown 4 -> 6
 - default cooldown umbral cloak 16 -> 20
 - when having the 'proving yourself' quest as a spirit in the overworld your spirit chain does not diminish this is the quest to become a shinigami
+- lunar blessing isn't infinite anymore it has a timer
 
 ## fixed
 - class points not working for quincy when switching races or something along those lines

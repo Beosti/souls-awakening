@@ -14,8 +14,13 @@ public class ShadowCloneAbility extends Ability implements IRightClickAbility, I
     {
         this.setName("Shadow Clone");
         this.setDescription("Creates a few shadow clones attacking your enemies");
-        this.setCooldown(12);
+        this.setMaxCooldown(12);
         this.setSubCategory(SubCategory.SHIKAI);
+    }
+
+    @Override
+    public boolean getShift() {
+        return true;
     }
 
     @Override

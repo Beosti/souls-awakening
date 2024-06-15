@@ -20,9 +20,9 @@ public class UmbralCloakAbility extends Ability implements IRightClickAbility, I
     {
         return new EffectInstance(ModEffects.VANISH_INVISIBILITY.get(), 200, 2, false, false);
     }
+
     @Override
-    public boolean getShift()
-    {
+    public boolean getControl() {
         return true;
     }
 }

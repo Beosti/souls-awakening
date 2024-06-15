@@ -43,9 +43,7 @@ public class GargantaAbility extends Ability implements IRightClickAbility, ISel
     }
 
     @Override
-    public boolean getShift()
-    {
+    public boolean getAlt() {
         return true;
     }
-
 }

@@ -1,28 +1,20 @@
 package com.yuanno.soulsawakening.entity;
 
 import com.google.common.base.Predicates;
-import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
-import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.entities.hollow.HollowEntity;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackGoal;
 import com.yuanno.soulsawakening.init.ModAttributes;
-import com.yuanno.soulsawakening.init.ModConfig;
-import com.yuanno.soulsawakening.init.ModValues;
-import com.yuanno.soulsawakening.init.world.ModDimensions;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -30,6 +22,7 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 public class CloneEntity extends CreatureEntity {
+
 
     private static final DataParameter<Optional<UUID>> OWNER = EntityDataManager.defineId(CloneEntity.class, DataSerializers.OPTIONAL_UUID);
     private static final DataParameter<Boolean> IS_TEXTURED = EntityDataManager.defineId(CloneEntity.class, DataSerializers.BOOLEAN);
@@ -48,8 +41,8 @@ public class CloneEntity extends CreatureEntity {
         Predicate<Entity> factionScope = getEnemyFactions(this);
 
 
-        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, true, factionScope));
-        this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, HollowEntity.class, 10, true, true, factionScope));
+        //this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, PlayerEntity.class, 10, true, true, factionScope));
+        //this.targetSelector.addGoal(7, new NearestAttackableTargetGoal(this, HollowEntity.class, 10, true, true, factionScope));
 
         this.goalSelector.addGoal(4, new ImprovedMeleeAttackGoal(this, 1, true));
 
@@ -111,8 +104,10 @@ public class CloneEntity extends CreatureEntity {
             return;
         }
 
-        this.setLastHurtByMob(this.getOwner());
-
+        if (this.getOwner().getLastHurtMob() != null)
+            this.setTarget(this.getOwner().getLastHurtMob());
+        else if (this.getOwner().getLastHurtByMob() != null)
+            this.setTarget(this.getOwner().getLastHurtByMob());
         if (this.tickCount >= this.maxAliveTicks)
             this.remove();
     }
@@ -181,4 +176,5 @@ public class CloneEntity extends CreatureEntity {
     {
         this.maxAliveTicks = ticks;
     }
+
 }

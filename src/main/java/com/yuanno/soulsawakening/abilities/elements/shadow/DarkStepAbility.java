@@ -20,7 +20,7 @@ public class DarkStepAbility extends Ability implements IRightClickAbility, IBlo
     }
 
     @Override
-    public boolean getAlt() {
+    public boolean getShift() {
         return true;
     }
 
