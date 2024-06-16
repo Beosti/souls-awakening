@@ -29,15 +29,22 @@ public interface IAttackAbility {
         {
             if (!player.level.isClientSide)
             {
-                ExplosionAbility explosionAbility = new ExplosionAbility(player, player.level, target.getX(), target.getY(), target.getZ(), 3);
-                explosionAbility.setStaticDamage(5);
-                explosionAbility.setExplosionSound(true);
-                explosionAbility.setDamageOwner(false);
-                explosionAbility.setDestroyBlocks(false);
-                explosionAbility.setFireAfterExplosion(false);
-                explosionAbility.setSmokeParticles(new CommonExplosionParticleEffect(3));
-                explosionAbility.setDamageEntities(true);
-                explosionAbility.doExplosion();
+                try {
+                    ExplosionAbility explosionAbility = new ExplosionAbility(player, player.level, target.getX(), target.getY(), target.getZ(), 3);
+                    explosionAbility.setSpecificEntity(target);
+                    explosionAbility.setStaticDamage(5);
+                    explosionAbility.setExplosionSound(true);
+                    explosionAbility.setDamageOwner(false);
+                    explosionAbility.setDestroyBlocks(false);
+                    explosionAbility.setFireAfterExplosion(false);
+                    explosionAbility.setSmokeParticles(new CommonExplosionParticleEffect(3));
+                    explosionAbility.setDamageEntities(true);
+                    explosionAbility.doExplosion();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         }
     };

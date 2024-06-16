@@ -90,17 +90,9 @@ public class AbilityEvents {
         {
             LivingEntity target = event.getTarget();
             if (target != null) {
-                System.out.println("player: " + event.getPlayer());
-                System.out.println("ability: " + event.getAbility());
-                System.out.println("target: " + event.getTarget());
                 ((IAttackAbility) ability).activateBack(player, target, ability);
-
-                if (!((IAttackAbility) ability).getPassive()) {
-                    AbilityUseEvent.Post abilityUseEvent = new AbilityUseEvent.Post(player, ability);
-                    MinecraftForge.EVENT_BUS.post(abilityUseEvent);
-                }
-
-
+                if (ability instanceof IContinuousAbility)
+                    ((IContinuousAbility) ability).endContinuity(player, ability);
             }
             else
                 return;

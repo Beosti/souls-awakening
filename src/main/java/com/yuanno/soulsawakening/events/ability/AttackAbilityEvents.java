@@ -25,40 +25,41 @@ import net.minecraftforge.fml.common.Mod;
 public class AttackAbilityEvents {
 
     @SubscribeEvent
-    public static void onAttackEvent(LivingHurtEvent event)
+    public static void onAttackEvent(AttackEntityEvent event)
     {
-        if (event.getSource().getDirectEntity() != null && event.getSource().getDirectEntity().getEntity() instanceof PlayerEntity)
-        {
-            if (event.getEntityLiving() != null) {
-                PlayerEntity player = (PlayerEntity) event.getSource().getDirectEntity().getEntity();
-                if (player.level.isClientSide)
-                    return;
+        PlayerEntity player = event.getPlayer();
+        if (player.level.isClientSide)
+            return;
 
-                IAbilityData abilityData = AbilityDataCapability.get(player);
-                for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++) {
-                    Ability ability = abilityData.getUnlockedAbilities().get(i);
-                    if (!(ability instanceof IAttackAbility)) // check if the ability is a right click ability
-                        continue;
-                    if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS))
-                        continue;
-                    else if (!(ability instanceof IContinuousAbility) && !((IAttackAbility) ability).getPassive() && ability.getState().equals(Ability.STATE.READY))
-                        continue;
-                    if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
-                    {
-                        ItemStack zanpakutoItem = player.getMainHandItem();
-                        if (!zanpakutoItem.getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
-                            return;
-                        String state = zanpakutoItem.getTag().getString("zanpakutoState");
-                        if (!state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
-                            return;
-                    }
-                    LivingEntity targetEntity = event.getEntityLiving();
-                    AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, ability, targetEntity);
-                    MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
-                    PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
-                    return;
+        IAbilityData abilityData = AbilityDataCapability.get(player);
+        for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++) {
+            Ability ability = abilityData.getUnlockedAbilities().get(i);
+            if (!(ability instanceof IAttackAbility)) // check if the ability is a right click ability
+                continue;
+            if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS))
+                continue;
+            else if (!(ability instanceof IContinuousAbility) && !((IAttackAbility) ability).getPassive() && !ability.getState().equals(Ability.STATE.READY))
+                continue;
+            if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
+                {
+                    ItemStack zanpakutoItem = player.getMainHandItem();
+                    if (!zanpakutoItem.getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
+                        return;
+                    String state = zanpakutoItem.getTag().getString("zanpakutoState");
+                    if (!state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
+                        return;
                 }
+
+            if (event.getTarget() instanceof LivingEntity)
+            {
+                LivingEntity livingEntity = (LivingEntity) event.getTarget();
+                AbilityUseEvent.Per abilityUseEventPer = new AbilityUseEvent.Per(player, ability, livingEntity);
+                MinecraftForge.EVENT_BUS.post(abilityUseEventPer);
             }
+            PacketHandler.sendTo(new SSyncAbilityDataPacket(player.getId(), abilityData), player);
+            return;
         }
+
+
     }
 }

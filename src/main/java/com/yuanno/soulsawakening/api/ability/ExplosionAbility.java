@@ -49,6 +49,7 @@ public class ExplosionAbility extends Explosion
 	private float explosionSize;
 	private ParticleEffect particles;
 	private DamageSource damageSource;
+	private LivingEntity livingEntity = null;
 	
 	private final List<BlockPos> affectedBlockPositions = Lists.newArrayList();
 	private final Map<PlayerEntity, Vector3d> playerKnockbackMap = Maps.newHashMap();
@@ -93,7 +94,16 @@ public class ExplosionAbility extends Explosion
 		this.explosionY = posY;
 		this.explosionZ = posZ;
 	}
-	
+
+	public void setSpecificEntity(LivingEntity entity)
+	{
+		this.livingEntity = entity;
+	}
+	public LivingEntity getSpecificEntity()
+	{
+		return this.livingEntity;
+	}
+
 	public void setExplosionSize(float explosionSize)
 	{
 		this.explosionSize = explosionSize;
@@ -277,11 +287,18 @@ public class ExplosionAbility extends Explosion
 		int j2 = MathHelper.floor(this.explosionZ - f3 - 1.0D);
 		int j1 = MathHelper.floor(this.explosionZ + f3 + 1.0D);
 		List<Entity> list;
-		if(this.canDamageOwner)
-			list = this.world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
+		if (this.livingEntity != null)
+		{
+			list = new ArrayList<>();
+			list.add(this.livingEntity);
+		}
 		else
-			list = this.world.getEntities(this.exploder, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
-
+		{
+			if (this.canDamageOwner)
+				list = this.world.getEntitiesOfClass(LivingEntity.class, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
+			else
+				list = this.world.getEntities(this.exploder, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
+		}
 		if(this.immuneEntities.size() > 0)
 			list.removeAll(this.immuneEntities);
 
@@ -292,7 +309,11 @@ public class ExplosionAbility extends Explosion
 		{
 			for (int k2 = 0; k2 < list.size(); ++k2)
 			{
-				Entity entity = list.get(k2);
+				Entity entity;
+				if (this.livingEntity != null)
+					entity = livingEntity;
+				else
+					entity = list.get(k2);
 
 				if (!entity.ignoreExplosion())
 				{
