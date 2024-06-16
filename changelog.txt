@@ -4,6 +4,8 @@
 - every playthrough won't have the same abilities for shinigami when you unlock shikai depending on your stats -or not- you might get other abilities
 - dark ball ability
 - shadow clone ability
+- fire prowess ability
+- fire coat ability
 
 ## changes
 - changed overall activation way (keys) for certain abilities, just check them out in game
@@ -20,4 +22,5 @@
 - points not properly rendering for shinigami
 
 ## misc
+- refactored the attack ability code
 

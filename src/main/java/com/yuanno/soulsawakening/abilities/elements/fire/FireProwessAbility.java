@@ -24,9 +24,10 @@ public class FireProwessAbility extends Ability implements IAttackAbility, ICont
     }
 
     @Override
-    public boolean getShift() {
+    public boolean getControl() {
         return true;
     }
+
 
     @Override
     public boolean getPassive() {

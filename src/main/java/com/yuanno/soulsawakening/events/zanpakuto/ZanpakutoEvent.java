@@ -2,9 +2,7 @@ package com.yuanno.soulsawakening.events.zanpakuto;
 
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.abilities.SoulSocietyKeyAbility;
-import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
-import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
-import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.fire.*;
 import com.yuanno.soulsawakening.abilities.elements.heal.HealingTouchingAbility;
 import com.yuanno.soulsawakening.abilities.elements.heal.RevitilazingAuraAbility;
 import com.yuanno.soulsawakening.abilities.elements.heal.SelfHealingAbility;
@@ -187,8 +185,14 @@ public class ZanpakutoEvent {
                     abilityData.addUnlockedAbility(UmbralCloakAbility.INSTANCE);
                     break;
                 case ("FIRE"):
-                    abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
+                    if (entityStats.getReiatsuPoints() > entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get())
+                        abilityData.addUnlockedAbility(FireProwessAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
+                    if (entityStats.getReiatsuPoints() > entityStats.getShinigamiStats().getHakudaPoints())
+                        abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(FireCoatAbility.INSTANCE);
                     abilityData.addUnlockedAbility(FireBallAbility.INSTANCE);
                     break;
                 case ("HEAL"):
