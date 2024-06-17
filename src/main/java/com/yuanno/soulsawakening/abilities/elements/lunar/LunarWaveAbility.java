@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.lunar;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -21,6 +22,7 @@ public class LunarWaveAbility extends Ability implements IRightClickAbility, IWa
         this.setMaxCooldown(15);
         this.setState(STATE.READY);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

@@ -116,15 +116,7 @@ public class RightClickAbilityEvents {
                 continue;
             if (!(ability instanceof IRightClickAbility)) // check if the ability is a right click ability
                 continue;
-            if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
-            {
-                ItemStack zanpakutoItem = player.getMainHandItem();
-                if (!zanpakutoItem.getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
-                    return;
-                String state = zanpakutoItem.getTag().getString("zanpakutoState");
-                if (!state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
-                    return;
-            }
+
             IRightClickAbility rightClickEmptyAbility = (IRightClickAbility) abilityData.getUnlockedAbilities().get(i);
             if (rightClickEmptyAbility.getAlt() ^ InputMappings.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), GLFW.GLFW_KEY_LEFT_ALT)) {
                 continue;

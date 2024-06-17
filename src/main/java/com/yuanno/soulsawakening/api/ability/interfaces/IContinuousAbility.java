@@ -52,4 +52,9 @@ public interface IContinuousAbility {
     {
         return -1;
     }
+
+    default boolean getPassive()
+    {
+        return false;
+    }
 }

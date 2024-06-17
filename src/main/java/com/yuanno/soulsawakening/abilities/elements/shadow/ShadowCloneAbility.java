@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.shadow;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.IRightClickAbility;
 import com.yuanno.soulsawakening.api.ability.interfaces.ISummonAbility;
@@ -16,6 +17,7 @@ public class ShadowCloneAbility extends Ability implements IRightClickAbility, I
         this.setDescription("Creates a few shadow clones attacking your enemies");
         this.setMaxCooldown(12);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

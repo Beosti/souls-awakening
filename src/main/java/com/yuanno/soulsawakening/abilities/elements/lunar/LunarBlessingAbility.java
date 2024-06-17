@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.lunar;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -19,6 +20,7 @@ public class LunarBlessingAbility extends Ability implements IRightClickAbility,
         this.setDescription("Grants you buffs");
         this.setMaxCooldown(30);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

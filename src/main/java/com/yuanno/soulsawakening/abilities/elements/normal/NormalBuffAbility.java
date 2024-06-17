@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.normal;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -21,6 +22,7 @@ public class NormalBuffAbility extends Ability implements IRightClickAbility, IC
         this.setDescription("Buffs your damage, attack speed and movement speed a lot for a few seconds");
         this.setMaxCooldown(60);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

@@ -36,15 +36,8 @@ public class GetHitAbilityEvent {
                 continue;
             if (!(ability instanceof IGetHitAbility))
                 continue;
-            if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
-            {
-                ItemStack zanpakutoItem = player.getMainHandItem();
-                if (!zanpakutoItem.getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
-                    return;
-                String state = zanpakutoItem.getTag().getString("zanpakutoState");
-                if (!state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
-                    return;
-            }
+            if (!ability.getDependency().check(player))
+                continue;
             if (!(event.getSource().getEntity() instanceof LivingEntity))
                 continue;
             LivingEntity livingEntityAttacker = (LivingEntity) event.getSource().getEntity();

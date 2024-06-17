@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.fire;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ModEffect;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.IContinuousAbility;
@@ -24,6 +25,7 @@ public class FireCoatAbility extends Ability implements IRightClickAbility, ICon
         this.setName("Fire Coat");
         this.setDescription("Cloaks yourself with fire, reduce incoming damage and put on the fire the attacker");
         this.setMaxCooldown(30);
+        this.dependency = AbilityDependencies::shikaiDependance;
         this.setSubCategory(SubCategory.SHIKAI);
     }
 

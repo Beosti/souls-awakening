@@ -47,7 +47,7 @@ public interface IAttackAbility {
                 }
             }
         }
-    };
+    }
 
     default int secondsOnFire()
     {
@@ -59,7 +59,7 @@ public interface IAttackAbility {
         return null;
     }
 
-    default boolean getPassive()
+    default boolean getAttackPassive()
     {
         return true;
     }

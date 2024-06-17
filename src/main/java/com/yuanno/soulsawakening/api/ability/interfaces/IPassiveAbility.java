@@ -12,5 +12,5 @@ import net.minecraftforge.event.entity.living.LivingEvent;
  */
 public interface IPassiveAbility {
 
-    default void onContinuousAbility(PlayerEntity user) {};
+    default void onContinuousAbility(PlayerEntity user) {}
 }

@@ -30,7 +30,7 @@ public class FireProwessAbility extends Ability implements IAttackAbility, ICont
 
 
     @Override
-    public boolean getPassive() {
+    public boolean getAttackPassive() {
         return false;
     }
 }

@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.thunder;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
@@ -18,6 +19,7 @@ public class ThunderStepAbility extends Ability implements IRightClickAbility, I
         this.setName("Lightning Step");
         this.setMaxCooldown(12);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

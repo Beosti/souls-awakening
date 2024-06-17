@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.thunder;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.api.Beapi;
@@ -25,6 +26,7 @@ public class ThunderStrikeAbility extends Ability implements IRightClickAbility,
         this.setName("Thunder Strike");
         this.setMaxCooldown(16);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

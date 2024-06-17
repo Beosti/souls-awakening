@@ -11,12 +11,10 @@ import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SSyncAbilityDataPacket;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -38,18 +36,10 @@ public class AttackAbilityEvents {
                 continue;
             if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS))
                 continue;
-            else if (!(ability instanceof IContinuousAbility) && !((IAttackAbility) ability).getPassive() && !ability.getState().equals(Ability.STATE.READY))
+            else if (!(ability instanceof IContinuousAbility) && !((IAttackAbility) ability).getAttackPassive() && !ability.getState().equals(Ability.STATE.READY))
                 continue;
-            if (ability.getSubCategory() != null && ability.getSubCategory().equals(Ability.SubCategory.SHIKAI)) // check if the ability is shikai needing
-                {
-                    ItemStack zanpakutoItem = player.getMainHandItem();
-                    if (!zanpakutoItem.getItem().equals(ModItems.ZANPAKUTO.get().getItem()))
-                        return;
-                    String state = zanpakutoItem.getTag().getString("zanpakutoState");
-                    if (!state.equals(ModValues.STATE.SHIKAI.name())) // if your item is in shikai state you can use it
-                        return;
-                }
-
+            if (!ability.getDependency().check(player))
+                continue;
             if (event.getTarget() instanceof LivingEntity)
             {
                 LivingEntity livingEntity = (LivingEntity) event.getTarget();

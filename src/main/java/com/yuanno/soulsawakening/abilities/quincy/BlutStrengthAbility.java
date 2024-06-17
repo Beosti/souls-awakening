@@ -5,12 +5,7 @@ import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 public class BlutStrengthAbility extends Ability implements IRightClickAbility, IContinuousAbility {

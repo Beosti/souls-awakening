@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.thunder;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.ModEffects;
@@ -17,6 +18,7 @@ public class ThunderAttackAbility extends Ability implements IAttackAbility, IPa
     public ThunderAttackAbility() {
         this.setName("Thunder Attack");
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     public ParticleEffect getSpawnParticles() {

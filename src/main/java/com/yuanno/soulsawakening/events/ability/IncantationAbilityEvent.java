@@ -39,6 +39,8 @@ public class IncantationAbilityEvent {
                 continue;
             if ((ability instanceof IEntityRayTrace && !(((IEntityRayTrace) ability).gotTarget(player))))
                 continue;
+            if (!ability.getDependency().check(player))
+                continue;
             AbilityUseEvent.Pre abilityUseEventPre = new AbilityUseEvent.Pre(player, ability);
             MinecraftForge.EVENT_BUS.post(abilityUseEventPre);
             if (!ability.getState().equals(Ability.STATE.READY)) {

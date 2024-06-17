@@ -6,7 +6,7 @@ import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireBallAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.FireWaveAbility;
-import com.yuanno.soulsawakening.abilities.elements.heal.HealingTouchingAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.HealingTouchAbility;
 import com.yuanno.soulsawakening.abilities.elements.heal.RevitilazingAuraAbility;
 import com.yuanno.soulsawakening.abilities.elements.heal.SelfHealingAbility;
 import com.yuanno.soulsawakening.abilities.elements.lunar.LunarBlessingAbility;
@@ -114,7 +114,7 @@ public class ShikaiCommand {
                 abilityData.addUnlockedAbility(FireBallAbility.INSTANCE);
                 break;
             case "HEAL":
-                abilityData.addUnlockedAbility(HealingTouchingAbility.INSTANCE);
+                abilityData.addUnlockedAbility(HealingTouchAbility.INSTANCE);
                 abilityData.addUnlockedAbility(RevitilazingAuraAbility.INSTANCE);
                 abilityData.addUnlockedAbility(SelfHealingAbility.INSTANCE);
                 break;

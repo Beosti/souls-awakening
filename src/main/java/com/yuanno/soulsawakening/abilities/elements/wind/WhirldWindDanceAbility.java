@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.wind;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.api.SourceElement;
@@ -17,6 +18,7 @@ public class WhirldWindDanceAbility extends Ability implements IRightClickAbilit
         this.setName("Whirld Wind Dance");
         this.setMaxCooldown(8);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

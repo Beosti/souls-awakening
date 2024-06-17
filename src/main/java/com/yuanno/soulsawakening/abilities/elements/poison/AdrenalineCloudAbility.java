@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.poison;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import net.minecraft.potion.EffectInstance;
@@ -23,6 +24,7 @@ public class AdrenalineCloudAbility extends Ability implements IRightClickAbilit
         this.setMaxCooldown(17);
         this.setState(STATE.READY);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

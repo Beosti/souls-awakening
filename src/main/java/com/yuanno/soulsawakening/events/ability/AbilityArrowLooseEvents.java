@@ -29,16 +29,19 @@ public class AbilityArrowLooseEvents {
         IAbilityData abilityData = AbilityDataCapability.get(player);
         for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++)
         {
-            if (!(abilityData.getUnlockedAbilities().get(i) instanceof IReleaseArrow))
+            Ability ability = abilityData.getUnlockedAbilities().get(i);
+            if (!ability.getDependency().check(player))
                 continue;
-            if (abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility && !abilityData.getUnlockedAbilities().get(i).getState().equals(Ability.STATE.CONTINUOUS))
+            if (!(ability instanceof IReleaseArrow))
                 continue;
-            if (!(abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility) && !abilityData.getUnlockedAbilities().get(i).getState().equals(Ability.STATE.READY))
+            if (ability instanceof IContinuousAbility && !ability.getState().equals(Ability.STATE.CONTINUOUS))
                 continue;
-            AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, abilityData.getUnlockedAbilities().get(i), event.getProjectile(), event.getPower());
+            if (!(ability instanceof IContinuousAbility) && !ability.getState().equals(Ability.STATE.READY))
+                continue;
+            AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, ability, event.getProjectile(), event.getPower());
             MinecraftForge.EVENT_BUS.post(abilityUseEvent);
-            if (abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility && ((IContinuousAbility) abilityData.getUnlockedAbilities().get(i)).getEndAfterUse()) {
-                AbilityUseEvent.Post abilityUseEventPost = new AbilityUseEvent.Post(player, abilityData.getUnlockedAbilities().get(i));
+            if (abilityData.getUnlockedAbilities().get(i) instanceof IContinuousAbility && ((IContinuousAbility) ability).getEndAfterUse()) {
+                AbilityUseEvent.Post abilityUseEventPost = new AbilityUseEvent.Post(player, ability);
                 MinecraftForge.EVENT_BUS.post(abilityUseEventPost);
             }
         }

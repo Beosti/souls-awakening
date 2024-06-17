@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.fire;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.api.SourceElement;
@@ -18,6 +19,7 @@ public class FireBallAbility extends Ability implements IRightClickAbility, ISho
         this.setMaxCooldown(10);
         this.setSourceElement(SourceElement.FIRE);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

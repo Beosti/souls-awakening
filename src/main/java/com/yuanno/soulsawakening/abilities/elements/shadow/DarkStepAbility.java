@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.shadow;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.ModParticleTypes;
@@ -17,6 +18,7 @@ public class DarkStepAbility extends Ability implements IRightClickAbility, IBlo
         this.setName("Dark Step");
         this.setMaxCooldown(6);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override

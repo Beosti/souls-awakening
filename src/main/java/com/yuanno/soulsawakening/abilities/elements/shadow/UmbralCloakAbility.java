@@ -1,5 +1,6 @@
 package com.yuanno.soulsawakening.abilities.elements.shadow;
 
+import com.yuanno.soulsawakening.abilities.util.AbilityDependencies;
 import com.yuanno.soulsawakening.api.ability.Ability;
 import com.yuanno.soulsawakening.api.ability.interfaces.*;
 import com.yuanno.soulsawakening.init.ModEffects;
@@ -13,6 +14,7 @@ public class UmbralCloakAbility extends Ability implements IRightClickAbility, I
         this.setName("Umbral Cloak");
         this.setMaxCooldown(20);
         this.setSubCategory(SubCategory.SHIKAI);
+        this.dependency = AbilityDependencies::shikaiDependance;
     }
 
     @Override
