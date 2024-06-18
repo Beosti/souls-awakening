@@ -46,7 +46,7 @@ public class TickAbilityEvent {
                     {
                         if (!(((IContinuousAbility) ability).getMaxTimer() == -1))
                             ability.alterTimer(1);
-                        if (ability.getTimer() < ((IContinuousAbility) ability).getMaxTimer())
+                        if (ability.getTimer() >= ((IContinuousAbility) ability).getMaxTimer())
                         {
                             ability.setTimer(0);
                             ((IContinuousAbility) ability).endContinuity(player, ability);

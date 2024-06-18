@@ -23,4 +23,5 @@
 
 ## misc
 - refactored the attack ability code
+- refactored the dependancy code for abilities aka easier to write, less hardcoded etc.
 

@@ -42,6 +42,7 @@ AbilityUseEvent extends Event {
         private LivingEntity target;
         private AbilityProjectileEntity projectile;
         private float power;
+        private float damage;
         public Per(PlayerEntity player, Ability ability)
         {
             super(player, ability);
@@ -50,6 +51,12 @@ AbilityUseEvent extends Event {
         {
             super(player, ability);
             this.target = target;
+        }
+        public Per(PlayerEntity player, Ability ability, AbilityProjectileEntity projectile, int damage)
+        {
+            super(player, ability);
+            this.projectile = projectile;
+            this.damage = damage;
         }
         public Per(PlayerEntity player, Ability ability, AbilityProjectileEntity projectile, float power)
         {
@@ -68,6 +75,14 @@ AbilityUseEvent extends Event {
         public float getPower()
         {
             return this.power;
+        }
+        public void setDamage(float damage)
+        {
+            this.damage = damage;
+        }
+        public float getDamage()
+        {
+            return this.damage;
         }
     }
 

@@ -42,6 +42,7 @@ public class GetHitAbilityEvent {
                 continue;
             LivingEntity livingEntityAttacker = (LivingEntity) event.getSource().getEntity();
             AbilityUseEvent.Per abilityUseEvent = new AbilityUseEvent.Per(player, ability, livingEntityAttacker);
+            abilityUseEvent.setDamage(event.getAmount());
             MinecraftForge.EVENT_BUS.post(abilityUseEvent);
             event.setCanceled(((IGetHitAbility) ability).getCancelEvent());
             return;

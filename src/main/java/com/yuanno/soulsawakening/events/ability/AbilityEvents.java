@@ -101,7 +101,10 @@ public class AbilityEvents {
         if (ability instanceof IGetHitAbility)
         {
             LivingEntity target = event.getTarget();
-            ((IGetHitAbility) ability).getHitAbility(player, target, ability);
+            if (event.getDamage() > 0)
+                ((IGetHitAbility) ability).getHitAbility(player, target, ability, event.getDamage());
+            else
+                ((IGetHitAbility) ability).getHitAbility(player, target, ability);
         }
         if (ability instanceof IReleaseArrow)
         {

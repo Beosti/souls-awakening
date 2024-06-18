@@ -138,6 +138,7 @@ public class RightClickAbilityEvents {
             else if (!ability.getState().equals(Ability.STATE.CONTINUOUS) && ability.getState().equals(Ability.STATE.READY))
             {
                 ((IContinuousAbility) ability).startContinuity(player, ability);
+                return;
             }
             else
             {
