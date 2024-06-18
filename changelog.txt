@@ -17,6 +17,7 @@
 - default cooldown umbral cloak 16 -> 20
 - when having the 'proving yourself' quest as a spirit in the overworld your spirit chain does not diminish this is the quest to become a shinigami
 - lunar blessing isn't infinite anymore it has a timer
+- poison duration from poison attack from 100 ticks to 40 ticks
 
 ## fixed
 - class points not working for quincy when switching races or something along those lines

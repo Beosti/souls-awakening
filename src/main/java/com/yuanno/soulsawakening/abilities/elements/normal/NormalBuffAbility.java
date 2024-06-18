@@ -19,7 +19,7 @@ public class NormalBuffAbility extends Ability implements IRightClickAbility, IC
     public NormalBuffAbility()
     {
         this.setName("Normal Buff");
-        this.setDescription("Buffs your damage, attack speed and movement speed a lot for a few seconds");
+        this.setDescription("Buffs your damage, attack speed and movement speed a lot for a while");
         this.setMaxCooldown(60);
         this.setSubCategory(SubCategory.SHIKAI);
         this.dependency = AbilityDependencies::shikaiDependance;

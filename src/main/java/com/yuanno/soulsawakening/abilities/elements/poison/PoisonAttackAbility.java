@@ -18,6 +18,6 @@ public class PoisonAttackAbility extends Ability implements IAttackAbility {
     @Override
     public EffectInstance addedEffect()
     {
-        return new EffectInstance(Effects.POISON, 100, 0);
+        return new EffectInstance(Effects.POISON, 40, 0);
     }
 }
