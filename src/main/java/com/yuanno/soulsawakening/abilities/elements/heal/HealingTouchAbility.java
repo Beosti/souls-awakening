@@ -36,4 +36,9 @@ public class HealingTouchAbility extends Ability implements IEntityRayTrace, IRi
     {
         return new EffectInstance(Effects.ABSORPTION, 120, 0);
     }
+
+    @Override
+    public boolean getControl() {
+        return true;
+    }
 }

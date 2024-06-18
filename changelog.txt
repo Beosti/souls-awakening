@@ -8,6 +8,8 @@
 - fire coat ability
 - damage heal ability
 - second chance ability
+- moonlight ability
+- lunar blindness ability
 
 ## changes
 - changed overall activation way (keys) for certain abilities, just check them out in game

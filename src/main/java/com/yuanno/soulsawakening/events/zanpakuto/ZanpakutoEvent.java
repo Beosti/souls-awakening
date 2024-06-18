@@ -3,12 +3,8 @@ package com.yuanno.soulsawakening.events.zanpakuto;
 import com.yuanno.soulsawakening.Main;
 import com.yuanno.soulsawakening.abilities.SoulSocietyKeyAbility;
 import com.yuanno.soulsawakening.abilities.elements.fire.*;
-import com.yuanno.soulsawakening.abilities.elements.heal.HealingTouchAbility;
-import com.yuanno.soulsawakening.abilities.elements.heal.RevitilazingAuraAbility;
-import com.yuanno.soulsawakening.abilities.elements.heal.SelfHealingAbility;
-import com.yuanno.soulsawakening.abilities.elements.lunar.LunarBlessingAbility;
-import com.yuanno.soulsawakening.abilities.elements.lunar.LunarCrescentAbility;
-import com.yuanno.soulsawakening.abilities.elements.lunar.LunarWaveAbility;
+import com.yuanno.soulsawakening.abilities.elements.heal.*;
+import com.yuanno.soulsawakening.abilities.elements.lunar.*;
 import com.yuanno.soulsawakening.abilities.elements.normal.NormalBuffAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.AdrenalineCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
@@ -195,8 +191,14 @@ public class ZanpakutoEvent {
                     abilityData.addUnlockedAbility(FireBallAbility.INSTANCE);
                     break;
                 case ("HEAL"):
-                    abilityData.addUnlockedAbility(HealingTouchAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(RevitilazingAuraAbility.INSTANCE);
+                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get() > entityStats.getReiatsuPoints())
+                        abilityData.addUnlockedAbility(HealingTouchAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(SecondChanceAbility.INSTANCE);
+                    if (entityStats.getShinigamiStats().getHakudaPoints() >= entityStats.getReiatsuPoints())
+                        abilityData.addUnlockedAbility(DamageHealAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(RevitilazingAuraAbility.INSTANCE);
                     abilityData.addUnlockedAbility(SelfHealingAbility.INSTANCE);
                     break;
                 case ("LIGHTNING"):
@@ -205,9 +207,15 @@ public class ZanpakutoEvent {
                     abilityData.addUnlockedAbility(ThunderStrikeAbility.INSTANCE);
                     break;
                 case ("LUNAR"):
-                    abilityData.addUnlockedAbility(LunarBlessingAbility.INSTANCE);
+                    if (entityStats.getReiatsuPoints() >= entityStats.getShinigamiStats().getHakudaPoints())
+                        abilityData.addUnlockedAbility(LunarBlessingAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(MoonLightAbility.INSTANCE);
                     abilityData.addUnlockedAbility(LunarCrescentAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(LunarWaveAbility.INSTANCE);
+                    if (entityStats.getReiatsuPoints() >= entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get())
+                        abilityData.addUnlockedAbility(LunarWaveAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(LunarBlindnessAbility.INSTANCE);
                     break;
                 case ("NORMAL"):
                     abilityData.addUnlockedAbility(NormalBuffAbility.INSTANCE);

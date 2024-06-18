@@ -31,7 +31,8 @@ public class DamageHealAbility extends Ability implements IGetHitAbility, IConti
     }
 
     @Override
-    public boolean getControl() {
+    public boolean getShift()
+    {
         return true;
     }
 }
