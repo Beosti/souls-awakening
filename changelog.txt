@@ -6,6 +6,8 @@
 - shadow clone ability
 - fire prowess ability
 - fire coat ability
+- damage heal ability
+- second chance ability
 
 ## changes
 - changed overall activation way (keys) for certain abilities, just check them out in game
