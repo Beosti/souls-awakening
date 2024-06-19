@@ -8,6 +8,7 @@ import com.yuanno.soulsawakening.abilities.elements.lunar.*;
 import com.yuanno.soulsawakening.abilities.elements.normal.NormalBuffAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.AdrenalineCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.poison.PoisonStingAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.*;
 import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStepAbility;
@@ -166,6 +167,7 @@ public class ZanpakutoEvent {
             zanpakutoItem.setTag(tagCompound);
             IAbilityData abilityData = AbilityDataCapability.get(event.getPlayer());
             String uppercasedElement = elementChosen.toUpperCase();
+            Random random = new Random();
             switch (uppercasedElement)
             {
                 case ("DARK"):
@@ -221,9 +223,14 @@ public class ZanpakutoEvent {
                     abilityData.addUnlockedAbility(NormalBuffAbility.INSTANCE);
                     break;
                 case ("POISON"):
-                    abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(VenomousCloudAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(AdrenalineCloudAbility.INSTANCE);
+                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get() > entityStats.getReiatsuPoints())
+                        abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(PoisonStingAbility.INSTANCE);
+                    if (random.nextBoolean())
+                        abilityData.addUnlockedAbility(VenomousCloudAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(AdrenalineCloudAbility.INSTANCE);
                     break;
                 case ("WATER"):
                     abilityData.addUnlockedAbility(AquaSlashAbility.INSTANCE);
