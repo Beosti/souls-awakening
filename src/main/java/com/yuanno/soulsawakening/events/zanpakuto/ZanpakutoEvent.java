@@ -12,9 +12,7 @@ import com.yuanno.soulsawakening.abilities.elements.poison.PoisonStingAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.*;
 import com.yuanno.soulsawakening.abilities.elements.thunder.*;
-import com.yuanno.soulsawakening.abilities.elements.water.AquaSlashAbility;
-import com.yuanno.soulsawakening.abilities.elements.water.TidalWaveAbility;
-import com.yuanno.soulsawakening.abilities.elements.water.WaterPrisonAbility;
+import com.yuanno.soulsawakening.abilities.elements.water.*;
 import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
 import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
@@ -238,8 +236,14 @@ public class ZanpakutoEvent {
                         abilityData.addUnlockedAbility(AdrenalineCloudAbility.INSTANCE);
                     break;
                 case ("WATER"):
-                    abilityData.addUnlockedAbility(AquaSlashAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(TidalWaveAbility.INSTANCE);
+                    if (random.nextBoolean())
+                        abilityData.addUnlockedAbility(WaterPressureAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(WaterSurgeAbility.INSTANCE);
+                    if (random.nextBoolean())
+                        abilityData.addUnlockedAbility(AquaSlashAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(TidalWaveAbility.INSTANCE);
                     abilityData.addUnlockedAbility(WaterPrisonAbility.INSTANCE);
                     break;
                 case ("WIND"):

@@ -30,6 +30,7 @@ public class ModParticleTypes {
     public static final RegistryObject<ParticleType<GenericParticleData>> DARK = PARTICLE_TYPES.register("dark", GenericParticleData::new);
     public static final RegistryObject<ParticleType<GenericParticleData>> LUNAR = PARTICLE_TYPES.register("lunar", GenericParticleData::new);
     public static final RegistryObject<ParticleType<GenericParticleData>> YELLOW = PARTICLE_TYPES.register("yellow", GenericParticleData::new);
+    public static final RegistryObject<ParticleType<GenericParticleData>> WATER = PARTICLE_TYPES.register("water", GenericParticleData::new);
 
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
@@ -46,6 +47,7 @@ public class ModParticleTypes {
         manager.register(ModParticleTypes.DARK.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/dark_particle.png")));
         manager.register(ModParticleTypes.LUNAR.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/lunar_particle.png")));
         manager.register(ModParticleTypes.YELLOW.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/yellow_particle.png")));
+        manager.register(ModParticleTypes.WATER.get(), new SimpleParticle.Factory(new ResourceLocation(Main.MODID, "textures/particle/water_particle.png")));
 
     }
 

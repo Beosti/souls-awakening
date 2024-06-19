@@ -32,6 +32,7 @@ public interface IWaveAbility {
         targets.remove(player);
         for (LivingEntity livingEntity : targets)
         {
+            doOnWave(livingEntity);
             if (applyEffect() != null)
                 livingEntity.addEffect(applyEffect());
             if (!getEffectInstances().isEmpty())
@@ -58,6 +59,7 @@ public interface IWaveAbility {
         }
     }
 
+    default void doOnWave(LivingEntity target) {}
     default int getRadius()
     {
         return 0;
