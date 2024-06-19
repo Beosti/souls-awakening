@@ -11,9 +11,7 @@ import com.yuanno.soulsawakening.abilities.elements.poison.PoisonAttackAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.PoisonStingAbility;
 import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.*;
-import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStepAbility;
-import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderAttackAbility;
-import com.yuanno.soulsawakening.abilities.elements.thunder.ThunderStrikeAbility;
+import com.yuanno.soulsawakening.abilities.elements.thunder.*;
 import com.yuanno.soulsawakening.abilities.elements.water.AquaSlashAbility;
 import com.yuanno.soulsawakening.abilities.elements.water.TidalWaveAbility;
 import com.yuanno.soulsawakening.abilities.elements.water.WaterPrisonAbility;
@@ -44,6 +42,7 @@ import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import sun.awt.X11.XEmbedServerTester;
 
 import java.util.*;
 
@@ -204,8 +203,14 @@ public class ZanpakutoEvent {
                     abilityData.addUnlockedAbility(SelfHealingAbility.INSTANCE);
                     break;
                 case ("LIGHTNING"):
-                    abilityData.addUnlockedAbility(ThunderStepAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(ThunderAttackAbility.INSTANCE);
+                    if (entityStats.getSpeedStat() > entityStats.getReiatsuPoints())
+                        abilityData.addUnlockedAbility(ThunderBoostAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(ThunderballAbility.INSTANCE);
+                    if (entityStats.getSpeedStat() >= entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get())
+                        abilityData.addUnlockedAbility(ThunderStepAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(ThunderAttackAbility.INSTANCE);
                     abilityData.addUnlockedAbility(ThunderStrikeAbility.INSTANCE);
                     break;
                 case ("LUNAR"):

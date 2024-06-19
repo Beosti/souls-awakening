@@ -55,7 +55,7 @@ public class ThunderStrikeAbility extends Ability implements IRightClickAbility,
     }
 
     @Override
-    public boolean getShift()
+    public boolean getControl()
     {
         return true;
     }

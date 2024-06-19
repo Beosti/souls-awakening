@@ -46,4 +46,9 @@ public class ThunderStepAbility extends Ability implements IRightClickAbility, I
     {
         player.teleportTo(blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
+
+    @Override
+    public boolean getShift() {
+        return true;
+    }
 }
