@@ -55,4 +55,9 @@ public class GaleForceAbility extends Ability implements IRightClickAbility, IDu
     {
         return this.getCooldown() > this.getMaxCooldown() * 0.9;
     }
+
+    @Override
+    public boolean getShift() {
+        return true;
+    }
 }

@@ -1,7 +1,7 @@
 # Changelog
 
 ## additions
-- every playthrough won't have the same abilities for shinigami when you unlock shikai depending on your stats -or not- you might get other abilities
+### There are a bunch of new abilities added for shinigami mostly due to the new system of not gaining every ability so there's more difference
 - dark ball ability
 - shadow clone ability
 - fire prowess ability
@@ -16,8 +16,11 @@
 - thunder ball ability
 - water pressure ability
 - water surge ability
+- wind dodge ability
+- wind slash abiltiy
 
 ## changes
+- every playthrough won't have the same abilities for shinigami when you unlock shikai depending on your stats -or not- you might get other abilities
 - changed overall activation way (keys) for certain abilities, just check them out in game
 - default darkstep cooldown 4 -> 6
 - default cooldown umbral cloak 16 -> 20
@@ -34,5 +37,5 @@
 
 ## misc
 - refactored the attack ability code
-- refactored the dependancy code for abilities aka easier to write, less hardcoded etc.
+- refactored the dependency code for abilities aka easier to write, less hardcoded etc.
 

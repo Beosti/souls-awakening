@@ -13,9 +13,7 @@ import com.yuanno.soulsawakening.abilities.elements.poison.VenomousCloudAbility;
 import com.yuanno.soulsawakening.abilities.elements.shadow.*;
 import com.yuanno.soulsawakening.abilities.elements.thunder.*;
 import com.yuanno.soulsawakening.abilities.elements.water.*;
-import com.yuanno.soulsawakening.abilities.elements.wind.GaleForceAbility;
-import com.yuanno.soulsawakening.abilities.elements.wind.WhirldWindDanceAbility;
-import com.yuanno.soulsawakening.abilities.elements.wind.WindAttackAbility;
+import com.yuanno.soulsawakening.abilities.elements.wind.*;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
@@ -248,8 +246,14 @@ public class ZanpakutoEvent {
                     break;
                 case ("WIND"):
                     abilityData.addUnlockedAbility(GaleForceAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(WhirldWindDanceAbility.INSTANCE);
-                    abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
+                    if (entityStats.getReiatsuPoints() >= entityStats.getSpeedStat())
+                        abilityData.addUnlockedAbility(WhirldWindDanceAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(WindDodgeAbility.INSTANCE);
+                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get() >= entityStats.getReiatsuPoints())
+                        abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
+                    else
+                        abilityData.addUnlockedAbility(WindBladeAbility.INSTANCE);
                     break;
             }
             abilityData.addUnlockedAbility(SoulSocietyKeyAbility.INSTANCE);

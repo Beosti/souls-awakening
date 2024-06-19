@@ -39,7 +39,7 @@ public class WhirldWindDanceAbility extends Ability implements IRightClickAbilit
     }
 
     @Override
-    public boolean getShift()
+    public boolean getControl()
     {
         return true;
     }
