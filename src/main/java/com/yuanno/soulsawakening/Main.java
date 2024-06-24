@@ -9,10 +9,13 @@ import com.yuanno.soulsawakening.commands.quest.QuestArgument;
 import com.yuanno.soulsawakening.init.*;
 import com.yuanno.soulsawakening.init.world.ModBiomes;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
+import com.yuanno.soulsawakening.items.CustomSpawnEggItem;
 import com.yuanno.soulsawakening.util.ItemProperties;
 import net.minecraft.block.Block;
 import net.minecraft.command.arguments.ArgumentSerializer;
 import net.minecraft.command.arguments.ArgumentTypes;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -114,14 +117,11 @@ public class Main
         LOGGER.info("HELLO from server starting");
     }
 
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = MODID, bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
         @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-
+        public static void onSpawnEggsRegistry(RegistryEvent.Register<EntityType<?>> event) {
+            CustomSpawnEggItem.initSpawnEggs();
         }
     }
 }

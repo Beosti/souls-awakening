@@ -13,11 +13,11 @@ import com.yuanno.soulsawakening.items.armor.shinigami.ShinigamiChestItem;
 import com.yuanno.soulsawakening.items.armor.shinigami.ShinigamiPantsItem;
 import com.yuanno.soulsawakening.items.armor.shinigami.ShinigamiSandalsItem;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
+import com.yuanno.soulsawakening.items.spawneggs.*;
 import com.yuanno.soulsawakening.items.misc.KanItem;
 import com.yuanno.soulsawakening.items.misc.ReishiItem;
 import com.yuanno.soulsawakening.items.misc.ReishiIngotItem;
 import com.yuanno.soulsawakening.items.spiritweapon.*;
-import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -62,4 +62,19 @@ public class ModItems {
     public static final RegistryObject<Item> QUINCY_CHEST = ITEMS.register("quincy_chest", QuincyChestItem::new);
     public static final RegistryObject<Item> QUINCY_PANTS = ITEMS.register("quincy_pants", QuincyPantsItem::new);
     public static final RegistryObject<Item> QUINCY_BOOTS = ITEMS.register("quincy_boots", QuincyBootsItem::new);
+
+    // spawn eggs
+    public static final RegistryObject<Item> APE_SPAWN_EGG = ITEMS.register("ape_spawn_egg", ApeSpawnEggItem::new);
+    public static final RegistryObject<Item> GOLEM_SPAWN_EGG = ITEMS.register("golem_spawn_egg", GolemSpawnEggItem::new);
+    public static final RegistryObject<Item> SPIDER_SPAWN_EGG = ITEMS.register("spider_spawn_egg", SpiderSpawnEggItem::new);
+    public static final RegistryObject<Item> THORNS_SPAWN_EGG = ITEMS.register("thorns_spawn_egg", ThornsSpawnEggItem::new);
+    public static final RegistryObject<Item> FLYING_SPAWN_EGG = ITEMS.register("flying_spawn_egg", FlyingSpawnEggItem::new);
+
+    public static final RegistryObject<Item> PLUS_SPAWN_EGG = ITEMS.register("plus_spawn_egg", PlusSpawnEggItem::new);
+    public static final RegistryObject<Item> SHINIGAMI_SPAWN_EGG = ITEMS.register("shinigami_spawn_egg", ShinigamiSpawnEggItem::new);
+    public static final RegistryObject<Item> TRADER_SPAWN_EGG = ITEMS.register("trader_spawn_egg", TraderSpawnEggItem::new);
+    public static final RegistryObject<Item> SHINIGAMI_TEACHER_SPAWN_EGG = ITEMS.register("shinigami_teacher_spawn_egg", ShinigamiTeacherSpawnEggItem::new);
+    public static final RegistryObject<Item> KIDO_TEACHER_SPAWN_EGG = ITEMS.register("kido_teacher_spawn_egg", KidoTeacherSpawnEggItem::new);
+    public static final RegistryObject<Item> BAKUDO_TEACHER_SPAWN_EGG = ITEMS.register("bakudo_teacher_spawn_egg", BakudoTeacherSpawnEggItem::new);
+
 }

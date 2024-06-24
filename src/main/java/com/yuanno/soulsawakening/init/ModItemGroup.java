@@ -28,4 +28,10 @@ public class ModItemGroup {
             return new ItemStack(ModItems.ROGUE_CHEST.get());
         }
     };
+    public static final ItemGroup SOULS_AWAKENING_ENTITIES = new ItemGroup("soulsawakeningModTabSpawnEggs") {
+        @Override
+        public ItemStack makeIcon() {
+            return new ItemStack(ModItems.APE_SPAWN_EGG.get());
+        }
+    };
 }

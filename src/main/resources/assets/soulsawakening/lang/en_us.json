@@ -15,6 +15,7 @@
   "itemGroup.soulsawakeningModTabMisc": "Souls awakening misc",
   "itemGroup.soulsawakeningModTabWeapons": "Souls awakening weapons",
   "itemGroup.soulsawakeningModTabArmors": "Souls awakening armors",
+  "itemGroup.soulsawakeningModTabSpawnEggs": "Souls awakening entities",
 
   "item.soulsawakening.reishi": "Reishi",
   "item.soulsawakening.reishi_ingot": "Reishi ingot",
@@ -249,5 +250,17 @@
   "hollow.mutation_point.text": "§7Gained a mutation point",
   "hollow.hollow_point.text": "§fGained a hollow point",
   "quincy.quincy_point.text": "§bGained a class point",
-  "shinigami.shinigami_point.text": "§0Gained a class point"
+  "shinigami.shinigami_point.text": "§0Gained a class point",
+
+  "item.soulsawakening.ape_spawn_egg": "Hollow Ape spawn egg",
+  "item.soulsawakening.golem_spawn_egg": "Hollow Golem spawn egg",
+  "item.soulsawakening.spider_spawn_egg": "Hollow Spider spawn egg",
+  "item.soulsawakening.thorns_spawn_egg": "Hollow Thorns spawn egg",
+  "item.soulsawakening.flying_spawn_egg": "Hollow Flying spawn egg",
+  "item.soulsawakening.plus_spawn_egg": "Plus spawn egg",
+  "item.soulsawakening.trader_spawn_egg": "Trader spawn egg",
+  "item.soulsawakening.shinigami_spawn_egg": "Shinigami spawn egg",
+  "item.soulsawakening.shinigami_teacher_spawn_egg": "Shinigami teacher spawn egg",
+  "item.soulsawakening.kido_teacher_spawn_egg": "Kido teacher spawn egg",
+  "item.soulsawakening.bakudo_teacher_spawn_egg": "Bakudo teacher spawn egg"
 }
