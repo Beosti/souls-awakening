@@ -2,10 +2,7 @@ package com.yuanno.soulsawakening.screens;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.api.Beapi;
 import com.yuanno.soulsawakening.api.RendererHelper;
-import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
-import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
 import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
@@ -29,10 +26,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-
-import java.awt.*;
-import java.util.Arrays;
 
 
 @OnlyIn(Dist.CLIENT)
@@ -68,7 +61,7 @@ public class PlayerOverviewScreen extends Screen {
         if (entityStats.getRace().equals(ModValues.SHINIGAMI)) {
             ShinigamiStats shinigamiStats = entityStats.getShinigamiStats();
             int totalPoints = (int) (shinigamiStats.getHakudaPoints() + shinigamiStats.getHohoPoints() + shinigamiStats.getHohoPoints() + entityStats.getReiatsuPoints());
-            if (ModConfig.stat_limit.get() > totalPoints)
+            if (ModConfig.STAT_LIMIT.get() > totalPoints)
                 handleShinigamiInit();
         }
         if (entityStats.getRace().equals(ModValues.HOLLOW)) {
@@ -77,7 +70,7 @@ public class PlayerOverviewScreen extends Screen {
         if (entityStats.getRace().equals(ModValues.QUINCY)) {
             QuincyStats quincyStats = entityStats.getQuincyStats();
             int totalPoints = (int) (quincyStats.getBlut() + quincyStats.getHirenkyaku() + quincyStats.getConstitution() + entityStats.getReiatsuPoints());
-            if (ModConfig.stat_limit.get() > totalPoints)
+            if (ModConfig.STAT_LIMIT.get() > totalPoints)
                 handleQuincyInit();
         }
         this.addButton(new net.minecraft.client.gui.widget.button.Button(leftShift + 252, posY + 117, 60, 20, new TranslationTextComponent("Challenges"), b ->
@@ -165,7 +158,7 @@ public class PlayerOverviewScreen extends Screen {
 
         HollowStats hollowStats = entityStats.getHollowStats();
         int totalPoints = (int) (hollowStats.getAgility() + hollowStats.getConstitution() + hollowStats.getHierro() + entityStats.getReiatsuPoints());
-        if (ModConfig.stat_limit.get() > totalPoints)
+        if (ModConfig.STAT_LIMIT.get() > totalPoints)
         {
             // reiatsu point
             this.addButton(new Button(leftShift - 75, posY + 104, 8, 8, new TranslationTextComponent("+"), b ->
@@ -235,7 +228,7 @@ public class PlayerOverviewScreen extends Screen {
             {
                 this.renderTooltip(matrixStack, new TranslationTextComponent("gui.evolution.active"), mouseX, mouseY);
             }
-        })).active = entityStats.getHollowStats().getHollowPoints() >= ModConfig.hollow_evolution.get() && !(entityStats.getRank().equals(ModValues.VASTO_LORDE));
+        })).active = entityStats.getHollowStats().getHollowPoints() >= ModConfig.HOLLOW_EVOLUTION_VALUE.get() && !(entityStats.getRank().equals(ModValues.VASTO_LORDE));
     }
 
     void handleQuincyInit()

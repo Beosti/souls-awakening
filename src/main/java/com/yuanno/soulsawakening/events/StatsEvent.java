@@ -1,17 +1,12 @@
 package com.yuanno.soulsawakening.events;
 
 import com.yuanno.soulsawakening.Main;
-import com.yuanno.soulsawakening.abilities.hollow.HollowRegenerationAbility;
-import com.yuanno.soulsawakening.abilities.hollow.BiteAbility;
-import com.yuanno.soulsawakening.abilities.hollow.SlashAbility;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
 import com.yuanno.soulsawakening.data.challenges.ChallengesDataCapability;
 import com.yuanno.soulsawakening.data.challenges.IChallengesData;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
-import com.yuanno.soulsawakening.data.entity.hollow.HollowStats;
-import com.yuanno.soulsawakening.data.entity.shinigami.ShinigamiStats;
 import com.yuanno.soulsawakening.data.misc.IMiscData;
 import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.data.quest.IQuestData;
@@ -19,22 +14,14 @@ import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.data.teleports.ITeleports;
 import com.yuanno.soulsawakening.data.teleports.TeleportCapability;
 import com.yuanno.soulsawakening.init.*;
-import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.*;
-import com.yuanno.soulsawakening.particles.ParticleEffect;
-import com.yuanno.soulsawakening.particles.api.WaveParticleEffect;
-import com.yuanno.soulsawakening.util.GargantaTeleporter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -43,8 +30,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 
 @Mod.EventBusSubscriber(modid = Main.MODID)
@@ -92,7 +77,7 @@ public class StatsEvent {
                 entityStats.setRace(ModValues.SPIRIT);
                 ModAdvancements.RACE_CHANGE.trigger((ServerPlayerEntity) player);
                 ModAdvancements.SPIRIT.trigger((ServerPlayerEntity) player);
-                miscData.setSpiritChain(ModConfig.spirit_chain.get());
+                miscData.setSpiritChain(ModConfig.SPIRIT_CHAIN_TIMER.get());
             }
 
             PacketHandler.sendTo(new SSyncEntityStatsPacket(player.getId(), entityStats), player);

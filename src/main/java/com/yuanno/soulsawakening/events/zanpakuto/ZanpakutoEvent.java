@@ -38,7 +38,6 @@ import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import sun.awt.X11.XEmbedServerTester;
 
 import java.util.*;
 
@@ -115,12 +114,12 @@ public class ZanpakutoEvent {
             event.getPlayer().sendMessage(new StringTextComponent("Cannot reach shikai in this state!"), Util.NIL_UUID);
             return;
         }
-        if (entityStats.getShinigamiStats().getZanjutsuPoints() < ModConfig.zanpakuto_zanjutsu.get()) {
-            String zanpakutoZanjutsuMessageString = String.format("Need to have at least %s Zanjutsu points!", ModConfig.zanpakuto_zanjutsu.get());
+        if (entityStats.getShinigamiStats().getZanjutsuPoints() < ModConfig.ZANPAKUTO_ZANJUTSU.get()) {
+            String zanpakutoZanjutsuMessageString = String.format("Need to have at least %s Zanjutsu points!", ModConfig.ZANPAKUTO_ZANJUTSU.get());
             event.getPlayer().sendMessage(new StringTextComponent(zanpakutoZanjutsuMessageString), Util.NIL_UUID);
             return;
         }
-        if (ModConfig.zanpakuto_unlock.get().equals(ModConfig.ModConfigValues.KILLHOLLOW))
+        if (ModConfig.ZANPAKUTO_UNLOCK.get().equals(ModConfig.ModConfigValues.KILLHOLLOW))
         {
             int elementalPoints = zanpakutoItem.getTag().getInt("element");
             if (elementalPoints < 5) {
@@ -151,9 +150,9 @@ public class ZanpakutoEvent {
             elementalPointsHash.put(ModValues.FIRE, firePoints);
 
             String elementChosen;
-            if (ModConfig.zanpakuto_unlock.get().equals(ModConfig.ModConfigValues.KILLHOLLOW))
+            if (ModConfig.ZANPAKUTO_UNLOCK.get().equals(ModConfig.ModConfigValues.KILLHOLLOW))
                 elementChosen = calculateMostProbableElement(elementalPointsHash);
-            else if (ModConfig.zanpakuto_unlock.get().equals(ModConfig.ModConfigValues.RANDOM))
+            else if (ModConfig.ZANPAKUTO_UNLOCK.get().equals(ModConfig.ModConfigValues.RANDOM))
                 elementChosen = ModValues.ELEMENT.getRandomElementString();
             else
                 elementChosen = ModValues.ELEMENT.getRandomElementString();
@@ -163,59 +162,60 @@ public class ZanpakutoEvent {
             IAbilityData abilityData = AbilityDataCapability.get(event.getPlayer());
             String uppercasedElement = elementChosen.toUpperCase();
             Random random = new Random();
+            boolean randomizerConfigFlag = ModConfig.ZANPAKUTO_ABILITIES_RANDOMIZER.get() && random.nextBoolean();
             switch (uppercasedElement)
             {
                 case ("DARK"):
-                    if (entityStats.getSpeedStat() > entityStats.getReiatsuPoints())
+                    if (entityStats.getSpeedStat() > entityStats.getReiatsuPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(DarkStepAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(ShadowCloneAbility.INSTANCE);
-                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get() < entityStats.getReiatsuPoints())
+                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.ZANPAKUTO_ZANJUTSU.get() < entityStats.getReiatsuPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(DarkBallAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(ShadowAttackAbility.INSTANCE);
                     abilityData.addUnlockedAbility(UmbralCloakAbility.INSTANCE);
                     break;
                 case ("FIRE"):
-                    if (entityStats.getReiatsuPoints() > entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get())
+                    if (entityStats.getReiatsuPoints() > entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.ZANPAKUTO_ZANJUTSU.get() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(FireProwessAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(FireAttackAbility.INSTANCE);
-                    if (entityStats.getReiatsuPoints() >= entityStats.getShinigamiStats().getHakudaPoints())
+                    if (entityStats.getReiatsuPoints() >= entityStats.getShinigamiStats().getHakudaPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(FireWaveAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(FireCoatAbility.INSTANCE);
                     abilityData.addUnlockedAbility(FireBallAbility.INSTANCE);
                     break;
                 case ("HEAL"):
-                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get() > entityStats.getReiatsuPoints())
+                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.ZANPAKUTO_ZANJUTSU.get() > entityStats.getReiatsuPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(HealingTouchAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(SecondChanceAbility.INSTANCE);
-                    if (entityStats.getShinigamiStats().getHakudaPoints() >= entityStats.getReiatsuPoints())
+                    if (entityStats.getShinigamiStats().getHakudaPoints() >= entityStats.getReiatsuPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(DamageHealAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(RevitilazingAuraAbility.INSTANCE);
                     abilityData.addUnlockedAbility(SelfHealingAbility.INSTANCE);
                     break;
                 case ("LIGHTNING"):
-                    if (entityStats.getSpeedStat() > entityStats.getReiatsuPoints())
+                    if (entityStats.getSpeedStat() > entityStats.getReiatsuPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(ThunderBoostAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(ThunderballAbility.INSTANCE);
-                    if (entityStats.getSpeedStat() >= entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get())
+                    if (entityStats.getSpeedStat() >= entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.ZANPAKUTO_ZANJUTSU.get() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(ThunderStepAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(ThunderAttackAbility.INSTANCE);
                     abilityData.addUnlockedAbility(ThunderStrikeAbility.INSTANCE);
                     break;
                 case ("LUNAR"):
-                    if (entityStats.getReiatsuPoints() >= entityStats.getShinigamiStats().getHakudaPoints())
+                    if (entityStats.getReiatsuPoints() >= entityStats.getShinigamiStats().getHakudaPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(LunarBlessingAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(MoonLightAbility.INSTANCE);
                     abilityData.addUnlockedAbility(LunarCrescentAbility.INSTANCE);
-                    if (entityStats.getReiatsuPoints() >= entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get())
+                    if (entityStats.getReiatsuPoints() >= entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.ZANPAKUTO_ZANJUTSU.get() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(LunarWaveAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(LunarBlindnessAbility.INSTANCE);
@@ -224,11 +224,11 @@ public class ZanpakutoEvent {
                     abilityData.addUnlockedAbility(NormalBuffAbility.INSTANCE);
                     break;
                 case ("POISON"):
-                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get() > entityStats.getReiatsuPoints())
+                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.ZANPAKUTO_ZANJUTSU.get() > entityStats.getReiatsuPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(PoisonAttackAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(PoisonStingAbility.INSTANCE);
-                    if (random.nextBoolean())
+                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.ZANPAKUTO_ZANJUTSU.get() < entityStats.getShinigamiStats().getHakudaPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(VenomousCloudAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(AdrenalineCloudAbility.INSTANCE);
@@ -246,11 +246,11 @@ public class ZanpakutoEvent {
                     break;
                 case ("WIND"):
                     abilityData.addUnlockedAbility(GaleForceAbility.INSTANCE);
-                    if (entityStats.getReiatsuPoints() >= entityStats.getSpeedStat())
+                    if (entityStats.getReiatsuPoints() >= entityStats.getSpeedStat() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(WhirldWindDanceAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(WindDodgeAbility.INSTANCE);
-                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.zanpakuto_zanjutsu.get() >= entityStats.getReiatsuPoints())
+                    if (entityStats.getShinigamiStats().getZanjutsuPoints() - ModConfig.ZANPAKUTO_ZANJUTSU.get() >= entityStats.getReiatsuPoints() || randomizerConfigFlag)
                         abilityData.addUnlockedAbility(WindAttackAbility.INSTANCE);
                     else
                         abilityData.addUnlockedAbility(WindBladeAbility.INSTANCE);
