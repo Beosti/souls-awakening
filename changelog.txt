@@ -17,7 +17,7 @@
 - water pressure ability
 - water surge ability
 - wind dodge ability
-- wind slash abiltiy
+- wind slash ability
 
 ## changes
 - every playthrough won't have the same abilities for shinigami when you unlock shikai depending on your stats -or not- you might get other abilities
