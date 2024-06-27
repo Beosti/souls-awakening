@@ -1,6 +1,8 @@
 package com.yuanno.soulsawakening.client.renderers.overlay;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.yuanno.soulsawakening.data.misc.IMiscData;
+import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.init.ModItems;
 import com.yuanno.soulsawakening.init.ModTags;
 import net.minecraft.client.Minecraft;
@@ -31,15 +33,21 @@ public class ZanpakutoOverlayRenderer<T extends LivingEntity, M extends EntityMo
         if (!(entitylivingbaseIn instanceof PlayerEntity))
             return;
         PlayerEntity player = (PlayerEntity) entitylivingbaseIn;
+        IMiscData miscData = MiscDataCapability.get(player);
+        if (!miscData.getRenderZanpakutoOverlay())
+            return;
         if (player.inventory.contains(ModTags.Items.ZANPAKUTO) && !player.getMainHandItem().getItem().is(ModTags.Items.ZANPAKUTO))
         {
             ItemStack itemStack = new ItemStack(ModItems.ZANPAKUTO.get());
-            matrixStackIn.pushPose();
-            matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90F));
-            matrixStackIn.scale(1.4f, 1.4f, 1.4f);
-            matrixStackIn.translate(0, 0.6, 0.2);
-            Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
-            matrixStackIn.popPose();
+            if (miscData.getZanpakutoStyle().equals("basic"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90F));
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0, 0.6, 0.2);
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
         }
     }
 }

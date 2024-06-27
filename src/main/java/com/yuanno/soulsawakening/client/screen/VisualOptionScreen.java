@@ -57,6 +57,18 @@ public class VisualOptionScreen extends Screen {
             PacketHandler.sendToServer(new CSyncMiscDataPacket(config));
             init();
         }));
+        String canZanpakutoOverlay = "";
+        if (config.getRenderZanpakutoOverlay())
+            canZanpakutoOverlay = "keys.soulsawakening.enabled";
+        else
+            canZanpakutoOverlay = "keys.soulsawakening.disabled";
+        posY += 40;
+        this.addButton(new Button(posX + 120, posY + 26, 70, 20, new TranslationTextComponent(canZanpakutoOverlay), b ->
+        {
+            config.setRenderZanpakutoOverlay(!config.getRenderZanpakutoOverlay());
+            PacketHandler.sendToServer(new CSyncMiscDataPacket(config));
+            init();
+        }));
     }
 
     @Override
@@ -68,6 +80,7 @@ public class VisualOptionScreen extends Screen {
         this.renderBackground(matrixStack);
         drawString(matrixStack, font, TextFormatting.WHITE+ "Ability overlay:", posX - 60, posY + 32, Color.GRAY.getRGB());
         drawString(matrixStack, font, TextFormatting.WHITE+ "Race overlay:", posX - 60, posY + 72, Color.GRAY.getRGB());
+        drawString(matrixStack, font, TextFormatting.WHITE+ "Zanpakuto overlay:", posX - 60, posY + 112, Color.GRAY.getRGB());
 
         super.render(matrixStack, x, y, f);
     }

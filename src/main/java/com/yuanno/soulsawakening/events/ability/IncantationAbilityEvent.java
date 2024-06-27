@@ -7,10 +7,13 @@ import com.yuanno.soulsawakening.api.ability.interfaces.IContinuousAbility;
 import com.yuanno.soulsawakening.api.ability.interfaces.IEntityRayTrace;
 import com.yuanno.soulsawakening.data.ability.AbilityDataCapability;
 import com.yuanno.soulsawakening.data.ability.IAbilityData;
+import com.yuanno.soulsawakening.data.misc.IMiscData;
+import com.yuanno.soulsawakening.data.misc.MiscDataCapability;
 import com.yuanno.soulsawakening.events.ability.api.AbilityUseEvent;
 import com.yuanno.soulsawakening.networking.PacketHandler;
 import com.yuanno.soulsawakening.networking.server.SOpenTradingScreenPacket;
 import com.yuanno.soulsawakening.networking.server.SOpenWeaponChoiceScreenPacket;
+import com.yuanno.soulsawakening.networking.server.SSyncMiscDataPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -27,9 +30,12 @@ public class IncantationAbilityEvent {
     public static void incantationAbilityEvent(ServerChatEvent event) {
         PlayerEntity player = event.getPlayer();
         IAbilityData abilityData = AbilityDataCapability.get(player);
-        if (event.getMessage().equals("weapon"))
+        if (event.getMessage().equals("overlay"))
         {
-            PacketHandler.sendTo(new SOpenWeaponChoiceScreenPacket(), player);
+            IMiscData miscData = MiscDataCapability.get(player);
+            miscData.addUnlockedZanpakutoStyle("basic");
+            miscData.setZanpakutoStyle("basic");
+            PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
         }
         for (int i = 0; i < abilityData.getUnlockedAbilities().size(); i++) {
             if (!(abilityData.getUnlockedAbilities().get(i) instanceof KidoAbility))
