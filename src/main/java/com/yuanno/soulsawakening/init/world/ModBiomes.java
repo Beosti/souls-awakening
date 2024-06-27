@@ -41,8 +41,10 @@ public class ModBiomes {
         DefaultBiomeFeatures.desertSpawns(mobspawninfo$builder);
         BiomeGenerationSettings.Builder biomegenerationsettings$builder = (new BiomeGenerationSettings.Builder().surfaceBuilder(surfaceBuilder));
 
-
-        return (new Biome.Builder()).precipitation(Biome.RainType.NONE).biomeCategory(Biome.Category.DESERT).depth(depth).scale(scale).temperature(2.0F).downfall(0.0F).specialEffects((new BiomeAmbience.Builder()).waterColor(4159204)
+        return (new Biome.Builder()).precipitation(Biome.RainType.NONE)
+                .biomeCategory(Biome.Category.DESERT)
+                .depth(depth)
+                .scale(scale).temperature(2.0F).downfall(0.0F).specialEffects((new BiomeAmbience.Builder()).waterColor(4159204)
                 .waterFogColor(329011)
                 .fogColor(12638463)
                 .skyColor(calculateSkyColor())
