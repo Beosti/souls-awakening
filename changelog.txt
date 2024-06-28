@@ -21,6 +21,7 @@
 - config for randomizing zanpakuto abilities or not water stays randomized in both cases
 - spawn eggs for all entities
 - enable/disable function for the zanpakato overlay
+- configuration of holding zanpakuto and tweaks to the visual option screen
 
 ## changes
 - every playthrough won't have the same abilities for shinigami when you unlock shikai depending on your stats -or not- you might get other abilities

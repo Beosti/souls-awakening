@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -45,6 +46,89 @@ public class ZanpakutoOverlayRenderer<T extends LivingEntity, M extends EntityMo
                 matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90F));
                 matrixStackIn.scale(1.4f, 1.4f, 1.4f);
                 matrixStackIn.translate(0, 0.6, 0.2);
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
+            else if (miscData.getZanpakutoStyle().equals("basic_right"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(90F));
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0, 0.6, -0.2);
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
+            else if (miscData.getZanpakutoStyle().equals("back_horizontal"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(0F));
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0.1, 0.45, 0.14);
+                matrixStackIn.mulPose(Vector3f.ZN.rotationDegrees(-45));
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
+            else if (miscData.getZanpakutoStyle().equals("back_horizontal_right"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180F));
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0.1, 0.45, -0.1);
+                matrixStackIn.mulPose(Vector3f.ZN.rotationDegrees(-45F));
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
+            else if (miscData.getZanpakutoStyle().equals("back_horizontal_diagonal_left"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0.1, 0.45, 0.14);
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
+            else if (miscData.getZanpakutoStyle().equals("back_horizontal_diagonal_right"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180F));
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0.1, 0.45, -0.1);
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
+            else if (miscData.getZanpakutoStyle().equals("back_vertical"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(0F));
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0, 0.30, 0.14);
+                matrixStackIn.mulPose(Vector3f.ZN.rotationDegrees(45));
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
+            else if (miscData.getZanpakutoStyle().equals("back_vertical_right"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180F));
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0, 0.45, -0.1);
+                matrixStackIn.mulPose(Vector3f.ZN.rotationDegrees(45));
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
+            else if (miscData.getZanpakutoStyle().equals("back_vertical_diagonal_left"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0.1, 0.15, 0.14);
+                Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
+                matrixStackIn.popPose();
+            }
+            else if (miscData.getZanpakutoStyle().equals("back_vertical_diagonal_right"))
+            {
+                matrixStackIn.pushPose();
+                matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(180F));
+                matrixStackIn.scale(1.4f, 1.4f, 1.4f);
+                matrixStackIn.translate(0.1, 0.15, -0.1);
                 Minecraft.getInstance().getItemRenderer().renderStatic(itemStack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, packedLightIn, matrixStackIn, bufferIn);
                 matrixStackIn.popPose();
             }

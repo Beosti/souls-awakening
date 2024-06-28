@@ -9,6 +9,11 @@ import java.util.Random;
 
 public class ModValues {
 
+    // ZANPAKUTO STYLES
+    public static List<String> zanpakuto_styles = new ArrayList<>(Arrays.asList(
+       "basic", "basic_right"
+    ));
+
     // RACES
     public static final String HUMAN = "Human";
     public static final String SPIRIT = "Spirit";

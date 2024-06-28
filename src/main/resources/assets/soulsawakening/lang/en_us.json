@@ -262,5 +262,16 @@
   "item.soulsawakening.shinigami_spawn_egg": "Shinigami spawn egg",
   "item.soulsawakening.shinigami_teacher_spawn_egg": "Shinigami teacher spawn egg",
   "item.soulsawakening.kido_teacher_spawn_egg": "Kido teacher spawn egg",
-  "item.soulsawakening.bakudo_teacher_spawn_egg": "Bakudo teacher spawn egg"
+  "item.soulsawakening.bakudo_teacher_spawn_egg": "Bakudo teacher spawn egg",
+
+  "soulsawakening.styles.basic": "Basic",
+  "soulsawakening.styles.basic_right": "Basic: right",
+  "soulsawakening.styles.back_horizontal": "Back: horizontal",
+  "soulsawakening.styles.back_horizontal_right": "Back: horizontal right",
+  "soulsawakening.styles.back_horizontal_diagonal_left": "Back: horizontal diagonal left",
+  "soulsawakening.styles.back_horizontal_diagonal_right": "Back: horizontal diagonal right",
+  "soulsawakening.styles.back_vertical": "Back: vertical",
+  "soulsawakening.styles.back_vertical_right": "Back: vertical right",
+  "soulsawakening.styles.back_vertical_diagonal_right": "Back: vertical diagonal right",
+  "soulsawakening.styles.back_vertical_diagonal_left": "Back: vertical diagonal left"
 }
