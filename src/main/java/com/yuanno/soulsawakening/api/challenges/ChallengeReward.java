@@ -22,7 +22,7 @@ public class ChallengeReward {
 	private int kan = 0;
 	private List<Supplier<ItemStack>> items = new ArrayList<Supplier<ItemStack>>();
 	private List<Supplier<ChallengeCore>> challenges = new ArrayList<>();
-
+	private List<Supplier<String>> zanpakutoStyles = new ArrayList<>();
 
 	public List<Supplier<ItemStack>> getItems() {
 		return this.items;
@@ -49,6 +49,12 @@ public class ChallengeReward {
 		return this;
 	}
 
+	public ChallengeReward addZanpakutoStyle(Supplier<String> zanpakutoStyle)
+	{
+		this.zanpakutoStyles.add(zanpakutoStyle);
+		return this;
+	}
+
 
 	public String giveRewards(PlayerEntity player) {
 		IEntityStats props = EntityStatsCapability.get(player);
@@ -60,11 +66,6 @@ public class ChallengeReward {
 
 		for (Supplier<ItemStack> supp : this.items) {
 			ItemStack stack = supp.get().copy();
-			// Keep the rewards array above the addItem method, down the line it will set
-			// the count of our stack to 0 resulting in "0 air" to be displayed
-			// instead...thanks Mojang
-			// Since we only need the name, cloning the stack would be a waste of resources,
-			// so we keep it above, put the name in list and move on
 			sb.append("  " + stack.getDisplayName().getString() + (stack.getCount() > 1 ? " - " + stack.getCount() : "") + "\n");
 			player.addItem(stack);
 		}
@@ -75,6 +76,18 @@ public class ChallengeReward {
 			challengesData.addChallenge(challenge);
 		}
 
+		for (Supplier<String> supplier : this.zanpakutoStyles)
+		{
+			String zanpakutoStyle = supplier.get();
+			sb.append("  " + "Unlocked new cosmetic: " + formatString(zanpakutoStyle) + " " + "\n");
+			miscData.addUnlockedZanpakutoStyle(zanpakutoStyle);
+			if (zanpakutoStyle.equals("basic"))
+				miscData.setZanpakutoStyle("basic");
+			PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
+		}
+
+
+
 		if (getKan() > 0 )
 		{
 			sb.append("  " + "Rewarded: " + getKan() + " kan" + " " + "\n");
@@ -82,11 +95,26 @@ public class ChallengeReward {
 			PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
 		}
 
+
 		if(hasAtLeastOneReward) {
 			sb.append("\n");
 		}
 
 		return sb.toString();
 	}
+	public static String formatString(String input) {
+		input = input.replace("_", " ");
+		String[] words = input.split(" ");
 
+		StringBuilder formattedString = new StringBuilder();
+		for (String word : words) {
+			if (word.length() > 0) {
+				formattedString.append(Character.toUpperCase(word.charAt(0)))
+						.append(word.substring(1).toLowerCase())
+						.append(" ");
+			}
+		}
+
+		return formattedString.toString().trim();
+	}
 }

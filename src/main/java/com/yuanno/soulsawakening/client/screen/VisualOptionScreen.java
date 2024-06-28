@@ -75,12 +75,15 @@ public class VisualOptionScreen extends Screen {
             PacketHandler.sendToServer(new CSyncMiscDataPacket(config));
             init();
         }));
-        this.addButton(new Button(posX - 50, posY, 70, 20, new TranslationTextComponent("soulsawakening.styles." + config.getZanpakutoStyle()), b ->
+        if (!config.getUnlockedZanpakutoStyle().isEmpty())
         {
-            config.setZanpakutoStyle(nextZanpakutoStyle(config));
-            PacketHandler.sendToServer(new CSyncMiscDataPacket(config));
-            init();
-        }));
+            this.addButton(new Button(posX - 50, posY, 70, 20, new TranslationTextComponent("soulsawakening.styles." + config.getZanpakutoStyle()), b ->
+            {
+                config.setZanpakutoStyle(nextZanpakutoStyle(config));
+                PacketHandler.sendToServer(new CSyncMiscDataPacket(config));
+                init();
+            }));
+        }
     }
 
     private static String nextZanpakutoStyle(IMiscData config) {

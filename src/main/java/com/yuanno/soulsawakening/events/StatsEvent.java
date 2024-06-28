@@ -136,18 +136,8 @@ public class StatsEvent {
         entityStats.setRace(ModValues.HUMAN);
         miscData.setCanRenderOverlay(true);
         miscData.setKan(0);
-        miscData.addUnlockedZanpakutoStyle("basic");
-        miscData.addUnlockedZanpakutoStyle("basic_right");
-        miscData.addUnlockedZanpakutoStyle("back_horizontal");
-        miscData.addUnlockedZanpakutoStyle("back_horizontal_right");
-        miscData.addUnlockedZanpakutoStyle("back_horizontal_diagonal_left");
-        miscData.addUnlockedZanpakutoStyle("back_horizontal_diagonal_right");
-        miscData.addUnlockedZanpakutoStyle("back_vertical");
-        miscData.addUnlockedZanpakutoStyle("back_vertical_right");
-        miscData.addUnlockedZanpakutoStyle("back_vertical_diagonal_right");
-        miscData.addUnlockedZanpakutoStyle("back_vertical_diagonal_left");
 
-        miscData.setZanpakutoStyle("basic");
+        miscData.setZanpakutoStyle("");
         challengesData.addChallenge(ModChallenges.BASIC_SHINIGAMI.get());
         ModAdvancements.OVERWORLD.trigger((ServerPlayerEntity) player);
 

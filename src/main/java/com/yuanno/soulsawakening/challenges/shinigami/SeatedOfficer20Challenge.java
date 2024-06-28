@@ -27,6 +27,7 @@ public class SeatedOfficer20Challenge extends Challenge {
                         ChallengeCore challengeCore = ModChallenges.SEATED19_SHINIGAMI.get();
                         return challengeCore;
                     })
+                    .addZanpakutoStyle(() -> "basic")
                     .setKan(14))
             .setSecondReward(new ChallengeReward().setKan(5))
             .build();
