@@ -35,6 +35,8 @@
 
 ## fixed
 - class points not working for quincy when switching races or something along those lines
+- challenges now teleport you back to the exact same location
+- quest list screen when having 2 diff quests looked weird that is now fixed
 ### player overview screen bugs
 - points not properly rendering for quincy
 - button overlap for hollows
