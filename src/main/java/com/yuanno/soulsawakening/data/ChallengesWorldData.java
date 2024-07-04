@@ -38,7 +38,10 @@ import java.util.function.Supplier;
 public class ChallengesWorldData extends WorldSavedData {
 	private static final String IDENTIFIER = "soulsawakening-challenges";
 	private static final TranslationTextComponent NOT_UNLOCKED = new TranslationTextComponent("Not Unlocked");
-
+	private static ServerWorld originalServerWorld;
+	private static double xCoordinate;
+	private static double yCoordinate;
+	private static double zCoordinate;
 	private Map<UUID, InProgressChallenge> inProgressChallenges = new HashMap<>();
 
 	public ChallengesWorldData() {
@@ -65,6 +68,10 @@ public class ChallengesWorldData extends WorldSavedData {
 	}
 
 	public boolean startChallenge(ServerPlayerEntity player, List<LivingEntity> group, ChallengeCore core, boolean isFree) {
+		originalServerWorld = player.level.getServer().getLevel(player.level.dimension());
+		xCoordinate = player.getX();
+		yCoordinate = player.getY();
+		zCoordinate = player.getZ();
 		IChallengesData props = ChallengesDataCapability.get(player);
 		if (props != null) {
 			Challenge challenge = props.getChallenge(core);
@@ -99,12 +106,9 @@ public class ChallengesWorldData extends WorldSavedData {
 		for (LivingEntity entity : inProgChallenge.getGroup()) {
 			if (entity.isAlive() && Beapi.isInChallengeDimension(entity.level) && entity instanceof ServerPlayerEntity) {
 				ServerPlayerEntity player = (ServerPlayerEntity) entity;
-				ServerWorld overworld = player.getServer().overworld();
-				BlockPos spawnPos = overworld.getSharedSpawnPos();
-				player.teleportTo(overworld, spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), player.yRot, player.xRot);
+				player.teleportTo(originalServerWorld, xCoordinate, yCoordinate, zCoordinate, player.yRot, player.xRot);
 			}
 		}
-//		inProgChallenge.cleanupArena();
 		this.inProgressChallenges.remove(inProgChallenge.getId());
 		this.setDirty();
 	}

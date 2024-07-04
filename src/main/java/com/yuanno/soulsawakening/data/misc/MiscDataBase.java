@@ -38,6 +38,12 @@ public class MiscDataBase implements IMiscData {
     }
 
     @Override
+    public void clearUnlockedZanpakutoStyles()
+    {
+        this.unlockedZanpakutoStyle.clear();
+    }
+
+    @Override
     public void setZanpakutoStyle(String zanpakutoStyle)
     {
         this.zanpakutoStyle = zanpakutoStyle;

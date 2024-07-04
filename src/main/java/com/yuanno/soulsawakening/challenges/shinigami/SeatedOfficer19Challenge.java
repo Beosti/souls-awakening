@@ -15,20 +15,18 @@ public class SeatedOfficer19Challenge extends Challenge {
 
 
 
-
     public static final ChallengeCore<SeatedOfficer19Challenge> INSTANCE = new ChallengeCore.Builder(TITLE, OBJECTIVE, "category", SeatedOfficer19Challenge::new)
             .setDifficulty(ChallengeDifficulty.STANDARD)
             .setDifficultyStars(4)
             .addArena(ArenaStyle.BOX, GlowstoneArenaSeatedOfficer19.INSTANCE)
             .setTargetShowcase(new RegistryObject[]{ModEntities.SHINIGAMI})
             .setTimeLimit(10)
-            .setOrder(0)
             .setReward(new ChallengeReward()
                     .addChallenge(() -> {
                         ChallengeCore challengeCore = ModChallenges.SEATED18_SHINIGAMI.get();
                         return challengeCore;
                     })
-                    .addZanpakutoStyle(() -> "basic_right")
+                    .addZanpakutoStyle("basic_right")
                     .setKan(18))
             .setSecondReward(new ChallengeReward().setKan(8))
             .build();

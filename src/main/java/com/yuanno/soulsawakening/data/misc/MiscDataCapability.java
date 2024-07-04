@@ -54,6 +54,7 @@ public class MiscDataCapability {
                 instance.setRenderZanpakutoOverlay(props.getBoolean("canRenderZanpakutoOverlay"));
                 instance.setZanpakutoStyle(props.getString("setZanpakutoStyle"));
 
+                instance.clearUnlockedZanpakutoStyles();
                 ListNBT unlockedZanpakutoStyles = props.getList("unlocked_zanpakuto_style", Constants.NBT.TAG_COMPOUND);
                 for (int i = 0; i < unlockedZanpakutoStyles.size(); i++)
                 {

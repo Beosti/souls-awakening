@@ -23,7 +23,6 @@ public class QuestListScreen extends Screen {
     private PlayerEntity player;
     private IQuestData questData;
 
-
     int state = 1;
     public QuestListScreen()
     {
@@ -61,30 +60,31 @@ public class QuestListScreen extends Screen {
         int posX = (this.width - 256) / 2;
         int posY = (this.height - 256) / 2;
         int leftShift = posX - 85;
+        int offset = 0;
         for (int i = 0; i < questData.getQuests().size(); i++) {
 
             if (!questData.getQuests().get(i).getIsInProgress())
                 continue;
 
-            // Display quest title
-            drawString(matrixStack, this.font, TextFormatting.BOLD + "Quest" + ": " + questData.getQuests().get(i).getTitle(), leftShift, posY + 20 + (i * 15), -1);
+            drawString(matrixStack, this.font, TextFormatting.BOLD + "Quest: " + questData.getQuests().get(i).getTitle(), leftShift, posY + 20 + offset, -1);
 
             // Display objectives for the current quest
             for (int ia = 0; ia < questData.getQuests().get(i).getObjectives().size(); ia++) {
+                offset += 2;
                 Objective objective = questData.getQuests().get(i).getObjectives().get(ia);
                 String objectiveString = "Objective" + ": " + objective.getTitle();
                 int stringWidth = this.font.width(objectiveString);
-                int offset = 16 + (i * 15) + (ia * 19);
-                drawString(matrixStack, this.font, objectiveString, leftShift, posY + 14 + offset, -1);
+                drawString(matrixStack, this.font, objectiveString, leftShift, posY + 30 + offset, -1);
                 matrixStack.pushPose();
                 matrixStack.scale(0.7f, 0.7f, 0.7f);
-                drawString(matrixStack, this.font, objective.getDescription(), (int) (leftShift / 0.7), (int) ((posY + 24 + offset) / 0.7f), -1);
+                drawString(matrixStack, this.font, objective.getDescription(), (int) (leftShift / 0.7), (int) ((posY + 40 + offset) / 0.7f), -1);
                 matrixStack.popPose();
                 if (objective.getProgress() < objective.maxProgress)
-                    drawString(matrixStack, this.font, objective.getProgress() + "/" + objective.getMaxProgress(), leftShift + stringWidth + 12, posY + 15 + offset, -1);
+                    drawString(matrixStack, this.font, objective.getProgress() + "/" + objective.getMaxProgress(), leftShift + stringWidth + 12, posY + 31 + offset, -1);
                 else
-                    drawString(matrixStack, this.font, TextFormatting.BOLD + "completed", leftShift + stringWidth + 12, posY + 14 + offset, -1);
+                    drawString(matrixStack, this.font, TextFormatting.BOLD + "completed", leftShift + stringWidth + 12, posY + 30 + offset, -1);
             }
+            offset += 34;
         }
 
     }

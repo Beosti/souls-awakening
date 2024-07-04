@@ -12,6 +12,8 @@ public interface IMiscData {
 
     ArrayList<String> getUnlockedZanpakutoStyle();
 
+    void clearUnlockedZanpakutoStyles();
+
     void setZanpakutoStyle(String zanpakutoStyle);
 
     String getZanpakutoStyle();

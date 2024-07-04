@@ -42,6 +42,8 @@
 
 ## removed
 - zanpakuto overlay when not holding in hand
+- challenges now teleport you back to the exact same location
+- quest list screen when having 2 diff quests looked weird that is now fixed
 
 ## misc
 - refactored the attack ability code

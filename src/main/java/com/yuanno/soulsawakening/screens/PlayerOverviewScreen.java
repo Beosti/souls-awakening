@@ -344,7 +344,7 @@ public class PlayerOverviewScreen extends Screen {
         int leftShift = posX - 75;
         int spiritChain = miscData.getSpiritChain();
         RendererHelper.drawTwoStringWithTooltip(this, mouseX, mouseY, matrixStack, this.font,
-                new TranslationTextComponent("gui.chain_faith.string").withStyle(TextFormatting.BOLD), spiritChain + "", new TranslationTextComponent("gui.chain_faith.tooltip"),
+                new TranslationTextComponent("gui.chain_fate.string").withStyle(TextFormatting.BOLD), spiritChain + "", new TranslationTextComponent("gui.chain_fate.tooltip"),
                 leftShift, posY + 60);
     }
     public void shinigamiRendering(MatrixStack matrixStack, int posX, int posY, int mouseX, int mouseY)

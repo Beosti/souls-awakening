@@ -22,7 +22,7 @@ public class ChallengeReward {
 	private int kan = 0;
 	private List<Supplier<ItemStack>> items = new ArrayList<Supplier<ItemStack>>();
 	private List<Supplier<ChallengeCore>> challenges = new ArrayList<>();
-	private List<Supplier<String>> zanpakutoStyles = new ArrayList<>();
+	private List<String> zanpakutoStyles = new ArrayList<>();
 
 	public List<Supplier<ItemStack>> getItems() {
 		return this.items;
@@ -49,7 +49,7 @@ public class ChallengeReward {
 		return this;
 	}
 
-	public ChallengeReward addZanpakutoStyle(Supplier<String> zanpakutoStyle)
+	public ChallengeReward addZanpakutoStyle(String zanpakutoStyle)
 	{
 		this.zanpakutoStyles.add(zanpakutoStyle);
 		return this;
@@ -76,13 +76,14 @@ public class ChallengeReward {
 			challengesData.addChallenge(challenge);
 		}
 
-		for (Supplier<String> supplier : this.zanpakutoStyles)
+		for (String supplier : this.zanpakutoStyles)
 		{
-			String zanpakutoStyle = supplier.get();
-			sb.append("  " + "Unlocked new cosmetic: " + formatString(zanpakutoStyle) + " " + "\n");
-			miscData.addUnlockedZanpakutoStyle(zanpakutoStyle);
-			if (zanpakutoStyle.equals("basic"))
+
+			sb.append("  " + "Unlocked new cosmetic: " + formatString(supplier) + " " + "\n");
+			miscData.addUnlockedZanpakutoStyle(supplier);
+			if (supplier.equals("basic"))
 				miscData.setZanpakutoStyle("basic");
+			System.out.println("Unlocked styles: " + miscData.getUnlockedZanpakutoStyle());
 			PacketHandler.sendTo(new SSyncMiscDataPacket(player.getId(), miscData), player);
 		}
 
