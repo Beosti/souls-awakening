@@ -34,9 +34,11 @@
 - poison duration from poison attack from 100 ticks to 40 ticks
 
 ## fixed
+- spawning very high when spawning to another dimension with certain abilities
 - class points not working for quincy when switching races or something along those lines
 - challenges now teleport you back to the exact same location
 - quest list screen when having 2 diff quests looked weird that is now fixed
+- shinigami would teleport you to soul society if you're a plus with the kill hollow quest
 ### player overview screen bugs
 - points not properly rendering for quincy
 - button overlap for hollows
