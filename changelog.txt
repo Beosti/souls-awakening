@@ -32,6 +32,7 @@
 - when having the 'proving yourself' quest as a spirit in the overworld your spirit chain does not diminish this is the quest to become a shinigami
 - lunar blessing isn't infinite anymore it has a timer
 - poison duration from poison attack from 100 ticks to 40 ticks
+- you can't open your player overview screen once a challenge started now
 
 ## fixed
 - spawning very high when spawning to another dimension with certain abilities
