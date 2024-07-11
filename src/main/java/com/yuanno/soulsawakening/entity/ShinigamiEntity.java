@@ -3,12 +3,15 @@ package com.yuanno.soulsawakening.entity;
 import com.google.common.base.Predicates;
 import com.yuanno.soulsawakening.data.entity.EntityStatsCapability;
 import com.yuanno.soulsawakening.data.entity.IEntityStats;
+import com.yuanno.soulsawakening.data.quest.IQuestData;
+import com.yuanno.soulsawakening.data.quest.QuestDataCapability;
 import com.yuanno.soulsawakening.entities.hollow.IBleach;
 import com.yuanno.soulsawakening.entities.hollow.ThornsEntity;
 import com.yuanno.soulsawakening.entity.goal.ImprovedMeleeAttackShinigamiGoal;
 import com.yuanno.soulsawakening.entities.hollow.HollowEntity;
 import com.yuanno.soulsawakening.init.ModAttributes;
 import com.yuanno.soulsawakening.init.ModItems;
+import com.yuanno.soulsawakening.init.ModQuests;
 import com.yuanno.soulsawakening.init.ModValues;
 import com.yuanno.soulsawakening.init.world.ModDimensions;
 import com.yuanno.soulsawakening.items.blueprints.ZanpakutoItem;
@@ -119,6 +122,9 @@ public class ShinigamiEntity extends CreatureEntity implements IBleach {
             World world = ((LivingEntity) target).level;
             MinecraftServer minecraftServer = world.getServer();
             ServerWorld soulSociety = minecraftServer.getLevel(ModDimensions.SOUL_SOCIETY);
+            IQuestData questData = QuestDataCapability.get((LivingEntity) target);
+            if (questData.hasInProgressQuest(ModQuests.KILLHOLLOW) && entityStats.getRace().equals(ModValues.SPIRIT))
+                return false;
             if (entityStats.getRace().equals(ModValues.HOLLOW))
                 return true;
             else if (entityStats.getRace().equals(ModValues.SPIRIT) && world.dimension() != ModDimensions.SOUL_SOCIETY)

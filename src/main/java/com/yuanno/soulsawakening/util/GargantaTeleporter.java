@@ -43,7 +43,7 @@ public class GargantaTeleporter implements ITeleporter {
         BlockPos destinationPos = new BlockPos(oldPos.getX(), oldPos.getY(), oldPos.getZ());
 
         while (!destinationWorld.getBlockState(destinationPos).getBlock().equals(Blocks.AIR)) {
-            destinationPos = destinationPos.above(2);
+            destinationPos = destinationPos.above(1);
         }
 
         entity.teleportTo(destinationPos.getX(), destinationPos.getY(), destinationPos.getZ());
