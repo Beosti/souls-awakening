@@ -3,7 +3,7 @@
 ## additions
 - config for randomizing zanpakuto abilities or not water stays randomized in both cases
 - spawn eggs for all entities
-- enable/disable function for the zanpakato overlay
+- enable/disable function for the zanpakuto overlay
 - configuration of holding zanpakuto and tweaks to the visual option screen
 - you get cosmetic rewards (for the time being only how you hold your zanpakuto) when beating certain challenges
 ### There are a bunch of new abilities added for shinigami mostly due to the new system of not gaining every ability so there's more difference
