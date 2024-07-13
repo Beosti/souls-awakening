@@ -37,9 +37,14 @@ public class ZanpakutoOverlayRenderer<T extends LivingEntity, M extends EntityMo
         IMiscData miscData = MiscDataCapability.get(player);
         if (!miscData.getRenderZanpakutoOverlay())
             return;
-        if (player.inventory.contains(ModTags.Items.ZANPAKUTO) && !player.getMainHandItem().getItem().is(ModTags.Items.ZANPAKUTO))
+        if (player.inventory.contains(ModTags.Items.ZANPAKUTO) && !player.getMainHandItem().getItem().is(ModTags.Items.ZANPAKUTO) && !player.getOffhandItem().getItem().is(ModTags.Items.ZANPAKUTO))
         {
             ItemStack itemStack = new ItemStack(ModItems.ZANPAKUTO.get());
+            for (int i = 0; i < player.inventory.getContainerSize(); i++)
+            {
+                if (player.inventory.getItem(i).getItem().is(ModTags.Items.ZANPAKUTO))
+                    itemStack = player.inventory.getItem(i);
+            }
             if (miscData.getZanpakutoStyle().equals("basic"))
             {
                 matrixStackIn.pushPose();
