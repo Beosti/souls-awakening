@@ -137,7 +137,8 @@ public class PlayerOverviewScreen extends Screen {
                 this.renderTooltip(matrixStack, new TranslationTextComponent("gui.haku.button"), mouseX, mouseY);
         }))).active = this.entityStats.getShinigamiStats().getClassPoints() > 0;
         // zanjutsu point
-        this.addButton(new Button(leftShift - 75, posY + 59, 8, 8, new TranslationTextComponent("+"), b ->
+        this.addButton(
+                new Button(leftShift - 75, posY + 59, 8, 8, new TranslationTextComponent("+"), b ->
         {
             entityStats.getShinigamiStats().alterClassPoints(-1);
             entityStats.getShinigamiStats().alterZanjutsuPoints(1);
